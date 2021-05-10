@@ -1,13 +1,20 @@
 <template>
-  <section>
+  <section class="home-page">
     <h1>Hello from Admin template</h1>
   </section>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import '../assets/styles/pages/home.css';
+import { defineComponent, onMounted } from 'vue';
+import api from '../utils/api';
 
 export default defineComponent({
   name: 'HomePage',
+  setup () {
+    onMounted(() => {
+      api.auth.profile();
+    })
+  }
 });
 </script>

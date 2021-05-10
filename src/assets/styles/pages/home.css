@@ -1,14 +1,3 @@
 .home-page {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 
-.home-page > div {
-  max-width: 600px;
-}
-
-.home-page > div h3 {
-  margin: 2rem 0;
-  line-height: 1.5rem;
 }

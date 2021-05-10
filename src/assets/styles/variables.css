@@ -3,7 +3,7 @@
   needed for the project (especially if it has Figma designs)
 */
 
-body {
+:root {
   --color-background: #FFFFFF;
   --color-font-main: #000000;
 
