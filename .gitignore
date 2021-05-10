@@ -1,0 +1,10 @@
+.idea
+.DS_Store
+.vs_code
+.vscode
+dist
+node_modules
+cypress
+.env
+coverage
+.secrets

@@ -1,0 +1,23 @@
+.dashboard-page {
+  display: flex;
+  justify-content: center;
+  width: auto;
+}
+
+.dashboard-page_list {
+  margin-right: 2.5rem;
+}
+
+.dashboard-page_statistics {
+  width: 250px;
+}
+
+.dashboard-page .transaction-add-form {
+  width: 655px;
+  margin: 1rem 0 2rem auto;
+}
+
+.dashboard-page .transactions-list_toolbar {
+  width: 655px;
+  margin: 0 0 1.5rem auto;
+}

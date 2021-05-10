@@ -1,0 +1,32 @@
+.auth-page {
+  display: flex;
+  justify-content: center;
+  padding-top: 3rem;
+}
+
+.auth-page .card {
+  width: 600px;
+  padding: 1rem 4.5rem;
+}
+
+.auth-page .card h1 {
+  text-align: center;
+}
+
+.auth-page .card > p {
+  text-align: center;
+}
+
+.auth-page .card form {
+  width: 100%;
+  margin: 1rem 0;
+}
+
+.auth-page .card form .form-input {
+  margin-bottom: 1rem;
+}
+
+.auth-page .card form button {
+  width: 200px;
+  margin: 1.5rem auto 0;
+}

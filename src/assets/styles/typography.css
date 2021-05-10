@@ -1,0 +1,53 @@
+/**
+  For typography, stick to the following rules:
+   • For headings, just put h1-h3 tags
+   • For texts, use style classes like text-regular (text-*) to give font-weight and size
+   • For colors, use text-color-* classes
+   • For links, use text-link class
+
+  So, for example, if you want a small error text, use class="text-small text-color-error"
+*/
+
+h1 {
+  font: var(--font-h1);
+}
+
+h2 {
+  font: var(--font-h2);
+}
+
+h3 {
+  font: var(--font-h3);
+}
+
+h1, h2, h3 {
+  margin: 0;
+}
+
+.text-regular {
+  font: var(--font-regular);
+  color: var(--color-font-main);
+}
+
+.text-link {
+  text-decoration: underline;
+  text-decoration-width: 1px;
+  text-decoration-style: solid;
+  text-decoration-color: var(--color-font-main);
+  transition: text-decoration-color .2s, color .2s;
+}
+
+/*.text-link:hover {*/
+/*  color: var(--color-accent);*/
+/*  text-decoration-color: var(--color-accent);*/
+/*}*/
+
+.text-center {
+  text-align: center;
+}
+
+.text-ellipsis {
+  white-space: nowrap;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+}
