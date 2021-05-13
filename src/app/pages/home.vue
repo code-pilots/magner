@@ -5,9 +5,9 @@
 </template>
 
 <script lang="ts">
-import '../assets/styles/pages/home.css';
+import 'app/assets/styles/pages/home.css';
 import { defineComponent, onMounted } from 'vue';
-import api from '../utils/api';
+import api from 'app/utils/api';
 
 export default defineComponent({
   name: 'HomePage',

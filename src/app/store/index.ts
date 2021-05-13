@@ -1,6 +1,6 @@
 import { InjectionKey } from 'vue';
 import { createStore, useStore as baseUseStore, Store } from 'vuex';
-import { LS_TOKEN_KEY } from '../utils/constants';
+import { LS_TOKEN_KEY } from 'app/utils/constants';
 
 interface State {
   token: string|null,

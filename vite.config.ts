@@ -4,6 +4,7 @@ import { VitePWA } from 'vite-plugin-pwa'; // eslint-disable-line
 // @ts-ignore
 import transformSvg from './src/transformSvg.js';
 import manifest from './src/manifest';
+import path from 'path';
 
 export default defineConfig({
   plugins: [
@@ -14,4 +15,10 @@ export default defineConfig({
       workbox: {},
     }),
   ],
+  resolve: {
+    alias: {
+      app: path.resolve(__dirname, 'src', 'app'),
+      settings: path.resolve(__dirname, 'src', 'settings'),
+    }
+  },
 });
