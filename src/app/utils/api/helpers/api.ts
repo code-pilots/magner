@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import { API_URL } from '../../constants';
-import { store } from '../../../store';
+import { store } from 'settings/controllers/store';
 import ApiError from './api-error';
 
 /**

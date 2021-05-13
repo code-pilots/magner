@@ -1,4 +1,4 @@
-import { store } from '../store';
+import { store } from 'settings/controllers/store';
 import api from './api';
 
 /**

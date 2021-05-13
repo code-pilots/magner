@@ -1,4 +1,4 @@
-export default {
+const manifest = {
   background_color: '#6c6ee5',
   theme_color: '#fff',
   name: 'Universal Admin Panel',
@@ -17,4 +17,6 @@ export default {
       type: 'image/png',
     },
   ],
-}
+};
+
+export default manifest;
