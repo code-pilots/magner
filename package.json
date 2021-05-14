@@ -2,6 +2,9 @@
   "name": "universal-admin",
   "description": "Admin panel that can be used for literally any project",
   "version": "0.1.0",
+  "engines": {
+    "node": ">=12"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",

@@ -25,7 +25,9 @@
             autocomplete="on"
           >
             <template #prefix>
-              <svg-icon name="email" />
+              <div class="login-page_form_icon">
+                <svg-icon name="email" size="sm" />
+              </div>
             </template>
           </el-input>
         </el-form-item>
@@ -39,7 +41,9 @@
             autocomplete="on"
           >
             <template #prefix>
-              <svg-icon name="password" />
+              <div class="login-page_form_icon">
+                <svg-icon name="password" size="sm" />
+              </div>
             </template>
           </el-input>
         </el-form-item>

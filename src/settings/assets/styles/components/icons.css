@@ -1,0 +1,17 @@
+.icon {
+  display: inline-block;
+
+  &.md {
+    & svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  &.sm {
+    & svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
+}
