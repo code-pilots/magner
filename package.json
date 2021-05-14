@@ -3,10 +3,10 @@
   "description": "Admin panel that can be used for literally any project",
   "version": "0.1.0",
   "scripts": {
-    "dev": "vite --port 8080",
+    "dev": "vite",
     "build": "vite build",
-    "start": "vite preview --port 3000",
-    "serve": "vite build && vite preview --port 3000",
+    "start": "vite preview",
+    "serve": "vite build && vite preview",
     "lint": "eslint --fix src",
     "test:unit": "jest src --silent",
     "test:e2e": "start-server-and-test dev http-get://localhost:3000 test:e2e-run",

@@ -1,4 +1,9 @@
-.container {
-  width: 1280px;
-  margin: auto;
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.width-full {
+  width: 100%;
 }

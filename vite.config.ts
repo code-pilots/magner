@@ -24,4 +24,7 @@ export default defineConfig({
       styles: path.resolve(__dirname, 'src', 'settings', 'assets', 'styles'),
     },
   },
+  server: {
+    port: parseInt(process.env.PORT || '3000', 10),
+  },
 });

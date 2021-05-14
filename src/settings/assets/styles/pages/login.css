@@ -1,0 +1,12 @@
+.login-page {
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+
+  &_form {
+    &_title {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+  }
+}

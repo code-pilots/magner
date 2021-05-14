@@ -17,6 +17,11 @@ const routingConfig: RoutingConfig = {
     },
 
     {
+      name: 'login',
+      path: '/login',
+      component: 'pages/login.vue',
+    },
+    {
       name: 'home',
       path: '/',
       component: 'pages/home.vue',
