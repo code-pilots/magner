@@ -1,22 +1,21 @@
-import { _RouteRecordBase, RouteLocationNormalized, RouteRecordRedirectOption } from 'vue-router';
+import {_RouteRecordBase, RouteComponent, RouteLocationNormalized, RouteRecordRedirectOption} from 'vue-router';
+
+/**
+ * Redefine Vue Router types to accept 'component' as a string
+ * and extend their 'meta' field. Will be used by controllers mostly
+ */
 
 declare module 'vue-router' {
   interface RouteMeta {
-    requiresAuth?: boolean
+    roles?: string[] | null,
   }
 }
 
 type _RouteRecordProps = boolean | Record<string, any> | ((to: RouteLocationNormalized) => Record<string, any>);
 interface RouteRecordSingleViewOverride extends _RouteRecordBase {
-  component: string;
+  component: string | RouteComponent | (() => Promise<RouteComponent>);
   components?: never;
   props?: _RouteRecordProps;
-}
-
-interface RouteRecordMultipleViewsOverride extends _RouteRecordBase {
-  component: string;
-  components?: never;
-  props?: boolean | Record<string, any> | ((to: RouteLocationNormalized) => Record<string, any>);
 }
 
 interface RouteRecordRedirectOverride extends _RouteRecordBase {
@@ -25,7 +24,53 @@ interface RouteRecordRedirectOverride extends _RouteRecordBase {
   components?: never;
 }
 
-export type CustomRoute = RouteRecordSingleViewOverride | RouteRecordMultipleViewsOverride | RouteRecordRedirectOverride;
+export type Route = RouteRecordSingleViewOverride | RouteRecordRedirectOverride;
+
+/**
+ * Define custom routes to be used in configuration
+ */
+export interface BaseRoute {
+  layout?: string|null,
+  config?: string,
+  roles: string[] | null, // TODO: roles (maybe generic)
+}
+
+export type SupportedRoutePresets = 'login'|'empty';
+
+export interface PresetRoute extends BaseRoute {
+  preset: SupportedRoutePresets,
+  route?: Route,
+}
+
+export interface PresetLoginRoute extends PresetRoute {
+  preset: 'login',
+  config?: 'login',
+  layout?: null,
+  route?: {
+    name: 'login',
+    path: '/login',
+    component: 'login',
+  }
+}
+
+export interface PresetEmptyRoute extends PresetRoute {
+  preset: 'empty',
+  config?: '',
+  layout?: null,
+  route?: {
+    name: '',
+    path: '',
+    component: '',
+  }
+}
+
+export interface SimpleRoute extends BaseRoute {
+  preset?: never,
+  route: Route,
+  config: string,
+}
+
+export type CustomRoute = PresetLoginRoute | SimpleRoute;
 
 export interface RoutingConfig {
   routes: CustomRoute[]

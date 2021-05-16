@@ -3,33 +3,46 @@ import { RoutingConfig } from 'settings/types';
 const routingConfig: RoutingConfig = {
   routes: [
     {
-      /** Short name of the route without dashes (-) and spaces */
-      name: 'example',
+      /** Route with preset will have all other properties already set-up except roles
+       *  If route has a preset, then its config is defined in 'configs/${preset}' file */
+      preset: 'login',
 
-      /** URL of the route */
-      path: '/example',
-
-      /** Has to be a path from the 'views' directory */
-      component: 'pages/home.vue',
-
-      /** Additional information about the route */
-      meta: {},
+      /** If 'roles' === null, no authorization needed */
+      roles: null,
     },
 
     {
-      name: 'login',
-      path: '/login',
-      component: 'pages/login.vue',
+      /** Simple vue-router route config except that the 'component' is a path-string from 'views' directory */
+      route: {
+        name: 'dashboard',
+        path: '/',
+
+        /** Component is a view laying in the settings/views/pages directory,
+         *  or the imported (or lazy imported with () => import()) component */
+        component: 'home',
+
+        /** Additional information about the route */
+        meta: {},
+      },
+
+      /** An array of role Enums */
+      roles: null,
+
+      /** Path-string that specifies page layout */
+      layout: null,
+
+      /** Views accept configs as props to display everything according to those configs */
+      config: '',
     },
+
     {
-      name: 'home',
-      path: '/',
-      component: 'pages/home.vue',
-    },
-    {
-      name: 'error',
-      path: '/:pathMatch(.*)*',
-      component: 'pages/error.vue',
+      route: {
+        name: 'error',
+        path: '/:pathMatch(.*)*',
+        component: 'error',
+      },
+      roles: null,
+      config: '',
     },
   ],
 };
