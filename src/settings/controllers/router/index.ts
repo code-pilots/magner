@@ -4,7 +4,7 @@ import {
   RouteComponent,
   RouteRecordRaw,
 } from 'vue-router';
-import type { PresetRoute, SimpleRoute } from 'settings/types';
+import type { PresetRoute, SimpleRoute } from 'settings/types/configs';
 import { mergeDeep } from 'settings/utils/merge-deep';
 import routingConfig from 'configs/routing';
 import allPresets from './presets';

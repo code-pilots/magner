@@ -3,7 +3,7 @@ import {
   PresetLoginRoute,
   PresetRoute,
   SupportedRoutePresets,
-} from 'settings/types';
+} from 'settings/types/configs';
 import loginConfig from 'configs/login';
 
 const loginPreset: Required<PresetLoginRoute> = {

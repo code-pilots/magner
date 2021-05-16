@@ -4,7 +4,7 @@ import {
   RouteLocationNormalized,
   RouteRecordRedirectOption,
 } from 'vue-router';
-import { LoginConfig } from 'settings/types/login';
+import { LoginConfig } from 'settings/types/configs/login';
 
 /**
  * Redefine Vue Router types to accept 'component' as a string

@@ -1,4 +1,4 @@
-import { RoutingConfig } from 'settings/types';
+import { RoutingConfig } from 'settings/types/configs';
 
 const routingConfig: RoutingConfig = {
   routes: [

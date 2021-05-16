@@ -1,4 +1,4 @@
-import { LoginConfig } from 'settings/types';
+import { LoginConfig } from 'settings/types/configs';
 
 const loginConfig: LoginConfig = {
   title: 'Вход',
