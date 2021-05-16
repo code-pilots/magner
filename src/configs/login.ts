@@ -2,6 +2,9 @@ import { LoginConfig } from 'settings/types';
 
 const loginConfig: LoginConfig = {
   title: 'Вход',
+  submit: {
+    text: 'Войти',
+  },
   fields: [
     {
       type: 'input',

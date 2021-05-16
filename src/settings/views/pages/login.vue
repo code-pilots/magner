@@ -38,11 +38,11 @@
 
         <el-button
           :loading="loading"
-          native-type="submit"
-          type="primary"
-          class="width-full"
+          :native-type="config.submit.nativeType || 'submit'"
+          :type="config.submit.type || 'primary'"
+          :class="['width-full', config.submit.class || '']"
         >
-          Log In
+          {{ config.submit.text }}
         </el-button>
       </el-form>
     </el-col>
