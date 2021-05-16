@@ -1,4 +1,10 @@
-import {_RouteRecordBase, RouteComponent, RouteLocationNormalized, RouteRecordRedirectOption} from 'vue-router';
+import {
+  _RouteRecordBase,
+  RouteComponent,
+  RouteLocationNormalized,
+  RouteRecordRedirectOption,
+} from 'vue-router';
+import { LoginConfig } from 'settings/types/login';
 
 /**
  * Redefine Vue Router types to accept 'component' as a string
@@ -26,6 +32,8 @@ interface RouteRecordRedirectOverride extends _RouteRecordBase {
 
 export type Route = RouteRecordSingleViewOverride | RouteRecordRedirectOverride;
 
+export type ConfigProps<T> = { config: T };
+
 /**
  * Define custom routes to be used in configuration
  */
@@ -50,7 +58,8 @@ export interface PresetLoginRoute extends PresetRoute {
     name: 'login',
     path: '/login',
     component: 'login',
-  }
+    props: ConfigProps<LoginConfig>,
+  },
 }
 
 export interface PresetEmptyRoute extends PresetRoute {

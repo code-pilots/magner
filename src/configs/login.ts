@@ -1,27 +1,39 @@
-import { AuthConfig } from 'settings/types';
+import { LoginConfig } from 'settings/types';
 
-const authConfig: AuthConfig = {
-  login: {
-    title: 'Вход',
-    fields: [
-      {
-        type: 'input',
-        component: {
-          name: 'email',
-          type: 'email',
-          placeholder: 'Е-мейл',
-        },
+const loginConfig: LoginConfig = {
+  title: 'Вход',
+  fields: [
+    {
+      type: 'input',
+      name: 'email',
+      backendName: null,
+      required: false,
+      validation: {
+        type: 'email',
+        trigger: 'blur',
       },
-      {
-        type: 'input',
-        component: {
-          name: 'password',
-          type: 'password',
-          placeholder: 'Пароль',
-        },
+      component: {
+        type: 'email',
+        placeholder: 'Е-мейл',
+        icon: 'email',
       },
-    ],
-  },
+    },
+    {
+      type: 'input',
+      name: 'password',
+      backendName: null,
+      required: false,
+      validation: {
+        type: 'password',
+        trigger: 'blur',
+      },
+      component: {
+        type: 'password',
+        placeholder: 'Пароль',
+        icon: 'password',
+      },
+    },
+  ],
 };
 
-export default authConfig;
+export default loginConfig;

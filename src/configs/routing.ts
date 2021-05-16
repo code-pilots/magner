@@ -4,7 +4,8 @@ const routingConfig: RoutingConfig = {
   routes: [
     {
       /** Route with preset will have all other properties already set-up except roles
-       *  If route has a preset, then its config is defined in 'configs/${preset}' file */
+       *  If route has a preset, then its config is defined in 'configs/${preset}' file,
+       *  and this config is passed as a prop 'config' to the view */
       preset: 'login',
 
       /** If 'roles' === null, no authorization needed */

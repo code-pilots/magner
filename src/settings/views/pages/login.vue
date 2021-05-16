@@ -12,37 +12,25 @@
         @submit.prevent="login"
       >
         <h1 class="login-page_form_title">
-          Login
+          {{ config.title }}
         </h1>
 
-        <el-form-item prop="email" required>
+        <el-form-item
+          v-for="(field, i) in config.fields"
+          :key="i"
+          :prop="field.name"
+          :required="!!field.required"
+        >
           <el-input
-            ref="emailEl"
-            v-model="form.email"
-            placeholder="E-mail"
-            type="email"
-            tabindex="1"
-            autocomplete="on"
+            v-if="field.type === 'input'"
+            v-model="form[field.backendName || field.name]"
+            :placeholder="field.component.placeholder"
+            :type="field.component.type"
+            :tabindex="i.toString()"
           >
-            <template #prefix>
+            <template v-if="field.component.icon" #prefix>
               <div class="login-page_form_icon">
-                <svg-icon name="email" size="sm" />
-              </div>
-            </template>
-          </el-input>
-        </el-form-item>
-
-        <el-form-item prop="password" required>
-          <el-input
-            v-model="form.password"
-            type="password"
-            placeholder="Password"
-            tabindex="2"
-            autocomplete="on"
-          >
-            <template #prefix>
-              <div class="login-page_form_icon">
-                <svg-icon name="password" size="sm" />
+                <svg-icon :name="field.component.icon" size="sm" />
               </div>
             </template>
           </el-input>
@@ -67,32 +55,28 @@ import {
   defineComponent,
   reactive,
   ref,
-  onMounted,
+  PropType,
 } from 'vue';
+import type { LoginConfig } from 'settings/types';
+import setupValidators from 'settings/utils/validators';
+import { fieldsToModels } from 'settings/utils/form';
 import api from 'app/utils/api';
 
 export default defineComponent({
   name: 'LoginPage',
-  setup () {
-    const form = reactive({
-      email: '',
-      password: '',
-    });
+  props: {
+    config: {
+      type: Object as PropType<LoginConfig>,
+      required: true,
+    },
+  },
+  setup (props) {
+    const form = reactive(fieldsToModels(props.config.fields));
     const loading = ref<boolean>(false);
     const formEl = ref<HTMLFormElement>();
     const emailEl = ref<HTMLInputElement>();
 
-    const validatePassword = (rule: any, value: string, callback: Function) => {
-      if (value.length < 6) {
-        callback(new Error('The password can not be less than 6 digits'));
-      } else {
-        callback();
-      }
-    };
-
-    const validation = {
-      password: [{ validator: validatePassword, trigger: 'blur' }],
-    };
+    const validation = setupValidators(props.config.fields);
 
     const login = () => {
       formEl.value.validate(async (valid: boolean) => {
@@ -104,10 +88,6 @@ export default defineComponent({
         return false;
       });
     };
-
-    onMounted(() => {
-      emailEl.value?.focus();
-    });
 
     return {
       form,

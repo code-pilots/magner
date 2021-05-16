@@ -1,10 +1,10 @@
 import { BaseComponent, BaseField } from 'settings/types/components/base';
 
 export interface InputComponent extends BaseComponent {
-  id?: string,
-  required?: string,
-  placeholder?: string,
   type: 'text'|'number'|'email'|'password'|'tel'|string,
+  id?: string,
+  placeholder?: string,
+  icon?: string,
 }
 
 export interface InputField extends BaseField {

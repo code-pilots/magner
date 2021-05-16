@@ -4,6 +4,7 @@ import {
   PresetRoute,
   SupportedRoutePresets,
 } from 'settings/types';
+import loginConfig from 'configs/login';
 
 const loginPreset: Required<PresetLoginRoute> = {
   preset: 'login',
@@ -14,6 +15,9 @@ const loginPreset: Required<PresetLoginRoute> = {
     name: 'login',
     path: '/login',
     component: 'login',
+    props: {
+      config: loginConfig,
+    },
   },
 };
 
