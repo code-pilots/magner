@@ -26,9 +26,11 @@ import {
   ref,
   PropType,
 } from 'vue';
-import type { LoginConfig } from 'settings/types/configs';
+import type {GlobalRouting, LoginConfig} from 'settings/types/configs';
 import GenericForm from 'settings/views/components/form.vue';
-import api from 'app/utils/api';
+import api from 'settings/utils/api';
+import useStore from 'settings/controllers/store';
+import { useRouter } from 'vue-router';
 
 export default defineComponent({
   name: 'LoginPage',
@@ -38,13 +40,30 @@ export default defineComponent({
       type: Object as PropType<LoginConfig>,
       required: true,
     },
+    globalRoutes: {
+      type: Object as PropType<GlobalRouting>,
+      required: true,
+    },
   },
-  setup () {
+  setup (props) {
+    const store = useStore();
+    const router = useRouter();
+
     const loading = ref<boolean>(false);
 
-    const login = (data: Record<string, any>) => {
+    const login = async (data: Record<string, any>) => {
       loading.value = true;
-      console.log(data);
+
+      const res = await api.post(props.config.request.url, data);
+      const proxied = props.config.request.proxy(res);
+
+      await store.dispatch('changeToken', proxied.token);
+      await store.dispatch('changeUser', proxied.user);
+      await store.dispatch('changeRole', proxied.role);
+
+      await router.push({ name: props.globalRoutes.homeHasAuthName });
+
+      loading.value = false;
     };
 
     return {

@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import { API_URL } from '../../constants';
+import projectConfig from 'configs/project';
 import { store } from 'settings/controllers/store';
 import ApiError from './api-error';
 
@@ -16,7 +16,7 @@ export const http = async <T>(path: string, config: RequestInit): Promise<T> => 
   if (store?.state?.token) headers.Authorization = `Token ${store.state.token}`;
 
   try {
-    const req = new Request(API_URL + path, {
+    const req = new Request(projectConfig.API_URL + path, {
       ...config,
       headers,
     });
@@ -43,41 +43,31 @@ export const http = async <T>(path: string, config: RequestInit): Promise<T> => 
  * request method that you need.
  */
 const request = {
-  /**
-   * GET-request: no body needed. Use it to receive data from the backend
-   */
+  /** GET-request: no body needed. Use it to receive data from the backend */
   get: <T>(path: string, config?: RequestInit): Promise<T> => {
     const init = { method: 'get', ...config };
     return http<T>(path, init);
   },
 
-  /**
-   * POST-request: has optional body. Use it to create new entity instances
-   */
+  /** POST-request: has optional body. Use it to create new entity instances */
   post: <T, U>(path: string, body: T, config?: RequestInit): Promise<U> => {
     const init = { method: 'post', body: JSON.stringify(body), ...config };
     return http<U>(path, init);
   },
 
-  /**
-   * PUT-request. Use it to update entity instances
-   */
+  /** PUT-request. Use it to update entity instances */
   put: <T, U>(path: string, body: T, config?: RequestInit): Promise<U> => {
     const init = { method: 'put', body: JSON.stringify(body), ...config };
     return http<U>(path, init);
   },
 
-  /**
-   * PATCH-request. Use it to update entity instances
-   */
+  /** PATCH-request. Use it to update entity instances */
   patch: <T, U>(path: string, body: T, config?: RequestInit): Promise<U> => {
     const init = { method: 'PATCH', body: JSON.stringify(body), ...config };
     return http<U>(path, init);
   },
 
-  /**
-   * PUT-request. Use it to delete entities
-   */
+  /** PUT-request. Use it to delete entities */
   delete: <T, U>(path: string, body: T, config?: RequestInit): Promise<U> => {
     const init = { method: 'delete', body: JSON.stringify(body), ...config };
     return http<U>(path, init);

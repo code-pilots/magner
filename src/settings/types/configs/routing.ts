@@ -6,6 +6,12 @@ import {
 } from 'vue-router';
 import { LoginConfig } from 'settings/types/configs/login';
 
+/** Global routing configuration that defines special needs in routing like programmatic navigation */
+export interface GlobalRouting {
+  homeNoAuthName: string,
+  homeHasAuthName: string,
+}
+
 /**
  * Redefine Vue Router types to accept 'component' as a string
  * and extend their 'meta' field. Will be used by controllers mostly
@@ -32,8 +38,6 @@ interface RouteRecordRedirectOverride extends _RouteRecordBase {
 
 export type Route = RouteRecordSingleViewOverride | RouteRecordRedirectOverride;
 
-export type ConfigProps<T> = { config: T };
-
 /**
  * Define custom routes to be used in configuration
  */
@@ -58,7 +62,10 @@ export interface PresetLoginRoute extends PresetRoute {
     name: 'login',
     path: '/login',
     component: 'login',
-    props: ConfigProps<LoginConfig>,
+    props: {
+      config: LoginConfig,
+      globalRoutes: GlobalRouting,
+    },
   },
 }
 
@@ -82,5 +89,6 @@ export interface SimpleRoute extends BaseRoute {
 export type CustomRoute = PresetLoginRoute | SimpleRoute;
 
 export interface RoutingConfig {
-  routes: CustomRoute[]
+  routes: CustomRoute[],
+  global: GlobalRouting,
 }

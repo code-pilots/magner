@@ -1,22 +1,27 @@
 import { LoginConfig } from 'settings/types/configs';
+import loginResponseToProxy from 'app/proxies/login';
 
 const loginConfig: LoginConfig = {
   title: 'Вход',
   submit: {
     text: 'Войти',
   },
+  request: {
+    url: 'auth/login',
+    proxy: loginResponseToProxy,
+  },
   fields: [
     {
       type: 'input',
       name: 'email',
-      backendName: null,
+      backendName: 'login',
       required: false,
       validation: {
-        type: 'email',
+        type: 'empty',
         trigger: 'blur',
       },
       component: {
-        type: 'email',
+        type: 'text',
         placeholder: 'Е-мейл',
         icon: 'email',
       },

@@ -1,6 +1,11 @@
 import { RoutingConfig } from 'settings/types/configs';
 
 const routingConfig: RoutingConfig = {
+  global: {
+    homeNoAuthName: 'dashboard',
+    homeHasAuthName: 'dashboard',
+  },
+
   routes: [
     {
       /** Route with preset will have all other properties already set-up except roles

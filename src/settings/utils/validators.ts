@@ -1,7 +1,7 @@
 import type { GenericComponent } from 'settings/types/components';
 import type { SupportedDataTypes } from 'settings/utils/form';
 
-export type SupportedValidators = 'password'|'email';
+export type SupportedValidators = 'password'|'email'|'empty';
 export type ValidatorFunc = (rule: SupportedValidators, value: any, callback: Function) => void;
 
 export interface ValidationField {
@@ -11,6 +11,13 @@ export interface ValidationField {
 }
 
 export const validators: Record<SupportedValidators, ValidatorFunc> = {
+  empty: (rule, value, callback) => {
+    if (value === '') {
+      callback(new Error('Поле не может быть пустым'));
+    } else {
+      callback();
+    }
+  },
   password: (rule, value, callback) => {
     if (value === '') {
       callback(new Error('Пожалуйста, введите пароль'));

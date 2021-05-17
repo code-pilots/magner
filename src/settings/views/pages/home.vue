@@ -6,15 +6,9 @@
 
 <script lang="ts">
 import 'styles/pages/home.css';
-import { defineComponent, onMounted } from 'vue';
-import api from 'app/utils/api';
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'HomePage',
-  setup () {
-    onMounted(() => {
-      api.auth.profile();
-    });
-  },
 });
 </script>

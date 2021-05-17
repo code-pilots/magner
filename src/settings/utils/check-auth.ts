@@ -15,7 +15,7 @@ const checkAuth = async (isRouteProtected: boolean) => {
     }
 
     if (store?.state.token) {
-      const user = await api.auth.profile();
+      const user = await api.get('');
       if (user) {
         await store.dispatch('changeUser', user);
         return true;
@@ -32,7 +32,7 @@ const checkAuth = async (isRouteProtected: boolean) => {
   }
 
   if (store?.state.token) {
-    const user = await api.auth.profile();
+    const user = await api.get('');
     if (user) {
       await store.dispatch('changeUser', user);
       return { name: 'dashboard' };

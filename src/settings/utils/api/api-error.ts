@@ -1,6 +1,6 @@
 /**
  * An error class for handling API errors. Keeps the response
- * status and data for easy bug tracking.
+ * status and data for bug tracking.
  */
 export default class ApiError extends Error {
   name: string;

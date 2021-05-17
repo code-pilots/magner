@@ -1,10 +1,12 @@
 import { InjectionKey } from 'vue';
 import { createStore, useStore as baseUseStore, Store } from 'vuex';
-import { LS_TOKEN_KEY } from 'app/utils/constants';
+import projectConfig from 'configs/project';
+import ROLE from 'configs/roles';
 
 interface State {
   token: string|null,
-  user: boolean,
+  user: any|null,
+  role: ROLE|null,
 }
 
 /**
@@ -25,8 +27,9 @@ export const store = createStore<State>({
    */
   state () {
     return {
-      token: (localStorage?.getItem(LS_TOKEN_KEY) as string|undefined) || null,
-      user: false,
+      token: (localStorage?.getItem(projectConfig.LOCAL_STORAGE_KEY) as string|undefined) || null,
+      user: null,
+      role: null,
     };
   },
 
@@ -34,14 +37,18 @@ export const store = createStore<State>({
     setToken (state, value: string) {
       state.token = value;
       if (value) {
-        localStorage.setItem(LS_TOKEN_KEY, value);
+        localStorage.setItem(projectConfig.LOCAL_STORAGE_KEY, value);
       } else {
-        localStorage.removeItem(LS_TOKEN_KEY);
+        localStorage.removeItem(projectConfig.LOCAL_STORAGE_KEY);
       }
     },
 
-    setUser (state, value: boolean) {
+    setUser (state, value: any) {
       state.user = value;
+    },
+
+    setRole (state, value: ROLE | null) {
+      state.role = value;
     },
   },
 
@@ -49,8 +56,11 @@ export const store = createStore<State>({
     changeToken (context, value: string) {
       context.commit('setToken', value);
     },
-    changeUser (context, value: boolean) {
+    changeUser (context, value: any) {
       context.commit('setUser', value);
+    },
+    changeRole (context, value: ROLE | null) {
+      context.commit('setRole', value);
     },
   },
 });

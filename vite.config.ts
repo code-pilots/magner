@@ -25,6 +25,6 @@ export default defineConfig({
     },
   },
   server: {
-    port: parseInt(process.env.PORT || '3000', 10),
+    port: parseInt(process.env.PORT || '8080', 10),
   },
 });

@@ -9,8 +9,8 @@
 
     <el-form-item
       v-for="(field, i) in fields"
-      :key="i"
-      :prop="field.name"
+      :key="field.name"
+      :prop="field.backendName || field.name"
       :required="!!field.required"
     >
       <el-input
@@ -52,6 +52,10 @@ import type { ButtonComponent } from 'settings/types/components/button';
 import setupValidators from 'settings/utils/validators';
 import { fieldsToModels } from 'settings/utils/form';
 
+interface FormValidator extends HTMLFormElement {
+  validate: Function,
+}
+
 export default defineComponent({
   name: 'GenericForm',
   props: {
@@ -76,7 +80,7 @@ export default defineComponent({
     const formEl = ref<HTMLFormElement>();
 
     const submit = () => {
-      formEl.value.validate(async (valid: boolean) => {
+      (formEl.value as FormValidator).validate(async (valid: boolean) => {
         if (!valid) return false;
 
         context.emit('submit', form);

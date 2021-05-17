@@ -5,6 +5,7 @@ import {
   SupportedRoutePresets,
 } from 'settings/types/configs';
 import loginConfig from 'configs/login';
+import routingConfig from 'configs/routing';
 
 const loginPreset: Required<PresetLoginRoute> = {
   preset: 'login',
@@ -17,6 +18,7 @@ const loginPreset: Required<PresetLoginRoute> = {
     component: 'login',
     props: {
       config: loginConfig,
+      globalRoutes: routingConfig.global,
     },
   },
 };
