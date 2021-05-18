@@ -1,6 +1,6 @@
 import { compileTemplate } from '@vue/compiler-sfc';
 import { readFileSync } from 'fs';
-import SVGO from 'svgo';
+import { optimize, extendDefaultPlugins } from 'svgo';
 
 async function compileSvg (source, id) {
   let { code } = compileTemplate({ id, source, transformAssetUrls: false });
@@ -10,8 +10,15 @@ async function compileSvg (source, id) {
 }
 
 async function optimizeSvg (content, path) {
-  const svgo = new SVGO({});
-  const { data } = await svgo.optimize(content, { path });
+  const { data } = await optimize(content, {
+    path,
+    plugins: extendDefaultPlugins([
+      {
+        name: 'removeViewBox',
+        active: false,
+      },
+    ]),
+  });
   return data;
 }
 

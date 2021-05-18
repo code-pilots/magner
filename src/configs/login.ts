@@ -20,7 +20,7 @@ const loginConfig: LoginConfig = {
       component: {
         type: 'text',
         placeholder: 'Е-мейл',
-        icon: 'email',
+        icon: 'mail',
       },
     },
     {
@@ -35,7 +35,7 @@ const loginConfig: LoginConfig = {
       component: {
         type: 'password',
         placeholder: 'Пароль',
-        icon: 'password',
+        icon: 'lock',
       },
     },
   ],
