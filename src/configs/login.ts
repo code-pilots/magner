@@ -1,15 +1,12 @@
 import { LoginConfig } from 'settings/types/configs';
-import loginResponseToProxy from 'app/proxies/login';
+import loginRequest from 'app/requests/login';
 
 const loginConfig: LoginConfig = {
   title: 'Вход',
   submit: {
     text: 'Войти',
   },
-  request: {
-    url: 'auth/login',
-    proxy: loginResponseToProxy,
-  },
+  request: loginRequest,
   fields: [
     {
       type: 'input',

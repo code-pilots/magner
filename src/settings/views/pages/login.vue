@@ -54,14 +54,12 @@ export default defineComponent({
     const login = async (data: Record<string, any>) => {
       loading.value = true;
 
-      const res = await api.post(props.config.request.url, data);
-      const proxied = props.config.request.proxy(res);
-
-      await store.dispatch('changeToken', proxied.token);
-      await store.dispatch('changeUser', proxied.user);
-      await store.dispatch('changeRole', proxied.role);
-
-      await router.push({ name: props.globalRoutes.homeHasAuthName });
+      const err = await props.config.request({ store, router, data });
+      if (err) {
+        console.error(err);
+      } else {
+        await router.push({ name: props.globalRoutes.homeHasAuthName });
+      }
 
       loading.value = false;
     };

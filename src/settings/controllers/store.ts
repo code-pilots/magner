@@ -1,13 +1,17 @@
 import { InjectionKey } from 'vue';
 import { createStore, useStore as baseUseStore, Store } from 'vuex';
-import projectConfig from 'configs/project';
 import ROLE from 'configs/roles';
+import lstorage from 'settings/utils/local-storage';
 
 interface State {
   token: string|null,
   user: any|null,
   role: ROLE|null,
 }
+
+const LSKeys = {
+  token: 'token',
+};
 
 /**
  * A key that is needed to access the store in a form of useStore() hook in the
@@ -27,7 +31,7 @@ export const store = createStore<State>({
    */
   state () {
     return {
-      token: (localStorage?.getItem(projectConfig.LOCAL_STORAGE_KEY) as string|undefined) || null,
+      token: lstorage.read(LSKeys.token) || null,
       user: null,
       role: null,
     };
@@ -37,9 +41,9 @@ export const store = createStore<State>({
     setToken (state, value: string) {
       state.token = value;
       if (value) {
-        localStorage.setItem(projectConfig.LOCAL_STORAGE_KEY, value);
+        lstorage.put(LSKeys.token, value);
       } else {
-        localStorage.removeItem(projectConfig.LOCAL_STORAGE_KEY);
+        lstorage.delete(LSKeys.token);
       }
     },
 
@@ -64,6 +68,8 @@ export const store = createStore<State>({
     },
   },
 });
+
+export type StoreType = typeof store;
 
 const useStore = () => baseUseStore(injectionKey);
 export default useStore;
