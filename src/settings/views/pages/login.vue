@@ -26,9 +26,8 @@ import {
   ref,
   PropType,
 } from 'vue';
-import type {GlobalRouting, LoginConfig} from 'settings/types/configs';
+import type { GlobalRouting, LoginConfig } from 'settings/types/configs';
 import GenericForm from 'settings/views/components/form.vue';
-import api from 'settings/utils/api';
 import useStore from 'settings/controllers/store';
 import { useRouter } from 'vue-router';
 
@@ -54,11 +53,15 @@ export default defineComponent({
     const login = async (data: Record<string, any>) => {
       loading.value = true;
 
-      const err = await props.config.request({ store, router, data });
-      if (err) {
-        console.error(err);
-      } else {
-        await router.push({ name: props.globalRoutes.homeHasAuthName });
+      const res = await props.config.request({
+        store,
+        router,
+        data,
+        globalRoutes: props.globalRoutes,
+      });
+
+      if (res.error) {
+        console.error(res.error);
       }
 
       loading.value = false;

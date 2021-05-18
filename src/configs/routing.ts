@@ -1,22 +1,13 @@
 import { RoutingConfig } from 'settings/types/configs';
+import ROLE from 'configs/roles';
 
 const routingConfig: RoutingConfig = {
   global: {
-    homeNoAuthName: 'dashboard',
+    homeNoAuthName: 'login',
     homeHasAuthName: 'dashboard',
   },
 
   routes: [
-    {
-      /** Route with preset will have all other properties already set-up except roles
-       *  If route has a preset, then its config is defined in 'configs/${preset}' file,
-       *  and this config is passed as a prop 'config' to the view */
-      preset: 'login',
-
-      /** If 'roles' === null, no authorization needed */
-      roles: null,
-    },
-
     {
       /** Simple vue-router route config except that the 'component' is a path-string from 'views' directory */
       route: {
@@ -31,14 +22,23 @@ const routingConfig: RoutingConfig = {
         meta: {},
       },
 
-      /** An array of role Enums */
-      roles: null,
+      /** An array of role Enums. If 'roles' === null, no authorization needed */
+      roles: [ROLE.DOCTOR, ROLE.ADMIN, ROLE.SUPER_ADMIN],
 
       /** Path-string that specifies page layout */
       layout: null,
 
       /** Views accept configs as props to display everything according to those configs */
       config: '',
+    },
+
+    {
+      /** Route with preset will have all other properties already set-up except roles
+       *  If route has a preset, then its config is defined in 'configs/${preset}' file,
+       *  and this config is passed as a prop 'config' to the view */
+      preset: 'login',
+
+      roles: null,
     },
 
     {

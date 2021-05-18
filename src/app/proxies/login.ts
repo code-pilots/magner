@@ -1,5 +1,6 @@
 import ROLE from 'configs/roles';
 import type { User } from 'app/types/user';
+import type { ProxyFunc } from 'settings/types/utils';
 
 export interface Response {
   result: {
@@ -20,7 +21,7 @@ export interface Proxy {
   user: User,
 }
 
-const dataToProxy = (data: Response): Proxy => ({
+const dataToProxy: ProxyFunc<Response, Proxy> = (data) => ({
   token: data.token,
   role: data.result.user.roles.length ? data.result.user.roles[0] : null,
   user: data.result.user,

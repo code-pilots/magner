@@ -1,5 +1,8 @@
 import { store } from 'settings/controllers/store';
-import api from './api';
+import routingConfig from 'configs/routing';
+import profileRequest from 'app/requests/profile';
+
+const globalRoutes = routingConfig.global;
 
 /**
  * Navigation guard that checks if you can enter a protected route.
@@ -15,27 +18,27 @@ const checkAuth = async (isRouteProtected: boolean) => {
     }
 
     if (store?.state.token) {
-      const user = await api.get('');
-      if (user) {
-        await store.dispatch('changeUser', user);
+      const user = await profileRequest();
+      if (user.data) {
+        await store.dispatch('changeUser', user.data);
         return true;
       }
       await store.dispatch('changeToken', null);
     }
 
-    return { name: 'home' };
+    return { name: globalRoutes.homeNoAuthName };
   }
 
   // If route is not protected
   if (store?.state.user) {
-    return { name: 'dashboard' };
+    return { name: globalRoutes.homeHasAuthName };
   }
 
   if (store?.state.token) {
-    const user = await api.get('');
-    if (user) {
-      await store.dispatch('changeUser', user);
-      return { name: 'dashboard' };
+    const user = await profileRequest();
+    if (user.data) {
+      await store.dispatch('changeUser', user.data);
+      return { name: globalRoutes.homeHasAuthName };
     }
     await store.dispatch('changeToken', null);
   }

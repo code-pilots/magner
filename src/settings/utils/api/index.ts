@@ -13,7 +13,7 @@ export const http = async <T>(path: string, config: RequestInit): Promise<T> => 
   const headers: HeadersInit = {
     'Content-Type': 'application/json',
   };
-  if (store?.state?.token) headers.Authorization = `Token ${store.state.token}`;
+  if (store?.state?.token) headers.Authorization = `Bearer ${store.state.token}`;
 
   try {
     const req = new Request(projectConfig.API_URL + path, {

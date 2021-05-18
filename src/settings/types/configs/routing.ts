@@ -5,6 +5,7 @@ import {
   RouteRecordRedirectOption,
 } from 'vue-router';
 import { LoginConfig } from 'settings/types/configs/login';
+import ROLE from 'configs/roles';
 
 /** Global routing configuration that defines special needs in routing like programmatic navigation */
 export interface GlobalRouting {
@@ -19,7 +20,7 @@ export interface GlobalRouting {
 
 declare module 'vue-router' {
   interface RouteMeta {
-    roles?: string[] | null,
+    roles?: ROLE[] | null,
   }
 }
 
@@ -44,7 +45,7 @@ export type Route = RouteRecordSingleViewOverride | RouteRecordRedirectOverride;
 export interface BaseRoute {
   layout?: string|null,
   config?: string,
-  roles: string[] | null, // TODO: roles (maybe generic)
+  roles: ROLE[] | null,
 }
 
 export type SupportedRoutePresets = 'login'|'empty';

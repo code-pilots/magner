@@ -2,15 +2,25 @@ import api from 'settings/utils/api';
 import dataToProxy, { Response } from 'app/proxies/login';
 import type { RequestFunc } from 'settings/types/utils';
 
-const loginRequest: RequestFunc = async ({ data, store }) => {
-  const res: Response = await api.post('auth/login', data);
-  const proxied = dataToProxy(res);
+const loginRequest: RequestFunc<true> = async ({
+  data, store, router, globalRoutes,
+}) => {
+  try {
+    const res: Response = await api.post('auth/login', data);
+    const proxied = dataToProxy(res);
 
-  await store.dispatch('changeToken', proxied.token);
-  await store.dispatch('changeUser', proxied.user);
-  await store.dispatch('changeRole', proxied.role);
+    await store.dispatch('changeToken', proxied.token);
+    await store.dispatch('changeUser', proxied.user);
+    await store.dispatch('changeRole', proxied.role);
+  } catch (e) {
+    return { error: 'Error', data: null };
+  }
 
-  return null;
+  if (router && globalRoutes) {
+    await router.push({ name: globalRoutes.homeHasAuthName });
+  }
+
+  return { error: null, data: true };
 };
 
 export default loginRequest;
