@@ -3,7 +3,17 @@
 
   }
 
-  &_section {
+  &_content {
+    padding-left: 230px;
+    transition: padding-left .3s;
+    @media (max-width: 767px) {
+      padding-left: 0 !important;
+    }
+  }
 
+  &.sidebar-collapsed {
+    .main-layout_content {
+      padding-left: 64px;
+    }
   }
 }

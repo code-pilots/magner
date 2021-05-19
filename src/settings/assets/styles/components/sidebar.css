@@ -1,0 +1,42 @@
+.sidebar {
+    position: fixed;
+    top: 50px;
+    bottom: 0;
+    left: 0;
+    width: 230px;
+    transition: width .3s;
+    background-color: white;
+    border-right: solid 1px #e6e6e6;
+
+    &.collapsed {
+        width: 64px;
+    }
+
+    &:not(.open) {
+        @media (max-width: 767px) {
+            display: none;
+        }
+    }
+
+    &_menu, & .el-scrollbar__view {
+        height: 100%;
+        border: none;
+    }
+
+    &_scroll {
+        padding-bottom: 30px;
+    }
+
+    &_toggle {
+        position: absolute;
+        bottom: 0;
+        height: 30px;
+        width: 100%;
+        border: none;
+        transition: width .3s;
+
+        @media (max-width: 767px) {
+            display: none;
+        }
+    }
+}
