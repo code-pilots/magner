@@ -25,8 +25,8 @@ const routingConfig: RoutingConfig = {
       /** An array of role Enums. If 'roles' === null, no authorization needed */
       roles: [ROLE.DOCTOR, ROLE.ADMIN, ROLE.SUPER_ADMIN],
 
-      /** Path-string that specifies page layout */
-      layout: null,
+      /** Path-string (from layouts folder) that specifies page layout */
+      layout: 'main',
 
       /** Views accept configs as props to display everything according to those configs */
       config: '',

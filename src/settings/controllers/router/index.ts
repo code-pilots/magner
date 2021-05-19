@@ -5,7 +5,6 @@ import {
   RouteRecordRaw,
 } from 'vue-router';
 import type { PresetRoute, SimpleRoute } from 'settings/types/configs';
-import { mergeDeep } from 'settings/utils/merge-deep';
 import routingConfig from 'configs/routing';
 import checkAuth from 'settings/utils/check-auth';
 import allPresets from './presets';
@@ -18,7 +17,14 @@ const simpleToPreset = (route: SimpleRoute): PresetRoute => ({
 const routes: RouteRecordRaw[] = routingConfig.routes.map((route) => {
   const presettedRoute: PresetRoute = route.preset ? route : simpleToPreset(route);
 
-  const fullPreset: Required<PresetRoute> = mergeDeep(allPresets[presettedRoute.preset], route);
+  const fullPreset = {
+    ...allPresets[presettedRoute.preset],
+    ...route,
+    route: {
+      ...allPresets[presettedRoute.preset].route,
+      ...route.route,
+    },
+  } as Required<PresetRoute>;
 
   /** Transform component string to a real dynamically imported page view */
   let component: RouteComponent | (() => Promise<RouteComponent>);
@@ -39,10 +45,30 @@ const routes: RouteRecordRaw[] = routingConfig.routes.map((route) => {
 
   fullPreset.route.beforeEnter = checkAuth.bind(null, !!fullPreset.roles);
 
-  return {
+  const finalRoute = {
     ...fullPreset.route,
     component,
   } as RouteRecordRaw;
+
+  /** Transform layout into a nested route */
+  if (fullPreset.layout) {
+    let layout: RouteComponent | (() => Promise<RouteComponent>);
+    if (typeof fullPreset.layout === 'string') {
+      const concat = `../../views/layouts/${fullPreset.layout}.vue`;
+      layout = () => import(/* @vite-ignore */ concat);
+    } else {
+      // @ts-ignore
+      layout = fullPreset.route.component;
+    }
+
+    return {
+      path: '/',
+      component: layout,
+      children: [finalRoute],
+    };
+  }
+
+  return finalRoute;
 });
 
 const router = createRouter({

@@ -43,7 +43,7 @@ export type Route = RouteRecordSingleViewOverride | RouteRecordRedirectOverride;
  * Define custom routes to be used in configuration
  */
 export interface BaseRoute {
-  layout?: string|null,
+  layout?: 'main' | string | null | RouteComponent | (() => Promise<RouteComponent>),
   config?: string,
   roles: ROLE[] | null,
 }
