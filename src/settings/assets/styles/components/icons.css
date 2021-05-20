@@ -1,17 +1,39 @@
 .icon {
   display: inline-block;
+  transition: transform .2s, width .2s, height .2s;
 
-  &.md {
+  &.size-md {
     & svg {
       width: 20px;
       height: 20px;
     }
   }
 
-  &.sm {
+  &.size-sm {
     & svg {
       width: 14px;
       height: 14px;
+    }
+  }
+
+  &.rotate-top {
+    & svg {
+      transform: rotate(0deg);
+    }
+  }
+  &.rotate-right {
+    & svg {
+      transform: rotate(90deg);
+    }
+  }
+  &.rotate-bottom {
+    & svg {
+      transform: rotate(180deg);
+    }
+  }
+  &.rotate-left {
+    & svg {
+      transform: rotate(270deg);
     }
   }
 }

@@ -1,5 +1,12 @@
 <template>
-  <span :class="size" class="icon">
+  <span
+    :class="[
+      'icon-' + name,
+      'size-' + size,
+      'rotate-' + rotate,
+    ]"
+    class="icon"
+  >
     <suspense>
       <template #default>
         <SvgImporter :name="name" />
@@ -29,6 +36,10 @@ export default defineComponent({
     size: {
       type: String as PropType<'sm' | 'md' | 'lg'>,
       default: 'md',
+    },
+    rotate: {
+      type: String as PropType<'top' | 'right' | 'bottom' | 'left'>,
+      default: 'top',
     },
   },
 });

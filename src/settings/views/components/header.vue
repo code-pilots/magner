@@ -1,25 +1,44 @@
 <template>
   <header class="header">
-    <div class="header_left">
+    <div class="header_logo">
       <h1 class="header_left_logo">Artebido</h1>
-
-      {{ title }}
     </div>
 
-    <div class="header_right">
-      <el-button size="mini" circle>
-        <svg-icon name="user" />
-      </el-button>
+    <nav class="header_nav">
+      <div class="header_left">
+        <h2>
+          {{ title }}
+        </h2>
+      </div>
 
-      <el-button
-        size="mini"
-        circle
-        class="header_left_burger"
-        @click="toggleOpen"
-      >
-        <svg-icon name="menu" />
-      </el-button>
-    </div>
+      <div class="header_right">
+        <el-dropdown size="small" trigger="hover">
+          <template #default>
+            <el-button
+              size="mini"
+              circle
+            >
+              <svg-icon name="user" />
+            </el-button>
+          </template>
+
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item>Log out</el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
+
+        <el-button
+          size="mini"
+          circle
+          class="header_right_burger"
+          @click="toggleOpen"
+        >
+          <svg-icon name="menu" />
+        </el-button>
+      </div>
+    </nav>
   </header>
 </template>
 

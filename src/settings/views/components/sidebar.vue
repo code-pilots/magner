@@ -40,7 +40,8 @@
     </el-scrollbar>
 
     <el-button class="sidebar_toggle" @click="toggleCollapse">
-      {{ isCollapsed ? 'E' : 'Collapse' }}
+      <svg-icon name="chevrons" :rotate="isCollapsed ? 'right' : 'left'" />
+      {{ isCollapsed ? '' : 'Collapse' }}
     </el-button>
   </nav>
 </template>
@@ -48,9 +49,11 @@
 <script lang="ts">
 import 'styles/components/sidebar.css';
 import { defineComponent, ref } from 'vue';
+import SvgIcon from 'settings/views/components/icon.vue';
 
 export default defineComponent({
   name: 'Sidebar',
+  components: {SvgIcon},
   props: {
     collapsed: {
       type: Boolean,

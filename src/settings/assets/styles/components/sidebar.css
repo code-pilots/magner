@@ -34,6 +34,17 @@
         width: 100%;
         border: none;
         transition: width .3s;
+        border-top: solid 1px #e6e6e6;
+        border-radius: 0;
+
+        & > span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            & .icon {
+                margin-right: 6px;
+            }
+        }
 
         @media (max-width: 767px) {
             display: none;
