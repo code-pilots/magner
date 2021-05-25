@@ -1,5 +1,5 @@
 <template>
-  <span
+  <i
     :class="[
       'icon-' + name,
       'size-' + size,
@@ -15,7 +15,7 @@
         <svg />
       </template>
     </suspense>
-  </span>
+  </i>
 </template>
 
 <script lang="ts">

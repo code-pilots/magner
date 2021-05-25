@@ -1,5 +1,6 @@
-import { RoutingConfig } from 'settings/types/configs';
+import type { RoutingConfig } from 'settings/types/configs';
 import ROLE from 'configs/roles';
+import usersConfig from 'configs/users';
 
 const routingConfig: RoutingConfig = {
   global: {
@@ -11,7 +12,9 @@ const routingConfig: RoutingConfig = {
     {
       /** Simple vue-router route config except that the 'component' is a path-string from 'views' directory */
       route: {
+        /** Required name property as a unique route identifier  */
         name: 'dashboard',
+
         path: '/',
 
         /** Component is a view laying in the settings/views/pages directory,
@@ -29,7 +32,16 @@ const routingConfig: RoutingConfig = {
       layout: 'main',
 
       /** Views accept configs as props to display everything according to those configs */
-      config: '',
+      config: {},
+
+      /** Show the route in the sidebar or not */
+      visible: true,
+
+      /** Name displayed in the sidebar menu and in the header when active */
+      title: 'Главная',
+
+      /** Icon to be displayed in the sidebar */
+      icon: 'home',
     },
 
     {
@@ -42,13 +54,34 @@ const routingConfig: RoutingConfig = {
     },
 
     {
+      preset: 'table',
+
+      /** Redefine route config */
+      config: usersConfig,
+
+      roles: [ROLE.SUPER_ADMIN, ROLE.DOCTOR, ROLE.DOCTOR],
+
+      visible: true,
+      title: 'Пользователи',
+      icon: 'users',
+
+      route: {
+        /** In presets, you can redefine route params in this object */
+        name: 'users',
+        path: '/users',
+        component: 'table',
+      },
+    },
+
+    {
       route: {
         name: 'error',
         path: '/:pathMatch(.*)*',
         component: 'error',
       },
       roles: null,
-      config: '',
+      config: {},
+      visible: false,
     },
   ],
 };

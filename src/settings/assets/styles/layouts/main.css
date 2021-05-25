@@ -15,5 +15,14 @@
     .main-layout_content {
       padding-left: 64px;
     }
+
+    .header {
+      &_logo {
+        width: 64px;
+        & h1 {
+          display: none;
+        }
+      }
+    }
   }
 }

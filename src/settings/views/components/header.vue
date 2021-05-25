@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <div class="header_logo">
-      <h1 class="header_left_logo">Artebido</h1>
+      <h1>Artebido</h1>
     </div>
 
     <nav class="header_nav">

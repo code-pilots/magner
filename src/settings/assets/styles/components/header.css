@@ -11,6 +11,7 @@
     width: 230px;
     padding-left: 24px;
     border-right: solid 1px #e6e6e6;
+    transition: width .3s;
 
     & h1 {
       font-size: 24px;

@@ -23,6 +23,16 @@
         border: none;
     }
 
+    &_menu {
+        &_item {
+            &_title {
+                display: inline-block;
+                margin-top: 2px;
+                margin-left: 6px;
+            }
+        }
+    }
+
     &_scroll {
         padding-bottom: 30px;
     }

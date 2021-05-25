@@ -23,6 +23,10 @@ const routes: RouteRecordRaw[] = routingConfig.routes.map((route) => {
     route: {
       ...allPresets[presettedRoute.preset].route,
       ...route.route,
+      props: {
+        ...allPresets[presettedRoute.preset].route?.props,
+        ...route.route?.props,
+      },
     },
   } as Required<PresetRoute>;
 
@@ -42,6 +46,10 @@ const routes: RouteRecordRaw[] = routingConfig.routes.map((route) => {
   fullPreset.route.meta = {
     roles: fullPreset.roles,
   };
+
+  if (fullPreset.config && fullPreset.route.props) {
+    fullPreset.route.props.config = fullPreset.config;
+  }
 
   fullPreset.route.beforeEnter = checkAuth.bind(null, !!fullPreset.roles);
 

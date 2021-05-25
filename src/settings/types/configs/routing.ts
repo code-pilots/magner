@@ -1,11 +1,11 @@
 import {
   _RouteRecordBase,
   RouteComponent,
-  RouteLocationNormalized,
   RouteRecordRedirectOption,
 } from 'vue-router';
 import { LoginConfig } from 'settings/types/configs/login';
 import ROLE from 'configs/roles';
+import { TableConfig } from 'settings/types/configs/table';
 
 /** Global routing configuration that defines special needs in routing like programmatic navigation */
 export interface GlobalRouting {
@@ -24,17 +24,19 @@ declare module 'vue-router' {
   }
 }
 
-type _RouteRecordProps = boolean | Record<string, any> | ((to: RouteLocationNormalized) => Record<string, any>);
+type _RouteRecordProps = Record<string, any>;
 interface RouteRecordSingleViewOverride extends _RouteRecordBase {
-  component: string | RouteComponent | (() => Promise<RouteComponent>);
-  components?: never;
-  props?: _RouteRecordProps;
+  name: string,
+  component: string | RouteComponent | (() => Promise<RouteComponent>),
+  components?: never,
+  props?: _RouteRecordProps,
 }
 
 interface RouteRecordRedirectOverride extends _RouteRecordBase {
   redirect: RouteRecordRedirectOption;
   component?: never;
   components?: never;
+  props?: _RouteRecordProps,
 }
 
 export type Route = RouteRecordSingleViewOverride | RouteRecordRedirectOverride;
@@ -44,35 +46,54 @@ export type Route = RouteRecordSingleViewOverride | RouteRecordRedirectOverride;
  */
 export interface BaseRoute {
   layout?: 'main' | string | null | RouteComponent | (() => Promise<RouteComponent>),
-  config?: string,
+  config?: Record<string, any>,
   roles: ROLE[] | null,
+
+  visible?: boolean,
+  title?: string,
+  icon?: string,
 }
 
-export type SupportedRoutePresets = 'login'|'empty';
+export type SupportedRoutePresets = 'login'|'table'|'empty';
 
 export interface PresetRoute extends BaseRoute {
   preset: SupportedRoutePresets,
+  config?: Record<string, any>,
   route?: Route,
 }
 
 export interface PresetLoginRoute extends PresetRoute {
   preset: 'login',
-  config?: 'login',
-  layout?: null,
+  config?: LoginConfig,
+  layout?: string|null,
   route?: {
     name: 'login',
     path: '/login',
     component: 'login',
-    props: {
-      config: LoginConfig,
-      globalRoutes: GlobalRouting,
+    props?: {
+      config?: LoginConfig,
+      globalRoutes?: GlobalRouting,
+    },
+  },
+}
+
+export interface PresetTableRoute extends PresetRoute {
+  preset: 'table',
+  config?: TableConfig,
+  layout?: 'main'|string|null,
+  route: {
+    name: string,
+    path: string,
+    component: string | RouteComponent | (() => Promise<RouteComponent>),
+    props?: {
+      config?: TableConfig,
+      globalRoutes?: GlobalRouting,
     },
   },
 }
 
 export interface PresetEmptyRoute extends PresetRoute {
   preset: 'empty',
-  config?: '',
   layout?: null,
   route?: {
     name: '',
@@ -81,13 +102,15 @@ export interface PresetEmptyRoute extends PresetRoute {
   }
 }
 
+export type RequiredPreset<T extends PresetRoute> = Required<T>;
+
 export interface SimpleRoute extends BaseRoute {
   preset?: never,
   route: Route,
-  config: string,
+  config: Record<string, any>,
 }
 
-export type CustomRoute = PresetLoginRoute | SimpleRoute;
+export type CustomRoute = PresetLoginRoute | PresetTableRoute | SimpleRoute;
 
 export interface RoutingConfig {
   routes: CustomRoute[],

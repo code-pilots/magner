@@ -3,9 +3,26 @@
     <el-scrollbar class="sidebar_scroll">
       <el-menu
         :collapse="isCollapsed"
-        default-active="2"
+        :default-active="activeRoute ? activeRoute.route.name : null"
         class="sidebar_menu"
+        @select="navigate"
       >
+        <template v-for="route in routing">
+          <el-menu-item
+            v-if="route.visible"
+            :key="route.route.name"
+            :index="route.route.name"
+            class="sidebar_menu_item"
+          >
+            <svg-icon :name="route.icon" class="el-icon-no-icon-just-kiddin" />
+            <template #title>
+              <span class="sidebar_menu_item_title">
+                {{ route.title }}
+              </span>
+            </template>
+          </el-menu-item>
+        </template>
+        <!-- TODO: Implement routing children
         <el-submenu index="1">
           <template #title>
             <i class="el-icon-location"></i>
@@ -16,26 +33,8 @@
             <el-menu-item index="1-1">item one</el-menu-item>
             <el-menu-item index="1-2">item two</el-menu-item>
           </el-menu-item-group>
-          <el-menu-item-group title="Group Two">
-            <el-menu-item index="1-3">item three</el-menu-item>
-          </el-menu-item-group>
-          <el-submenu index="1-4">
-            <template #title><span>item four</span></template>
-            <el-menu-item index="1-4-1">item one</el-menu-item>
-          </el-submenu>
         </el-submenu>
-        <el-menu-item index="2">
-          <i class="el-icon-menu"></i>
-          <template #title>Navigator Two</template>
-        </el-menu-item>
-        <el-menu-item index="3" disabled>
-          <i class="el-icon-document"></i>
-          <template #title>Navigator Three</template>
-        </el-menu-item>
-        <el-menu-item index="4">
-          <i class="el-icon-setting"></i>
-          <template #title>Navigator Four</template>
-        </el-menu-item>
+        -->
       </el-menu>
     </el-scrollbar>
 
@@ -48,20 +47,32 @@
 
 <script lang="ts">
 import 'styles/components/sidebar.css';
-import { defineComponent, ref } from 'vue';
+import { defineComponent, PropType, ref } from 'vue';
 import SvgIcon from 'settings/views/components/icon.vue';
+import { CustomRoute } from 'settings/types/configs';
+import { useRouter } from 'vue-router';
 
 export default defineComponent({
   name: 'Sidebar',
-  components: {SvgIcon},
+  components: { SvgIcon },
   props: {
     collapsed: {
       type: Boolean,
       default: false,
     },
+    routing: {
+      type: Array as PropType<CustomRoute[]>,
+      required: true,
+    },
+    activeRoute: {
+      type: Object as PropType<CustomRoute|null>,
+      default: null,
+    },
   },
   emits: ['update:collapsed'],
   setup (props, context) {
+    const router = useRouter();
+
     const isCollapsed = ref<boolean>(props.collapsed);
 
     const toggleCollapse = () => {
@@ -70,9 +81,14 @@ export default defineComponent({
       context.emit('update:collapsed', newVal);
     };
 
+    const navigate = (route: string) => {
+      router.push({ name: route });
+    };
+
     return {
       isCollapsed,
       toggleCollapse,
+      navigate,
     };
   },
 });
