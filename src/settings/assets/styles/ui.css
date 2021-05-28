@@ -1,3 +1,7 @@
+:root {
+  font-size: 16px;
+}
+
 .flex-center {
   display: flex;
   align-items: center;
@@ -12,7 +16,7 @@
   position: relative;
   height: 100%;
 
-  @media (max-width: var(--breakpoint-small)) {
+  @media (--breakpoint-small) {
     padding: 4px;
   }
 }

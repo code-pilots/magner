@@ -40,6 +40,7 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^26.6.3",
     "jest-transform-stub": "^2.0.0",
+    "postcss-custom-media": "^8.0.0",
     "postcss-nested": "^5.0.5",
     "start-server-and-test": "^1.12.1",
     "svgo": "^2.3.0",

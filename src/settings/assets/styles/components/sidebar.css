@@ -7,13 +7,14 @@
     transition: width .3s;
     background-color: white;
     border-right: solid 1px #e6e6e6;
+    z-index: 10;
 
     &.collapsed {
         width: 64px;
     }
 
     &:not(.open) {
-        @media (max-width: var(--breakpoint-small)) {
+        @media (--breakpoint-small) {
             display: none;
         }
     }
@@ -56,7 +57,7 @@
             }
         }
 
-        @media (max-width: var(--breakpoint-small)) {
+        @media (--breakpoint-small) {
             display: none;
         }
     }

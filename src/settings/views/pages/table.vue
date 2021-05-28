@@ -7,6 +7,7 @@
           placeholder="Название"
           class="table-page_filters_inputs_input"
         />
+
         <el-select
           v-model="sortVal"
           value-key="slug"
@@ -19,7 +20,12 @@
             :label="option.name"
           />
         </el-select>
-        <el-checkbox v-model="check" label="Подтвержден" />
+
+        <el-checkbox
+          v-model="check"
+          label="Подтвержден"
+          class="table-page_filters_inputs_input"
+        />
       </div>
 
       <div class="table-page_filters_actions">
@@ -31,7 +37,7 @@
     </form>
 
     <div class="table-page_table">
-      <el-table :data="tableData" border>
+      <el-table :data="tableData">
         <el-table-column
           prop="date"
           label="Date"
@@ -65,7 +71,7 @@
         <el-table-column
           fixed="right"
           label="Operations"
-          width="120"
+          width="100"
         >
           <template #default="scope">
             <el-button type="text" size="small">
@@ -82,6 +88,8 @@
         :page-sizes="[10, 25, 50, 100]"
         :page-size="25"
         :total="400"
+        :pager-count="7"
+        :small="isMobile"
         background
         layout="total, sizes, prev, pager, next, jumper"
       />
@@ -227,6 +235,7 @@ export default defineComponent({
       check,
       currentPage,
       tableData: TABLE_DATA,
+      isMobile: window.matchMedia('(max-width: 767px)').matches,
     };
   },
 });

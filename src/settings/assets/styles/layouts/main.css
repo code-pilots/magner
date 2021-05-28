@@ -7,7 +7,7 @@
     height: calc(100vh - 50px);
     padding-left: 230px;
     transition: padding-left .3s;
-    @media (max-width: var(--breakpoint-small)) {
+    @media (--breakpoint-small) {
       padding-left: 0 !important;
     }
   }
