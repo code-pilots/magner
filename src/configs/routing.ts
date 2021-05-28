@@ -1,6 +1,7 @@
 import type { RoutingConfig } from 'settings/types/configs';
 import ROLE from 'configs/roles';
 import usersConfig from 'configs/users';
+import userConfig from 'configs/user';
 
 const routingConfig: RoutingConfig = {
   global: {
@@ -70,6 +71,22 @@ const routingConfig: RoutingConfig = {
         name: 'users',
         path: '/users',
         component: 'table',
+      },
+    },
+
+    {
+      preset: 'card',
+      config: userConfig,
+      roles: [ROLE.SUPER_ADMIN, ROLE.DOCTOR, ROLE.DOCTOR],
+
+      visible: false,
+      title: 'Пользователь',
+      icon: '',
+
+      route: {
+        name: 'user',
+        path: '/users/:id',
+        component: 'card',
       },
     },
 

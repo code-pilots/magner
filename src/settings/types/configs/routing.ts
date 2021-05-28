@@ -6,6 +6,7 @@ import {
 import { LoginConfig } from 'settings/types/configs/login';
 import ROLE from 'configs/roles';
 import { TableConfig } from 'settings/types/configs/table';
+import { CardConfig } from 'settings/types/configs/card';
 
 /** Global routing configuration that defines special needs in routing like programmatic navigation */
 export interface GlobalRouting {
@@ -54,7 +55,7 @@ export interface BaseRoute {
   icon?: string,
 }
 
-export type SupportedRoutePresets = 'login'|'table'|'empty';
+export type SupportedRoutePresets = 'login'|'table'|'card'|'empty';
 
 export interface PresetRoute extends BaseRoute {
   preset: SupportedRoutePresets,
@@ -92,6 +93,21 @@ export interface PresetTableRoute extends PresetRoute {
   },
 }
 
+export interface PresetCardRoute extends PresetRoute {
+  preset: 'card',
+  config?: CardConfig,
+  layout?: 'main'|string|null,
+  route: {
+    name: string,
+    path: string,
+    component: string | RouteComponent | (() => Promise<RouteComponent>),
+    props?: {
+      config?: CardConfig,
+      globalRoutes?: GlobalRouting,
+    },
+  },
+}
+
 export interface PresetEmptyRoute extends PresetRoute {
   preset: 'empty',
   layout?: null,
@@ -110,7 +126,7 @@ export interface SimpleRoute extends BaseRoute {
   config: Record<string, any>,
 }
 
-export type CustomRoute = PresetLoginRoute | PresetTableRoute | SimpleRoute;
+export type CustomRoute = SimpleRoute | PresetLoginRoute | PresetTableRoute | PresetCardRoute;
 
 export interface RoutingConfig {
   routes: CustomRoute[],

@@ -25,7 +25,7 @@
                 }
 
                 &:not(:last-child) {
-                    margin-right: 12px;
+                    margin-right: 8px;
                     @media (max-width: var(--breakpoint-small)) {
                         margin-right: 0;
                     }
@@ -34,7 +34,20 @@
         }
 
         &_actions {
+            & > * {
+                max-width: 200px;
+                @media (max-width: var(--breakpoint-small)) {
+                    width: 100%;
+                    max-width: 100%;
+                }
 
+                &:not(:last-child) {
+                    margin-right: 8px;
+                    @media (max-width: var(--breakpoint-small)) {
+                        margin-right: 0;
+                    }
+                }
+            }
         }
     }
 

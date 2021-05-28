@@ -24,7 +24,9 @@
 
       <div class="table-page_filters_actions">
         <el-button native-type="submit" type="primary">Поиск</el-button>
-        <el-button native-type="submit" type="primary">Создать</el-button>
+        <router-link :to="{name: 'user', params: { id: 'new' }}">
+          <el-button native-type="button" type="primary">Создать</el-button>
+        </router-link>
       </div>
     </form>
 

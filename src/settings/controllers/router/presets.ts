@@ -1,4 +1,5 @@
 import {
+  PresetCardRoute,
   PresetEmptyRoute,
   PresetLoginRoute,
   PresetRoute,
@@ -9,6 +10,7 @@ import {
 import loginConfig from 'configs/login';
 import routingConfig from 'configs/routing';
 import tableConfig from 'configs/table';
+import cardConfig from 'configs/card';
 
 const loginPreset: RequiredPreset<PresetLoginRoute> = {
   preset: 'login',
@@ -50,6 +52,26 @@ const tablePreset: RequiredPreset<PresetTableRoute> = {
   },
 };
 
+const cardPreset: RequiredPreset<PresetCardRoute> = {
+  preset: 'card',
+  layout: 'main',
+  roles: null,
+  config: cardConfig,
+
+  visible: false,
+  icon: '',
+  title: 'Карточка',
+
+  route: {
+    name: 'card',
+    path: '/card/:id',
+    component: 'card',
+    props: {
+      globalRoutes: routingConfig.global,
+    },
+  },
+};
+
 const emptyPreset: RequiredPreset<PresetEmptyRoute> = {
   preset: 'empty',
   layout: null,
@@ -71,6 +93,7 @@ const allPresets: Record<SupportedRoutePresets, PresetRoute> = {
   login: loginPreset,
   empty: emptyPreset,
   table: tablePreset,
+  card: cardPreset,
 };
 
 export default allPresets;
