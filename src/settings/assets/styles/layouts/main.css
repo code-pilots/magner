@@ -4,9 +4,10 @@
   }
 
   &_content {
+    height: calc(100vh - 50px);
     padding-left: 230px;
     transition: padding-left .3s;
-    @media (max-width: 767px) {
+    @media (max-width: var(--breakpoint-small)) {
       padding-left: 0 !important;
     }
   }

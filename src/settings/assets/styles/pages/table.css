@@ -1,3 +1,54 @@
 .table-page {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    max-height: 100%;
 
+    &_filters {
+        display: flex;
+        justify-content: space-between;
+        margin: 12px 0;
+        padding: 0 12px;
+
+        @media (max-width: var(--breakpoint-small)) {
+            flex-direction: column;
+        }
+
+        &_inputs {
+            flex-grow: 1;
+
+            &_input {
+                max-width: 200px;
+                @media (max-width: var(--breakpoint-small)) {
+                    width: 100%;
+                    max-width: 100%;
+                }
+
+                &:not(:last-child) {
+                    margin-right: 12px;
+                    @media (max-width: var(--breakpoint-small)) {
+                        margin-right: 0;
+                    }
+                }
+            }
+        }
+
+        &_actions {
+
+        }
+    }
+
+    &_table {
+        width: 100%;
+        height: 100%;
+        overflow-y: auto;
+    }
+
+    &_pagination {
+        width: 100%;
+        height: 40px;
+        min-height: 40px;
+        background-color: white;
+        border-top: solid 1px #e6e6e6;
+    }
 }

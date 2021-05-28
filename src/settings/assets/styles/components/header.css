@@ -17,7 +17,7 @@
       font-size: 24px;
     }
 
-    @media (max-width: 767px) {
+    @media (max-width: var(--breakpoint-small)) {
       display: none;
     }
   }
@@ -51,7 +51,7 @@
     }
 
     &_burger {
-      @media (min-width: 768px) {
+      @media (min-width: var(--breakpoint-md)) {
         display: none;
       }
     }

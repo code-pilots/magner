@@ -7,3 +7,12 @@
 .width-full {
   width: 100%;
 }
+
+.page {
+  position: relative;
+  height: 100%;
+
+  @media (max-width: var(--breakpoint-small)) {
+    padding: 4px;
+  }
+}

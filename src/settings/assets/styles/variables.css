@@ -14,4 +14,7 @@
 
   --color-background: #FFFFFF;
   --color-font-main: #000000;
+
+  --breakpoint-small: 767px;
+  --breakpoint-md: 768px;
 }

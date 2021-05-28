@@ -13,7 +13,7 @@
     />
 
     <div class="main-layout_content">
-      <section>
+      <section class="page">
         <router-view />
       </section>
     </div>
