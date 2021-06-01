@@ -2,8 +2,11 @@
   <suspense>
     <template #default>
       <RequestHandler :request="request" :data="data">
-        <template #default="response">
-          <slot v-bind="response" />
+        <template #default="{response, error}">
+          <template v-if="error">
+            {{ error }}
+          </template>
+          <slot v-else v-bind="response" />
         </template>
       </RequestHandler>
     </template>
