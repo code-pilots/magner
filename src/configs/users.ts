@@ -1,4 +1,4 @@
-import loginRequest from 'app/requests/login';
+import usersRequest from 'app/requests/users';
 import type { TableConfig } from 'settings/types/configs/table';
 
 /**
@@ -7,7 +7,7 @@ import type { TableConfig } from 'settings/types/configs/table';
  */
 const usersConfig: TableConfig = {
   title: 'Пользователи',
-  request: loginRequest,
+  request: usersRequest,
 };
 
 export default usersConfig;
