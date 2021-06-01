@@ -1,7 +1,7 @@
 import type { SupportedValidators } from 'settings/utils/validators';
 import type { SupportedDataTypes } from 'settings/utils/form';
 
-export type SupportedComponentTypes = 'input'|'textarea';
+export type SupportedComponentTypes = 'input'|'textarea'|'checkbox'|'radio';
 
 export interface BaseComponent {
 }
