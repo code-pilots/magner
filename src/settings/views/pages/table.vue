@@ -37,8 +37,8 @@
     </form>
 
     <Dynamic :request="config.request" :data="requestData">
-      <template #default="response">
-        <div class="table-page_table">
+      <template #default="{response, loading}">
+        <div v-loading="loading" class="table-page_table">
           <el-table :data="response[config.dataField]">
             <el-table-column
               v-for="row in config.table"
@@ -65,7 +65,7 @@
           <el-pagination
             v-model:currentPage="response.pagination.currentPage"
             :page-sizes="[10, 25, 50, 100]"
-            :page-size="25"
+            :page-size="requestData.items"
             :total="response.total"
             :pager-count="7"
             :small="isMobile"
@@ -120,7 +120,7 @@ export default defineComponent({
 
     const requestData = reactive({
       page: 1,
-      items: 25,
+      items: 100,
     });
 
     return {

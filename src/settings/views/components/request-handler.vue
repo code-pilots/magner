@@ -1,5 +1,5 @@
 <template>
-  <slot v-bind="{ error, response }" />
+  <slot v-bind="{ error, response, loading }" />
 </template>
 
 <script lang="ts">
@@ -22,19 +22,28 @@ export default defineComponent({
       default: () => ({}),
     },
   },
-  async setup (props) {
+  emits: ['loading'],
+  async setup (props, context) {
     const store = useStore();
     const router = useRouter();
 
     const error = ref('');
     const response = ref();
+    const loading = ref(false);
+
+    const changeLoading = (val: boolean) => {
+      loading.value = val;
+      context.emit('loading', val);
+    };
 
     const request = async (newData?: any) => {
+      changeLoading(true);
       const res = await props.request({
         data: newData || props.data,
         store,
         router,
       });
+      changeLoading(false);
 
       response.value = res.data;
 
@@ -52,6 +61,7 @@ export default defineComponent({
     return {
       response,
       error,
+      loading,
     };
   },
 });

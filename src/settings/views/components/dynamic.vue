@@ -2,16 +2,16 @@
   <suspense>
     <template #default>
       <RequestHandler :request="request" :data="data">
-        <template #default="{response, error}">
+        <template #default="{response, error, loading}">
           <template v-if="error">
             {{ error }}
           </template>
-          <slot v-else v-bind="response" />
+          <slot v-else v-bind="{response, loading}" />
         </template>
       </RequestHandler>
     </template>
     <template #fallback>
-      <div v-loading class="loading" />
+      <div v-loading="true" class="loading" />
     </template>
   </suspense>
 </template>

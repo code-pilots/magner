@@ -20,3 +20,9 @@
     padding: 4px;
   }
 }
+
+.loading {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
