@@ -7,6 +7,8 @@ import type { TableConfig } from 'settings/types/configs';
 const tableConfig: TableConfig = {
   title: 'Таблица',
   request: loginRequest,
+  dataField: '',
+  table: [],
 };
 
 export default tableConfig;

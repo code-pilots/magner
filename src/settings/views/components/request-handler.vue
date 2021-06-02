@@ -31,6 +31,8 @@ export default defineComponent({
     const response = ref();
     const loading = ref(false);
 
+    let initialLoaded = false; // Variable prevents sending two request simultaneously on initial load
+
     const changeLoading = (val: boolean) => {
       loading.value = val;
       context.emit('loading', val);
@@ -44,6 +46,7 @@ export default defineComponent({
         router,
       });
       changeLoading(false);
+      initialLoaded = true;
 
       response.value = res.data;
 
@@ -53,7 +56,9 @@ export default defineComponent({
     };
 
     watchEffect(() => {
-      request(props.data);
+      if (initialLoaded) {
+        request(props.data);
+      }
     });
 
     await request();

@@ -121,6 +121,16 @@ export default defineComponent({
     const requestData = reactive({
       page: 1,
       items: 100,
+      filters: {
+        patientId: 0,
+        clinicId: 0,
+        doctorId: 0,
+        fullName: '',
+      },
+      sort: {
+        receptionDate: 'asc',
+        fullName: 'asc',
+      },
     });
 
     return {
