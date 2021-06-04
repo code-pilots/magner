@@ -6,6 +6,7 @@
         :btn="config.submit"
         :loading="false"
         class="table-page_top_filters"
+        @submit="filterItems"
       >
         <template #after>
           <div class="flex-grow" />
@@ -16,42 +17,6 @@
         <el-button native-type="button" type="primary">Создать</el-button>
       </router-link>
     </div>
-
-    <form v-if="false" class="table-page_filters" @submit.prevent>
-      <div class="table-page_filters_inputs">
-        <el-input
-          v-model="name"
-          placeholder="Название"
-          class="table-page_filters_inputs_input"
-        />
-
-        <el-select
-          v-model="sortVal"
-          value-key="slug"
-          class="table-page_filters_inputs_input"
-        >
-          <el-option
-            v-for="option in sortOptions"
-            :key="option.slug"
-            :value="option"
-            :label="option.name"
-          />
-        </el-select>
-
-        <el-checkbox
-          v-model="check"
-          label="Подтвержден"
-          class="table-page_filters_inputs_input"
-        />
-      </div>
-
-      <div class="table-page_filters_actions">
-        <el-button native-type="submit" type="primary">Поиск</el-button>
-        <router-link :to="{name: 'user', params: { id: 'new' }}">
-          <el-button native-type="button" type="primary">Создать</el-button>
-        </router-link>
-      </div>
-    </form>
 
     <Dynamic :request="config.request" :data="requestData">
       <template #default="{response, loading}">
@@ -107,17 +72,6 @@ import type { TableConfig, GlobalRouting } from 'settings/types/configs';
 import Dynamic from 'settings/views/components/dynamic.vue';
 import GenericForm from 'settings/views/components/form.vue';
 
-const SORT_OPTIONS = [
-  {
-    slug: '+id',
-    name: 'ID ASC',
-  },
-  {
-    slug: '-id',
-    name: 'ID DESC',
-  },
-];
-
 export default defineComponent({
   name: 'TablePage',
   components: { GenericForm, Dynamic },
@@ -132,7 +86,6 @@ export default defineComponent({
     },
   },
   setup () {
-    const sortVal = ref(SORT_OPTIONS[0]);
     const name = ref('');
     const check = ref(false);
 
@@ -151,13 +104,16 @@ export default defineComponent({
       },
     });
 
+    const filterItems = (form) => {
+      console.log(form);
+    };
+
     return {
-      sortOptions: SORT_OPTIONS,
-      sortVal,
       name,
       check,
       requestData,
       isMobile: window.matchMedia('(max-width: 767px)').matches,
+      filterItems,
     };
   },
 });

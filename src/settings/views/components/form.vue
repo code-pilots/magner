@@ -28,6 +28,34 @@
           </div>
         </template>
       </el-input>
+
+      <el-select
+        v-if="field.type === 'select'"
+        v-model="form[field.backendName || field.name]"
+        :value-key="field.component.valueKey || 'value'"
+        :placeholder="field.component.placeholder || ''"
+        :disabled="field.component.disabled || false"
+        :clearable="field.component.clearable || false"
+        :multiple="field.component.multiple || false"
+        :collapse-tags="field.component.collapseTags || false"
+        :multiple-limit="field.component.multipleLimit || 0"
+        :default-first-option="field.component.defaultFirstOption || false"
+        :filterable="field.component.filterable || false"
+        :filter-method="field.component.filterMethod || null"
+        :remote="field.component.remote || false"
+        :remote-method="field.component.remoteMethod || null"
+        :loading-text="field.component.loadingText || ''"
+        :no-match-text="field.component.noMatchText || ''"
+        :no-data-text="field.component.noDataText || ''"
+      >
+        <el-option
+          v-for="option in field.options"
+          :key="field.component.valueKey ? option[field.component.valueKey] : option.value"
+          :value="field.component.valueKey ? option[field.component.valueKey] : option.value"
+          :label="option.label"
+          :disabled="option.disabled"
+        />
+      </el-select>
     </el-form-item>
 
     <slot name="after" />

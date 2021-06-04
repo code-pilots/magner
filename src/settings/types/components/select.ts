@@ -6,7 +6,7 @@ import type { RequestFunc } from 'settings/types/utils';
  * https://element-plus.org/#/en-US/component/select#select-attributes
  */
 export interface SelectComponent extends BaseComponent {
-  placeholder: string,
+  placeholder?: string,
 
   /** Use first option as initially selected */
   defaultFirstOption?: boolean,
