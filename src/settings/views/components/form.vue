@@ -3,6 +3,7 @@
     ref="formEl"
     :model="form"
     :rules="validation"
+    class="generic-form"
     @submit.prevent="submit"
   >
     <slot />
@@ -12,6 +13,7 @@
       :key="field.name"
       :prop="field.backendName || field.name"
       :required="!!field.required"
+      class="generic-form_item"
     >
       <el-input
         v-if="field.type === 'input'"
@@ -28,11 +30,13 @@
       </el-input>
     </el-form-item>
 
+    <slot name="after" />
+
     <el-button
       :loading="loading"
       :native-type="btn.nativeType || 'submit'"
       :type="btn.type || 'primary'"
-      :class="['width-full', btn.class || '']"
+      :class="['generic-form_submit', 'width-full', btn.class || '']"
     >
       {{ btn.text }}
     </el-button>

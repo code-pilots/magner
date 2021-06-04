@@ -8,7 +8,7 @@
         display: block;
     }
 
-    &_filters {
+    &_top {
         display: flex;
         justify-content: space-between;
         margin: 12px 0;
@@ -18,50 +18,33 @@
             flex-direction: column;
         }
 
-        &_inputs {
-            flex-grow: 1;
+        & .el-form-item {
+            margin-bottom: 0;
+        }
 
-            &_input {
-                max-width: 200px;
-                @media (--breakpoint-small) {
-                    width: 100%;
-                    max-width: 100%;
-                    margin-bottom: 4px;
-                }
-
-                &:not(:last-child) {
-                    margin-right: 8px;
-                    @media (--breakpoint-small) {
-                        margin-right: 0;
-                    }
-                }
+        & .el-button {
+            width: auto;
+            @media (--breakpoint-small) {
+                width: 100%;
             }
         }
 
-        &_actions {
+        & .generic-form {
             display: flex;
+
             @media (--breakpoint-small) {
                 flex-direction: column;
+                margin-bottom: 4px;
             }
 
-            & > * {
-                display: block;
+            &_item {
                 max-width: 200px;
+                margin-right: 8px;
                 @media (--breakpoint-small) {
                     width: 100%;
                     max-width: 100%;
-                }
-
-                & button {
-                    width: 100%;
-                }
-
-                &:not(:last-child) {
-                    margin-right: 8px;
-                    @media (--breakpoint-small) {
-                        margin-right: 0;
-                        margin-bottom: 8px;
-                    }
+                    margin-right: 0;
+                    margin-bottom: 4px;
                 }
             }
         }

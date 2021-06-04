@@ -1,6 +1,23 @@
 <template>
   <section class="table-page">
-    <form class="table-page_filters" @submit.prevent>
+    <div class="table-page_top">
+      <GenericForm
+        :fields="config.filters"
+        :btn="config.submit"
+        :loading="false"
+        class="table-page_top_filters"
+      >
+        <template #after>
+          <div class="flex-grow" />
+        </template>
+      </GenericForm>
+
+      <router-link :to="{name: 'user', params: { id: 'new' }}" class="table-page_top_create">
+        <el-button native-type="button" type="primary">Создать</el-button>
+      </router-link>
+    </div>
+
+    <form v-if="false" class="table-page_filters" @submit.prevent>
       <div class="table-page_filters_inputs">
         <el-input
           v-model="name"
@@ -88,6 +105,7 @@ import {
 } from 'vue';
 import type { TableConfig, GlobalRouting } from 'settings/types/configs';
 import Dynamic from 'settings/views/components/dynamic.vue';
+import GenericForm from 'settings/views/components/form.vue';
 
 const SORT_OPTIONS = [
   {
@@ -102,7 +120,7 @@ const SORT_OPTIONS = [
 
 export default defineComponent({
   name: 'TablePage',
-  components: { Dynamic },
+  components: { GenericForm, Dynamic },
   props: {
     config: {
       type: Object as PropType<TableConfig>,

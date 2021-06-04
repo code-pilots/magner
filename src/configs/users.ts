@@ -9,6 +9,26 @@ const usersConfig: TableConfig = {
   title: 'Пользователи',
   request: usersRequest,
   dataField: 'users',
+  submit: {
+    text: 'Поиск',
+  },
+  filters: [
+    {
+      type: 'input',
+      name: 'fullName',
+      validation: null,
+      component: {
+        type: 'text',
+        placeholder: 'Полное имя',
+      },
+    },
+    {
+      type: 'checkbox',
+      name: 'isauth',
+      validation: null,
+      component: {},
+    },
+  ],
   table: [
     {
       prop: 'id',

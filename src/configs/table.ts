@@ -8,6 +8,10 @@ const tableConfig: TableConfig = {
   title: 'Таблица',
   request: loginRequest,
   dataField: '',
+  submit: {
+    text: 'Войти',
+  },
+  filters: [],
   table: [],
 };
 

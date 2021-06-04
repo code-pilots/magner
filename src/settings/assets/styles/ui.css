@@ -8,6 +8,10 @@
   justify-content: center;
 }
 
+.flex-grow {
+  flex-grow: 1;
+}
+
 .width-full {
   width: 100%;
 }
