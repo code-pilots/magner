@@ -1,5 +1,5 @@
 import loginRequest from 'app/requests/login';
-import type { TableConfig } from 'settings/types/configs';
+import type { TableConfig } from '../../core/types/configs';
 
 /**
  * Configuration for the 'table' route preset.

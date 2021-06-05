@@ -1,4 +1,4 @@
-import type { ProxyFunc } from 'settings/types/utils';
+import type { ProxyFunc } from '../../core/types/utils';
 
 interface Patient {
   id: number,

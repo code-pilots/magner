@@ -1,5 +1,5 @@
 import patientsRequest from 'app/requests/patients';
-import type { TableConfig } from 'settings/types/configs/table';
+import type { TableConfig } from '../../core/types/configs/table';
 
 /**
  * Since Patients extend the 'table' route preset, it must extend TableConfig.

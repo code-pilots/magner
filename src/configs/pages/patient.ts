@@ -1,5 +1,5 @@
 import loginRequest from 'app/requests/login';
-import type { CardConfig } from 'settings/types/configs';
+import type { CardConfig } from '../../core/types/configs';
 
 /**
  * Real-life example of extending the CardConfig route in case of the patient card

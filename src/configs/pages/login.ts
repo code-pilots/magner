@@ -1,4 +1,4 @@
-import { LoginConfig } from 'settings/types/configs';
+import { LoginConfig } from '../../core/types/configs';
 import loginRequest from 'app/requests/login';
 
 const loginConfig: LoginConfig = {

@@ -19,9 +19,9 @@ export default defineConfig({
   resolve: {
     alias: {
       app: path.resolve(__dirname, 'src', 'app'),
-      settings: path.resolve(__dirname, 'src', 'settings'),
+      core: path.resolve(__dirname, 'src', 'core'),
       configs: path.resolve(__dirname, 'src', 'configs'),
-      styles: path.resolve(__dirname, 'src', 'settings', 'assets', 'styles'),
+      styles: path.resolve(__dirname, 'src', 'core', 'assets', 'styles'),
     },
   },
   server: {

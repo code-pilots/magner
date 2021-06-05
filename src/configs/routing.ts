@@ -1,4 +1,4 @@
-import { routerController } from 'settings/controllers';
+import { routerController } from '../core/controllers';
 import ROLE from 'configs/roles';
 import patientsConfig from 'configs/pages/patients';
 import patientConfig from 'configs/pages/patient';
@@ -18,7 +18,7 @@ const router = routerController({
 
         path: '/',
 
-        /** Component is a view laying in the settings/views/pages directory,
+        /** Component is a view laying in the core/views/pages directory,
          *  or the imported (or lazy imported with () => import()) component */
         component: 'home',
 

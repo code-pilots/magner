@@ -1,4 +1,4 @@
-import { projectController } from 'settings/controllers';
+import { projectController } from '../core/controllers';
 
 export default projectController({
   name: 'Alfamed',

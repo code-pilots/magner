@@ -13,9 +13,9 @@
     "baseUrl": ".",
     "paths": {
       "app/*": ["src/app/*"],
-      "settings/*": ["src/settings/*"],
+      "core/*": ["src/core/*"],
       "configs/*": ["src/configs/*"],
-      "styles/*": ["src/settings/assets/styles/*"]
+      "styles/*": ["src/core/assets/styles/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue",

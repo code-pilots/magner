@@ -1,6 +1,6 @@
-import api from 'settings/utils/api';
+import api from '../../core/utils/api';
 import dataToProxy, { Response, Proxy } from 'app/proxies/login';
-import type { BaseResponse } from 'settings/types/utils';
+import type { BaseResponse } from '../../core/types/utils';
 
 const profileRequest = async (): Promise<BaseResponse<Proxy>> => {
   try {
