@@ -7,8 +7,10 @@ import type { TableConfig } from 'settings/types/configs/table';
  */
 const patientsConfig: TableConfig = {
   title: 'Пациенты',
+
   request: patientsRequest,
   dataField: 'users',
+
   submit: {
     text: 'Поиск',
   },
@@ -16,6 +18,7 @@ const patientsConfig: TableConfig = {
     label: 'Создать',
     routeName: 'patient',
   },
+
   filters: [
     {
       type: 'input',
@@ -63,6 +66,7 @@ const patientsConfig: TableConfig = {
       },
     },
   ],
+
   table: [
     {
       prop: 'id',

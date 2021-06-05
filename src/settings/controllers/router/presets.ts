@@ -7,9 +7,9 @@ import {
   RequiredPreset,
   SupportedRoutePresets,
 } from 'settings/types/configs';
-import loginConfig from 'configs/login';
-import tableConfig from 'configs/table';
-import cardConfig from 'configs/card';
+import loginConfig from 'configs/pages/login';
+import tableConfig from 'configs/pages/table';
+import cardConfig from 'configs/pages/card';
 
 const loginPreset: RequiredPreset<PresetLoginRoute> = {
   preset: 'login',

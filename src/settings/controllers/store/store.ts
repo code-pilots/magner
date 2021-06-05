@@ -1,12 +1,14 @@
 import { InjectionKey } from 'vue';
 import { createStore, useStore as baseUseStore, Store } from 'vuex';
-import type { CustomRoute, GlobalRouting } from 'settings/types/configs';
+import type { CustomRoute, GlobalRouting, ProjectConfig } from 'settings/types/configs';
 import ROLE from 'configs/roles';
 import lstorage from 'settings/utils/local-storage';
 
 interface State {
   globalRoutes: GlobalRouting,
   allRoutes: CustomRoute[],
+
+  project: ProjectConfig,
 
   token: string|null,
   user: any|null,
@@ -41,6 +43,7 @@ export const store = createStore<State>({
         homeHasAuthName: '',
       },
       allRoutes: [],
+      project: {} as ProjectConfig,
 
       token: lstorage.read(LSKeys.token) || null,
       user: null,
@@ -54,6 +57,9 @@ export const store = createStore<State>({
     },
     setAllRoutes (state, value: CustomRoute[]) {
       state.allRoutes = value;
+    },
+    setProject (state, value: ProjectConfig) {
+      state.project = value;
     },
 
     setToken (state, value: string) {
@@ -80,6 +86,9 @@ export const store = createStore<State>({
     },
     changeAllRoutes (context, value: CustomRoute[]) {
       context.commit('setAllRoutes', value);
+    },
+    changeProject (context, value: ProjectConfig) {
+      context.commit('setProject', value);
     },
 
     changeToken (context, value: string) {

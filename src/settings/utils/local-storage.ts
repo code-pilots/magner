@@ -1,11 +1,15 @@
-import projectConfig from 'configs/project';
+import envs from '../../envs';
 
 /**
  * Manipulate with the stringified object placed in the LocalStorage for
  * persisting the data from the admin panel
  */
 const getLsObject = (): Record<string, any> => {
-  const ls = localStorage.getItem(projectConfig.LOCAL_STORAGE_KEY);
+  if (!envs.LOCAL_STORAGE_KEY) {
+    throw new Error('Please, set the LOCAL_STORAGE_KEY in the "envs.ts" file! It is required for saving persistent data.');
+  }
+
+  const ls = localStorage.getItem(envs.LOCAL_STORAGE_KEY);
   if (ls) {
     try {
       return JSON.parse(ls);
@@ -13,7 +17,7 @@ const getLsObject = (): Record<string, any> => {
       return {};
     }
   } else {
-    localStorage.setItem(projectConfig.LOCAL_STORAGE_KEY, JSON.stringify({}));
+    localStorage.setItem(envs.LOCAL_STORAGE_KEY, JSON.stringify({}));
     return {};
   }
 };
@@ -25,13 +29,13 @@ const lstorage = {
   put: (field: string, value: any) => {
     const ls = getLsObject();
     ls[field] = value;
-    localStorage.setItem(projectConfig.LOCAL_STORAGE_KEY, JSON.stringify(ls));
+    localStorage.setItem(envs.LOCAL_STORAGE_KEY, JSON.stringify(ls));
   },
 
   delete: (field: string) => {
     const ls = getLsObject();
     delete ls[field];
-    localStorage.setItem(projectConfig.LOCAL_STORAGE_KEY, JSON.stringify(ls));
+    localStorage.setItem(envs.LOCAL_STORAGE_KEY, JSON.stringify(ls));
   },
 };
 

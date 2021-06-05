@@ -1,7 +1,7 @@
 import { routerController } from 'settings/controllers';
 import ROLE from 'configs/roles';
-import patientsConfig from 'configs/patients';
-import patientConfig from 'configs/patient';
+import patientsConfig from 'configs/pages/patients';
+import patientConfig from 'configs/pages/patient';
 
 const router = routerController({
   global: {

@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
-import projectConfig from 'configs/project';
 import { store } from 'settings/controllers/store/store';
 import ApiError from './api-error';
+import envs from '../../../envs';
 
 /**
  * A request wrapper method that handles authorization token passing, setting fetch
@@ -10,13 +10,17 @@ import ApiError from './api-error';
  * @param config – additional fetch configuration.
  */
 export const http = async <T>(path: string, config: RequestInit): Promise<T> => {
+  if (!envs.API_URL) {
+    throw new Error('Please, set the API_URL in the "envs.ts" file! It is required for any API calls.');
+  }
+
   const headers: HeadersInit = {
     'Content-Type': 'application/json',
   };
   if (store?.state?.token) headers.Authorization = `Bearer ${store.state.token}`;
 
   try {
-    const req = new Request(projectConfig.API_URL + path, {
+    const req = new Request(envs.API_URL + path, {
       ...config,
       headers,
     });
