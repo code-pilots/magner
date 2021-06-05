@@ -1,9 +1,9 @@
 import api from 'settings/utils/api';
 import type { RequestFunc } from 'settings/types/utils';
-import dataToProxy, { Response, Proxy } from 'app/proxies/user';
+import dataToProxy, { Response, Proxy } from 'app/proxies/patients';
 import dataToUrl from 'app/proxies/get-request';
 
-const usersRequest: RequestFunc<Proxy> = async ({ data }: { data: { page: number, items: number }}) => {
+const patientsRequest: RequestFunc<Proxy> = async ({ data }: { data: { page: number, items: number }}) => {
   try {
     const res: Response = await api.get(`patients${dataToUrl(data)}`);
     const proxied = dataToProxy(res);
@@ -15,4 +15,4 @@ const usersRequest: RequestFunc<Proxy> = async ({ data }: { data: { page: number
   }
 };
 
-export default usersRequest;
+export default patientsRequest;

@@ -8,6 +8,7 @@
         :fields="config.fields"
         :btn="config.submit"
         :loading="loading"
+        :error="error"
         class="login-page_form"
         @submit="login"
       >
@@ -26,7 +27,7 @@ import {
   ref,
   PropType,
 } from 'vue';
-import type { GlobalRouting, LoginConfig } from 'settings/types/configs';
+import type { LoginConfig } from 'settings/types/configs';
 import GenericForm from 'settings/views/components/form.vue';
 import useStore from 'settings/controllers/store';
 import { useRouter } from 'vue-router';
@@ -39,29 +40,28 @@ export default defineComponent({
       type: Object as PropType<LoginConfig>,
       required: true,
     },
-    globalRoutes: {
-      type: Object as PropType<GlobalRouting>,
-      required: true,
-    },
   },
   setup (props) {
     const store = useStore();
     const router = useRouter();
 
     const loading = ref<boolean>(false);
+    const error = ref('');
 
     const login = async (data: Record<string, any>) => {
       loading.value = true;
+      error.value = '';
 
       const res = await props.config.request({
         store,
         router,
         data,
-        globalRoutes: props.globalRoutes,
+        globalRoutes: store.state.globalRoutes,
       });
 
       if (res.error) {
         console.error(res.error);
+        error.value = res.error;
       }
 
       loading.value = false;
@@ -69,6 +69,7 @@ export default defineComponent({
 
     return {
       loading,
+      error,
       login,
     };
   },

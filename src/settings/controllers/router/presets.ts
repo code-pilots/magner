@@ -8,7 +8,6 @@ import {
   SupportedRoutePresets,
 } from 'settings/types/configs';
 import loginConfig from 'configs/login';
-import routingConfig from 'configs/routing';
 import tableConfig from 'configs/table';
 import cardConfig from 'configs/card';
 
@@ -26,9 +25,7 @@ const loginPreset: RequiredPreset<PresetLoginRoute> = {
     name: 'login',
     path: '/login',
     component: 'login',
-    props: {
-      globalRoutes: routingConfig.global,
-    },
+    props: {},
   },
 };
 
@@ -46,9 +43,7 @@ const tablePreset: RequiredPreset<PresetTableRoute> = {
     name: 'table',
     path: '/table',
     component: 'table',
-    props: {
-      globalRoutes: routingConfig.global,
-    },
+    props: {},
   },
 };
 
@@ -66,9 +61,7 @@ const cardPreset: RequiredPreset<PresetCardRoute> = {
     name: 'card',
     path: '/card/:id',
     component: 'card',
-    props: {
-      globalRoutes: routingConfig.global,
-    },
+    props: {},
   },
 };
 

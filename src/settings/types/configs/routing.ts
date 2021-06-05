@@ -73,7 +73,6 @@ export interface PresetLoginRoute extends PresetRoute {
     component: 'login',
     props?: {
       config?: LoginConfig,
-      globalRoutes?: GlobalRouting,
     },
   },
 }
@@ -88,7 +87,6 @@ export interface PresetTableRoute extends PresetRoute {
     component: string | RouteComponent | (() => Promise<RouteComponent>),
     props?: {
       config?: TableConfig,
-      globalRoutes?: GlobalRouting,
     },
   },
 }
@@ -103,7 +101,6 @@ export interface PresetCardRoute extends PresetRoute {
     component: string | RouteComponent | (() => Promise<RouteComponent>),
     props?: {
       config?: CardConfig,
-      globalRoutes?: GlobalRouting,
     },
   },
 }

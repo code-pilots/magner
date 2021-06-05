@@ -1,7 +1,7 @@
 import type { RoutingConfig } from 'settings/types/configs';
 import ROLE from 'configs/roles';
-import usersConfig from 'configs/users';
-import userConfig from 'configs/user';
+import patientsConfig from 'configs/patients';
+import patientConfig from 'configs/patient';
 
 const routingConfig: RoutingConfig = {
   global: {
@@ -58,34 +58,34 @@ const routingConfig: RoutingConfig = {
       preset: 'table',
 
       /** Redefine route config */
-      config: usersConfig,
+      config: patientsConfig,
 
       roles: [ROLE.SUPER_ADMIN, ROLE.DOCTOR, ROLE.DOCTOR],
 
       visible: true,
-      title: 'Пользователи',
+      title: 'Пациенты',
       icon: 'users',
 
       route: {
         /** In presets, you can redefine route params in this object */
-        name: 'users',
-        path: '/users',
+        name: 'patients',
+        path: '/patients',
         component: 'table',
       },
     },
 
     {
       preset: 'card',
-      config: userConfig,
+      config: patientConfig,
       roles: [ROLE.SUPER_ADMIN, ROLE.DOCTOR, ROLE.DOCTOR],
 
       visible: false,
-      title: 'Пользователь',
+      title: 'Пациент',
       icon: '',
 
       route: {
-        name: 'user',
-        path: '/users/:id',
+        name: 'patient',
+        path: '/patients/:id',
         component: 'card',
       },
     },

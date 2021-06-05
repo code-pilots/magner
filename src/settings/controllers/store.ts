@@ -2,8 +2,10 @@ import { InjectionKey } from 'vue';
 import { createStore, useStore as baseUseStore, Store } from 'vuex';
 import ROLE from 'configs/roles';
 import lstorage from 'settings/utils/local-storage';
+import { GlobalRouting } from 'settings/types/configs';
 
 interface State {
+  globalRoutes: GlobalRouting,
   token: string|null,
   user: any|null,
   role: ROLE|null,
@@ -31,6 +33,11 @@ export const store = createStore<State>({
    */
   state () {
     return {
+      globalRoutes: {
+        homeNoAuthName: '',
+        homeHasAuthName: '',
+      },
+
       token: lstorage.read(LSKeys.token) || null,
       user: null,
       role: null,
@@ -38,6 +45,10 @@ export const store = createStore<State>({
   },
 
   mutations: {
+    setGlobalRoutes (state, value: GlobalRouting) {
+      state.globalRoutes = value;
+    },
+
     setToken (state, value: string) {
       state.token = value;
       if (value) {
@@ -57,6 +68,9 @@ export const store = createStore<State>({
   },
 
   actions: {
+    changeGlobalRoutes (context, value: GlobalRouting) {
+      context.commit('setGlobalRoutes', value);
+    },
     changeToken (context, value: string) {
       context.commit('setToken', value);
     },
@@ -65,6 +79,11 @@ export const store = createStore<State>({
     },
     changeRole (context, value: ROLE | null) {
       context.commit('setRole', value);
+    },
+    logout (context) {
+      context.commit('setUser', null);
+      context.commit('setRole', null);
+      context.commit('setToken', null);
     },
   },
 });

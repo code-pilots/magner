@@ -12,5 +12,9 @@
     &_icon {
       padding: 0 6px;
     }
+
+    & .generic-form_error {
+      margin-bottom: 8px;
+    }
   }
 }

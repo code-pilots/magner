@@ -1,16 +1,20 @@
-import usersRequest from 'app/requests/users';
+import patientsRequest from 'app/requests/patients';
 import type { TableConfig } from 'settings/types/configs/table';
 
 /**
- * Since Users extend the 'table' route preset, it must extend TableConfig.
+ * Since Patients extend the 'table' route preset, it must extend TableConfig.
  * Read more about table configuration in app/configs/table.ts
  */
-const usersConfig: TableConfig = {
-  title: 'Пользователи',
-  request: usersRequest,
+const patientsConfig: TableConfig = {
+  title: 'Пациенты',
+  request: patientsRequest,
   dataField: 'users',
   submit: {
     text: 'Поиск',
+  },
+  linkToCreateNew: {
+    label: 'Создать',
+    routeName: 'patient',
   },
   filters: [
     {
@@ -103,4 +107,4 @@ const usersConfig: TableConfig = {
   ],
 };
 
-export default usersConfig;
+export default patientsConfig;

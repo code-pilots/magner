@@ -7,6 +7,7 @@ import {
 import type { PresetRoute, SimpleRoute } from 'settings/types/configs';
 import routingConfig from 'configs/routing';
 import checkAuth from 'settings/utils/check-auth';
+import { store } from 'settings/controllers/store';
 import allPresets from './presets';
 
 const simpleToPreset = (route: SimpleRoute): PresetRoute => ({
@@ -78,6 +79,8 @@ const routes: RouteRecordRaw[] = routingConfig.routes.map((route) => {
 
   return finalRoute;
 });
+
+store.dispatch('changeGlobalRoutes', routingConfig.global);
 
 const router = createRouter({
   history: createWebHistory(),

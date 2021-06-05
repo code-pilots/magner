@@ -2,10 +2,10 @@ import loginRequest from 'app/requests/login';
 import type { CardConfig } from 'settings/types/configs';
 
 /**
- * Real-life example of extending the CardConfig route in case of the user card
+ * Real-life example of extending the CardConfig route in case of the patient card
  */
-const userConfig: CardConfig = {
-  title: 'Пользователь',
+const patientConfig: CardConfig = {
+  title: 'Пациент',
   request: loginRequest,
   submit: {
     text: 'Сохранить',
@@ -41,4 +41,4 @@ const userConfig: CardConfig = {
   ],
 };
 
-export default userConfig;
+export default patientConfig;

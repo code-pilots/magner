@@ -8,6 +8,10 @@ export interface TableConfig {
   dataField: string,
   filters: GenericComponent[],
   submit: ButtonComponent,
+  linkToCreateNew?: {
+    label: string,
+    routeName: string,
+  }
   table: {
     prop: string,
     label?: string,

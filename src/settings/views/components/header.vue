@@ -24,7 +24,7 @@
 
           <template #dropdown>
             <el-dropdown-menu>
-              <el-dropdown-item>Log out</el-dropdown-item>
+              <el-dropdown-item @click="logout">Выйти</el-dropdown-item>
             </el-dropdown-menu>
           </template>
         </el-dropdown>
@@ -46,6 +46,8 @@
 import 'styles/components/header.css';
 import { defineComponent, ref } from 'vue';
 import SvgIcon from 'settings/views/components/icon.vue';
+import useStore from 'settings/controllers/store';
+import { useRouter } from 'vue-router';
 
 export default defineComponent({
   name: 'Header',
@@ -64,6 +66,9 @@ export default defineComponent({
   },
   emits: ['update:sidebar'],
   setup (props, context) {
+    const store = useStore();
+    const router = useRouter();
+
     const open = ref<boolean>(props.sidebar);
 
     const toggleOpen = () => {
@@ -72,9 +77,15 @@ export default defineComponent({
       context.emit('update:sidebar', newVal);
     };
 
+    const logout = () => {
+      store.dispatch('logout');
+      router.push({ name: store.state.globalRoutes.homeNoAuthName });
+    };
+
     return {
       open,
       toggleOpen,
+      logout,
     };
   },
 });

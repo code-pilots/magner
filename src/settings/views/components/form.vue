@@ -60,6 +60,14 @@
 
     <slot name="after" />
 
+    <el-alert
+      v-if="error"
+      :title="error"
+      :closable="false"
+      type="error"
+      class="generic-form_error"
+    />
+
     <el-button
       :loading="loading"
       :native-type="btn.nativeType || 'submit'"
@@ -102,6 +110,10 @@ export default defineComponent({
     btn: {
       type: Object as PropType<ButtonComponent>,
       required: true,
+    },
+    error: {
+      type: String,
+      default: '',
     },
   },
   emits: ['submit'],
