@@ -27,10 +27,6 @@ export default defineComponent({
       type: Object as PropType<LoginConfig>,
       required: true,
     },
-    globalRoutes: {
-      type: Object as PropType<GlobalRouting>,
-      required: true,
-    },
   },
   setup () {
     const loading = ref<boolean>(false);

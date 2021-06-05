@@ -8,7 +8,7 @@
     <Sidebar
       v-model:collapsed="sidebarCollapsed"
       :class="{open: sidebarOpen}"
-      :routing="routingConfig.routes"
+      :routing="routes"
       :active-route="activeRoute"
     />
 
@@ -26,7 +26,7 @@ import { computed, defineComponent, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import Header from 'settings/views/components/header.vue';
 import Sidebar from 'settings/views/components/sidebar.vue';
-import routingConfig from 'configs/routing';
+import useStore from 'settings/controllers/store/store';
 
 export default defineComponent({
   name: 'MainLayout',
@@ -36,17 +36,19 @@ export default defineComponent({
   },
   setup () {
     const route = useRoute();
+    const store = useStore();
 
     const sidebarCollapsed = ref<boolean>(false);
     const sidebarOpen = ref<boolean>(false);
 
-    const activeRoute = computed(() => routingConfig.routes.find((item) => item.route?.name === route.name) || null);
+    const routes = store.state.allRoutes;
+    const activeRoute = computed(() => routes.find((item) => item.route?.name === route.name) || null);
 
     return {
       sidebarCollapsed,
       sidebarOpen,
       activeRoute,
-      routingConfig,
+      routes,
     };
   },
 });

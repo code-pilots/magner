@@ -1,11 +1,13 @@
 import { InjectionKey } from 'vue';
 import { createStore, useStore as baseUseStore, Store } from 'vuex';
+import type { CustomRoute, GlobalRouting } from 'settings/types/configs';
 import ROLE from 'configs/roles';
 import lstorage from 'settings/utils/local-storage';
-import { GlobalRouting } from 'settings/types/configs';
 
 interface State {
   globalRoutes: GlobalRouting,
+  allRoutes: CustomRoute[],
+
   token: string|null,
   user: any|null,
   role: ROLE|null,
@@ -19,8 +21,9 @@ const LSKeys = {
  * A key that is needed to access the store in a form of useStore() hook in the
  * setup() function of every component.
  */
+export type InjectionKeyType = InjectionKey<Store<State>>;
 // eslint-disable-next-line symbol-description
-export const injectionKey: InjectionKey<Store<State>> = Symbol();
+export const injectionKey: InjectionKeyType = Symbol();
 
 /**
  * Global store with the state that is commonly used throughout many
@@ -37,6 +40,7 @@ export const store = createStore<State>({
         homeNoAuthName: '',
         homeHasAuthName: '',
       },
+      allRoutes: [],
 
       token: lstorage.read(LSKeys.token) || null,
       user: null,
@@ -47,6 +51,9 @@ export const store = createStore<State>({
   mutations: {
     setGlobalRoutes (state, value: GlobalRouting) {
       state.globalRoutes = value;
+    },
+    setAllRoutes (state, value: CustomRoute[]) {
+      state.allRoutes = value;
     },
 
     setToken (state, value: string) {
@@ -71,6 +78,10 @@ export const store = createStore<State>({
     changeGlobalRoutes (context, value: GlobalRouting) {
       context.commit('setGlobalRoutes', value);
     },
+    changeAllRoutes (context, value: CustomRoute[]) {
+      context.commit('setAllRoutes', value);
+    },
+
     changeToken (context, value: string) {
       context.commit('setToken', value);
     },

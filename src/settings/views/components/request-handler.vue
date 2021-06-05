@@ -8,7 +8,7 @@ import {
 } from 'vue';
 import { useRouter } from 'vue-router';
 import { RequestFunc } from 'settings/types/utils';
-import useStore from 'settings/controllers/store';
+import useStore from 'settings/controllers/store/store';
 
 export default defineComponent({
   name: 'RequestHandler',

@@ -1,4 +1,4 @@
-import type { StoreType } from 'settings/controllers/store';
+import type { StoreType } from 'settings/controllers/store/store';
 import type { Router } from 'vue-router';
 import type { GlobalRouting } from 'settings/types/configs';
 

@@ -1,9 +1,9 @@
-import type { RoutingConfig } from 'settings/types/configs';
+import { routerController } from 'settings/controllers';
 import ROLE from 'configs/roles';
 import patientsConfig from 'configs/patients';
 import patientConfig from 'configs/patient';
 
-const routingConfig: RoutingConfig = {
+const router = routerController({
   global: {
     homeNoAuthName: 'login',
     homeHasAuthName: 'dashboard',
@@ -101,6 +101,6 @@ const routingConfig: RoutingConfig = {
       visible: false,
     },
   ],
-};
+});
 
-export default routingConfig;
+export default router;

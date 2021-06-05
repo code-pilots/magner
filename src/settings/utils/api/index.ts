@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import projectConfig from 'configs/project';
-import { store } from 'settings/controllers/store';
+import { store } from 'settings/controllers/store/store';
 import ApiError from './api-error';
 
 /**

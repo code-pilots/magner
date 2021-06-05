@@ -1,8 +1,7 @@
-import { store } from 'settings/controllers/store';
-import routingConfig from 'configs/routing';
+import { store } from 'settings/controllers/store/store';
 import profileRequest from 'app/requests/profile';
 
-const globalRoutes = routingConfig.global;
+const globalRoutes = store.state.globalRoutes;
 
 /**
  * Navigation guard that checks if you can enter a protected route.

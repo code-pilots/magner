@@ -29,7 +29,7 @@ import {
 } from 'vue';
 import type { LoginConfig } from 'settings/types/configs';
 import GenericForm from 'settings/views/components/form.vue';
-import useStore from 'settings/controllers/store';
+import useStore from 'settings/controllers/store/store';
 import { useRouter } from 'vue-router';
 
 export default defineComponent({

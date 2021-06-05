@@ -1,9 +1,10 @@
 import { createApp } from 'vue';
 import ElementPlus from 'element-plus';
 
+import type { StoreController } from 'settings/controllers/store';
+import type { RouterController } from 'settings/controllers/router';
+
 import App from 'settings/views/app.vue';
-import router from 'settings/controllers/router';
-import { store, injectionKey } from 'settings/controllers/store';
 import SvgIcon from 'settings/views/components/icon.vue';
 
 /**
@@ -16,14 +17,12 @@ import 'styles/breakpoints.css';
 import 'styles/ui.css';
 import 'styles/typography.css';
 
-const mainController = () => {
+export const mainController = (router: RouterController, store: StoreController) => {
   /** Register Vue 3 application with router, store, Element and useful directives. */
   createApp(App)
     .use(ElementPlus)
     .component('SvgIcon', SvgIcon)
+    .use(...store)
     .use(router)
-    .use(store, injectionKey)
     .mount('#app');
 };
-
-export default mainController;
