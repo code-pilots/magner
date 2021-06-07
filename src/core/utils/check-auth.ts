@@ -1,5 +1,5 @@
-import { store } from '../controllers/store/store';
 import profileRequest from 'app/requests/profile';
+import { store } from '../controllers/store/store';
 
 /**
  * Navigation guard that checks if you can enter a protected route.

@@ -1,4 +1,4 @@
-import { initMagner } from './core/controllers';
+import { initMagner } from 'core/controllers';
 
 import store from 'configs/store';
 import router from 'configs/routing';

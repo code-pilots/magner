@@ -72,9 +72,9 @@ import {
   defineComponent,
   PropType, reactive, ref,
 } from 'vue';
-import type { TableConfig, GlobalRouting } from '../../types/configs';
-import Dynamic from '../../views/components/dynamic.vue';
-import GenericForm from '../../views/components/form.vue';
+import type { TableConfig } from 'core/types/configs';
+import Dynamic from '../components/dynamic.vue';
+import GenericForm from '../components/form.vue';
 
 export default defineComponent({
   name: 'TablePage',
@@ -104,8 +104,8 @@ export default defineComponent({
       },
     });
 
-    const filterItems = (form) => {
-      console.log(form);
+    const filterItems = () => {
+      // console.log(form);
     };
 
     return {

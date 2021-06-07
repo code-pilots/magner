@@ -38,18 +38,17 @@ export const validators: Record<SupportedValidators, ValidatorFunc> = {
   },
 };
 
-const setupValidators = (fields: GenericComponent[]): Record<string, ValidationField> => {
-  return fields.reduce((accum, field) => {
-    if (!field.validation) return accum;
+type SetupFunc = (fields: GenericComponent[]) => Record<string, ValidationField>;
+const setupValidators: SetupFunc = (fields) => fields.reduce((accum, field) => {
+  if (!field.validation) return accum;
 
-    accum[field.backendName || field.name] = {
-      type: field.dataType || 'string',
-      validator: validators[field.validation.type],
-      trigger: field.validation.trigger,
-    };
+  accum[field.backendName || field.name] = {
+    type: field.dataType || 'string',
+    validator: validators[field.validation.type],
+    trigger: field.validation.trigger,
+  };
 
-    return accum;
-  }, {} as Record<string, ValidationField>);
-};
+  return accum;
+}, {} as Record<string, ValidationField>);
 
 export default setupValidators;

@@ -1,5 +1,5 @@
-import type { StoreType } from '../controllers/store/store';
 import type { Router } from 'vue-router';
+import type { StoreType } from '../controllers/store/store';
 import type { GlobalRouting } from '../types/configs';
 
 /** A proxy that accepts anything and returns something different */

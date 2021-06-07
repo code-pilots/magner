@@ -24,8 +24,8 @@
 import 'styles/layouts/main.css';
 import { computed, defineComponent, ref } from 'vue';
 import { useRoute } from 'vue-router';
-import Header from '../../views/components/header.vue';
-import Sidebar from '../../views/components/sidebar.vue';
+import Header from '../components/header.vue';
+import Sidebar from '../components/sidebar.vue';
 import useStore from '../../controllers/store/store';
 
 export default defineComponent({

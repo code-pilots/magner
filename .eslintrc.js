@@ -52,7 +52,7 @@ module.exports = {
     'no-underscore-dangle': 0,
     'no-console': ['error', { allow: ['warn', 'error'] }],
     'no-trailing-spaces': 0,
-    'no-unused-vars': 1,
+    'no-unused-vars': 0,
     'vue/prop-name-casing': 0,
     'vue/valid-v-model': 0,
     'lines-between-class-members': 0,

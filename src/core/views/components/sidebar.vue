@@ -48,9 +48,9 @@
 <script lang="ts">
 import 'styles/components/sidebar.css';
 import { defineComponent, PropType, ref } from 'vue';
-import SvgIcon from '../../views/components/icon.vue';
-import { CustomRoute } from '../../types/configs';
 import { useRouter } from 'vue-router';
+import SvgIcon from './icon.vue';
+import { CustomRoute } from '../../types/configs';
 
 export default defineComponent({
   name: 'Sidebar',

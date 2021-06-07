@@ -1,4 +1,4 @@
-import { routerController } from '../core/controllers';
+import { routerController } from 'core/controllers';
 import ROLE from 'configs/roles';
 import patientsConfig from 'configs/pages/patients';
 import patientConfig from 'configs/pages/patient';

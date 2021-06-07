@@ -1,7 +1,7 @@
 import { InjectionKey } from 'vue';
 import { createStore, useStore as baseUseStore, Store } from 'vuex';
-import type { CustomRoute, GlobalRouting, ProjectConfig } from '../../types/configs';
 import ROLE from 'configs/roles';
+import type { CustomRoute, GlobalRouting, ProjectConfig } from '../../types/configs';
 import lstorage from '../../utils/local-storage';
 
 interface State {

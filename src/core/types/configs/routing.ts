@@ -3,8 +3,8 @@ import {
   RouteComponent,
   RouteRecordRedirectOption,
 } from 'vue-router';
-import { LoginConfig } from '../../types/configs/login';
 import ROLE from 'configs/roles';
+import { LoginConfig } from '../../types/configs/login';
 import { TableConfig } from '../../types/configs/table';
 import { CardConfig } from '../../types/configs/card';
 

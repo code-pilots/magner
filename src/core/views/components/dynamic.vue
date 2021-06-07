@@ -19,7 +19,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
 import { RequestFunc } from '../../types/utils';
-import RequestHandler from '../../views/components/request-handler.vue';
+import RequestHandler from './request-handler.vue';
 
 export default defineComponent({
   name: 'Dynamic',

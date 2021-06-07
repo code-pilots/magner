@@ -45,9 +45,9 @@
 <script lang="ts">
 import 'styles/components/header.css';
 import { defineComponent, ref } from 'vue';
-import SvgIcon from '../../views/components/icon.vue';
-import useStore from '../../controllers/store/store';
 import { useRouter } from 'vue-router';
+import SvgIcon from './icon.vue';
+import useStore from '../../controllers/store/store';
 
 export default defineComponent({
   name: 'Header',

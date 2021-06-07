@@ -6,7 +6,10 @@ import envs from '../../envs';
  */
 const getLsObject = (): Record<string, any> => {
   if (!envs.LOCAL_STORAGE_KEY) {
-    throw new Error('Please, set the LOCAL_STORAGE_KEY in the "envs.ts" file! It is required for saving persistent data.');
+    throw new Error(`
+    Please, set the LOCAL_STORAGE_KEY in the "envs.ts" file! 
+    It is required for saving persistent data.
+    `);
   }
 
   const ls = localStorage.getItem(envs.LOCAL_STORAGE_KEY);

@@ -16,8 +16,8 @@
 <script lang="ts">
 import 'styles/pages/card.css';
 import { defineComponent, PropType, ref } from 'vue';
-import type { GlobalRouting, LoginConfig } from '../../types/configs';
-import GenericForm from '../../views/components/form.vue';
+import type { LoginConfig } from 'core/types/configs';
+import GenericForm from '../components/form.vue';
 
 export default defineComponent({
   name: 'CardPage',

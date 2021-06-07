@@ -1,5 +1,5 @@
-import api from '../../core/utils/api';
 import dataToProxy, { Response } from 'app/proxies/login';
+import api from '../../core/utils/api';
 import type { RequestFunc } from '../../core/types/utils';
 
 const loginRequest: RequestFunc<true> = async ({
