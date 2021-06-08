@@ -1,5 +1,5 @@
-import type { SupportedValidators } from '../../utils/validators';
-import type { SupportedDataTypes } from '../../utils/form';
+import type { SupportedValidators } from 'core/utils/validators';
+import type { SupportedDataTypes } from 'core/utils/form';
 
 export type SupportedComponentTypes = 'input'|'textarea'|'checkbox'|'radio'|'select';
 
@@ -22,6 +22,10 @@ export interface BaseField {
 
   /** The name used to be sent or received from backend. If no 'backendName' specified, just 'name' is used */
   backendName?: string|null,
+
+  /** A label to be displayed next to the field component */
+  label?: string,
+  labelWidth?: string,
 
   /** Any attributes passed to the base HTML-tag */
   component: BaseComponent,

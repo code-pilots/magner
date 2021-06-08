@@ -8,13 +8,5 @@
       margin-bottom: 20px;
       text-align: center;
     }
-
-    &_icon {
-      padding: 0 6px;
-    }
-
-    & .generic-form_error {
-      margin-bottom: 8px;
-    }
   }
 }

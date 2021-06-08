@@ -1,12 +1,13 @@
 import type { Router } from 'vue-router';
-import type { StoreType } from '../controllers/store/store';
-import type { GlobalRouting } from '../types/configs';
+import type { StoreType } from 'core/controllers/store/store';
+import type { GlobalRouting } from 'core/types/configs';
+import type { ApiError } from 'app/utils/parse-error';
 
 /** A proxy that accepts anything and returns something different */
 export type ProxyFunc<T = any, U = any> = (data: T) => U;
 
 interface ErrorResponse {
-  error: string,
+  error: string | ApiError,
   data: null,
 }
 

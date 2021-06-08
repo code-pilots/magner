@@ -3,16 +3,20 @@
     ref="formEl"
     :model="form"
     :rules="validation"
+    :label-position="'top'"
     class="generic-form"
     @submit.prevent="submit"
   >
     <slot />
 
     <el-form-item
-      v-for="(field, i) in fields"
+      v-for="field in fields"
       :key="field.name"
       :prop="field.backendName || field.name"
       :required="!!field.required"
+      :label="field.label || undefined"
+      :label-width="field.label ? (isMobile ? null : '100px') : '0'"
+      :error="fieldErrors[field.backendName || field.name]"
       class="generic-form_item"
     >
       <el-input
@@ -20,10 +24,9 @@
         v-model="form[field.backendName || field.name]"
         :placeholder="field.component.placeholder"
         :type="field.component.type"
-        :tabindex="i.toString()"
       >
         <template v-if="field.component.icon" #prefix>
-          <div class="login-page_form_icon">
+          <div class="generic-form_icon">
             <svg-icon :name="field.component.icon" size="sm" />
           </div>
         </template>
@@ -80,17 +83,17 @@
 </template>
 
 <script lang="ts">
-import 'styles/pages/login.css';
+import 'styles/components/generic-form.css';
 import {
   defineComponent,
   reactive,
   ref,
   PropType,
 } from 'vue';
-import type { GenericComponent } from '../../types/components';
-import type { ButtonComponent } from '../../types/components/button';
+import type { GenericComponent } from 'core/types/components';
+import type { ButtonComponent } from 'core/types/components/button';
+import { fieldsToModels } from 'core/utils/form';
 import setupValidators from '../../utils/validators';
-import { fieldsToModels } from '../../utils/form';
 
 interface FormValidator extends HTMLFormElement {
   validate: Function,
@@ -115,6 +118,10 @@ export default defineComponent({
       type: String,
       default: '',
     },
+    fieldErrors: {
+      type: Object,
+      default: () => ({}),
+    },
   },
   emits: ['submit'],
   setup (props, context) {
@@ -136,6 +143,7 @@ export default defineComponent({
       form,
       validation,
       formEl,
+      isMobile: window.matchMedia('(max-width: 767px)').matches,
       submit,
     };
   },

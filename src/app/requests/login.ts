@@ -1,6 +1,6 @@
 import dataToProxy, { Response } from 'app/proxies/login';
-import api from '../../core/utils/api';
-import type { RequestFunc } from '../../core/types/utils';
+import type { RequestFunc } from 'core/types/utils';
+import api from 'core/utils/api';
 
 const loginRequest: RequestFunc<true> = async ({
   data, store, router, globalRoutes,

@@ -28,9 +28,9 @@ import {
   PropType,
 } from 'vue';
 import { useRouter } from 'vue-router';
-import type { LoginConfig } from '../../types/configs';
+import type { LoginConfig } from 'core/types/configs';
+import useStore from 'core/controllers/store/store';
 import GenericForm from '../components/form.vue';
-import useStore from '../../controllers/store/store';
 
 export default defineComponent({
   name: 'LoginPage',

@@ -1,7 +1,7 @@
 import dataToProxy, { Response, Proxy } from 'app/proxies/patients';
 import dataToUrl from 'app/proxies/get-request';
-import api from '../../core/utils/api';
-import type { RequestFunc } from '../../core/types/utils';
+import type { RequestFunc } from 'core/types/utils';
+import api from 'core/utils/api';
 
 const patientsRequest: RequestFunc<Proxy> = async ({ data }: { data: { page: number, items: number }}) => {
   try {

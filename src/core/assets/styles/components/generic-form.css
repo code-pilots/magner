@@ -1,0 +1,20 @@
+.generic-form {
+    & .el-form-item {
+        &__label {
+            padding: 0;
+            line-height: 30px;
+        }
+    }
+
+    & .el-select {
+        width: 100%;
+    }
+
+    &_icon {
+        padding: 0 6px;
+    }
+
+    &_error {
+        margin-bottom: 8px;
+    }
+}
