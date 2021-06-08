@@ -19,18 +19,11 @@
       :error="fieldErrors[field.backendName || field.name]"
       class="generic-form_item"
     >
-      <el-input
+      <FormInput
         v-if="field.type === 'input'"
         v-model="form[field.backendName || field.name]"
-        :placeholder="field.component.placeholder"
-        :type="field.component.type"
-      >
-        <template v-if="field.component.icon" #prefix>
-          <div class="generic-form_icon">
-            <svg-icon :name="field.component.icon" size="sm" />
-          </div>
-        </template>
-      </el-input>
+        :field="field"
+      />
 
       <el-select
         v-if="field.type === 'select'"
@@ -93,7 +86,8 @@ import {
 import type { GenericComponent } from 'core/types/components';
 import type { ButtonComponent } from 'core/types/components/button';
 import { fieldsToModels } from 'core/utils/form';
-import setupValidators from '../../utils/validators';
+import FormInput from 'core/views/components/form-input.vue';
+import setupValidators from 'core/utils/validators';
 
 interface FormValidator extends HTMLFormElement {
   validate: Function,
@@ -101,6 +95,7 @@ interface FormValidator extends HTMLFormElement {
 
 export default defineComponent({
   name: 'GenericForm',
+  components: { FormInput },
   props: {
     loading: {
       type: Boolean,

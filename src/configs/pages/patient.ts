@@ -75,6 +75,9 @@ const patientConfig: CardConfig = {
       component: {
         type: 'tel',
         placeholder: '+7-915-820-14-02',
+        mask: {
+          mask: '+7-###-###-##-##',
+        },
       },
     },
     {
@@ -84,6 +87,9 @@ const patientConfig: CardConfig = {
       component: {
         type: 'text',
         placeholder: '1984-12-21',
+        mask: {
+          mask: '####-##-##',
+        },
       },
       validation: {
         type: 'empty',
