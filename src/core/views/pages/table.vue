@@ -38,9 +38,9 @@
               label="Operations"
               width="100"
             >
-              <template #default="scope">
+              <template #default>
                 <el-button type="text" size="small">
-                  Edit {{ scope.$index }}
+                  Изменить
                 </el-button>
               </template>
             </el-table-column>

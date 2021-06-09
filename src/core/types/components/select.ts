@@ -1,5 +1,5 @@
-import type { BaseComponent, BaseField } from '../../types/components/base';
-import type { RequestFunc } from '../../types/utils';
+import type { BaseComponent, BaseField } from 'core/types/components/base';
+import type { RequestFunc } from 'core/types/utils';
 
 /**
  * Props of the Select component from element-ui:

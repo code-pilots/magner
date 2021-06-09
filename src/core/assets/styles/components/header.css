@@ -15,6 +15,8 @@
 
     & h1 {
       font-size: 24px;
+      opacity: 1;
+      transition: opacity .3s step-end;
     }
 
     @media (--breakpoint-small) {

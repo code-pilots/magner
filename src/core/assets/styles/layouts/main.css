@@ -23,7 +23,8 @@
       &_logo {
         width: 64px;
         & h1 {
-          display: none;
+          opacity: 0;
+          transition: opacity .3s step-start;
         }
       }
     }

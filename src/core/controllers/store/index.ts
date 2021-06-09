@@ -1,6 +1,6 @@
 import {
   store, injectionKey, StoreType, InjectionKeyType,
-} from '../../controllers/store/store';
+} from 'core/controllers/store/store';
 
 export type StoreController = [StoreType, InjectionKeyType];
 

@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <div class="header_logo">
-      <h1>Artebido</h1>
+      <h1>{{ projectName }}</h1>
     </div>
 
     <nav class="header_nav">
@@ -70,6 +70,7 @@ export default defineComponent({
     const router = useRouter();
 
     const open = ref<boolean>(props.sidebar);
+    const projectName = store.state.project.name;
 
     const toggleOpen = () => {
       const newVal = !open.value;
@@ -84,6 +85,7 @@ export default defineComponent({
 
     return {
       open,
+      projectName,
       toggleOpen,
       logout,
     };

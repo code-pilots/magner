@@ -6,7 +6,6 @@
     />
 
     <Sidebar
-      v-model:collapsed="sidebarCollapsed"
       :class="{open: sidebarOpen}"
       :routing="routes"
       :active-route="activeRoute"
@@ -38,8 +37,8 @@ export default defineComponent({
     const route = useRoute();
     const store = useStore();
 
-    const sidebarCollapsed = ref<boolean>(false);
     const sidebarOpen = ref<boolean>(false);
+    const sidebarCollapsed = computed<boolean>(() => store.state.sidebarCollapsed);
 
     const routes = store.state.allRoutes;
     const activeRoute = computed(() => routes.find((item) => item.route?.name === route.name) || null);

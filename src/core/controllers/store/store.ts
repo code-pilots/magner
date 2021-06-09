@@ -13,10 +13,13 @@ interface State {
   token: string|null,
   user: any|null,
   role: ROLE|null,
+
+  sidebarCollapsed: boolean,
 }
 
 const LSKeys = {
   token: 'token',
+  sidebar: 'sidebarCollapsed',
 };
 
 /**
@@ -48,6 +51,8 @@ export const store = createStore<State>({
       token: lstorage.read(LSKeys.token) || null,
       user: null,
       role: null,
+
+      sidebarCollapsed: lstorage.read(LSKeys.sidebar) || false,
     };
   },
 
@@ -78,6 +83,15 @@ export const store = createStore<State>({
     setRole (state, value: ROLE | null) {
       state.role = value;
     },
+
+    setSidebar (state, value: boolean) {
+      state.sidebarCollapsed = value;
+      if (value) {
+        lstorage.put(LSKeys.sidebar, value);
+      } else {
+        lstorage.delete(LSKeys.sidebar);
+      }
+    },
   },
 
   actions: {
@@ -104,6 +118,10 @@ export const store = createStore<State>({
       context.commit('setUser', null);
       context.commit('setRole', null);
       context.commit('setToken', null);
+    },
+
+    toggleSidebar (context) {
+      context.commit('setSidebar', !context.state.sidebarCollapsed);
     },
   },
 });

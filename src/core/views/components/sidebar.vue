@@ -47,19 +47,16 @@
 
 <script lang="ts">
 import 'styles/components/sidebar.css';
-import { defineComponent, PropType, ref } from 'vue';
+import { computed, defineComponent, PropType } from 'vue';
 import { useRouter } from 'vue-router';
+import { CustomRoute } from 'core/types/configs';
+import useStore from 'core/controllers/store/store';
 import SvgIcon from './icon.vue';
-import { CustomRoute } from '../../types/configs';
 
 export default defineComponent({
   name: 'Sidebar',
   components: { SvgIcon },
   props: {
-    collapsed: {
-      type: Boolean,
-      default: false,
-    },
     routing: {
       type: Array as PropType<CustomRoute[]>,
       required: true,
@@ -69,16 +66,14 @@ export default defineComponent({
       default: null,
     },
   },
-  emits: ['update:collapsed'],
-  setup (props, context) {
+  setup () {
     const router = useRouter();
+    const store = useStore();
 
-    const isCollapsed = ref<boolean>(props.collapsed);
+    const isCollapsed = computed<boolean>(() => store.state.sidebarCollapsed);
 
     const toggleCollapse = () => {
-      const newVal = !isCollapsed.value;
-      isCollapsed.value = newVal;
-      context.emit('update:collapsed', newVal);
+      store.dispatch('toggleSidebar');
     };
 
     const navigate = (route: string) => {
