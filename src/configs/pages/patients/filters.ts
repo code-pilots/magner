@@ -1,25 +1,16 @@
-import patientsRequest from 'app/requests/patients';
-import type { TableConfig } from 'core/types/configs';
+import { filtersFormController } from 'core/controllers';
 
-/**
- * Since Patients extend the 'table' route preset, it must extend TableConfig.
- * Read more about table configuration in app/configs/table.ts
- */
-const patientsConfig: TableConfig = {
-  title: 'Пациенты',
-
-  request: patientsRequest,
-  dataField: 'users',
-
-  submit: {
-    text: 'Поиск',
-  },
+const patientsFilters = filtersFormController({
   linkToCreateNew: {
     label: 'Создать',
     routeName: 'patient',
   },
 
-  filters: [
+  submit: {
+    text: 'Поиск',
+  },
+
+  fields: [
     {
       type: 'input',
       name: 'fullName',
@@ -66,49 +57,6 @@ const patientsConfig: TableConfig = {
       },
     },
   ],
+});
 
-  table: [
-    {
-      prop: 'id',
-      label: 'ID',
-      width: 80,
-    },
-    {
-      prop: 'fullName',
-      label: 'Полное имя',
-      width: 300,
-    },
-    {
-      prop: 'gender',
-      label: 'Пол',
-      width: 80,
-    },
-    {
-      prop: 'email',
-      label: 'Е-мейл',
-      width: 200,
-    },
-    {
-      prop: 'address',
-      label: 'Адрес',
-      width: 300,
-    },
-    {
-      prop: 'apartment',
-      label: 'Апартаменты',
-      width: 150,
-    },
-    {
-      prop: 'lat',
-      label: 'Широта',
-      width: 100,
-    },
-    {
-      prop: 'long',
-      label: 'Долгота',
-      width: 100,
-    },
-  ],
-};
-
-export default patientsConfig;
+export default patientsFilters;

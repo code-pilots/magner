@@ -1,44 +1,46 @@
 import loginRequest from 'app/requests/login';
-import { LoginConfig } from 'core/types/configs';
+import { loginPageController } from 'core/controllers';
 
-const loginConfig: LoginConfig = {
+const loginPageConfig = loginPageController({
   title: 'Вход',
-  submit: {
-    text: 'Войти',
-  },
   request: loginRequest,
-  fields: [
-    {
-      type: 'input',
-      name: 'email',
-      backendName: 'login',
-      required: false,
-      validation: {
-        type: 'empty',
-        trigger: 'blur',
-      },
-      component: {
-        type: 'text',
-        placeholder: 'Е-мейл',
-        icon: 'mail',
-      },
+  form: {
+    submit: {
+      text: 'Войти',
     },
-    {
-      type: 'input',
-      name: 'password',
-      backendName: null,
-      required: false,
-      validation: {
-        type: 'password',
-        trigger: 'blur',
+    fields: [
+      {
+        type: 'input',
+        name: 'email',
+        backendName: 'login',
+        required: false,
+        validation: {
+          type: 'empty',
+          trigger: 'blur',
+        },
+        component: {
+          type: 'text',
+          placeholder: 'Е-мейл',
+          icon: 'mail',
+        },
       },
-      component: {
-        type: 'password',
-        placeholder: 'Пароль',
-        icon: 'lock',
+      {
+        type: 'input',
+        name: 'password',
+        backendName: null,
+        required: false,
+        validation: {
+          type: 'password',
+          trigger: 'blur',
+        },
+        component: {
+          type: 'password',
+          placeholder: 'Пароль',
+          icon: 'lock',
+        },
       },
-    },
-  ],
-};
+    ],
+  },
+});
 
-export default loginConfig;
+export default loginPageConfig;

@@ -1,12 +1,6 @@
-import type { CardConfig } from 'core/types/configs';
-import patientRequest from 'app/requests/patient';
+import { formController } from 'core/controllers';
 
-/**
- * Real-life example of extending the CardConfig route in case of the patient card
- */
-const patientConfig: CardConfig = {
-  title: 'Пациент',
-  request: patientRequest,
+const patientForm = formController({
   submit: {
     text: 'Сохранить',
   },
@@ -178,6 +172,6 @@ const patientConfig: CardConfig = {
       validation: null,
     },
   ],
-};
+});
 
-export default patientConfig;
+export default patientForm;

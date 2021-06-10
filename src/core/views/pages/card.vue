@@ -1,8 +1,7 @@
 <template>
   <section class="card-page">
     <GenericForm
-      :fields="config.fields"
-      :btn="config.submit"
+      :config="config.form"
       :loading="loading"
       :error="error"
       :field-errors="fieldErrors"

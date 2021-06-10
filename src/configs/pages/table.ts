@@ -1,18 +1,21 @@
 import loginRequest from 'app/requests/login';
-import type { TableConfig } from 'core/types/configs';
+import { tablePageController } from 'core/controllers';
 
 /**
  * Configuration for the 'table' route preset.
  */
-const tableConfig: TableConfig = {
+export default tablePageController({
   title: 'Таблица',
   request: loginRequest,
   dataField: '',
-  submit: {
-    text: 'Войти',
-  },
-  filters: [],
-  table: [],
-};
 
-export default tableConfig;
+  filters: {
+    fields: [],
+    submit: {
+      text: 'Войти',
+    },
+  },
+  table: {
+    rows: [],
+  },
+});

@@ -1,16 +1,16 @@
 import loginRequest from 'app/requests/login';
-import type { CardConfig } from 'core/types/configs';
+import { cardPageController } from 'core/controllers';
 
 /**
  * Configuration for the 'card' route preset.
  */
-const cardConfig: CardConfig = {
+export default cardPageController({
   title: 'Карточка',
   request: loginRequest,
-  fields: [],
-  submit: {
-    text: 'Подтвердить',
+  form: {
+    submit: {
+      text: 'Подтвердить',
+    },
+    fields: [],
   },
-};
-
-export default cardConfig;
+});

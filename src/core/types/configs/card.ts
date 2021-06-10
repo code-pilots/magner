@@ -1,10 +1,8 @@
 import type { RequestFunc } from 'core/types/utils';
-import type { GenericComponent } from 'core/types/components';
-import type { ButtonComponent } from 'core/types/components/button';
+import type { GenericForm } from 'core/types/form';
 
 export interface CardConfig {
   title: string,
   request: RequestFunc,
-  fields: GenericComponent[],
-  submit: ButtonComponent,
+  form: GenericForm,
 }

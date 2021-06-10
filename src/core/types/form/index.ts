@@ -3,6 +3,7 @@ import type { TextareaField } from './textarea';
 import type { CheckboxField } from './checkbox';
 import type { RadioField } from './radio';
 import type { SelectField } from './select';
+import type { ButtonComponent } from './button';
 
 /**
  * The type of a field used in the forms. Defined by its required 'type' which
@@ -14,3 +15,8 @@ export type GenericComponent =
   | CheckboxField
   | RadioField
   | SelectField;
+
+export interface GenericForm {
+  fields: GenericComponent[],
+  submit: ButtonComponent,
+}

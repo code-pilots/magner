@@ -1,4 +1,4 @@
-import type { BaseComponent, BaseField } from 'core/types/components/base';
+import type { BaseComponent, BaseField } from 'core/types/form/base';
 import type { RequestFunc } from 'core/types/utils';
 
 /**

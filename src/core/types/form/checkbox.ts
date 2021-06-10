@@ -1,4 +1,4 @@
-import { BaseComponent, BaseField } from 'core/types/components/base';
+import { BaseComponent, BaseField } from 'core/types/form/base';
 
 export interface CheckboxComponent extends BaseComponent {
   id?: string,

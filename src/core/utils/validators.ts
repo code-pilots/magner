@@ -1,4 +1,4 @@
-import type { GenericComponent } from 'core/types/components';
+import type { GenericComponent } from 'core/types/form';
 import type { SupportedDataTypes } from 'core/utils/form';
 
 export type SupportedValidators = 'password'|'email'|'empty';

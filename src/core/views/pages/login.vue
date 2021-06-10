@@ -5,8 +5,7 @@
   >
     <el-col :xs="22" :sm="12" :lg="8">
       <GenericForm
-        :fields="config.fields"
-        :btn="config.submit"
+        :config="config.form"
         :loading="loading"
         :error="error"
         class="login-page_form"

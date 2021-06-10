@@ -2,8 +2,7 @@
   <section class="table-page">
     <div class="table-page_top">
       <GenericForm
-        :fields="config.filters"
-        :btn="config.submit"
+        :config="config.filters"
         :loading="false"
         class="table-page_top_filters"
         @submit="filterItems"
@@ -14,11 +13,11 @@
       </GenericForm>
 
       <router-link
-        v-if="config.linkToCreateNew"
-        :to="{name: config.linkToCreateNew.routeName, params: { id: 'new' }}"
+        v-if="config.filters.linkToCreateNew"
+        :to="{name: config.filters.linkToCreateNew.routeName, params: { id: 'new' }}"
         class="table-page_top_create"
       >
-        <el-button native-type="button" type="primary">{{ config.linkToCreateNew.label }}</el-button>
+        <el-button native-type="button" type="primary">{{ config.filters.linkToCreateNew.label }}</el-button>
       </router-link>
     </div>
 
@@ -27,7 +26,7 @@
         <div v-loading="loading" class="table-page_table">
           <el-table :data="response[config.dataField]">
             <el-table-column
-              v-for="row in config.table"
+              v-for="row in config.table.rows"
               :key="row.prop"
               :prop="row.prop"
               :label="row.label"

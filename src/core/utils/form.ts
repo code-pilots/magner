@@ -1,4 +1,4 @@
-import type { GenericComponent } from 'core/types/components';
+import type { GenericComponent } from 'core/types/form';
 
 export type SupportedDataTypes = 'string'|'number'|'array'|'object'|'boolean';
 export type DataTypeInitials = '' | null | [] | {} | false;

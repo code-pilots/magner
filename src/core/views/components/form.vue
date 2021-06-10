@@ -10,7 +10,7 @@
     <slot />
 
     <el-form-item
-      v-for="field in fields"
+      v-for="field in config.fields"
       :key="field.name"
       :prop="field.backendName || field.name"
       :required="!!field.required"
@@ -66,11 +66,11 @@
 
     <el-button
       :loading="loading"
-      :native-type="btn.nativeType || 'submit'"
-      :type="btn.type || 'primary'"
-      :class="['generic-form_submit', 'width-full', btn.class || '']"
+      :native-type="config.submit.nativeType || 'submit'"
+      :type="config.submit.type || 'primary'"
+      :class="['generic-form_submit', 'width-full', config.submit.class || '']"
     >
-      {{ btn.text }}
+      {{ config.submit.text }}
     </el-button>
   </el-form>
 </template>
@@ -83,8 +83,7 @@ import {
   ref,
   PropType,
 } from 'vue';
-import type { GenericComponent } from 'core/types/components';
-import type { ButtonComponent } from 'core/types/components/button';
+import type { GenericForm } from 'core/types/form';
 import { fieldsToModels } from 'core/utils/form';
 import FormInput from 'core/views/components/form-input.vue';
 import setupValidators from 'core/utils/validators';
@@ -101,12 +100,8 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
-    fields: {
-      type: Array as PropType<GenericComponent[]>,
-      default: () => ([]),
-    },
-    btn: {
-      type: Object as PropType<ButtonComponent>,
+    config: {
+      type: Object as PropType<GenericForm>,
       required: true,
     },
     error: {
@@ -120,8 +115,8 @@ export default defineComponent({
   },
   emits: ['submit'],
   setup (props, context) {
-    const form = reactive(fieldsToModels(props.fields));
-    const validation = setupValidators(props.fields);
+    const form = reactive(fieldsToModels(props.config.fields));
+    const validation = setupValidators(props.config.fields);
 
     const formEl = ref<HTMLFormElement>();
 

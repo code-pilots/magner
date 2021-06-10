@@ -1,3 +1,5 @@
+export * from './pages';
+export * from './components';
 export * from './main';
 export * from './router';
 export * from './store';
