@@ -23,9 +23,9 @@
 import 'styles/layouts/main.css';
 import { computed, defineComponent, ref } from 'vue';
 import { useRoute } from 'vue-router';
+import useStore from 'core/controllers/store/store';
 import Header from '../components/header.vue';
 import Sidebar from '../components/sidebar.vue';
-import useStore from '../../controllers/store/store';
 
 export default defineComponent({
   name: 'MainLayout',

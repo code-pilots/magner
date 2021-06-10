@@ -1,7 +1,7 @@
 import type { RouteComponent, RouteRecordRaw } from 'vue-router';
-import type { RoutingConfig, PresetRoute, SimpleRoute } from '../../types/configs';
-import allPresets from '../../controllers/router/presets';
-import checkAuth from '../../utils/check-auth';
+import type { RoutingConfig, PresetRoute, SimpleRoute } from 'core/types/configs';
+import allPresets from 'core/controllers/router/presets';
+import checkAuth from 'core/utils/check-auth';
 
 const simpleToPreset = (route: SimpleRoute): PresetRoute => ({
   ...route,

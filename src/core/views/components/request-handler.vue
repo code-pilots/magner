@@ -7,8 +7,8 @@ import {
   defineComponent, PropType, ref, watchEffect,
 } from 'vue';
 import { useRouter } from 'vue-router';
-import { RequestFunc } from '../../types/utils';
-import useStore from '../../controllers/store/store';
+import { RequestFunc } from 'core/types/utils';
+import useStore from 'core/controllers/store/store';
 
 export default defineComponent({
   name: 'RequestHandler',

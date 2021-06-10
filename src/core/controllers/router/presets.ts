@@ -9,7 +9,7 @@ import {
   PresetTableRoute,
   RequiredPreset,
   SupportedRoutePresets,
-} from '../../types/configs';
+} from 'core/types/configs';
 
 const loginPreset: RequiredPreset<PresetLoginRoute> = {
   preset: 'login',

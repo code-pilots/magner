@@ -1,8 +1,8 @@
 import { createApp } from 'vue';
 import ElementPlus from 'element-plus';
 
-import type { StoreController } from '../controllers/store';
-import type { RouterController } from '../controllers/router';
+import type { StoreController } from './store';
+import type { RouterController } from './router';
 
 import App from '../views/app.vue';
 import SvgIcon from '../views/components/icon.vue';

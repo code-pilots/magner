@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-syntax, no-loop-func, no-continue */
-import type { ProxyFunc } from '../../core/types/utils';
+import type { ProxyFunc } from 'core/types/utils';
 
 type DataBody = Record<string, any>;
 type GetUri = string;

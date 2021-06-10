@@ -1,4 +1,4 @@
-import { BaseComponent, BaseField } from '../../types/components/base';
+import { BaseComponent, BaseField } from 'core/types/components/base';
 
 export interface TextareaComponent extends BaseComponent {
   id?: string,

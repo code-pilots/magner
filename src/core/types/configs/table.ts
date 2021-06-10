@@ -1,6 +1,6 @@
-import type { RequestFunc } from '../../types/utils';
-import type { GenericComponent } from '../../types/components';
-import type { ButtonComponent } from '../../types/components/button';
+import type { RequestFunc } from 'core/types/utils';
+import type { GenericComponent } from 'core/types/components';
+import type { ButtonComponent } from 'core/types/components/button';
 
 export interface TableConfig {
   title: string,

@@ -1,5 +1,5 @@
-import type { GenericComponent } from '../types/components';
-import type { SupportedDataTypes } from '../utils/form';
+import type { GenericComponent } from 'core/types/components';
+import type { SupportedDataTypes } from 'core/utils/form';
 
 export type SupportedValidators = 'password'|'email'|'empty';
 export type ValidatorFunc = (rule: SupportedValidators, value: any, callback: Function) => void;

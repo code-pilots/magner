@@ -4,9 +4,9 @@ import {
   RouteRecordRedirectOption,
 } from 'vue-router';
 import ROLE from 'configs/roles';
-import { LoginConfig } from '../../types/configs/login';
-import { TableConfig } from '../../types/configs/table';
-import { CardConfig } from '../../types/configs/card';
+import { LoginConfig } from 'core/types/configs/login';
+import { TableConfig } from 'core/types/configs/table';
+import { CardConfig } from 'core/types/configs/card';
 
 /** Global routing configuration that defines special needs in routing like programmatic navigation */
 export interface GlobalRouting {

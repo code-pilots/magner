@@ -18,7 +18,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import { RequestFunc } from '../../types/utils';
+import { RequestFunc } from 'core/types/utils';
 import RequestHandler from './request-handler.vue';
 
 export default defineComponent({

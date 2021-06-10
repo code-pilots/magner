@@ -1,5 +1,5 @@
 import loginRequest from 'app/requests/login';
-import { LoginConfig } from '../../core/types/configs';
+import { LoginConfig } from 'core/types/configs';
 
 const loginConfig: LoginConfig = {
   title: 'Вход',

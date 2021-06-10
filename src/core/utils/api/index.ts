@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import { store } from '../../controllers/store/store';
+import { store } from 'core/controllers/store/store';
 import ApiError from './api-error';
 import envs from '../../../envs';
 

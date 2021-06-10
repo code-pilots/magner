@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory, Router } from 'vue-router';
-import type { RoutingConfig } from '../../types/configs';
-import { store } from '../../controllers/store/store';
+import type { RoutingConfig } from 'core/types/configs';
+import { store } from 'core/controllers/store/store';
 import makeRoutes from './make-routes';
 
 export type RouterController = Router;
