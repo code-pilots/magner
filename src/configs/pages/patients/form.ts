@@ -161,14 +161,13 @@ const patientForm = formController({
         trigger: 'blur',
       },
     },
+
     {
-      type: 'input',
+      type: 'dropzone',
+      dataType: 'array',
       name: 'photo',
       label: 'Фотография',
-      component: {
-        type: 'text',
-        placeholder: 'Заменить на компонент дропзоны!',
-      },
+      component: {},
       validation: null,
     },
   ],

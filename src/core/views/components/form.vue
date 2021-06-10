@@ -26,7 +26,7 @@
       />
 
       <el-select
-        v-if="field.type === 'select'"
+        v-else-if="field.type === 'select'"
         v-model="form[field.backendName || field.name]"
         :value-key="field.component.valueKey || 'value'"
         :placeholder="field.component.placeholder || ''"
@@ -52,6 +52,11 @@
           :disabled="option.disabled"
         />
       </el-select>
+
+      <Dropzone
+        v-else-if="field.type === 'dropzone'"
+        v-model="form[field.backendName || field.name]"
+      />
     </el-form-item>
 
     <slot name="after" />
@@ -87,6 +92,7 @@ import type { GenericForm } from 'core/types/form';
 import { fieldsToModels } from 'core/utils/form';
 import FormInput from 'core/views/components/form-input.vue';
 import setupValidators from 'core/utils/validators';
+import Dropzone from 'core/views/components/dropzone.vue';
 
 interface FormValidator extends HTMLFormElement {
   validate: Function,
@@ -94,7 +100,7 @@ interface FormValidator extends HTMLFormElement {
 
 export default defineComponent({
   name: 'GenericForm',
-  components: { FormInput },
+  components: { Dropzone, FormInput },
   props: {
     loading: {
       type: Boolean,
