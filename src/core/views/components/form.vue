@@ -56,6 +56,8 @@
       <Dropzone
         v-else-if="field.type === 'dropzone'"
         v-model="form[field.backendName || field.name]"
+        :max-amount="7"
+        multiple
       />
     </el-form-item>
 

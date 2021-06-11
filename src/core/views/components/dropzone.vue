@@ -2,6 +2,7 @@
   <div
     ref="wrapperEl"
     class="el-upload el-upload--text"
+    :class="{'dragover': dragOver}"
     tabindex="0"
     @click.self="select"
     @dragenter="handleDragEnter"
@@ -20,9 +21,29 @@
       @change="inputChange"
     >
 
-    <div class="el-upload-dragger">
+    <div
+      v-if="!displayFiles.length"
+      ref="draggerEl"
+      class="el-upload-dragger"
+      :class="{'is-dragover': dragOver}"
+      @click="select"
+    >
       <i class="el-icon-upload" />
-      <div class="el-upload__text">Drop file here or <em>click to upload</em></div>
+      <div class="el-upload__text">Перетащите файлы сюда или <em>нажмите для загрузки</em></div>
+    </div>
+
+    <div
+      v-else
+      ref="draggerEl"
+      class="el-upload-dragger images"
+      :class="{'is-dragover': dragOver}"
+      @click.self="select"
+    >
+      <el-image
+        v-for="(image, i) in displayFiles"
+        :key="i"
+        :src="image"
+      />
     </div>
 
     <slot :files="files" :dragOver="dragOver" :select="select" />
@@ -34,7 +55,7 @@ import {
   computed, defineComponent, PropType, ref,
 } from 'vue';
 
-type ValueType = File | File[] | null;
+type ValueType = File | string | (File | string)[] | null;
 
 interface FileInputAttrs {
   id: string,
@@ -50,6 +71,8 @@ interface DropzoneError {
   allowed: number | string | string[] | Record<string, unknown>, // value of the passed property that checks the error
   name?: string, // name of the file
 }
+
+type DragEvents = 'dragenter' | 'dragleave' | 'dragover' | 'drop';
 
 export default defineComponent({
   name: 'Dropzone',
@@ -91,17 +114,17 @@ export default defineComponent({
     maxAmount: {
       type: Number,
       default: null,
-      validator: (val) => !Number.isNaN(val) && val > 0,
+      validator: (val: number) => !Number.isNaN(val) && val > 0,
     },
 
     /** Check the sizes of each selected file, reject wrong ones with MaxSizeError */
     maxSize: {
       type: Number,
       default: null,
-      validator: (val) => !Number.isNaN(val) && val > 0,
+      validator: (val: number) => !Number.isNaN(val) && val > 0,
     },
 
-    /** Check the extensions of each selected file, reject wront with FormatsError */
+    /** Check the extensions of each selected file, reject wrong with FormatsError */
     formats: {
       type: Array as PropType<string[] | null>,
       default: null,
@@ -119,47 +142,63 @@ export default defineComponent({
       }),
     },
   },
-  emits: ['update:value', 'errors'],
+  emits: ['update:value', 'errors', 'dragenter', 'dragleave', 'dragover', 'drop'],
   setup (props, context) {
     const values = ref<ValueType>(props.value);
     const dragOver = ref<boolean>(false);
     const inputEl = ref<HTMLInputElement>();
     const wrapperEl = ref<HTMLDivElement>();
+    const draggerEl = ref<HTMLDivElement>();
+    const displayFiles = ref<string[]>([]);
+
+    const readAsDataURL = (file: File | string): Promise<string|null> => new Promise((resolve) => {
+      if (typeof file === 'string') {
+        resolve(file);
+      } else {
+        if (file['type'].split('/')[0] !== 'image') resolve(null); // eslint-disable-line
+
+        const fileReader = new FileReader();
+        fileReader.onload = () => resolve(fileReader.result as string);
+        fileReader.readAsDataURL(file);
+      }
+    });
 
     const files = computed({
-      get (): File[] | [] {
+      get (): (File | string)[] {
         if (Array.isArray(values.value)) return values.value;
         if (values.value && typeof values.value === 'object') return [values.value];
         return [];
       },
-      set (val: File | File[]) {
+      async set (val: File | string | (File | string)[]) {
         let value;
-        if (props.multiple) value = Array.isArray(val) ? [...(files.value as File[]), ...val] : [val];
-        else value = Array.isArray(val) ? val[0] || null : val;
+        if (props.multiple) {
+          value = Array.isArray(val) ? [...(files.value as File[]), ...val] : [val];
+          displayFiles.value = (await Promise.all(value.map((file) => readAsDataURL(file))))
+            .filter((img) => !!img) as string[];
+        } else {
+          value = Array.isArray(val) ? val[0] || null : val;
+          if (value) {
+            const url = await readAsDataURL(value);
+            if (url) displayFiles.value = [url];
+          }
+        }
 
         values.value = value;
-        context.$emit('update:value', value);
+        context.emit('update:value', value);
       },
     });
 
     const select = () => {
-      inputEl.value.click();
+      inputEl.value?.click();
     };
 
     const toggleDragOver = (val: boolean) => {
       if (props.noDrop || props.disabled) return;
-
-      const wrapperChildren = wrapperEl.value.childNodes as HTMLElement[];
-      wrapperChildren.forEach((node) => {
-        if (val) node.style.pointerEvents = 'none';
-        else node.style.pointerEvents = '';
-      });
-
       dragOver.value = val;
     };
 
     const changeChildrenPointerEvents = (style: string) => {
-      const wrapperChildren = wrapperEl.value.childNodes as HTMLElement[];
+      const wrapperChildren = (wrapperEl.value?.childNodes || []) as HTMLElement[];
       wrapperChildren.forEach((node) => {
         node.style.pointerEvents = style;
       });
@@ -167,14 +206,14 @@ export default defineComponent({
 
     const commonHandler = (event: Event) => {
       event.preventDefault();
-      context.$emit(event.type, event);
+      context.emit(event.type as DragEvents, event);
     };
 
     const upload = (newFiles: File[]|null) => {
       if (!newFiles) {
         files.value = [];
       } else {
-        const thisFiles = files as File[] | [];
+        const thisFiles = (files.value || []) as File[];
         const errors: DropzoneError[] = [];
 
         // Handle MaxAmountError and prevent all files from being uploaded if the
@@ -185,7 +224,7 @@ export default defineComponent({
             value: thisFiles.length + newFiles.length,
             allowed: props.maxAmount,
           });
-          context.$emit('errors', errors);
+          context.emit('errors', errors);
           return;
         }
 
@@ -219,7 +258,7 @@ export default defineComponent({
           passedFiles.push(file);
         });
 
-        if (errors.length) context.$emit('errors', errors);
+        if (errors.length) context.emit('errors', errors);
 
         files.value = passedFiles;
       }
@@ -231,8 +270,10 @@ export default defineComponent({
     };
 
     const handleDragLeave = (event: DragEvent) => {
-      toggleDragOver(false);
-      commonHandler(event);
+      if (event.relatedTarget && !wrapperEl.value?.contains(event.relatedTarget as Node)) {
+        toggleDragOver(false);
+        commonHandler(event);
+      }
     };
 
     const handleDrop = (event: DragEvent) => {
@@ -254,6 +295,8 @@ export default defineComponent({
       files,
       inputEl,
       wrapperEl,
+      draggerEl,
+      displayFiles,
       upload,
       select,
       toggleDragOver,

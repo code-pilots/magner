@@ -17,4 +17,31 @@
     &_error {
         margin-bottom: 8px;
     }
+
+    & .el-upload {
+        width: 100%;
+        &-dragger {
+            width: 100%;
+            height: auto;
+            min-height: 180px;
+
+            &.images {
+                display: flex;
+                gap: 12px;
+                flex-wrap: wrap;
+                padding: 16px;
+
+                & .el-image {
+                    width: auto;
+                    max-height: 200px;
+                    max-width: 300px;
+                    border-radius: 4px;
+                }
+            }
+        }
+
+        &.dragover * {
+            pointer-events: none;
+        }
+    }
 }
