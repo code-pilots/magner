@@ -39,11 +39,13 @@
       :class="{'is-dragover': dragOver}"
       @click.self="select"
     >
-      <el-image
+      <div
         v-for="(image, i) in displayFiles"
         :key="i"
-        :src="image"
-      />
+        class="el-upload-dragger_image"
+      >
+        <el-image :src="image" />
+      </div>
     </div>
 
     <slot :files="files" :dragOver="dragOver" :select="select" />
@@ -65,9 +67,9 @@ interface FileInputAttrs {
   autofocus: string,
 }
 
-interface DropzoneError {
+export interface DropzoneError {
   type: 'FormatsError'|'MaxAmountError'|'MaxSizeError',
-  value: number | string, // value of the exceeded property like file size, or extension, or ration.
+  value: number | string, // value of the exceeded property like file size, or extension, or ratio.
   allowed: number | string | string[] | Record<string, unknown>, // value of the passed property that checks the error
   name?: string, // name of the file
 }
@@ -117,7 +119,7 @@ export default defineComponent({
       validator: (val: number) => !Number.isNaN(val) && val > 0,
     },
 
-    /** Check the sizes of each selected file, reject wrong ones with MaxSizeError */
+    /** Check the sizes (in Megabytes) of each selected file, reject wrong ones with MaxSizeError */
     maxSize: {
       type: Number,
       default: null,
@@ -142,7 +144,7 @@ export default defineComponent({
       }),
     },
   },
-  emits: ['update:value', 'errors', 'dragenter', 'dragleave', 'dragover', 'drop'],
+  emits: ['update:value', 'errors', 'textErrors', 'dragenter', 'dragleave', 'dragover', 'drop'],
   setup (props, context) {
     const values = ref<ValueType>(props.value);
     const dragOver = ref<boolean>(false);
@@ -209,6 +211,21 @@ export default defineComponent({
       context.emit(event.type as DragEvents, event);
     };
 
+    const getErrorTexts = (errors: DropzoneError[]): string => {
+      let errStr = '';
+      errors.forEach((err) => {
+        const fileName = err.name ? `(${err.name})` : '';
+        if (err.type === 'FormatsError') {
+          errStr += `Неправильный формат файла ${fileName}`;
+        } else if (err.type === 'MaxSizeError') {
+          errStr += `Превышен максимальный размер файла ${fileName}. Максимум: ${err.allowed}Мб`;
+        } else if (err.type === 'MaxAmountError') {
+          errStr += `Максимальное количество загружаемых файлов: ${err.allowed}`;
+        }
+      });
+      return errStr;
+    };
+
     const upload = (newFiles: File[]|null) => {
       if (!newFiles) {
         files.value = [];
@@ -225,6 +242,7 @@ export default defineComponent({
             allowed: props.maxAmount,
           });
           context.emit('errors', errors);
+          context.emit('textErrors', getErrorTexts(errors));
           return;
         }
 
@@ -258,7 +276,8 @@ export default defineComponent({
           passedFiles.push(file);
         });
 
-        if (errors.length) context.emit('errors', errors);
+        context.emit('errors', errors);
+        context.emit('textErrors', getErrorTexts(errors));
 
         files.value = passedFiles;
       }

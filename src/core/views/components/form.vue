@@ -16,8 +16,8 @@
       :required="!!field.required"
       :label="field.label || undefined"
       :label-width="field.label ? (isMobile ? null : '100px') : '0'"
-      :error="fieldErrors[field.backendName || field.name]"
-      class="generic-form_item"
+      :error="errors[field.backendName || field.name]"
+      :class="['generic-form_item', 'generic-form_item-' + field.type]"
     >
       <FormInput
         v-if="field.type === 'input'"
@@ -56,8 +56,10 @@
       <Dropzone
         v-else-if="field.type === 'dropzone'"
         v-model="form[field.backendName || field.name]"
-        :max-amount="7"
+        :max-amount="2"
+        :max-size="0.2"
         multiple
+        @textErrors="setFieldError(field.backendName || field.name, $event)"
       />
     </el-form-item>
 
@@ -65,7 +67,7 @@
 
     <el-alert
       v-if="error"
-      :title="error"
+      :title="globalError"
       :closable="false"
       type="error"
       class="generic-form_error"
@@ -88,7 +90,7 @@ import {
   defineComponent,
   reactive,
   ref,
-  PropType,
+  PropType, watchEffect,
 } from 'vue';
 import type { GenericForm } from 'core/types/form';
 import { fieldsToModels } from 'core/utils/form';
@@ -126,6 +128,9 @@ export default defineComponent({
     const form = reactive(fieldsToModels(props.config.fields));
     const validation = setupValidators(props.config.fields);
 
+    const globalError = ref<string>(props.error); // Error of the whole form
+    const errors = ref<Record<string, string>>(props.fieldErrors); // Field errors record
+
     const formEl = ref<HTMLFormElement>();
 
     const submit = () => {
@@ -137,12 +142,30 @@ export default defineComponent({
       });
     };
 
+    const setFieldError = (field: string, err: string) => {
+      errors.value[field] = err;
+    };
+
+    watchEffect(() => {
+      errors.value = {
+        ...errors.value,
+        ...props.fieldErrors,
+      };
+    });
+
+    watchEffect(() => {
+      globalError.value = props.error;
+    });
+
     return {
       form,
       validation,
       formEl,
+      globalError,
+      errors,
       isMobile: window.matchMedia('(max-width: 767px)').matches,
       submit,
+      setFieldError,
     };
   },
 });
