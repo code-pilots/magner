@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import { store } from 'core/controllers/store/store';
+import globalValues from 'core/global';
 import ApiError from './api-error';
 import envs from '../../../envs';
 
@@ -17,7 +17,7 @@ export const http = async <T>(path: string, config: RequestInit): Promise<T> => 
   const headers: HeadersInit = {
     'Content-Type': 'application/json',
   };
-  if (store?.state?.token) headers.Authorization = `Bearer ${store.state.token}`;
+  if (globalValues.store?.state?.token) headers.Authorization = `Bearer ${store.state.token}`;
 
   try {
     const req = new Request(envs.API_URL + path, {
@@ -46,7 +46,7 @@ export const http = async <T>(path: string, config: RequestInit): Promise<T> => 
  * Several more useful functions for requests making depending on the
  * request method that you need.
  */
-const request = {
+const api = {
   /** GET-request: no body needed. Use it to receive data from the backend */
   get: <T>(path: string, config?: RequestInit): Promise<T> => {
     const init = { method: 'get', ...config };
@@ -78,4 +78,6 @@ const request = {
   },
 };
 
-export default request;
+export type ApiType = typeof api;
+
+export default api;

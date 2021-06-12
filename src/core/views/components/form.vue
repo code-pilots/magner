@@ -48,7 +48,7 @@
           v-for="option in field.options"
           :key="field.component.valueKey ? option[field.component.valueKey] : option.value"
           :value="field.component.valueKey ? option[field.component.valueKey] : option.value"
-          :label="option.label"
+          :label="field.component.labelKey ? option[field.component.labelKey] : option.label"
           :disabled="option.disabled"
         />
       </el-select>

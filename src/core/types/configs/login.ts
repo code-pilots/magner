@@ -3,6 +3,6 @@ import type { RequestFunc } from 'core/types/utils';
 
 export interface LoginConfig {
   title: string,
-  request: RequestFunc,
+  request: RequestFunc|Function,
   form: GenericForm,
 }

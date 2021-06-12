@@ -41,9 +41,6 @@ export default defineComponent({
     },
   },
   setup (props) {
-    const store = useStore();
-    const router = useRouter();
-
     const loading = ref<boolean>(false);
     const error = ref('');
 
@@ -51,12 +48,7 @@ export default defineComponent({
       loading.value = true;
       error.value = '';
 
-      const res = await props.config.request({
-        store,
-        router,
-        data,
-        globalRoutes: store.state.globalRoutes,
-      });
+      const res = await props.config.request(data);
 
       if (res.error) {
         console.error(res.error);

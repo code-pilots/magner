@@ -1,7 +1,11 @@
+import globalValues from 'core/global';
 import {
   store, injectionKey, StoreType, InjectionKeyType,
-} from 'core/controllers/store/store';
+} from './store';
 
 export type StoreController = [StoreType, InjectionKeyType];
 
-export const storeController = (): StoreController => [store, injectionKey];
+export const storeController = (): StoreController => {
+  globalValues.store = store;
+  return [store, injectionKey];
+};

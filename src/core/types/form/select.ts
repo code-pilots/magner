@@ -18,10 +18,10 @@ export interface SelectComponent extends BaseComponent {
   /** Display this text if filtering returned no results */
   noMatchText?: string,
 
-  /** Whether options are loaded from the server */
+  /** Whether options are loaded from the server. Works only if 'filterable:true' is set */
   remote?: boolean,
   /** Only if 'remote:true', custom function to get items from the server */
-  remoteMethod?: RequestFunc,
+  remoteMethod?: RequestFunc|Function,
   /** Only if 'remote:true', display this text when loading */
   loadingText?: string,
   /** Display this text if remote request returned no results */
@@ -36,6 +36,9 @@ export interface SelectComponent extends BaseComponent {
 
   /** The key of a unique field of the Option object */
   valueKey?: string,
+  /** The key of a label field of the Option object */
+  labelKey?: string,
+
   disabled?: boolean,
 
   /** Can the selected option be cleared? */

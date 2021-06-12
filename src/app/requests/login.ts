@@ -1,9 +1,8 @@
 import dataToProxy, { Response } from 'app/proxies/login';
-import type { RequestFunc } from 'core/types/utils';
-import api from 'core/utils/api';
+import requestWrapper from 'core/utils/request-wrapper';
 
-const loginRequest: RequestFunc<true> = async ({
-  data, store, router, globalRoutes,
+const loginRequest = (loginData: { email: string, password: string }) => requestWrapper<true>(loginData, async ({
+  data, store, router, api,
 }) => {
   try {
     const res: Response = await api.post('auth/login', data);
@@ -16,11 +15,11 @@ const loginRequest: RequestFunc<true> = async ({
     return { error: 'Error', data: null };
   }
 
-  if (router && globalRoutes) {
-    await router.push({ name: globalRoutes.homeHasAuthName });
+  if (router) {
+    await router.push({ name: store.state.globalRoutes.homeHasAuthName });
   }
 
   return { error: null, data: true };
-};
+});
 
 export default loginRequest;

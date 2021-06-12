@@ -1,5 +1,5 @@
 import profileRequest from 'app/requests/profile';
-import { store } from 'core/controllers/store/store';
+import globalValues from 'core/global';
 
 /**
  * Navigation guard that checks if you can enter a protected route.
@@ -7,6 +7,7 @@ import { store } from 'core/controllers/store/store';
  * and lets you proceed further.
  */
 const checkAuth = async (isRouteProtected: boolean) => {
+  const store = globalValues.store;
   if (store?.state?.token === 'null') await store.dispatch('changeToken', null);
 
   const globalRoutes = store.state.globalRoutes;
