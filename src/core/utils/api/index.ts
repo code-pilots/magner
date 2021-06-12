@@ -17,7 +17,7 @@ export const http = async <T>(path: string, config: RequestInit): Promise<T> => 
   const headers: HeadersInit = {
     'Content-Type': 'application/json',
   };
-  if (globalValues.store?.state?.token) headers.Authorization = `Bearer ${store.state.token}`;
+  if (globalValues.store?.state?.token) headers.Authorization = `Bearer ${globalValues.store.state.token}`;
 
   try {
     const req = new Request(envs.API_URL + path, {

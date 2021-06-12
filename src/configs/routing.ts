@@ -2,6 +2,7 @@ import { routerController } from 'core/controllers';
 import ROLE from 'configs/roles';
 import patientsConfig from 'configs/pages/patients/patients';
 import patientConfig from 'configs/pages/patients/patient';
+import loginPageConfig from 'configs/pages/login';
 
 const router = routerController({
   global: {
@@ -50,6 +51,8 @@ const router = routerController({
        *  If route has a preset, then its config is defined in 'configs/${preset}' file,
        *  and this config is passed as a prop 'config' to the view */
       preset: 'login',
+
+      config: loginPageConfig,
 
       roles: null,
     },

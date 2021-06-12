@@ -1,5 +1,5 @@
 import type { BaseComponent, BaseField } from 'core/types/form/base';
-import type { RequestFunc } from 'core/types/utils';
+import type { RequestCallback } from 'core/types/utils';
 
 /**
  * Props of the Select component from element-ui:
@@ -21,7 +21,7 @@ export interface SelectComponent extends BaseComponent {
   /** Whether options are loaded from the server. Works only if 'filterable:true' is set */
   remote?: boolean,
   /** Only if 'remote:true', custom function to get items from the server */
-  remoteMethod?: RequestFunc|Function,
+  remoteMethod?: RequestCallback,
   /** Only if 'remote:true', display this text when loading */
   loadingText?: string,
   /** Display this text if remote request returned no results */

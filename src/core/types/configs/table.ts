@@ -1,4 +1,4 @@
-import type { RequestFunc } from 'core/types/utils';
+import type { RequestCallback } from 'core/types/utils';
 import type { GenericForm } from 'core/types/form';
 import type { Table } from 'core/types/components/table';
 
@@ -12,7 +12,7 @@ export interface FiltersForm extends GenericForm {
 export interface TableConfig {
   title: string,
 
-  request: RequestFunc,
+  request: RequestCallback,
   dataField: string,
 
   filters: FiltersForm,

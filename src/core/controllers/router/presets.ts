@@ -1,4 +1,7 @@
 import type {
+  CardConfig,
+  LoginConfig,
+  TableConfig,
   PresetCardRoute,
   PresetEmptyRoute,
   PresetLoginRoute,
@@ -7,15 +10,12 @@ import type {
   RequiredPreset,
   SupportedRoutePresets,
 } from 'core/types/configs';
-import loginConfig from 'configs/pages/login';
-import tableConfig from 'configs/pages/table';
-import cardConfig from 'configs/pages/card';
 
 const loginPreset: RequiredPreset<PresetLoginRoute> = {
   preset: 'login',
   layout: null,
   roles: null,
-  config: loginConfig,
+  config: {} as LoginConfig,
 
   visible: false,
   icon: '',
@@ -33,7 +33,7 @@ const tablePreset: RequiredPreset<PresetTableRoute> = {
   preset: 'table',
   layout: 'main',
   roles: null,
-  config: tableConfig,
+  config: {} as TableConfig,
 
   visible: true,
   icon: 'grid',
@@ -51,7 +51,7 @@ const cardPreset: RequiredPreset<PresetCardRoute> = {
   preset: 'card',
   layout: 'main',
   roles: null,
-  config: cardConfig,
+  config: {} as CardConfig,
 
   visible: false,
   icon: '',

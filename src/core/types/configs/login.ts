@@ -1,8 +1,8 @@
 import type { GenericForm } from 'core/types/form';
-import type { RequestFunc } from 'core/types/utils';
+import type { RequestCallback } from 'core/types/utils';
 
 export interface LoginConfig {
   title: string,
-  request: RequestFunc|Function,
+  request: RequestCallback,
   form: GenericForm,
 }

@@ -6,15 +6,14 @@
 import {
   defineComponent, PropType, ref, watchEffect,
 } from 'vue';
-import { useRouter } from 'vue-router';
-import { RequestFunc } from 'core/types/utils';
-import useStore from 'core/controllers/store/store';
+import type { RequestCallback } from 'core/types/utils';
+import { requestWrapper } from 'core/utils/request';
 
 export default defineComponent({
   name: 'RequestHandler',
   props: {
     request: {
-      type: Function as PropType<RequestFunc>,
+      type: Function as PropType<RequestCallback>,
       required: true,
     },
     data: {
@@ -24,9 +23,6 @@ export default defineComponent({
   },
   emits: ['loading'],
   async setup (props, context) {
-    const store = useStore();
-    const router = useRouter();
-
     const error = ref('');
     const response = ref();
     const loading = ref(false);
@@ -40,11 +36,9 @@ export default defineComponent({
 
     const request = async (newData?: any) => {
       changeLoading(true);
-      const res = await props.request({
-        data: newData || props.data,
-        store,
-        router,
-      });
+
+      const res = await requestWrapper(newData || props.data, props.request);
+
       changeLoading(false);
       initialLoaded = true;
 

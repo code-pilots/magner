@@ -18,7 +18,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import { RequestFunc } from 'core/types/utils';
+import { RequestCallback } from 'core/types/utils';
 import RequestHandler from './request-handler.vue';
 
 export default defineComponent({
@@ -26,7 +26,7 @@ export default defineComponent({
   components: { RequestHandler },
   props: {
     request: {
-      type: Function as PropType<RequestFunc>,
+      type: Function as PropType<RequestCallback>,
       required: true,
     },
     data: {

@@ -1,7 +1,7 @@
 import dataToProxy, { Response } from 'app/proxies/login';
-import requestWrapper from 'core/utils/request-wrapper';
+import request from 'core/utils/request';
 
-const loginRequest = (loginData: { email: string, password: string }) => requestWrapper<true>(loginData, async ({
+const loginRequest = request<true>(async ({
   data, store, router, api,
 }) => {
   try {

@@ -1,4 +1,5 @@
 import { formController } from 'core/controllers';
+import citiesRequest from 'app/requests/citites';
 
 const patientForm = formController({
   submit: {
@@ -109,6 +110,23 @@ const patientForm = formController({
         placeholder: 'Выбрать',
       },
     },
+
+    {
+      type: 'select',
+      name: 'cityId',
+      label: 'Город',
+      component: {
+        filterable: true,
+        remote: true,
+        remoteMethod: citiesRequest,
+        valueKey: 'id',
+        labelKey: 'name',
+        placeholder: 'Москва',
+        noDataText: 'Город не найден',
+      },
+      options: [],
+      validation: null,
+    },
     {
       type: 'input',
       name: 'address',
@@ -129,32 +147,6 @@ const patientForm = formController({
       component: {
         type: 'text',
         placeholder: 'кв. 4',
-      },
-      validation: {
-        type: 'empty',
-        trigger: 'blur',
-      },
-    },
-    {
-      type: 'input',
-      name: 'lat',
-      label: 'Широта',
-      component: {
-        type: 'number',
-        placeholder: '55.7558',
-      },
-      validation: {
-        type: 'empty',
-        trigger: 'blur',
-      },
-    },
-    {
-      type: 'input',
-      name: 'long',
-      label: 'Долгота',
-      component: {
-        type: 'number',
-        placeholder: '37.6173',
       },
       validation: {
         type: 'empty',

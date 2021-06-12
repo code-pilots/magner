@@ -19,9 +19,13 @@ interface DataResponse<T = any> {
 export type BaseResponse<T = any> = ErrorResponse | DataResponse<T>;
 
 /** Request  function is used in different views. Users define it by themselves */
-export type RequestFunc<T = any> = (info: {
+export type RequestCallback<T = any> = (info: {
   data: any,
   api: ApiType,
   store: StoreType,
   router: Router,
 }) => Promise<BaseResponse<T>>;
+
+export type RequestFunc = <T = any>(cb: RequestCallback<T>) => RequestCallback<T>;
+
+export type RequestWrapper = <T = any>(data: any, cb: RequestCallback<T>) => Promise<BaseResponse<T>>;

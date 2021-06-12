@@ -30,6 +30,7 @@ import { useRouter } from 'vue-router';
 import type { LoginConfig } from 'core/types/configs';
 import useStore from 'core/controllers/store/store';
 import GenericForm from '../components/form.vue';
+import { requestWrapper } from 'core/utils/request';
 
 export default defineComponent({
   name: 'LoginPage',
@@ -48,7 +49,7 @@ export default defineComponent({
       loading.value = true;
       error.value = '';
 
-      const res = await props.config.request(data);
+      const res = await requestWrapper(data, props.config.request);
 
       if (res.error) {
         console.error(res.error);
