@@ -15,7 +15,6 @@
       type="file"
       style="display: none"
       :multiple="multiple"
-      :required="required"
       :disabled="disabled"
       v-bind="inputAttrs"
       @change="inputChange"
@@ -96,12 +95,6 @@ export default defineComponent({
 
     /** If true, no drag&drop events will work. Can select only with click then */
     noDrop: {
-      type: Boolean,
-      default: false,
-    },
-
-    /** Make the input required and give dropzone a special class */
-    required: {
       type: Boolean,
       default: false,
     },

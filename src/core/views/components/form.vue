@@ -56,9 +56,13 @@
       <Dropzone
         v-else-if="field.type === 'dropzone'"
         v-model="form[field.backendName || field.name]"
-        :max-amount="2"
-        :max-size="0.2"
-        multiple
+        :formats="field.component.formats"
+        :max-size="field.component.maxSize"
+        :multiple="field.component.multiple || false"
+        :max-amount="field.component.maxAmount"
+        :no-drop="field.component.noDrop || false"
+        :disabled="field.component.disabled || false"
+        :input-attrs="field.component.inputAtts || {}"
         @textErrors="setFieldError(field.backendName || field.name, $event)"
       />
     </el-form-item>
