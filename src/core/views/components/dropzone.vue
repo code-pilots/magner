@@ -14,9 +14,9 @@
       ref="inputEl"
       type="file"
       style="display: none"
-      :multiple="multiple"
-      :disabled="disabled"
-      v-bind="inputAttrs"
+      :multiple="field.component.multiple || false"
+      :disabled="field.component.disabled || false"
+      v-bind="field.component.inputAtts || {}"
       @change="inputChange"
     >
 
@@ -55,16 +55,9 @@
 import {
   computed, defineComponent, PropType, ref,
 } from 'vue';
+import type { DropzoneField } from 'core/types/form/dropzone';
 
 type ValueType = File | string | (File | string)[] | null;
-
-interface FileInputAttrs {
-  id: string,
-  name: string,
-  accept: string,
-  capture: string,
-  autofocus: string,
-}
 
 export interface DropzoneError {
   type: 'FormatsError'|'MaxAmountError'|'MaxSizeError',
@@ -84,57 +77,9 @@ export default defineComponent({
       default: null,
     },
 
-    /**
-     * Accept one or multiple files. Depending on this prop, the 'update:value' event
-     * sends an Object of a file or an Array of files
-     */
-    multiple: {
-      type: Boolean,
-      default: false,
-    },
-
-    /** If true, no drag&drop events will work. Can select only with click then */
-    noDrop: {
-      type: Boolean,
-      default: false,
-    },
-
-    /** Disable the dropzone and give it a special class */
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-
-    /** Check the amount of files selected in multiple mode. Return MaxAmountError if wrong */
-    maxAmount: {
-      type: Number,
-      default: null,
-      validator: (val: number) => !Number.isNaN(val) && val > 0,
-    },
-
-    /** Check the sizes (in Megabytes) of each selected file, reject wrong ones with MaxSizeError */
-    maxSize: {
-      type: Number,
-      default: null,
-      validator: (val: number) => !Number.isNaN(val) && val > 0,
-    },
-
-    /** Check the extensions of each selected file, reject wrong with FormatsError */
-    formats: {
-      type: Array as PropType<string[] | null>,
-      default: null,
-    },
-
-    /** Input HTML-attributes. Pass in the object */
-    inputAttrs: {
-      type: Object as PropType<FileInputAttrs | null>,
-      default: () => ({
-        id: null,
-        name: null,
-        accept: null,
-        capture: null,
-        autofocus: null,
-      }),
+    field: {
+      type: Object as PropType<DropzoneField>,
+      required: true,
     },
   },
   emits: ['update:value', 'errors', 'textErrors', 'dragenter', 'dragleave', 'dragover', 'drop'],
@@ -166,7 +111,7 @@ export default defineComponent({
       },
       async set (val: File | string | (File | string)[]) {
         let value;
-        if (props.multiple) {
+        if (props.field.component.multiple) {
           value = Array.isArray(val) ? [...(files.value as File[]), ...val] : [val];
           displayFiles.value = (await Promise.all(value.map((file) => readAsDataURL(file))))
             .filter((img) => !!img) as string[];
@@ -188,7 +133,7 @@ export default defineComponent({
     };
 
     const toggleDragOver = (val: boolean) => {
-      if (props.noDrop || props.disabled) return;
+      if (props.field.component.noDrop || props.field.component.disabled) return;
       dragOver.value = val;
     };
 
@@ -228,11 +173,12 @@ export default defineComponent({
 
         // Handle MaxAmountError and prevent all files from being uploaded if the
         // given amount of files is more than allowed
-        if (props.multiple && props.maxAmount && thisFiles.length + newFiles.length > props.maxAmount) {
+        if (props.field.componentmultiple && props.field.component.maxAmount
+          && thisFiles.length + newFiles.length > props.field.component.maxAmount) {
           errors.push({
             type: 'MaxAmountError',
             value: thisFiles.length + newFiles.length,
-            allowed: props.maxAmount,
+            allowed: props.field.component.maxAmount,
           });
           context.emit('errors', errors);
           context.emit('textErrors', getErrorTexts(errors));
@@ -242,26 +188,27 @@ export default defineComponent({
         const passedFiles: File[] = [];
         newFiles.forEach((file) => {
           // Handle FormatsError - when single file is not in the list of allowed formats
-          if (props.formats !== null) {
+          const formats = props.field.component.formats || [];
+          if (formats && formats.length) {
             const format = file.name.substring(file.name.lastIndexOf('.') + 1).toLowerCase();
-            if (props.formats.indexOf(format) === -1) {
+            if (formats.indexOf(format) === -1) {
               errors.push({
                 type: 'FormatsError',
                 value: format,
                 name: file.name,
-                allowed: props.formats,
+                allowed: formats,
               });
               return;
             }
           }
 
           // Handle MaxSizeError - when single file is too heavy
-          if (props.maxSize && file.size >= props.maxSize * 1024 * 1024) {
+          if (props.field.component.maxSize && file.size >= props.field.component.maxSize * 1024 * 1024) {
             errors.push({
               type: 'MaxSizeError',
               value: file.size,
               name: file.name,
-              allowed: props.maxSize,
+              allowed: props.field.component.maxSize,
             });
             return;
           }
@@ -292,13 +239,13 @@ export default defineComponent({
       toggleDragOver(false);
       commonHandler(event);
 
-      if (props.noDrop || props.disabled) return;
+      if (props.field.component.noDrop || props.field.component.disabled) return;
       if (event.dataTransfer) upload(Array.from(event.dataTransfer.files));
       else upload([]);
     };
 
     const inputChange = ({ target }: {target: HTMLInputElement}) => {
-      if (target.files && !props.disabled) upload(Array.from(target.files));
+      if (target.files && !props.field.component.disabled) upload(Array.from(target.files));
     };
 
     return {

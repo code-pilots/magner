@@ -2,7 +2,10 @@ import { BaseComponent, BaseField } from 'core/types/form/base';
 
 /** Dropzone component properties */
 export interface DropzoneComponent extends BaseComponent {
-  /** Accept several files at once or not */
+  /**
+   * Accept one or multiple files. Depending on this prop, the 'update:value' event
+   * sends an Object of a file or an Array of files
+   */
   multiple?: boolean,
   maxAmount?: number,
 
@@ -10,7 +13,7 @@ export interface DropzoneComponent extends BaseComponent {
   maxSize?: number,
 
   /** Allowed formats for the input */
-  formats?: string[],
+  formats?: string[]|null,
 
   /** Disable drag-and-drop. Upload is still accessible by click */
   noDrop?: boolean,
