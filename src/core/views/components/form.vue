@@ -25,33 +25,11 @@
         :field="field"
       />
 
-      <el-select
+      <FormSelect
         v-else-if="field.type === 'select'"
         v-model="form[field.backendName || field.name]"
-        :value-key="field.component.valueKey || 'value'"
-        :placeholder="field.component.placeholder || ''"
-        :disabled="field.component.disabled || false"
-        :clearable="field.component.clearable || false"
-        :multiple="field.component.multiple || false"
-        :collapse-tags="field.component.collapseTags || false"
-        :multiple-limit="field.component.multipleLimit || 0"
-        :default-first-option="field.component.defaultFirstOption || false"
-        :filterable="field.component.filterable || false"
-        :filter-method="field.component.filterMethod || null"
-        :remote="field.component.remote || false"
-        :remote-method="field.component.remoteMethod || null"
-        :loading-text="field.component.loadingText || ''"
-        :no-match-text="field.component.noMatchText || ''"
-        :no-data-text="field.component.noDataText || ''"
-      >
-        <el-option
-          v-for="option in field.options"
-          :key="field.component.valueKey ? option[field.component.valueKey] : option.value"
-          :value="field.component.valueKey ? option[field.component.valueKey] : option.value"
-          :label="field.component.labelKey ? option[field.component.labelKey] : option.label"
-          :disabled="option.disabled"
-        />
-      </el-select>
+        :field="field"
+      />
 
       <Dropzone
         v-else-if="field.type === 'dropzone'"
@@ -101,6 +79,7 @@ import { fieldsToModels } from 'core/utils/form';
 import FormInput from 'core/views/components/form-input.vue';
 import setupValidators from 'core/utils/validators';
 import Dropzone from 'core/views/components/dropzone.vue';
+import FormSelect from 'core/views/components/select.vue';
 
 interface FormValidator extends HTMLFormElement {
   validate: Function,
@@ -108,7 +87,7 @@ interface FormValidator extends HTMLFormElement {
 
 export default defineComponent({
   name: 'GenericForm',
-  components: { Dropzone, FormInput },
+  components: { FormSelect, Dropzone, FormInput },
   props: {
     loading: {
       type: Boolean,

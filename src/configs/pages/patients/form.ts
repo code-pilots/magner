@@ -122,6 +122,7 @@ const patientForm = formController({
         valueKey: 'id',
         labelKey: 'name',
         placeholder: 'Москва',
+        loadingText: 'Загрузка',
         noDataText: 'Город не найден',
       },
       options: [],
