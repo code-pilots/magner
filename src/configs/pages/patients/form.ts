@@ -1,5 +1,6 @@
 import { formController } from 'core/controllers';
 import citiesRequest from 'app/requests/citites';
+import imageUploadRequest from 'app/requests/image-upload';
 
 const patientForm = formController({
   submit: {
@@ -157,10 +158,13 @@ const patientForm = formController({
 
     {
       type: 'dropzone',
-      dataType: 'array',
       name: 'photo',
       label: 'Фотография',
-      component: {},
+      component: {
+        saveToBackend: imageUploadRequest,
+        valueKey: 'id',
+        srcKey: 'src',
+      },
       validation: null,
     },
   ],

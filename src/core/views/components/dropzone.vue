@@ -21,7 +21,7 @@
     >
 
     <div
-      v-if="!displayFiles.length"
+      v-if="!files.length"
       ref="draggerEl"
       class="el-upload-dragger"
       :class="{'is-dragover': dragOver}"
@@ -38,13 +38,14 @@
       :class="{'is-dragover': dragOver}"
       @click.self="select"
     >
-      <div
-        v-for="(image, i) in displayFiles"
-        :key="i"
-        class="el-upload-dragger_image"
-      >
-        <el-image :src="image" />
-      </div>
+      <suspense v-for="(image, i) in files" :key="i">
+        <template #default>
+          <DropzoneImage
+            :value="image"
+            :src-key="field.component.srcKey"
+          />
+        </template>
+      </suspense>
     </div>
 
     <slot :files="files" :dragOver="dragOver" :select="select" />
@@ -55,25 +56,21 @@
 import {
   computed, defineComponent, PropType, ref,
 } from 'vue';
-import type { DropzoneField } from 'core/types/form/dropzone';
+import type { DropzoneField, DropzoneError } from 'core/types/form/dropzone';
+import DropzoneImage from 'core/views/components/dropzone-image.vue';
+import { requestWrapper } from 'core/utils/request';
 
 type ValueType = File | string | (File | string)[] | null;
-
-export interface DropzoneError {
-  type: 'FormatsError'|'MaxAmountError'|'MaxSizeError',
-  value: number | string, // value of the exceeded property like file size, or extension, or ratio.
-  allowed: number | string | string[] | Record<string, unknown>, // value of the passed property that checks the error
-  name?: string, // name of the file
-}
 
 type DragEvents = 'dragenter' | 'dragleave' | 'dragover' | 'drop';
 
 export default defineComponent({
   name: 'Dropzone',
+  components: { DropzoneImage },
   props: {
     /** Value of the dropzone. Use it to model or clear the input */
     value: {
-      type: [Array, Object] as PropType<ValueType>,
+      type: [String, Array, Object] as PropType<ValueType>,
       default: null,
     },
 
@@ -89,38 +86,37 @@ export default defineComponent({
     const inputEl = ref<HTMLInputElement>();
     const wrapperEl = ref<HTMLDivElement>();
     const draggerEl = ref<HTMLDivElement>();
-    const displayFiles = ref<string[]>([]);
 
-    const readAsDataURL = (file: File | string): Promise<string|null> => new Promise((resolve) => {
-      if (typeof file === 'string') {
-        resolve(file);
-      } else {
-        if (file['type'].split('/')[0] !== 'image') resolve(null); // eslint-disable-line
+    /** TODO: This still works incorrectly for valueKey and srcKey if they are different! */
+    const uploadToBackend = async (newVal: (File|string)[]) => {
+      const uploadedFiles = await Promise.all(newVal.map(async (file) => {
+        if (!file) return null;
+        if (!props.field.component.saveToBackend) return file;
 
-        const fileReader = new FileReader();
-        fileReader.onload = () => resolve(fileReader.result as string);
-        fileReader.readAsDataURL(file);
-      }
-    });
+        const res = await requestWrapper(file, props.field.component.saveToBackend);
+        if (res.error) return null;
+
+        if (props.field.component.valueKey) return res.data[props.field.component.valueKey];
+        return res.data;
+      }));
+
+      return uploadedFiles.filter((file) => !!file);
+    };
 
     const files = computed({
       get (): (File | string)[] {
         if (Array.isArray(values.value)) return values.value;
-        if (values.value && typeof values.value === 'object') return [values.value];
+        if (values.value) return [values.value];
         return [];
       },
       async set (val: File | string | (File | string)[]) {
         let value;
         if (props.field.component.multiple) {
-          value = Array.isArray(val) ? [...(files.value as File[]), ...val] : [val];
-          displayFiles.value = (await Promise.all(value.map((file) => readAsDataURL(file))))
-            .filter((img) => !!img) as string[];
+          value = Array.isArray(val)
+            ? [...(files.value as File[]), ...(await uploadToBackend(val))]
+            : await uploadToBackend([val]);
         } else {
-          value = Array.isArray(val) ? val[0] || null : val;
-          if (value) {
-            const url = await readAsDataURL(value);
-            if (url) displayFiles.value = [url];
-          }
+          value = (await uploadToBackend([Array.isArray(val) ? val[0] || null : val]))?.[0] || null;
         }
 
         values.value = value;
@@ -164,7 +160,7 @@ export default defineComponent({
       return errStr;
     };
 
-    const upload = (newFiles: File[]|null) => {
+    const upload = async (newFiles: File[]|null) => {
       if (!newFiles) {
         files.value = [];
       } else {
@@ -255,7 +251,6 @@ export default defineComponent({
       inputEl,
       wrapperEl,
       draggerEl,
-      displayFiles,
       upload,
       select,
       toggleDragOver,

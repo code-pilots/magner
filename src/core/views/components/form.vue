@@ -33,9 +33,10 @@
 
       <Dropzone
         v-else-if="field.type === 'dropzone'"
-        v-model="form[field.backendName || field.name]"
+        :value="form[field.backendName || field.name]"
         :field="field"
         @textErrors="setFieldError(field.backendName || field.name, $event)"
+        @update:value="updDropzone(field.backendName || field.name, $event)"
       />
     </el-form-item>
 
@@ -123,6 +124,10 @@ export default defineComponent({
       errors.value[field] = err;
     };
 
+    const updDropzone = (field, val) => {
+      form[field] = val;
+    };
+
     watchEffect(() => {
       errors.value = {
         ...errors.value,
@@ -141,6 +146,7 @@ export default defineComponent({
       globalError,
       errors,
       isMobile: window.matchMedia('(max-width: 767px)').matches,
+      updDropzone,
       submit,
       setFieldError,
     };
