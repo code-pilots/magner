@@ -45,6 +45,20 @@ export const http = async <T>(path: string, config: RequestConfig): Promise<T> =
   }
 };
 
+const prepareBody = (body: any, config?: RequestConfig) => {
+  if (!config?.isFormdata) {
+    return JSON.stringify(body);
+  }
+
+  const data = new FormData();
+  Object.entries(body).forEach(([key, value]) => {
+    const formValue = value instanceof Blob ? value : String(value);
+    data.append(key, formValue);
+  });
+
+  return data;
+};
+
 /**
  * Several more useful functions for requests making depending on the
  * request method that you need.
@@ -58,25 +72,25 @@ const api = {
 
   /** POST-request: has optional body. Use it to create new entity instances */
   post: <T, U>(path: string, body: T, config?: RequestConfig): Promise<U> => {
-    const init = { method: 'post', body: JSON.stringify(body), ...config };
+    const init = { method: 'post', body: prepareBody(body, config), ...config };
     return http<U>(path, init);
   },
 
   /** PUT-request. Use it to update entity instances */
   put: <T, U>(path: string, body: T, config?: RequestConfig): Promise<U> => {
-    const init = { method: 'put', body: JSON.stringify(body), ...config };
+    const init = { method: 'put', body: prepareBody(body, config), ...config };
     return http<U>(path, init);
   },
 
   /** PATCH-request. Use it to update entity instances */
   patch: <T, U>(path: string, body: T, config?: RequestConfig): Promise<U> => {
-    const init = { method: 'PATCH', body: JSON.stringify(body), ...config };
+    const init = { method: 'PATCH', body: prepareBody(body, config), ...config };
     return http<U>(path, init);
   },
 
   /** PUT-request. Use it to delete entities */
   delete: <T, U>(path: string, body: T, config?: RequestConfig): Promise<U> => {
-    const init = { method: 'delete', body: JSON.stringify(body), ...config };
+    const init = { method: 'delete', body: prepareBody(body, config), ...config };
     return http<U>(path, init);
   },
 };

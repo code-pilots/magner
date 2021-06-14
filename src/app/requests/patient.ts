@@ -4,7 +4,9 @@ import request from 'core/utils/request';
 
 const patientRequest = request(async ({ data }) => {
   try {
-    const res = await api.post('patients', data);
+    const res = await api.post('patients', data, {
+      isFormdata: true,
+    });
     return { data: res, error: null };
   } catch (e) {
     return { error: parseError(e), data: null };

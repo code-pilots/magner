@@ -1,6 +1,7 @@
 import request from 'core/utils/request';
 import type { DropzoneUploadReturn } from 'core/types/form/dropzone';
 
+type RequestBody = { image: File };
 type RequestResponse = {result: { image: { src: string, id: null }}};
 
 /**
@@ -12,12 +13,8 @@ type RequestResponse = {result: { image: { src: string, id: null }}};
 const imageUploadRequest = request<DropzoneUploadReturn>(async ({ data, api }) => {
   try {
     const file: File = data;
-    const fd = new FormData();
-    fd.append('image', file);
-
-    const res = await api.post<null, RequestResponse>('images', null, {
+    const res = await api.post<RequestBody, RequestResponse>('images', { image: file }, {
       isFormdata: true,
-      body: fd,
     });
 
     return { error: null, data: res.result.image };

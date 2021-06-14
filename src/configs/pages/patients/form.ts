@@ -160,11 +160,7 @@ const patientForm = formController({
       type: 'dropzone',
       name: 'photo',
       label: 'Фотография',
-      component: {
-        saveToBackend: imageUploadRequest,
-        valueKey: 'id',
-        srcKey: 'src',
-      },
+      component: {},
       validation: null,
     },
   ],
