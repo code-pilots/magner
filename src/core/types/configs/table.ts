@@ -13,6 +13,8 @@ export interface FiltersForm extends GenericForm {
     page: number,
   },
 
+  sort?: {},
+
   filtersData: Record<string, any>,
 }
 

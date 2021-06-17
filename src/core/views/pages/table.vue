@@ -50,20 +50,20 @@
         </div>
 
         <div
-          v-if="response.pagination && paginationData"
+          v-if="response.pagination && requestData.pagination"
           class="table-page_pagination flex-center"
         >
           <el-pagination
             v-model:currentPage="response.pagination.currentPage"
             :page-sizes="[10, 25, 50, 100]"
-            :page-size="paginationData.items"
+            :page-size="requestData.pagination.items || 10"
             :total="response.total"
             :pager-count="7"
             :small="isMobile"
             background
             layout="total, sizes, prev, pager, next, jumper"
-            @current-change="paginationData.page = $event"
-            @size-change="paginationData.items = $event"
+            @current-change="requestData.pagination.page = $event"
+            @size-change="requestData.pagination.items = $event"
           />
         </div>
       </template>
@@ -74,8 +74,7 @@
 <script lang="ts">
 import 'styles/pages/table.css';
 import {
-  defineComponent,
-  PropType, reactive, ref,
+  defineComponent, PropType, reactive, ref,
 } from 'vue';
 import type { TableConfig } from 'core/types/configs';
 import Dynamic from '../components/dynamic.vue';
@@ -94,8 +93,11 @@ export default defineComponent({
     const name = ref('');
     const check = ref(false);
 
-    const requestData = reactive(props.config.filters.filtersData);
-    const paginationData = reactive(props.config.filters.pagination);
+    const requestData = reactive({
+      pagination: { ...(props.config.filters.pagination || {}) },
+      filters: { ...(props.config.filters.filtersData || {}) },
+      sort: { ...(props.config.filters.sort || {}) },
+    });
 
     const filterItems = () => {
       // console.log(form);
@@ -109,7 +111,6 @@ export default defineComponent({
       name,
       check,
       requestData,
-      paginationData,
       isMobile: window.matchMedia('(max-width: 767px)').matches,
       filterItems,
       changeSort,

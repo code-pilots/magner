@@ -46,9 +46,9 @@ export default defineComponent({
       }
     };
 
-    watch(props.data, (val) => {
+    watch(() => props.data, (val) => {
       request(val);
-    });
+    }, { deep: true });
 
     await request();
 

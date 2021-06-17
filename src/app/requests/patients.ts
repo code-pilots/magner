@@ -1,11 +1,25 @@
 import dataToProxy, { Response, Proxy } from 'app/proxies/patients';
 import dataToUrl from 'app/proxies/get-request';
-import api from 'core/utils/api';
 import request from 'core/utils/request';
 
-const patientsRequest = request<Proxy>(async ({ data }: { data: { page: number, items: number }}) => {
+interface ReqData {
+  pagination: {
+    items: number,
+    page: number,
+  },
+  filters: {},
+  sort: {},
+}
+
+const patientsRequest = request<Proxy, ReqData>(async ({ data, api }) => {
   try {
-    const res: Response = await api.get(`patients${dataToUrl(data)}`);
+    const query = dataToUrl({
+      ...data.pagination,
+      filters: data.filters,
+      sort: data.sort,
+    });
+
+    const res: Response = await api.get(`patients${query}`);
     const proxied = dataToProxy(res);
 
     return { error: null, data: proxied };

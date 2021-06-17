@@ -16,19 +16,13 @@ const patientsFilters = filtersFormController({
   },
 
   filtersData: {
-    page: 1,
-    items: 100,
-    filters: {
-      patientId: 0,
-      clinicId: 0,
-      doctorId: 0,
-      fullName: '',
-    },
-    sort: {
-      receptionDate: 'asc',
-      fullName: 'asc',
-    },
+    patientId: 0,
+    clinicId: 0,
+    doctorId: 0,
+    fullName: '',
   },
+
+  sort: {},
 
   fields: [
     {
