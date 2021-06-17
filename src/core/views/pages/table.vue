@@ -24,40 +24,46 @@
     <Dynamic :request="config.request" :data="requestData">
       <template #default="{response, loading}">
         <div v-loading="loading" class="table-page_table">
-          <el-table :data="response[config.dataField]">
+          <el-table
+            :data="response[config.dataField]"
+            @sort-change="changeSort"
+          >
             <el-table-column
-              v-for="row in config.table.rows"
-              :key="row.prop"
-              :prop="row.prop"
-              :label="row.label"
-              :width="row.width"
+              v-for="column in config.table.columns"
+              :key="column.prop"
+              :prop="column.prop"
+              :label="column.label"
+              :width="column.width"
+              :min-width="column.minWidth"
+              :fixed="column.fixed"
+              :resizable="column.resizable"
+              :show-overflow-tooltip="column.showOverflowTooltip"
+              :align="column.align"
+              :header-align="column.headerAlign"
+              :class-name="column.className"
+              :label-class-name="column.labelClassName"
+              :formatter="column.formatter"
+              :render-header="column.renderHeader"
+              :sortable="column.sortable ? 'custom' : false"
             />
-            <el-table-column
-              fixed="right"
-              label="Operations"
-              width="100"
-            >
-              <template #default>
-                <el-button type="text" size="small">
-                  Изменить
-                </el-button>
-              </template>
-            </el-table-column>
           </el-table>
         </div>
 
-        <div v-if="response.pagination" class="table-page_pagination flex-center">
+        <div
+          v-if="response.pagination && paginationData"
+          class="table-page_pagination flex-center"
+        >
           <el-pagination
             v-model:currentPage="response.pagination.currentPage"
             :page-sizes="[10, 25, 50, 100]"
-            :page-size="requestData.items"
+            :page-size="paginationData.items"
             :total="response.total"
             :pager-count="7"
             :small="isMobile"
             background
             layout="total, sizes, prev, pager, next, jumper"
-            @current-change="requestData.page = $event"
-            @size-change="requestData.items = $event"
+            @current-change="paginationData.page = $event"
+            @size-change="paginationData.items = $event"
           />
         </div>
       </template>
@@ -84,35 +90,29 @@ export default defineComponent({
       required: true,
     },
   },
-  setup () {
+  setup (props) {
     const name = ref('');
     const check = ref(false);
 
-    const requestData = reactive({
-      page: 1,
-      items: 100,
-      filters: {
-        patientId: 0,
-        clinicId: 0,
-        doctorId: 0,
-        fullName: '',
-      },
-      sort: {
-        receptionDate: 'asc',
-        fullName: 'asc',
-      },
-    });
+    const requestData = reactive(props.config.filters.filtersData);
+    const paginationData = reactive(props.config.filters.pagination);
 
     const filterItems = () => {
       // console.log(form);
+    };
+
+    const changeSort = (sort: { column: any|null, prop: string|null, order: 'ascending'|'descending'|null }) => {
+      // console.log(sort);
     };
 
     return {
       name,
       check,
       requestData,
+      paginationData,
       isMobile: window.matchMedia('(max-width: 767px)').matches,
       filterItems,
+      changeSort,
     };
   },
 });

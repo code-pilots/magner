@@ -1,16 +1,19 @@
 import { tableController } from 'core/controllers';
 
 const patientsTable = tableController({
-  rows: [
+  emptyText: 'Пациенты не найдены',
+  columns: [
     {
       prop: 'id',
       label: 'ID',
       width: 80,
+      fixed: 'left',
     },
     {
       prop: 'fullName',
       label: 'Полное имя',
       width: 300,
+      sortable: true,
     },
     {
       prop: 'gender',
@@ -21,6 +24,7 @@ const patientsTable = tableController({
       prop: 'email',
       label: 'Е-мейл',
       width: 200,
+      sortable: true,
     },
     {
       prop: 'address',
@@ -35,12 +39,12 @@ const patientsTable = tableController({
     {
       prop: 'lat',
       label: 'Широта',
-      width: 100,
+      width: 150,
     },
     {
       prop: 'long',
       label: 'Долгота',
-      width: 100,
+      width: 150,
     },
   ],
 });

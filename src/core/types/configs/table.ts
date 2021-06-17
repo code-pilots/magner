@@ -6,7 +6,14 @@ export interface FiltersForm extends GenericForm {
   linkToCreateNew?: {
     label: string,
     routeName: string,
-  }
+  },
+
+  pagination?: {
+    items: number,
+    page: number,
+  },
+
+  filtersData: Record<string, any>,
 }
 
 export interface TableConfig {
