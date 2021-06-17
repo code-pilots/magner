@@ -4,7 +4,7 @@
 
 <script lang="ts">
 import {
-  defineComponent, PropType, ref, watchEffect,
+  defineComponent, PropType, ref, watch,
 } from 'vue';
 import type { RequestCallback } from 'core/types/utils';
 import { requestWrapper } from 'core/utils/request';
@@ -26,8 +26,7 @@ export default defineComponent({
     const error = ref('');
     const response = ref();
     const loading = ref(false);
-
-    let initialLoaded = false; // Variable prevents sending two request simultaneously on initial load
+    const initialLoaded = ref(false); // Variable prevents sending two request simultaneously on initial load
 
     const changeLoading = (val: boolean) => {
       loading.value = val;
@@ -36,12 +35,10 @@ export default defineComponent({
 
     const request = async (newData?: any) => {
       changeLoading(true);
-
       const res = await requestWrapper(newData || props.data, props.request);
-
       changeLoading(false);
-      initialLoaded = true;
 
+      initialLoaded.value = true;
       response.value = res.data;
 
       if (res.error) {
@@ -49,10 +46,8 @@ export default defineComponent({
       }
     };
 
-    watchEffect(() => {
-      if (initialLoaded) {
-        request(props.data);
-      }
+    watch(props.data, (val) => {
+      request(val);
     });
 
     await request();
