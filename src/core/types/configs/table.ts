@@ -8,6 +8,8 @@ export interface FiltersForm extends GenericForm {
     routeName: string,
   },
 
+  filtersShowAmount?: number,
+
   pagination?: {
     items: number,
     page: number,

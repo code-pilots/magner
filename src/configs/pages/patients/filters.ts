@@ -6,6 +6,8 @@ const patientsFilters = filtersFormController({
     routeName: 'patient',
   },
 
+  filtersShowAmount: 1,
+
   submit: null,
   submitEvent: 'input',
 
@@ -36,42 +38,42 @@ const patientsFilters = filtersFormController({
         inputDelay: 400,
       },
     },
-    // {
-    //   type: 'select',
-    //   name: 'sort',
-    //   options: [
-    //     {
-    //       id: 1,
-    //       slug: 'fullName',
-    //       value: 'ASC',
-    //       label: 'В алфавитном порядке по имени',
-    //     },
-    //     {
-    //       id: 2,
-    //       slug: 'fullName',
-    //       value: 'DESC',
-    //       label: 'В обратном алфавитном порядке по имени',
-    //     },
-    //     {
-    //       id: 3,
-    //       slug: 'receptionDate',
-    //       value: 'DESC',
-    //       label: 'Сначала ближайшие даты записи',
-    //     },
-    //     {
-    //       id: 4,
-    //       slug: 'receptionDate',
-    //       value: 'ASC',
-    //       label: 'Сначала старые даты записи',
-    //     },
-    //   ],
-    //   validation: null,
-    //   component: {
-    //     placeholder: 'Сортировка',
-    //     valueKey: 'id',
-    //     clearable: true,
-    //   },
-    // },
+    {
+      type: 'select',
+      name: 'sort',
+      options: [
+        {
+          id: 1,
+          slug: 'fullName',
+          value: 'ASC',
+          label: 'В алфавитном порядке по имени',
+        },
+        {
+          id: 2,
+          slug: 'fullName',
+          value: 'DESC',
+          label: 'В обратном алфавитном порядке по имени',
+        },
+        {
+          id: 3,
+          slug: 'receptionDate',
+          value: 'DESC',
+          label: 'Сначала ближайшие даты записи',
+        },
+        {
+          id: 4,
+          slug: 'receptionDate',
+          value: 'ASC',
+          label: 'Сначала старые даты записи',
+        },
+      ],
+      validation: null,
+      component: {
+        placeholder: 'Сортировка',
+        valueKey: 'id',
+        clearable: true,
+      },
+    },
   ],
 });
 

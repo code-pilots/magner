@@ -4,11 +4,26 @@
       <GenericForm
         :config="config.filters"
         :loading="false"
+        :filters-show-amount="config.filters.filtersShowAmount"
         class="table-page_top_filters"
         @submit="filterItems"
       >
         <template #after>
+          <template v-if="config.filters.filtersShowAmount < config.filters.fields.length">
+            <el-button type="primary" icon="el-icon-s-operation" @click="drawerOpen = true">Больше фильтров</el-button>
+          </template>
+
           <div class="flex-grow" />
+
+          <el-drawer
+            v-model="drawerOpen"
+            title="Фильтры"
+            direction="rtl"
+            :before-close="drawerClose"
+          >
+            <!-- TODO: вставить GenericForm -->
+            <span>Здесь будет больше фильтров в одну колонну</span>
+          </el-drawer>
         </template>
       </GenericForm>
 
@@ -93,6 +108,8 @@ export default defineComponent({
   setup (props) {
     const name = ref('');
     const check = ref(false);
+    const drawerOpen = ref(false);
+
     const isMobile = useMobile();
 
     const requestData = reactive({
@@ -118,13 +135,19 @@ export default defineComponent({
       };
     };
 
+    const drawerClose = (done: Function) => {
+      done();
+    };
+
     return {
       name,
       check,
       requestData,
+      drawerOpen,
       isMobile,
       filterItems,
       changeSort,
+      drawerClose,
     };
   },
 });

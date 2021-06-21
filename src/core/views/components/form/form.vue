@@ -10,7 +10,7 @@
     <slot />
 
     <FormItem
-      v-for="field in config.fields"
+      v-for="field in (filtersShowAmount ? config.fields.slice(0, filtersShowAmount) : config.fields)"
       :key="field.name"
       v-model="form[field.name]"
       :error="errors[field.name]"
@@ -81,6 +81,10 @@ export default defineComponent({
     fieldErrors: {
       type: Object,
       default: () => ({}),
+    },
+    filtersShowAmount: {
+      type: Number,
+      default: null,
     },
   },
   emits: ['submit'],
