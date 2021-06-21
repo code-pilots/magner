@@ -21,7 +21,9 @@ const patientsFilters = filtersFormController({
     fullName: '',
   },
 
-  sort: {},
+  sort: {
+    fullName: 'ASC',
+  },
 
   fields: [
     {

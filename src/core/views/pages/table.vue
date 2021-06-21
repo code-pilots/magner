@@ -101,10 +101,19 @@ export default defineComponent({
 
     const filterItems = (form: Record<string, string>) => {
       requestData.filters = { ...form };
+      requestData.pagination = { ...(props.config.filters.pagination || {}) };
     };
 
     const changeSort = (sort: { column: any|null, prop: string|null, order: 'ascending'|'descending'|null }) => {
-      // console.log(sort);
+      requestData.pagination = { ...(props.config.filters.pagination || {}) };
+      if (!sort.prop) {
+        requestData.sort = { ...(props.config.filters.sort || {}) };
+        return;
+      }
+
+      requestData.sort = {
+        [sort.prop]: sort.order === 'ascending' ? 'ASC' : 'DESC',
+      };
     };
 
     return {
