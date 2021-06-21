@@ -9,38 +9,15 @@
   >
     <slot />
 
-    <el-form-item
+    <FormItem
       v-for="field in config.fields"
       :key="field.name"
-      :prop="field.backendName || field.name"
-      :required="!!field.required"
-      :label="field.label || undefined"
-      :label-width="field.label ? (isMobile ? null : '100px') : '0'"
-      :error="errors[field.backendName || field.name]"
-      :class="['generic-form_item', 'generic-form_item-' + field.type]"
-    >
-      <FormInput
-        v-if="field.type === 'input'"
-        v-model="form[field.backendName || field.name]"
-        :field="field"
-        @update:value="controlOnInput"
-      />
-
-      <FormSelect
-        v-else-if="field.type === 'select'"
-        v-model="form[field.backendName || field.name]"
-        :field="field"
-        @update:value="controlOnInput"
-      />
-
-      <Dropzone
-        v-else-if="field.type === 'dropzone'"
-        :value="form[field.backendName || field.name]"
-        :field="field"
-        @textErrors="setFieldError(field.backendName || field.name, $event)"
-        @update:value="updDropzone(field.backendName || field.name, $event)"
-      />
-    </el-form-item>
+      v-model="form[field.name]"
+      :error="errors[field.name]"
+      :field="field"
+      @error="setFieldError(field.name, $event)"
+      @update:value="controlOnInput(field.name, $event)"
+    />
 
     <slot name="after" />
 
@@ -79,6 +56,7 @@ import setupValidators from 'core/utils/validators';
 import Dropzone from 'core/views/components/form/dropzone.vue';
 import FormSelect from 'core/views/components/form/select.vue';
 import useMobile from 'core/utils/is-mobile';
+import FormItem from 'core/views/components/form/form-item.vue';
 
 interface FormValidator extends HTMLFormElement {
   validate: Function,
@@ -86,7 +64,7 @@ interface FormValidator extends HTMLFormElement {
 
 export default defineComponent({
   name: 'GenericForm',
-  components: { FormSelect, Dropzone, FormInput },
+  components: { FormItem },
   props: {
     loading: {
       type: Boolean,
@@ -126,7 +104,8 @@ export default defineComponent({
       });
     };
 
-    const controlOnInput = () => {
+    const controlOnInput = (field: string, newValue: any) => {
+      form[field] = newValue;
       if (props.config.submitEvent === 'input') {
         submit();
       }
@@ -134,11 +113,6 @@ export default defineComponent({
 
     const setFieldError = (field: string, err: string) => {
       errors.value[field] = err;
-    };
-
-    const updDropzone = (field: string, val: any) => {
-      form[field] = val;
-      controlOnInput();
     };
 
     watchEffect(() => {
@@ -159,7 +133,6 @@ export default defineComponent({
       globalError,
       errors,
       isMobile,
-      updDropzone,
       submit,
       setFieldError,
       controlOnInput,

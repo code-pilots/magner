@@ -22,6 +22,6 @@ export const dataTypeToInitial = (dataType: SupportedDataTypes): DataTypeInitial
 
 export const fieldsToModels = (fields: GenericComponent[]): Record<string, DataTypeInitials> => fields
   .reduce((accum, currentValue) => {
-    accum[currentValue.backendName || currentValue.name] = dataTypeToInitial(currentValue.dataType || 'string');
+    accum[currentValue.name] = dataTypeToInitial(currentValue.dataType || 'string');
     return accum;
   }, {} as Record<string, DataTypeInitials>);

@@ -42,7 +42,7 @@ type SetupFunc = (fields: GenericComponent[]) => Record<string, ValidationField>
 const setupValidators: SetupFunc = (fields) => fields.reduce((accum, field) => {
   if (!field.validation) return accum;
 
-  accum[field.backendName || field.name] = {
+  accum[field.name] = {
     type: field.dataType || 'string',
     validator: validators[field.validation.type],
     trigger: field.validation.trigger,

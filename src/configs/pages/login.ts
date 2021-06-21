@@ -11,8 +11,7 @@ const loginPageConfig = loginPageController({
     fields: [
       {
         type: 'input',
-        name: 'email',
-        backendName: 'login',
+        name: 'login',
         required: false,
         validation: {
           type: 'empty',
@@ -27,7 +26,6 @@ const loginPageConfig = loginPageController({
       {
         type: 'input',
         name: 'password',
-        backendName: null,
         required: false,
         validation: {
           type: 'password',

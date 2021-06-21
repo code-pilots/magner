@@ -23,11 +23,8 @@ export interface BaseField {
   /** Choose any supported type of the field */
   type: SupportedComponentTypes,
 
-  /** Unique name identifier of the field */
+  /** Unique name identifier of the field. It is required to be the same one incoming or outcoming to the backend */
   name: string,
-
-  /** The name used to be sent or received from backend. If no 'backendName' specified, just 'name' is used */
-  backendName?: string|null,
 
   /** A label to be displayed next to the field component */
   label?: string,
