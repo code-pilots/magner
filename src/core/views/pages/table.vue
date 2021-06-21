@@ -99,8 +99,8 @@ export default defineComponent({
       sort: { ...(props.config.filters.sort || {}) },
     });
 
-    const filterItems = () => {
-      // console.log(form);
+    const filterItems = (form: Record<string, string>) => {
+      requestData.filters = { ...form };
     };
 
     const changeSort = (sort: { column: any|null, prop: string|null, order: 'ascending'|'descending'|null }) => {

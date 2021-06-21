@@ -20,5 +20,12 @@ export type GenericComponent =
 
 export interface GenericForm {
   fields: GenericComponent[],
-  submit: ButtonComponent,
+  submit: ButtonComponent|null,
+
+  /**
+   * Reacting to which event the form will trigger 'submit' event.
+   * Case 'submit' - only on Submit button or Enter key press
+   * Case 'input' – on any child component's change event
+   * */
+  submitEvent?: 'submit'|'input',
 }

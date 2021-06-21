@@ -6,9 +6,8 @@ const patientsFilters = filtersFormController({
     routeName: 'patient',
   },
 
-  submit: {
-    text: 'Поиск',
-  },
+  submit: null,
+  submitEvent: 'input',
 
   pagination: {
     items: 100,
@@ -32,44 +31,45 @@ const patientsFilters = filtersFormController({
       component: {
         type: 'text',
         placeholder: 'Полное имя',
+        inputDelay: 400,
       },
     },
-    {
-      type: 'select',
-      name: 'sort',
-      options: [
-        {
-          id: 1,
-          slug: 'fullName',
-          value: 'ASC',
-          label: 'В алфавитном порядке по имени',
-        },
-        {
-          id: 2,
-          slug: 'fullName',
-          value: 'DESC',
-          label: 'В обратном алфавитном порядке по имени',
-        },
-        {
-          id: 3,
-          slug: 'receptionDate',
-          value: 'DESC',
-          label: 'Сначала ближайшие даты записи',
-        },
-        {
-          id: 4,
-          slug: 'receptionDate',
-          value: 'ASC',
-          label: 'Сначала старые даты записи',
-        },
-      ],
-      validation: null,
-      component: {
-        placeholder: 'Сортировка',
-        valueKey: 'id',
-        clearable: true,
-      },
-    },
+    // {
+    //   type: 'select',
+    //   name: 'sort',
+    //   options: [
+    //     {
+    //       id: 1,
+    //       slug: 'fullName',
+    //       value: 'ASC',
+    //       label: 'В алфавитном порядке по имени',
+    //     },
+    //     {
+    //       id: 2,
+    //       slug: 'fullName',
+    //       value: 'DESC',
+    //       label: 'В обратном алфавитном порядке по имени',
+    //     },
+    //     {
+    //       id: 3,
+    //       slug: 'receptionDate',
+    //       value: 'DESC',
+    //       label: 'Сначала ближайшие даты записи',
+    //     },
+    //     {
+    //       id: 4,
+    //       slug: 'receptionDate',
+    //       value: 'ASC',
+    //       label: 'Сначала старые даты записи',
+    //     },
+    //   ],
+    //   validation: null,
+    //   component: {
+    //     placeholder: 'Сортировка',
+    //     valueKey: 'id',
+    //     clearable: true,
+    //   },
+    // },
   ],
 });
 

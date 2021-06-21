@@ -6,6 +6,10 @@ export interface InputComponent extends BaseComponent {
   placeholder?: string,
   icon?: string,
 
+  /** An amount of milliseconds (put 400 for the best UX) of the delay for the 'update:value' event of
+   * the FormInput component to shoot after user typing finishes */
+  inputDelay?: number,
+
   /**
    * Mask is an object to be passed to the 'maska' library: https://github.com/beholdr/maska
    * In short, these are the symbols for the mask:

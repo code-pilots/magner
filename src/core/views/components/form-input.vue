@@ -42,15 +42,28 @@ export default defineComponent({
       val.value = props.value;
     });
 
-    const changeVal = (newVal: string|number) => {
+    const debounceOnInput = (wait: number|undefined, cb: (arg1: string|number) => void) => {
+      let timer: ReturnType<typeof setTimeout>;
+
+      return (newVal: string|number) => {
+        if (typeof wait === 'undefined') cb(newVal);
+
+        if (timer) clearTimeout(timer);
+        timer = setTimeout(() => {
+          cb(newVal);
+        }, wait);
+      };
+    };
+
+    const changeVal = debounceOnInput(props.field.component.inputDelay, (newVal: string|number) => {
       if (props.field.component.mask) return;
 
       val.value = newVal;
       context.emit('update:value', newVal);
-    };
+    });
 
     onMounted(() => {
-      const inpEl = input.value.input as HTMLInputElement;
+      const inpEl = (input.value as any).input as HTMLInputElement;
       if (props.field.component.mask && inpEl) {
         Maska(inpEl, props.field.component.mask);
       }

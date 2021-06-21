@@ -23,12 +23,14 @@
         v-if="field.type === 'input'"
         v-model="form[field.backendName || field.name]"
         :field="field"
+        @update:value="controlOnInput"
       />
 
       <FormSelect
         v-else-if="field.type === 'select'"
         v-model="form[field.backendName || field.name]"
         :field="field"
+        @update:value="controlOnInput"
       />
 
       <Dropzone
@@ -51,6 +53,7 @@
     />
 
     <el-button
+      v-if="config.submit"
       :loading="loading"
       :native-type="config.submit.nativeType || 'submit'"
       :type="config.submit.type || 'primary'"
@@ -120,12 +123,19 @@ export default defineComponent({
       });
     };
 
+    const controlOnInput = () => {
+      if (props.config.submitEvent === 'input') {
+        submit();
+      }
+    };
+
     const setFieldError = (field: string, err: string) => {
       errors.value[field] = err;
     };
 
-    const updDropzone = (field, val) => {
+    const updDropzone = (field: string, val: any) => {
       form[field] = val;
+      controlOnInput();
     };
 
     watchEffect(() => {
@@ -149,6 +159,7 @@ export default defineComponent({
       updDropzone,
       submit,
       setFieldError,
+      controlOnInput,
     };
   },
 });
