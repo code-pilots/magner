@@ -74,10 +74,11 @@ import {
 } from 'vue';
 import type { GenericForm } from 'core/types/form';
 import { fieldsToModels } from 'core/utils/form';
-import FormInput from 'core/views/components/form-input.vue';
+import FormInput from 'core/views/components/form/form-input.vue';
 import setupValidators from 'core/utils/validators';
-import Dropzone from 'core/views/components/dropzone.vue';
-import FormSelect from 'core/views/components/select.vue';
+import Dropzone from 'core/views/components/form/dropzone.vue';
+import FormSelect from 'core/views/components/form/select.vue';
+import useMobile from 'core/utils/is-mobile';
 
 interface FormValidator extends HTMLFormElement {
   validate: Function,
@@ -106,6 +107,8 @@ export default defineComponent({
   },
   emits: ['submit'],
   setup (props, context) {
+    const isMobile = useMobile();
+
     const form = reactive(fieldsToModels(props.config.fields));
     const validation = setupValidators(props.config.fields);
 
@@ -155,7 +158,7 @@ export default defineComponent({
       formEl,
       globalError,
       errors,
-      isMobile: window.matchMedia('(max-width: 767px)').matches,
+      isMobile,
       updDropzone,
       submit,
       setFieldError,

@@ -77,8 +77,9 @@ import {
   defineComponent, PropType, reactive, ref,
 } from 'vue';
 import type { TableConfig } from 'core/types/configs';
+import useMobile from 'core/utils/is-mobile';
 import Dynamic from '../components/dynamic.vue';
-import GenericForm from '../components/form.vue';
+import GenericForm from '../components/form/form.vue';
 
 export default defineComponent({
   name: 'TablePage',
@@ -92,6 +93,7 @@ export default defineComponent({
   setup (props) {
     const name = ref('');
     const check = ref(false);
+    const isMobile = useMobile();
 
     const requestData = reactive({
       pagination: { ...(props.config.filters.pagination || {}) },
@@ -120,7 +122,7 @@ export default defineComponent({
       name,
       check,
       requestData,
-      isMobile: window.matchMedia('(max-width: 767px)').matches,
+      isMobile,
       filterItems,
       changeSort,
     };
