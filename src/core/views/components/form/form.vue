@@ -30,7 +30,7 @@
     />
 
     <el-button
-      v-if="config.submit"
+      v-if="config.submitEvent === 'submit' && config.submit"
       :loading="loading"
       :native-type="config.submit.nativeType || 'submit'"
       :type="config.submit.type || 'primary'"

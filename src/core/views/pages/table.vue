@@ -12,20 +12,31 @@
           <template v-if="config.filters.filtersShowAmount < config.filters.fields.length">
             <el-button type="primary" icon="el-icon-s-operation" @click="drawerOpen = true">Больше фильтров</el-button>
           </template>
-
           <div class="flex-grow" />
-
-          <el-drawer
-            v-model="drawerOpen"
-            title="Фильтры"
-            direction="rtl"
-            :before-close="drawerClose"
-          >
-            <!-- TODO: вставить GenericForm -->
-            <span>Здесь будет больше фильтров в одну колонну</span>
-          </el-drawer>
         </template>
       </GenericForm>
+
+      <el-drawer
+        v-model="drawerOpen"
+        :direction="isMobile ? 'btt' : 'rtl'"
+        :size="isMobile ? '70%' : '30%'"
+        :with-header="false"
+        :before-close="drawerClose"
+        custom-class="table-page_drawer"
+      >
+        <GenericForm
+          :config="{
+            ...config.filters,
+            submitEvent: 'submit',
+          }"
+          :loading="false"
+          @submit="filterItems"
+        >
+          <template #after>
+            <div class="flex-grow" />
+          </template>
+        </GenericForm>
+      </el-drawer>
 
       <router-link
         v-if="config.filters.linkToCreateNew"

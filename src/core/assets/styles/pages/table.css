@@ -29,7 +29,7 @@
             }
         }
 
-        & .generic-form {
+        &_filters {
             display: flex;
 
             @media (--breakpoint-small) {
@@ -37,7 +37,7 @@
                 margin-bottom: 4px;
             }
 
-            &_item {
+            & .el-form-item {
                 max-width: 200px;
                 margin-right: 8px;
                 @media (--breakpoint-small) {
@@ -47,6 +47,30 @@
                     margin-bottom: 4px;
                 }
             }
+        }
+    }
+
+    &_drawer {
+        padding: 8px 8px 56px;
+
+        & .generic-form {
+            display: block;
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        & .el-form-item {
+            width: 100%;
+            margin-bottom: 8px;
+        }
+
+        & .generic-form_submit {
+            position: absolute;
+            bottom: 8px;
+            left: 8px;
+            width: calc(100% - 16px);
+            height: 40px;
         }
     }
 

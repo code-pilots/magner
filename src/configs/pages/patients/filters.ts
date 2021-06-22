@@ -8,7 +8,11 @@ const patientsFilters = filtersFormController({
 
   filtersShowAmount: 1,
 
-  submit: null,
+  submit: {
+    type: 'primary',
+    nativeType: 'submit',
+    text: 'Подтвердить',
+  },
   submitEvent: 'input',
 
   pagination: {
