@@ -1,3 +1,5 @@
+import { RouteLocationRaw } from 'vue-router';
+
 export interface TableColumn {
   /** Property name of the field in the row data for specific column */
   prop: string,
@@ -22,6 +24,9 @@ export interface TableColumn {
   /** If the content's width is more than in the column, hide the rest of the width and display in the tooltip */
   showOverflowTooltip?: boolean,
 
+  /** Makes column cells links */
+  columnLink?: (row: any) => RouteLocationRaw,
+
   /** Alignment of the content in the cell */
   align?: 'left'|'center'|'right',
   /** Alignment of the table header. If omitted, the value of the above 'align' attribute will be applied */
@@ -33,7 +38,7 @@ export interface TableColumn {
   labelClassName?: string,
 
   /** A function that formats the content of the column's cells */
-  formatter?: (row: any, column: any, cellValue: any, index: number) => any,
+  formatter?: (cellValue: any, row: any, column: any, index: number) => any,
 
   /** A function that creates a Vue template function for the header cell of a column */
   renderHeader?: (data: { column: any, $index: number }) => void,
@@ -44,4 +49,7 @@ export interface Table {
 
   /** Text to display in the table when no data is available */
   emptyText?: string,
+
+  /** If present, table row becomes a link (doesn't work on columns with 'columnLink' property) */
+  rowLink?: (row: any) => RouteLocationRaw,
 }

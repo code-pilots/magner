@@ -50,29 +50,14 @@
     <Dynamic :request="config.request" :data="requestData">
       <template #default="{response, loading}">
         <div v-loading="loading" class="table-page_table">
-          <el-table
+          <DataTable
             :data="response[config.dataField]"
-            @sort-change="changeSort"
-          >
-            <el-table-column
-              v-for="column in config.table.columns"
-              :key="column.prop"
-              :prop="column.prop"
-              :label="column.label"
-              :width="column.width"
-              :min-width="column.minWidth"
-              :fixed="column.fixed"
-              :resizable="column.resizable"
-              :show-overflow-tooltip="column.showOverflowTooltip"
-              :align="column.align"
-              :header-align="column.headerAlign"
-              :class-name="column.className"
-              :label-class-name="column.labelClassName"
-              :formatter="column.formatter"
-              :render-header="column.renderHeader"
-              :sortable="column.sortable ? 'custom' : false"
-            />
-          </el-table>
+            :config="config.table"
+            :table-height="isMobile ? 'calc(100vh - 90px)' : (response.pagination && requestData.pagination)
+              ? 'calc(100vh - 155px)'
+              : 'calc(100vh - 115px)'"
+            @sort="changeSort"
+          />
         </div>
 
         <div
@@ -103,13 +88,18 @@ import {
   defineComponent, PropType, reactive, ref,
 } from 'vue';
 import type { TableConfig } from 'core/types/configs';
+import DataTable from 'core/views/components/table.vue';
 import useMobile from 'core/utils/is-mobile';
 import Dynamic from '../components/dynamic.vue';
 import GenericForm from '../components/form/form.vue';
 
 export default defineComponent({
   name: 'TablePage',
-  components: { GenericForm, Dynamic },
+  components: {
+    DataTable,
+    GenericForm,
+    Dynamic,
+  },
   props: {
     config: {
       type: Object as PropType<TableConfig>,

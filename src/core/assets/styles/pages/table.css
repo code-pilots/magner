@@ -31,6 +31,8 @@
 
         &_filters {
             display: flex;
+            flex-wrap: nowrap;
+            overflow-x: hidden;
 
             @media (--breakpoint-small) {
                 flex-direction: column;
@@ -76,7 +78,7 @@
 
     &_table {
         width: 100%;
-        height: 100%;
+        //height: 60vh;
         border-top: 1px solid #EBEEF5;
         overflow-y: auto;
         @media (--breakpoint-small) {

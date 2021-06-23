@@ -2,6 +2,7 @@ import { tableController } from 'core/controllers';
 
 const patientsTable = tableController({
   emptyText: 'Пациенты не найдены',
+  rowLink: (row) => ({ name: 'patient', params: { id: row.id } }),
   columns: [
     {
       prop: 'id',
@@ -14,6 +15,7 @@ const patientsTable = tableController({
       label: 'Полное имя',
       width: 300,
       sortable: true,
+      showOverflowTooltip: true,
     },
     {
       prop: 'gender',
@@ -23,13 +25,15 @@ const patientsTable = tableController({
     {
       prop: 'email',
       label: 'Е-мейл',
-      width: 200,
+      width: 250,
       sortable: true,
+      showOverflowTooltip: true,
     },
     {
       prop: 'address',
       label: 'Адрес',
       width: 300,
+      showOverflowTooltip: true,
     },
     {
       prop: 'apartment',
