@@ -1,7 +1,11 @@
 <template>
   <suspense>
     <template #default>
-      <RequestHandler :request="request" :data="data">
+      <RequestHandler
+        :request="request"
+        :data="data"
+        :disabled="disabled"
+      >
         <template #default="{response, error, loading}">
           <template v-if="error">
             {{ error }}
@@ -32,6 +36,10 @@ export default defineComponent({
     data: {
       type: Object,
       default: () => ({}),
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
     },
   },
 });

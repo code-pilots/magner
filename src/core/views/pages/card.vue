@@ -1,31 +1,39 @@
 <template>
-  <section class="card-page">
-    <GenericForm
-      :config="config.form"
-      :loading="loading"
-      :error="error"
-      :field-errors="fieldErrors"
-      class="card-page_form"
-      @submit="save"
-    >
-      <h1 class="card-page_form_title">
-        {{ config.title }}
-      </h1>
-    </GenericForm>
-  </section>
+  <Dynamic :request="config.getRequest" :data="cardId" :disabled="isNew">
+    <template #default="{response, loading}">
+      <section v-loading="loading" class="card-page">
+        <GenericForm
+          :data="response"
+          :config="config.form"
+          :loading="createLoading"
+          :error="error"
+          :field-errors="fieldErrors"
+          class="card-page_form"
+          @submit="save"
+        >
+          <h1 class="card-page_form_title">
+            {{ config.title }}
+          </h1>
+        </GenericForm>
+      </section>
+    </template>
+  </Dynamic>
 </template>
 
 <script lang="ts">
 import 'styles/pages/card.css';
-import { defineComponent, PropType, ref } from 'vue';
+import {
+  computed, defineComponent, PropType, ref,
+} from 'vue';
+import { useRoute } from 'vue-router';
 import type { CardConfig } from 'core/types/configs';
-import useStore from 'core/controllers/store/store';
-import { useRouter } from 'vue-router';
+import { requestWrapper } from 'core/utils/request';
+import Dynamic from 'core/views/components/dynamic.vue';
 import GenericForm from '../components/form/form.vue';
 
 export default defineComponent({
   name: 'CardPage',
-  components: { GenericForm },
+  components: { Dynamic, GenericForm },
   props: {
     config: {
       type: Object as PropType<CardConfig>,
@@ -33,23 +41,19 @@ export default defineComponent({
     },
   },
   setup (props) {
-    const store = useStore();
-    const router = useRouter();
+    const route = useRoute();
+    const cardId = computed<number|string>(() => route.params.id);
+    const isNew = computed<boolean>(() => cardId.value === 'new');
 
-    const loading = ref<boolean>(false);
+    const createLoading = ref<boolean>(false);
     const error = ref('');
     const fieldErrors = ref<Record<string, string>>({});
 
     const save = async (data: Record<string, any>) => {
-      loading.value = true;
+      createLoading.value = true;
       error.value = '';
 
-      const res = await props.config.request({
-        store,
-        router,
-        data,
-        globalRoutes: store.state.globalRoutes,
-      });
+      const res = await requestWrapper(data, props.config.createRequest);
 
       if (res.error) {
         if (typeof res.error === 'string') {
@@ -60,11 +64,13 @@ export default defineComponent({
         }
       }
 
-      loading.value = false;
+      createLoading.value = false;
     };
 
     return {
-      loading,
+      cardId,
+      isNew,
+      createLoading,
       error,
       fieldErrors,
       save,

@@ -1,4 +1,4 @@
-import patientRequest from 'app/requests/patient';
+import { patientCreate, patientGet } from 'app/requests/patient';
 import { cardPageController } from 'core/controllers';
 import patientForm from 'configs/pages/patients/form';
 
@@ -7,6 +7,7 @@ import patientForm from 'configs/pages/patients/form';
  */
 export default cardPageController({
   title: 'Пациент',
-  request: patientRequest,
+  getRequest: patientGet,
+  createRequest: patientCreate,
   form: patientForm,
 });

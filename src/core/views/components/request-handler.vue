@@ -20,6 +20,10 @@ export default defineComponent({
       type: Object,
       default: () => ({}),
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
   },
   emits: ['loading'],
   async setup (props, context) {
@@ -34,6 +38,8 @@ export default defineComponent({
     };
 
     const request = async (newData?: any) => {
+      if (props.disabled) return;
+
       changeLoading(true);
       const res = await requestWrapper(newData || props.data, props.request);
       changeLoading(false);

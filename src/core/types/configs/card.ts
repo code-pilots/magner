@@ -3,6 +3,7 @@ import type { GenericForm } from 'core/types/form';
 
 export interface CardConfig {
   title: string,
-  request: RequestCallback,
+  getRequest: RequestCallback,
+  createRequest: RequestCallback,
   form: GenericForm,
 }
