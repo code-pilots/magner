@@ -16,7 +16,7 @@
       :error="errors[field.name]"
       :field="field"
       @error="setFieldError(field.name, $event)"
-      @update:value="controlOnInput(field.name, $event)"
+      @update:modelValue="controlOnInput(field.name, $event)"
     />
 
     <slot name="after" />
@@ -30,7 +30,7 @@
     />
 
     <el-button
-      v-if="config.submitEvent === 'submit' && config.submit"
+      v-if="(config.submitEvent === 'submit' || !config.submitEvent) && config.submit"
       :loading="loading"
       :native-type="config.submit.nativeType || 'submit'"
       :type="config.submit.type || 'primary'"
@@ -66,13 +66,17 @@ export default defineComponent({
   name: 'GenericForm',
   components: { FormItem },
   props: {
-    loading: {
-      type: Boolean,
-      default: false,
-    },
     config: {
       type: Object as PropType<GenericForm>,
       required: true,
+    },
+    initialData: {
+      type: Object,
+      default: () => ({}),
+    },
+    loading: {
+      type: Boolean,
+      default: false,
     },
     error: {
       type: String,
@@ -91,7 +95,7 @@ export default defineComponent({
   setup (props, context) {
     const isMobile = useMobile();
 
-    const form = reactive(fieldsToModels(props.config.fields));
+    const form = reactive(fieldsToModels(props.config.fields, props.initialData));
     const validation = setupValidators(props.config.fields);
 
     const globalError = ref<string>(props.error); // Error of the whole form

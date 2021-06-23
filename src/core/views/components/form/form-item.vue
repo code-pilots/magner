@@ -12,14 +12,14 @@
       v-if="field.type === 'input'"
       v-model="val"
       :field="field"
-      @update:value="updVal"
+      @update:modelValue="updVal"
     />
 
     <FormSelect
       v-else-if="field.type === 'select'"
       v-model="val"
       :field="field"
-      @update:value="updVal"
+      @update:modelValue="updVal"
     />
 
     <Dropzone
@@ -27,7 +27,7 @@
       v-model="val"
       :field="field"
       @textErrors="setError"
-      @update:value="updVal"
+      @update:modelValue="updVal"
     />
   </el-form-item>
 </template>
@@ -54,22 +54,22 @@ export default defineComponent({
       type: String,
       default: '',
     },
-    value: {
+    modelValue: {
       type: [String, Number, Object, Array] as PropType<any>,
       default: '',
     },
   },
-  emits: ['update:value', 'error'],
+  emits: ['update:modelValue', 'error'],
   setup (props, context) {
     const isMobile = useMobile();
 
-    const val = ref(props.value);
+    const val = ref(props.modelValue);
     watchEffect(() => {
-      val.value = props.value;
+      val.value = props.modelValue;
     });
 
     const updVal = (newValue: any) => {
-      context.emit('update:value', newValue);
+      context.emit('update:modelValue', newValue);
     };
 
     const setError = (newValue: any) => {

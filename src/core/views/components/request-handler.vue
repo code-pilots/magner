@@ -17,7 +17,7 @@ export default defineComponent({
       required: true,
     },
     data: {
-      type: Object,
+      type: [Object, Number, String],
       default: () => ({}),
     },
     disabled: {

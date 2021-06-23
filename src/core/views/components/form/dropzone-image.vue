@@ -10,7 +10,7 @@ import { defineComponent, PropType } from 'vue';
 export default defineComponent({
   name: 'DropzoneImage',
   props: {
-    value: {
+    modelValue: {
       type: [String, Number, Object] as PropType<string|File>,
       default: null,
     },
@@ -35,7 +35,7 @@ export default defineComponent({
       }
     });
 
-    const src = await readAsDataURL(props.value);
+    const src = await readAsDataURL(props.modelValue);
 
     return {
       src,

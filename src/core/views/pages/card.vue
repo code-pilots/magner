@@ -3,7 +3,7 @@
     <template #default="{response, loading}">
       <section v-loading="loading" class="card-page">
         <GenericForm
-          :data="response"
+          :initial-data="response"
           :config="config.form"
           :loading="createLoading"
           :error="error"
@@ -42,7 +42,7 @@ export default defineComponent({
   },
   setup (props) {
     const route = useRoute();
-    const cardId = computed<number|string>(() => route.params.id);
+    const cardId = computed(() => route.params.id);
     const isNew = computed<boolean>(() => cardId.value === 'new');
 
     const createLoading = ref<boolean>(false);

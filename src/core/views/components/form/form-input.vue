@@ -28,18 +28,18 @@ export default defineComponent({
       type: Object as PropType<InputField>,
       required: true,
     },
-    value: {
+    modelValue: {
       type: [String, Number],
       default: '',
     },
   },
-  emits: ['update:value'],
+  emits: ['update:modelValue'],
   setup (props, context) {
-    const val = ref<number|string>(props.value);
+    const val = ref<number|string>(props.modelValue);
     const input = ref<HTMLInputElement>();
 
     watchEffect(() => {
-      val.value = props.value;
+      val.value = props.modelValue;
     });
 
     let mask;
@@ -62,7 +62,7 @@ export default defineComponent({
 
     const changeVal = debounceOnInput(props.field.component.inputDelay, (newVal: string|number) => {
       val.value = newVal;
-      context.emit('update:value', newVal);
+      context.emit('update:modelValue', newVal);
     });
 
     onMounted(() => {

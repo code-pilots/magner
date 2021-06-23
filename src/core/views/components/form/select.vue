@@ -30,7 +30,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, watchEffect, } from 'vue';
+import {
+  defineComponent,
+  PropType,
+  ref,
+  watchEffect,
+} from 'vue';
 import type { SelectField } from 'core/types/form/select';
 import { requestWrapper } from 'core/utils/request';
 
@@ -41,20 +46,20 @@ export default defineComponent({
       type: Object as PropType<SelectField>,
       required: true,
     },
-    value: {
+    modelValue: {
       type: [String, Number],
       default: '',
     },
   },
-  emits: ['update:value'],
+  emits: ['update:modelValue'],
   setup (props, context) {
-    const val = ref<number|string>(props.value);
+    const val = ref<number|string>(props.modelValue);
     const allOptions = ref<Record<string, any>[]>(props.field.options || []);
     const loading = ref<boolean>(false);
 
     const changeVal = (newVal: string|number) => {
       val.value = newVal;
-      context.emit('update:value', newVal);
+      context.emit('update:modelValue', newVal);
     };
 
     const remoteMethod = async (search: string) => {
@@ -67,7 +72,7 @@ export default defineComponent({
     };
 
     watchEffect(() => {
-      val.value = props.value;
+      val.value = props.modelValue;
     });
     watchEffect(() => {
       allOptions.value = props.field.options;

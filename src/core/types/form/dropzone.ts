@@ -30,7 +30,7 @@ export interface DropzoneComponent extends BaseComponent {
   srcKey?: string,
 
   /**
-   * Accept one or multiple files. Depending on this prop, the 'update:value' event
+   * Accept one or multiple files. Depending on this prop, the 'update:modelValue' event
    * sends an Object of a file or an Array of files
    */
   multiple?: boolean,

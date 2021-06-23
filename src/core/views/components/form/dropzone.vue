@@ -41,7 +41,7 @@
       <suspense v-for="(image, i) in files" :key="i">
         <template #default>
           <DropzoneImage
-            :value="image"
+            :model-value="image"
             :src-key="field.component.srcKey"
           />
         </template>
@@ -69,7 +69,7 @@ export default defineComponent({
   components: { DropzoneImage },
   props: {
     /** Value of the dropzone. Use it to model or clear the input */
-    value: {
+    modelValue: {
       type: [String, Array, Object] as PropType<ValueType>,
       default: null,
     },
@@ -79,9 +79,9 @@ export default defineComponent({
       required: true,
     },
   },
-  emits: ['update:value', 'errors', 'textErrors', 'dragenter', 'dragleave', 'dragover', 'drop'],
+  emits: ['update:modelValue', 'errors', 'textErrors', 'dragenter', 'dragleave', 'dragover', 'drop'],
   setup (props, context) {
-    const values = ref<ValueType>(props.value);
+    const values = ref<ValueType>(props.modelValue);
     const dragOver = ref<boolean>(false);
     const inputEl = ref<HTMLInputElement>();
     const wrapperEl = ref<HTMLDivElement>();
@@ -120,7 +120,7 @@ export default defineComponent({
         }
 
         values.value = value;
-        context.emit('update:value', value);
+        context.emit('update:modelValue', value);
       },
     });
 
@@ -169,7 +169,7 @@ export default defineComponent({
 
         // Handle MaxAmountError and prevent all files from being uploaded if the
         // given amount of files is more than allowed
-        if (props.field.componentmultiple && props.field.component.maxAmount
+        if (props.field.component.multiple && props.field.component.maxAmount
           && thisFiles.length + newFiles.length > props.field.component.maxAmount) {
           errors.push({
             type: 'MaxAmountError',

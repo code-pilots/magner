@@ -31,10 +31,42 @@ export interface Patient {
   children: Patient[],
 }
 
+export interface PatientProxy {
+  firstname: string,
+  surname: string,
+  patronimic: string,
+  phone: string,
+  email: string,
+  birthDate: string,
+  gender: 'female'|'male',
+  address: string,
+  apartment: string,
+  // photo: {
+  //   src: string,
+  //   id: number,
+  // },
+  city: number,
+}
+
+const patientProxy = (data: Patient): PatientProxy => ({
+  firstname: data.firstname,
+  surname: data.surname,
+  patronimic: data.patronimic,
+  phone: data.phone,
+  email: data.email,
+  birthDate: data.birthDate,
+  gender: data.gender.value,
+  address: data.address,
+  apartment: data.apartment,
+  city: data.city.id,
+});
+
 export const patientGet = request(async ({ data }) => {
   try {
     const res = await api.get<{ result: { patient: Patient } }>(`patients/${data}`);
-    return { data: res.result.patient, error: null };
+    const proxied = patientProxy(res.result.patient);
+
+    return { data: proxied, error: null };
   } catch (e) {
     return { error: parseError(e), data: null };
   }

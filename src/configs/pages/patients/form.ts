@@ -1,6 +1,5 @@
 import { formController } from 'core/controllers';
 import citiesRequest from 'app/requests/citites';
-import imageUploadRequest from 'app/requests/image-upload';
 
 const patientForm = formController({
   submit: {

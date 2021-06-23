@@ -6,7 +6,7 @@ export interface InputComponent extends BaseComponent {
   placeholder?: string,
   icon?: string,
 
-  /** An amount of milliseconds (put 400 for the best UX) of the delay for the 'update:value' event of
+  /** An amount of milliseconds (put 400 for the best UX) of the delay for the 'update:modelValue' event of
    * the FormInput component to shoot after user typing finishes */
   inputDelay?: number,
 
