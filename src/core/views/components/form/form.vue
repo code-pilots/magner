@@ -4,6 +4,7 @@
     :model="form"
     :rules="validation"
     :label-position="'top'"
+    :size="config.size"
     class="generic-form"
     @submit.prevent="submit"
   >
@@ -32,6 +33,7 @@
     <el-button
       v-if="(config.submitEvent === 'submit' || !config.submitEvent) && config.submit"
       :loading="loading"
+      :size="config.size"
       :native-type="config.submit.nativeType || 'submit'"
       :type="config.submit.type || 'primary'"
       :class="['generic-form_submit', 'width-full', config.submit.class || '']"
@@ -124,6 +126,10 @@ export default defineComponent({
     const setFieldError = (field: string, err: string) => {
       errors.value[field] = err;
     };
+
+    watchEffect(() => {
+      Object.assign(form, props.initialData);
+    });
 
     watchEffect(() => {
       errors.value = {

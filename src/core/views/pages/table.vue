@@ -5,6 +5,7 @@
         :config="config.filters"
         :loading="false"
         :filters-show-amount="config.filters.filtersShowAmount"
+        :initial-data="requestData.filters"
         class="table-page_top_filters"
         @submit="filterItems"
       >
@@ -16,19 +17,18 @@
         </template>
       </GenericForm>
 
-      <el-drawer
+      <component
+        :is="drawerComponent.component"
         v-model="drawerOpen"
-        :direction="isMobile ? 'btt' : 'rtl'"
-        :size="isMobile ? '70%' : '30%'"
-        :with-header="false"
-        :before-close="drawerClose"
-        custom-class="table-page_drawer"
+        v-bind="drawerComponent.props"
       >
         <GenericForm
           :config="{
             ...config.filters,
             submitEvent: 'submit',
+            size: isMobile ? 'medium' : 'small',
           }"
+          :initial-data="requestData.filters"
           :loading="false"
           @submit="filterItems"
         >
@@ -36,7 +36,7 @@
             <div class="flex-grow" />
           </template>
         </GenericForm>
-      </el-drawer>
+      </component>
 
       <router-link
         v-if="config.filters.linkToCreateNew"
@@ -85,6 +85,7 @@
 <script lang="ts">
 import 'styles/pages/table.css';
 import {
+  computed,
   defineComponent, PropType, reactive, ref,
 } from 'vue';
 import type { TableConfig } from 'core/types/configs';
@@ -113,6 +114,24 @@ export default defineComponent({
 
     const isMobile = useMobile();
 
+    const drawerComponent = computed(() => (isMobile.value ? {
+      component: 'el-drawer',
+      props: {
+        direction: 'btt',
+        size: 'auto',
+        withHeader: false,
+        customClass: 'table-page_drawer',
+      },
+    } : {
+      component: 'el-dialog',
+      props: {
+        title: 'Фильтры',
+        width: '70%',
+        top: '114px',
+        customClass: 'table-page_dialog',
+      },
+    }));
+
     const requestData = reactive({
       pagination: { ...(props.config.filters.pagination || {}) },
       filters: { ...(props.config.filters.filtersData || {}) },
@@ -122,6 +141,7 @@ export default defineComponent({
     const filterItems = (form: Record<string, string>) => {
       requestData.filters = { ...form };
       requestData.pagination = { ...(props.config.filters.pagination || {}) };
+      drawerOpen.value = false;
     };
 
     const changeSort = (sort: { column: any|null, prop: string|null, order: 'ascending'|'descending'|null }) => {
@@ -136,19 +156,15 @@ export default defineComponent({
       };
     };
 
-    const drawerClose = (done: Function) => {
-      done();
-    };
-
     return {
       name,
       check,
       requestData,
       drawerOpen,
       isMobile,
+      drawerComponent,
       filterItems,
       changeSort,
-      drawerClose,
     };
   },
 });

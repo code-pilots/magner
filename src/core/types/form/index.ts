@@ -22,6 +22,8 @@ export interface GenericForm {
   fields: GenericComponent[],
   submit: ButtonComponent|null,
 
+  size?: 'medium'|'small'|'mini',
+
   /**
    * Reacting to which event the form will trigger 'submit' event.
    * Case 'submit' - only on Submit button or Enter key press

@@ -76,6 +76,22 @@
         }
     }
 
+    &_dialog {
+        & .el-dialog__body {
+            padding-top: 12px;
+        }
+
+        & .generic-form {
+            &_item {
+                margin-bottom: 8px;
+            }
+
+            &_submit {
+                width: 100%;
+            }
+        }
+    }
+
     &_table {
         width: 100%;
         //height: 60vh;
