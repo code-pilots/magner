@@ -11,9 +11,22 @@
           class="card-page_form"
           @submit="save"
         >
-          <h1 class="card-page_form_title">
-            {{ config.title }}
-          </h1>
+          <template #default>
+            <h1 class="card-page_form_title">
+              {{ config.title }}
+            </h1>
+          </template>
+
+          <template #end>
+            <el-button
+              v-if="!isNew"
+              type="danger"
+              :loading="deleteLoading"
+              @click="deleteEntity"
+            >
+              Удалить
+            </el-button>
+          </template>
         </GenericForm>
       </section>
     </template>
@@ -26,6 +39,7 @@ import {
   computed, defineComponent, PropType, ref,
 } from 'vue';
 import { useRoute } from 'vue-router';
+import { ElMessageBox, ElMessage } from 'element-plus';
 import type { CardConfig } from 'core/types/configs';
 import { requestWrapper } from 'core/utils/request';
 import Dynamic from 'core/views/components/dynamic.vue';
@@ -46,6 +60,7 @@ export default defineComponent({
     const isNew = computed<boolean>(() => cardId.value === 'new');
 
     const createLoading = ref<boolean>(false);
+    const deleteLoading = ref<boolean>(false);
     const error = ref('');
     const fieldErrors = ref<Record<string, string>>({});
 
@@ -54,6 +69,7 @@ export default defineComponent({
       error.value = '';
 
       const res = await requestWrapper(data, props.config.createRequest);
+      createLoading.value = false;
 
       if (res.error) {
         if (typeof res.error === 'string') {
@@ -62,18 +78,57 @@ export default defineComponent({
           error.value = res.error.message;
           fieldErrors.value = res.error.fields;
         }
+        return;
       }
 
-      createLoading.value = false;
+      ElMessage({
+        type: 'success',
+        message: 'Успешно создано!',
+      });
+    };
+
+    const confirmDelete = (): Promise<boolean> => new Promise((resolve) => {
+      ElMessageBox.confirm(`Вы уверены, что хотите удалить сущность "${props.config.title}"`, 'Внимание!', {
+        confirmButtonText: 'Да',
+        cancelButtonText: 'Отмена',
+        type: 'warning',
+      }).then(() => {
+        resolve(true);
+      }).catch(() => {
+        resolve(false);
+      });
+    });
+
+    const deleteEntity = async () => {
+      if (props.config.confirmDelete && !(await confirmDelete())) return;
+
+      deleteLoading.value = true;
+      const res = await requestWrapper(cardId.value, props.config.deleteRequest);
+
+      if (res.error) {
+        if (typeof res.error === 'string') {
+          error.value = res.error;
+        } else {
+          error.value = res.error.message;
+        }
+      }
+
+      deleteLoading.value = false;
+      ElMessage({
+        type: 'success',
+        message: 'Удаление прошло успешно!',
+      });
     };
 
     return {
       cardId,
       isNew,
       createLoading,
+      deleteLoading,
       error,
       fieldErrors,
       save,
+      deleteEntity,
     };
   },
 });

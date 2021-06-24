@@ -1,4 +1,6 @@
-import { patientCreate, patientGet } from 'app/requests/patient';
+import {
+  patientCreate, patientDelete, patientGet, patientUpdate,
+} from 'app/requests/patient';
 import { cardPageController } from 'core/controllers';
 import patientForm from 'configs/pages/patients/form';
 
@@ -9,5 +11,10 @@ export default cardPageController({
   title: 'Пациент',
   getRequest: patientGet,
   createRequest: patientCreate,
+  updateRequest: patientUpdate,
+  deleteRequest: patientDelete,
+
+  confirmDelete: true,
+
   form: patientForm,
 });

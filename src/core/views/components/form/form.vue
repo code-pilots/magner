@@ -38,6 +38,8 @@
     >
       {{ config.submit.text }}
     </el-button>
+
+    <slot name="end" />
   </el-form>
 </template>
 

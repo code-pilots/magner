@@ -89,7 +89,7 @@ const api = {
   },
 
   /** PUT-request. Use it to delete entities */
-  delete: <T, U>(path: string, body: T, config?: RequestConfig): Promise<U> => {
+  delete: <T, U>(path: string, body?: T, config?: RequestConfig): Promise<U> => {
     const init = { method: 'delete', body: prepareBody(body, config), ...config };
     return http<U>(path, init);
   },

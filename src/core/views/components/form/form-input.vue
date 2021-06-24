@@ -48,6 +48,8 @@ export default defineComponent({
       let timer: ReturnType<typeof setTimeout>;
 
       return (newVal: string|number) => {
+        val.value = newVal;
+
         if (typeof wait === 'undefined') {
           cb(newVal);
           return;
@@ -61,7 +63,6 @@ export default defineComponent({
     };
 
     const changeVal = debounceOnInput(props.field.component.inputDelay, (newVal: string|number) => {
-      val.value = newVal;
       context.emit('update:modelValue', newVal);
     });
 

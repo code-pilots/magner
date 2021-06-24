@@ -13,5 +13,11 @@
             margin-bottom: 12px;
             text-align: left;
         }
+
+        & .el-button {
+            width: 100%;
+            margin-left: 0;
+            margin-bottom: 12px;
+        }
     }
 }
