@@ -13,6 +13,7 @@
     <FormItem
       v-for="field in (filtersShowAmount ? config.fields.slice(0, filtersShowAmount) : config.fields)"
       :key="field.name"
+      :ref="setItemEls"
       v-model="form[field.name]"
       :error="errors[field.name]"
       :field="field"
@@ -51,14 +52,12 @@ import {
   defineComponent,
   reactive,
   ref,
-  PropType, watchEffect,
+  PropType,
+  watchEffect,
 } from 'vue';
 import type { GenericForm } from 'core/types/form';
-import { fieldsToModels } from 'core/utils/form';
-import FormInput from 'core/views/components/form/form-input.vue';
+import { DataTypeInitials, fieldsToModels } from 'core/utils/form';
 import setupValidators from 'core/utils/validators';
-import Dropzone from 'core/views/components/form/dropzone.vue';
-import FormSelect from 'core/views/components/form/select.vue';
 import useMobile from 'core/utils/is-mobile';
 import FormItem from 'core/views/components/form/form-item.vue';
 
@@ -78,6 +77,10 @@ export default defineComponent({
       type: Object,
       default: () => ({}),
     },
+    returnInitialDifference: {
+      type: Boolean,
+      default: false,
+    },
     loading: {
       type: Boolean,
       default: false,
@@ -94,22 +97,45 @@ export default defineComponent({
       type: Number,
       default: null,
     },
+    allowEmptyFields: {
+      type: Boolean,
+      default: false,
+    },
   },
   emits: ['submit'],
   setup (props, context) {
     const isMobile = useMobile();
 
     const form = reactive(fieldsToModels(props.config.fields, props.initialData));
-    const validation = setupValidators(props.config.fields);
+    const validation = setupValidators(props.config.fields, props.allowEmptyFields);
 
     const globalError = ref<string>(props.error); // Error of the whole form
     const errors = ref<Record<string, string>>(props.fieldErrors); // Field errors record
 
     const formEl = ref<HTMLFormElement>();
+    const itemEls = ref<(typeof FormItem)[]>([]);
+
+    const setItemEls = (el: typeof FormItem) => {
+      if (el && el.field?.name && !itemEls.value.some((item) => item?.field?.name === el.field.name)) {
+        itemEls.value.push(el);
+      }
+    };
 
     const submit = () => {
       (formEl.value as FormValidator).validate(async (valid: boolean) => {
         if (!valid) return false;
+
+        /** For PATCH methods, return the difference with existing data */
+        if (props.returnInitialDifference) {
+          const diff = Object.entries(form).reduce((accum, entry) => {
+            if (props.initialData?.[entry[0]] && props.initialData[entry[0]] !== entry[1]) {
+              accum[entry[0]] = entry[1];
+            }
+            return accum;
+          }, {} as Record<string, DataTypeInitials>);
+          context.emit('submit', diff);
+          return true;
+        }
 
         context.emit('submit', form);
         return true;
@@ -132,10 +158,14 @@ export default defineComponent({
     });
 
     watchEffect(() => {
-      errors.value = {
-        ...errors.value,
-        ...props.fieldErrors,
-      };
+      if (!Object.keys(props.fieldErrors).length) {
+        errors.value = {};
+      } else {
+        errors.value = {
+          ...errors.value,
+          ...props.fieldErrors,
+        };
+      }
     });
 
     watchEffect(() => {
@@ -149,6 +179,7 @@ export default defineComponent({
       globalError,
       errors,
       isMobile,
+      setItemEls,
       submit,
       setFieldError,
       controlOnInput,

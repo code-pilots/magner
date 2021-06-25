@@ -8,6 +8,8 @@
           :loading="createLoading"
           :error="error"
           :field-errors="fieldErrors"
+          :allow-empty-fields="!isNew"
+          :return-initial-difference="!isNew"
           class="card-page_form"
           @submit="save"
         >
@@ -67,6 +69,7 @@ export default defineComponent({
     const save = async (data: Record<string, any>) => {
       createLoading.value = true;
       error.value = '';
+      fieldErrors.value = {};
 
       const res = await requestWrapper(data, props.config.createRequest);
       createLoading.value = false;

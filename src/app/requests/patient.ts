@@ -41,8 +41,8 @@ export interface PatientProxy {
   gender: 'female'|'male',
   address: string,
   apartment: string,
-  photo: string,
-  city: number,
+  photo: string|null,
+  cityId: string|null,
 }
 
 const patientProxy = (data: Patient): PatientProxy => ({
@@ -55,8 +55,8 @@ const patientProxy = (data: Patient): PatientProxy => ({
   gender: data.gender.value,
   address: data.address,
   apartment: data.apartment,
-  city: data.city.id,
-  photo: data.photo.src,
+  cityId: data.city?.name || null,
+  photo: data.photo?.src || null,
 });
 
 export const patientGet = request(async ({ data, router }) => {

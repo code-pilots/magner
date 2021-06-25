@@ -39,5 +39,7 @@ export interface BaseField {
   /** Needed to setup initial values for the fields. Default is 'string' that returns and empty string '' */
   dataType?: SupportedDataTypes,
 
+  /** Is the field required.
+   * !!! Doesn't work as expected, so use validation with type 'empty' on a field */
   required?: boolean,
 }

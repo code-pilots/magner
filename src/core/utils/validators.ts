@@ -10,7 +10,10 @@ export interface ValidationField {
   trigger: 'blur'|'change'|'input',
 }
 
+/** Supported validation transformations */
 export const validators: Record<SupportedValidators, ValidatorFunc> = {
+  /** Special function. Works as a 'required' field and is disabled when
+   * editing the entity card (to allow PATCH method) */
   empty: (rule, value, callback) => {
     if (value === '') {
       callback(new Error('Поле не может быть пустым'));
@@ -38,9 +41,15 @@ export const validators: Record<SupportedValidators, ValidatorFunc> = {
   },
 };
 
-type SetupFunc = (fields: GenericComponent[]) => Record<string, ValidationField>;
-const setupValidators: SetupFunc = (fields) => fields.reduce((accum, field) => {
+type SetupFunc = (fields: GenericComponent[], allowEmpty: boolean) => Record<string, ValidationField>;
+
+/**
+ * The function goes through all the form fields and collects the 'validation' property, transforms it
+ * to the function from the existing validation types and passed to the Form component as a 'rules' prop.
+ */
+const setupValidators: SetupFunc = (fields, allowEmpty) => fields.reduce((accum, field) => {
   if (!field.validation) return accum;
+  if (field.validation.type === 'empty' && allowEmpty) return accum;
 
   accum[field.name] = {
     type: field.dataType || 'string',
