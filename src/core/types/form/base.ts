@@ -30,6 +30,12 @@ export interface BaseField {
   label?: string,
   labelWidth?: string,
 
+  /**
+   * If set, fields will be grouped in the columns (doesn't work with the Form's 'filtersShowAmount' property).
+   * Default is 1
+   */
+  column?: number,
+
   /** Any attributes passed to the base HTML-tag */
   component: BaseComponent,
 

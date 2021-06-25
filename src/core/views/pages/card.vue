@@ -13,13 +13,13 @@
           class="card-page_form"
           @submit="save"
         >
-          <template #default>
+          <template #before>
             <h1 class="card-page_form_title">
               {{ config.title }}
             </h1>
           </template>
 
-          <template #end>
+          <template #actions-before>
             <el-button
               v-if="!isNew"
               type="danger"

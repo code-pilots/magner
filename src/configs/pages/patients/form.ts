@@ -10,6 +10,7 @@ const patientForm = formController({
       type: 'input',
       name: 'surname',
       label: 'Фамилия',
+      column: 1,
       component: {
         type: 'text',
         placeholder: 'Иванов',
@@ -23,6 +24,7 @@ const patientForm = formController({
       type: 'input',
       name: 'firstname',
       label: 'Имя',
+      column: 1,
       component: {
         type: 'text',
         placeholder: 'Иван',
@@ -36,6 +38,7 @@ const patientForm = formController({
       type: 'input',
       name: 'patronymic',
       label: 'Отчество',
+      column: 1,
       component: {
         type: 'text',
         placeholder: 'Иванович',
@@ -49,6 +52,7 @@ const patientForm = formController({
       type: 'input',
       name: 'email',
       label: 'Е-мейл',
+      column: 1,
       validation: {
         type: 'email',
         trigger: 'blur',
@@ -63,6 +67,7 @@ const patientForm = formController({
       type: 'input',
       name: 'phone',
       label: 'Номер телефона',
+      column: 1,
       validation: {
         type: 'empty',
         trigger: 'blur',
@@ -79,6 +84,7 @@ const patientForm = formController({
       type: 'input',
       name: 'birthDate',
       label: 'Дата рождения',
+      column: 1,
       component: {
         type: 'text',
         placeholder: '1984-12-21',
@@ -95,6 +101,7 @@ const patientForm = formController({
       type: 'select',
       name: 'gender',
       label: 'Пол',
+      column: 2,
       options: [
         {
           value: 'female',
@@ -115,6 +122,7 @@ const patientForm = formController({
       type: 'select',
       name: 'cityId',
       label: 'Город',
+      column: 2,
       component: {
         filterable: true,
         remote: true,
@@ -132,6 +140,7 @@ const patientForm = formController({
       type: 'input',
       name: 'address',
       label: 'Адрес',
+      column: 2,
       component: {
         type: 'text',
         placeholder: 'ул. Южная, д. 14',
@@ -145,6 +154,7 @@ const patientForm = formController({
       type: 'input',
       name: 'apartment',
       label: 'Квартира',
+      column: 2,
       component: {
         type: 'text',
         placeholder: 'кв. 4',
@@ -159,6 +169,7 @@ const patientForm = formController({
       type: 'dropzone',
       name: 'photo',
       label: 'Фотография',
+      column: 2,
       component: {},
       validation: null,
     },

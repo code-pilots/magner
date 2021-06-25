@@ -1,9 +1,8 @@
 .card-page {
     &_form {
         width: 100%;
-        max-width: 800px;
         margin: 0 auto;
-        padding: 12px 0;
+        padding: 12px 24px;
 
         @media (--breakpoint-small) {
             width: 90%;
@@ -18,6 +17,22 @@
             width: 100%;
             margin-left: 0;
             margin-bottom: 12px;
+        }
+
+        & .generic-form_actions {
+            display: flex;
+            flex-direction: column;
+
+            @media (--breakpoint-md) {
+                flex-direction: row;
+
+                & > * {
+                    max-width: 200px;
+                    &:not(:last-child) {
+                        margin-right: 12px;
+                    }
+                }
+            }
         }
     }
 }

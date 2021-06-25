@@ -5,21 +5,43 @@
     :rules="validation"
     :label-position="'top'"
     :size="config.size"
-    class="generic-form"
+    :class="['generic-form', {'generic-form-columns': groupedFields.length > 1}]"
     @submit.prevent="submit"
   >
-    <slot />
+    <slot name="before" />
 
-    <FormItem
-      v-for="field in (filtersShowAmount ? config.fields.slice(0, filtersShowAmount) : config.fields)"
-      :key="field.name"
-      :ref="setItemEls"
-      v-model="form[field.name]"
-      :error="errors[field.name]"
-      :field="field"
-      @error="setFieldError(field.name, $event)"
-      @update:modelValue="controlOnInput(field.name, $event)"
-    />
+    <template v-if="groupedFields.length > 1">
+      <div :class="['generic-form_columns', `generic-form-${groupedFields.length}-columns`]">
+        <div
+          v-for="(column, i) in groupedFields"
+          :key="i"
+          :class="['generic-form_columns_column', 'generic-form_column-' + (i + 1)]"
+        >
+          <FormItem
+            v-for="field in column"
+            :key="field.name"
+            :ref="setItemEls"
+            v-model="form[field.name]"
+            :error="errors[field.name]"
+            :field="field"
+            @error="setFieldError(field.name, $event)"
+            @update:modelValue="controlOnInput(field.name, $event)"
+          />
+        </div>
+      </div>
+    </template>
+    <template v-else>
+      <FormItem
+        v-for="field in (groupedFields[0] || [])"
+        :key="field.name"
+        :ref="setItemEls"
+        v-model="form[field.name]"
+        :error="errors[field.name]"
+        :field="field"
+        @error="setFieldError(field.name, $event)"
+        @update:modelValue="controlOnInput(field.name, $event)"
+      />
+    </template>
 
     <slot name="after" />
 
@@ -31,16 +53,20 @@
       class="generic-form_error"
     />
 
-    <el-button
-      v-if="(config.submitEvent === 'submit' || !config.submitEvent) && config.submit"
-      :loading="loading"
-      :size="config.size"
-      :native-type="config.submit.nativeType || 'submit'"
-      :type="config.submit.type || 'primary'"
-      :class="['generic-form_submit', 'width-full', config.submit.class || '']"
-    >
-      {{ config.submit.text }}
-    </el-button>
+    <div class="generic-form_actions">
+      <slot name="actions-before" />
+      <el-button
+        v-if="(config.submitEvent === 'submit' || !config.submitEvent) && config.submit"
+        :loading="loading"
+        :size="config.size"
+        :native-type="config.submit.nativeType || 'submit'"
+        :type="config.submit.type || 'primary'"
+        :class="['generic-form_submit', 'width-full', config.submit.class || '']"
+      >
+        {{ config.submit.text }}
+      </el-button>
+      <slot name="actions-after" />
+    </div>
 
     <slot name="end" />
   </el-form>
@@ -53,10 +79,10 @@ import {
   reactive,
   ref,
   PropType,
-  watchEffect,
+  watchEffect, computed,
 } from 'vue';
 import type { GenericForm } from 'core/types/form';
-import { DataTypeInitials, fieldsToModels } from 'core/utils/form';
+import { DataTypeInitials, fieldsToColumns, fieldsToModels } from 'core/utils/form';
 import setupValidators from 'core/utils/validators';
 import useMobile from 'core/utils/is-mobile';
 import FormItem from 'core/views/components/form/form-item.vue';
@@ -108,6 +134,7 @@ export default defineComponent({
 
     const form = reactive(fieldsToModels(props.config.fields, props.initialData));
     const validation = setupValidators(props.config.fields, props.allowEmptyFields);
+    const groupedFields = computed(() => fieldsToColumns(props.config.fields, props.filtersShowAmount));
 
     const globalError = ref<string>(props.error); // Error of the whole form
     const errors = ref<Record<string, string>>(props.fieldErrors); // Field errors record
@@ -174,6 +201,7 @@ export default defineComponent({
 
     return {
       form,
+      groupedFields,
       validation,
       formEl,
       globalError,

@@ -35,3 +35,20 @@ export const fieldsToModels = (
     accum[currentValue.name] = initialData?.[currentValue.name] || dataTypeToInitial(currentValue.dataType || 'string');
     return accum;
   }, {} as Record<string, DataTypeInitials>);
+
+/**
+ * Function groups form fields into the array of columns with fields in them. If the 'column' property is not
+ * present in the form field, it is assigned to 1 value by default.
+ */
+export const fieldsToColumns = (fields: GenericComponent[], showAmount?: number): GenericComponent[][] => {
+  if (showAmount) return [fields.slice(0, showAmount)];
+
+  const grouped = fields.reduce((accum, current) => {
+    if (!accum[current.column || 1]) accum[current.column || 1] = [];
+
+    accum[current.column || 1].push(current);
+    return accum;
+  }, {} as Record<number, GenericComponent[]>);
+
+  return Object.values(grouped);
+};

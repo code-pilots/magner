@@ -11,9 +11,11 @@
         class="login-page_form"
         @submit="login"
       >
-        <h1 class="login-page_form_title">
-          {{ config.title }}
-        </h1>
+        <template #before>
+          <h1 class="login-page_form_title">
+            {{ config.title }}
+          </h1>
+        </template>
       </GenericForm>
     </el-col>
   </el-row>
