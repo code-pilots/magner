@@ -13,7 +13,7 @@
 
     <div class="main-layout_content">
       <section class="page">
-        <router-view />
+        <router-view :key="activeRoute && activeRoute.route.name" />
       </section>
     </div>
   </main>
@@ -21,8 +21,11 @@
 
 <script lang="ts">
 import 'styles/layouts/main.css';
-import { computed, defineComponent, ref } from 'vue';
+import {
+  computed, defineComponent, ref, watchEffect,
+} from 'vue';
 import { useRoute } from 'vue-router';
+import type { CustomRoute } from 'core/types/configs';
 import useStore from 'core/controllers/store/store';
 import Header from '../components/header.vue';
 import Sidebar from '../components/sidebar.vue';
@@ -41,7 +44,7 @@ export default defineComponent({
     const sidebarCollapsed = computed<boolean>(() => store.state.sidebarCollapsed);
 
     const routes = store.state.allRoutes;
-    const activeRoute = computed(() => routes.find((item) => item.route?.name === route.name) || null);
+    const activeRoute = computed<CustomRoute>(() => routes.find((item) => item.route?.name === route.name) || null);
 
     return {
       sidebarCollapsed,
