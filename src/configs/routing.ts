@@ -4,6 +4,7 @@ import patientsConfig from 'configs/pages/patients/patients';
 import patientConfig from 'configs/pages/patients/patient';
 import loginPageConfig from 'configs/pages/login';
 import consultationTypesTable from 'configs/pages/dictionaries/consultation-types/table';
+import specializationTable from 'configs/pages/dictionaries/specializations/table';
 
 const router = routerController({
   global: {
@@ -104,6 +105,20 @@ const router = routerController({
       route: {
         name: 'consultation-types',
         path: '/consultation-types',
+        component: 'table',
+      },
+    },
+
+    {
+      preset: 'table',
+      config: specializationTable,
+      roles: [ROLE.SUPER_ADMIN, ROLE.DOCTOR, ROLE.DOCTOR],
+      visible: true,
+      title: 'Специализации',
+      icon: 'grid',
+      route: {
+        name: 'specializations',
+        path: '/specializations',
         component: 'table',
       },
     },
