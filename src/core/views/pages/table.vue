@@ -86,11 +86,14 @@
 import 'styles/pages/table.css';
 import {
   computed,
-  defineComponent, PropType, reactive, ref,
+  defineComponent, PropType, reactive, ref, watch,
 } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import type { TableConfig } from 'core/types/configs';
 import DataTable from 'core/views/components/table.vue';
 import useMobile from 'core/utils/is-mobile';
+import useStore from 'core/controllers/store/store';
+import filterUrlDataComparison from 'core/utils/filter-url-data-comparison';
 import Dynamic from '../components/dynamic.vue';
 import GenericForm from '../components/form/form.vue';
 
@@ -108,6 +111,10 @@ export default defineComponent({
     },
   },
   setup (props) {
+    const route = useRoute();
+    const router = useRouter();
+    const store = useStore();
+
     const name = ref('');
     const check = ref(false);
     const drawerOpen = ref(false);
@@ -138,6 +145,8 @@ export default defineComponent({
       sort: { ...(props.config.filters.sort || {}) },
     });
 
+    filterUrlDataComparison(requestData, store.state.project.helpers.urlToData(route.query));
+
     const filterItems = (form: Record<string, string>) => {
       requestData.filters = { ...form };
       requestData.pagination = { ...(props.config.filters.pagination || {}) };
@@ -155,6 +164,11 @@ export default defineComponent({
         [sort.prop]: sort.order === 'ascending' ? 'ASC' : 'DESC',
       };
     };
+
+    watch(() => requestData, (val) => {
+      const query = store.state.project.helpers.dataToUrl(val);
+      router.push(route.path + query);
+    }, { deep: true });
 
     return {
       name,

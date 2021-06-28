@@ -21,9 +21,6 @@ const patientsFilters = filtersFormController({
   },
 
   filtersData: {
-    patientId: 0,
-    clinicId: 0,
-    doctorId: 0,
     fullName: '',
   },
 

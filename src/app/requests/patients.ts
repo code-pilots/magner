@@ -1,5 +1,4 @@
 import dataToProxy, { Response, Proxy } from 'app/proxies/patients';
-import dataToUrl from 'app/proxies/get-request';
 import request from 'core/utils/request';
 
 interface ReqData {
@@ -11,9 +10,9 @@ interface ReqData {
   sort: {},
 }
 
-const patientsRequest = request<Proxy, ReqData>(async ({ data, api }) => {
+const patientsRequest = request<Proxy, ReqData>(async ({ data, api, store }) => {
   try {
-    const query = dataToUrl({
+    const query = store.state.project.helpers.dataToUrl({
       ...data.pagination,
       filters: data.filters,
       sort: data.sort,

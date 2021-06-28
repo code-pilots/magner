@@ -2,9 +2,14 @@
 import type { ProxyFunc } from 'core/types/utils';
 
 type DataBody = Record<string, any>;
-type GetUri = string;
+export type DataToUrlHelper = ProxyFunc<DataBody, string>;
+export type UrlToDataHelper = ProxyFunc<DataBody, DataBody>;
 
-const dataToUrl: ProxyFunc<DataBody, GetUri> = (data) => {
+/**
+ * Function parses an object of form { items: 5, filters: { params: [1, 2] } } to the URL of type
+ * ?items=5&filters[0][id]=params&filters[0][value]=1&filters[0][value]=2
+ */
+const dataToUrl: DataToUrlHelper = (data) => {
   const params = [];
 
   for (const [key, val] of Object.entries(data)) {
@@ -41,6 +46,35 @@ const dataToUrl: ProxyFunc<DataBody, GetUri> = (data) => {
   }
 
   return `?${params.join('&')}`;
+};
+
+/**
+ * Function parses an URL queries of form { items: "5", filters[0][id]="params", filters[0][value]=[1,2] }
+ * made by Vue Router that parses the query string for us. If it sees equal keys, then makes an array of their values.
+ * Returns the object of type { items: 5, filters: { params: [1, 2] } }
+ */
+export const urlToData: UrlToDataHelper = (query) => {
+  const data: DataBody = {};
+
+  /** Vue-Router  */
+  Object.entries(query).forEach(([key, value]) => {
+    const matched = key.match(/^([^[]+)\[([0-9]+)]\[id]/);
+    const isValue = new RegExp(/^[^[]+\[[0-9]+]\[value]/).test(key);
+    if (!isValue) {
+      if (matched) {
+        if (!data[matched[1]]) data[matched[1]] = {};
+        const paramValueSearch = `${matched[1]}[${matched[2]}][value]`;
+        const paramValue = query[paramValueSearch];
+        if (paramValue) {
+          data[matched[1]][value] = paramValue;
+        }
+      } else {
+        data[key] = value;
+      }
+    }
+  });
+
+  return data;
 };
 
 export default dataToUrl;
