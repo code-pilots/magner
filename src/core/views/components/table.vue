@@ -56,7 +56,10 @@ export default defineComponent({
       type: Object as PropType<Table>,
       required: true,
     },
-    tableHeight: String,
+    tableHeight: {
+      type: String,
+      default: 'auto',
+    },
   },
   emits: ['sort'],
   setup (props, context) {

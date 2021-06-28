@@ -4,7 +4,7 @@ import type { ApiError } from 'app/utils/parse-error';
 import type { ApiType } from 'core/utils/api';
 
 /** A proxy that accepts anything and returns something different */
-export type ProxyFunc<T = any, U = any> = (data: T) => U;
+export type ProxyFunc<ARGUMENT = any, PROXY = any> = (data: ARGUMENT) => PROXY;
 
 interface ErrorResponse {
   error: string | ApiError,

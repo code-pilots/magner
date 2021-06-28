@@ -3,6 +3,7 @@ import ROLE from 'configs/roles';
 import patientsConfig from 'configs/pages/patients/patients';
 import patientConfig from 'configs/pages/patients/patient';
 import loginPageConfig from 'configs/pages/login';
+import consultationTypesTable from 'configs/pages/dictionaries/consultation-types/table';
 
 const router = routerController({
   global: {
@@ -90,6 +91,20 @@ const router = routerController({
         name: 'patient',
         path: '/patients/:id',
         component: 'card',
+      },
+    },
+
+    {
+      preset: 'table',
+      config: consultationTypesTable,
+      roles: [ROLE.SUPER_ADMIN, ROLE.DOCTOR, ROLE.DOCTOR],
+      visible: true,
+      title: 'Типы консультаций',
+      icon: 'grid',
+      route: {
+        name: 'consultation-types',
+        path: '/consultation-types',
+        component: 'table',
       },
     },
 

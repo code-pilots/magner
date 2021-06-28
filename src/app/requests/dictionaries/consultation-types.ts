@@ -1,23 +1,18 @@
 import request from 'core/utils/request';
 import { PaginationType, TableRequest } from 'core/types/configs';
 
-interface Patient {
+interface ConsultationType {
   id: number,
-  fullName: string,
-  receptionDate: string,
-  birthDate: string,
-  gender: 'male'|'female',
-  email: string,
-  address: string,
-  apartment: string,
-  lat: number,
-  long: number,
+  title: string,
+  description: string,
+  duration: number,
+  cancellationAllowed: string,
 }
 
 interface Response {
   result: {
     table: {
-      rows: Patient[],
+      rows: ConsultationType[],
       totalItems: number,
       pagination: PaginationType | null,
       sortFields: string[],
@@ -25,7 +20,7 @@ interface Response {
   },
 }
 
-const patientsRequest: TableRequest<Patient> = request(async ({ data, api, store }) => {
+const consultationTypeRequest: TableRequest<ConsultationType> = request(async ({ data, api, store }) => {
   try {
     const query = store.state.project.helpers.dataToUrl({
       ...data.pagination,
@@ -33,7 +28,7 @@ const patientsRequest: TableRequest<Patient> = request(async ({ data, api, store
       sort: data.sort,
     });
 
-    const res: Response = await api.get(`patients${query}`);
+    const res: Response = await api.get(`medical-service-types${query}`);
     const proxied = {
       rows: res.result.table.rows,
       pagination: res.result.table.pagination,
@@ -46,4 +41,4 @@ const patientsRequest: TableRequest<Patient> = request(async ({ data, api, store
   }
 });
 
-export default patientsRequest;
+export default consultationTypeRequest;

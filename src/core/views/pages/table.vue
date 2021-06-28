@@ -1,6 +1,6 @@
 <template>
   <section class="table-page">
-    <div class="table-page_top">
+    <div v-if="hasFilters" class="table-page_top">
       <GenericForm
         ref="formRef"
         :config="config.filters"
@@ -58,9 +58,7 @@
           <DataTable
             :data="response.rows"
             :config="config.table"
-            :table-height="isMobile ? 'calc(100vh - 90px)' : (response.pagination && requestData.pagination)
-              ? 'calc(100vh - 155px)'
-              : 'calc(100vh - 115px)'"
+            :table-height="tableHeight"
             @sort="changeSort"
           />
         </div>
@@ -120,13 +118,23 @@ export default defineComponent({
     const route = useRoute();
     const router = useRouter();
     const store = useStore();
+    const isMobile = useMobile();
 
-    const name = ref('');
-    const check = ref(false);
     const drawerOpen = ref(false);
     const formRef = ref<GenericForm>();
 
-    const isMobile = useMobile();
+    const hasFilters = computed(() => props.config.filters.fields.length || props.config.filters.linkToCreateNew);
+    const tableHeight = computed(() => {
+      const headerHeight = 50;
+      const topHeight = hasFilters.value ? 64 : 0;
+      const bottomHeight = 40;
+
+      let height;
+      if (isMobile.value) height = headerHeight + bottomHeight;
+      else height = headerHeight + topHeight + bottomHeight;
+
+      return `calc(100vh - ${height + 1}px)`;
+    });
 
     const drawerComponent = computed(() => (isMobile.value ? {
       component: 'el-drawer',
@@ -191,14 +199,14 @@ export default defineComponent({
     });
 
     return {
-      name,
-      check,
       requestData,
       drawerOpen,
       isMobile,
       drawerComponent,
       appliedFilters,
       formRef,
+      hasFilters,
+      tableHeight,
       filterItems,
       changeSort,
       clearFilters,
