@@ -9,10 +9,7 @@ import patientsTable from 'configs/pages/patients/table';
  */
 export default tablePageController({
   title: 'Пациенты',
-
   request: patientsRequest,
-  dataField: 'users',
-
   filters: patientsFilters,
   table: patientsTable,
 });

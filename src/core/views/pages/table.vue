@@ -56,7 +56,7 @@
       <template #default="{response, loading}">
         <div v-loading="loading" class="table-page_table">
           <DataTable
-            :data="response[config.dataField]"
+            :data="response.rows"
             :config="config.table"
             :table-height="isMobile ? 'calc(100vh - 90px)' : (response.pagination && requestData.pagination)
               ? 'calc(100vh - 155px)'
@@ -73,7 +73,7 @@
             v-model:currentPage="response.pagination.currentPage"
             :page-sizes="[10, 25, 50, 100]"
             :page-size="parseInt(requestData.pagination.items) || 10"
-            :total="response.total"
+            :total="response.pagination.totalItems"
             :pager-count="7"
             :small="isMobile"
             background

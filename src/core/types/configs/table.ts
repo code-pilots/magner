@@ -34,14 +34,31 @@ export interface FiltersForm extends GenericForm {
   filtersData: Record<string, any>,
 }
 
+export interface PaginationType {
+  currentPage: number,
+  totalItems: number,
+  totalPages: number,
+}
+
+export interface TableFiltersData {
+  filters: Record<string, any>,
+  sort: Record<string, any>,
+  pagination: PaginationType,
+}
+
+export interface TableFiltersResponse<ROW = any> {
+  rows: ROW[],
+  pagination: PaginationType | null,
+}
+
+export type TableRequest<ROW = any> = RequestCallback<TableFiltersResponse<ROW>, TableFiltersData>;
+
 export interface TableConfig {
   /** Page title */
   title: string,
 
-  /** Data request */
-  request: RequestCallback,
-  /** What field in the 'request' function return has the data rows */
-  dataField: string,
+  /** Data request. Must return the data array in the field 'rows' and a pagination object */
+  request: TableRequest,
 
   /** Filters configuration */
   filters: FiltersForm,

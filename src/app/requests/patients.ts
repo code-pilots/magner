@@ -1,16 +1,42 @@
-import dataToProxy, { Response, Proxy } from 'app/proxies/patients';
 import request from 'core/utils/request';
+import { PaginationType, TableRequest } from 'core/types/configs';
+import { ProxyFunc } from 'core/types/utils';
 
-interface ReqData {
-  pagination: {
-    items: number,
-    page: number,
-  },
-  filters: {},
-  sort: {},
+interface Patient {
+  id: number,
+  fullName: string,
+  receptionDate: string,
+  birthDate: string,
+  gender: 'male'|'female',
+  email: string,
+  address: string,
+  apartment: string,
+  lat: number,
+  long: number,
 }
 
-const patientsRequest = request<Proxy, ReqData>(async ({ data, api, store }) => {
+interface Response {
+  result: {
+    table: {
+      rows: Patient[],
+      totalItems: number,
+      pagination: PaginationType | null,
+      sortFields: string[],
+    },
+  },
+}
+
+interface Proxy {
+  rows: Patient[],
+  pagination: PaginationType | null,
+}
+
+const dataToProxy: ProxyFunc<Response, Proxy> = (data) => ({
+  rows: data.result.table.rows,
+  pagination: data.result.table.pagination,
+});
+
+const patientsRequest: TableRequest<Patient> = request(async ({ data, api, store }) => {
   try {
     const query = store.state.project.helpers.dataToUrl({
       ...data.pagination,
@@ -24,7 +50,7 @@ const patientsRequest = request<Proxy, ReqData>(async ({ data, api, store }) => 
     return { error: null, data: proxied };
   } catch (e) {
     console.error(e);
-    return { error: null, data: { users: [], pagination: null, total: 0 } };
+    return { error: null, data: { rows: [], pagination: null, total: 0 } };
   }
 });
 
