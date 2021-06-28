@@ -53,7 +53,7 @@ const dataToUrl: DataToUrlHelper = (data) => {
  * made by Vue Router that parses the query string for us. If it sees equal keys, then makes an array of their values.
  * Returns the object of type { items: 5, filters: { params: [1, 2] } }
  */
-export const urlToData: UrlToDataHelper = (query) => {
+export const urlToData: UrlToDataHelper = (query = {}) => {
   const data: DataBody = {};
 
   /** Vue-Router  */

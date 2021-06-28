@@ -8,6 +8,8 @@ const patientsFilters = filtersFormController({
 
   filtersShowAmount: 1,
 
+  saveToLocalStorage: true,
+
   submit: {
     type: 'primary',
     nativeType: 'submit',

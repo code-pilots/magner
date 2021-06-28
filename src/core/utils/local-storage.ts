@@ -1,5 +1,7 @@
 import envs from '../../envs';
 
+type SupportedLSKeys = 'token'|'sidebarCollapsed'|'filters';
+
 /**
  * Manipulate with the stringified object placed in the LocalStorage for
  * persisting the data from the admin panel
@@ -27,17 +29,26 @@ const getLsObject = (): Record<string, any> => {
 
 /** Simple functions for manipulating localStorage object */
 const lstorage = {
-  read: (field: string): any => getLsObject()[field],
+  read: (field: SupportedLSKeys): any => getLsObject()[field],
 
-  put: (field: string, value: any) => {
+  put: (field: SupportedLSKeys, value: any) => {
     const ls = getLsObject();
     ls[field] = value;
     localStorage.setItem(envs.LOCAL_STORAGE_KEY, JSON.stringify(ls));
   },
 
-  delete: (field: string) => {
+  delete: (field: SupportedLSKeys) => {
     const ls = getLsObject();
     delete ls[field];
+    localStorage.setItem(envs.LOCAL_STORAGE_KEY, JSON.stringify(ls));
+  },
+
+  deepRead: (field: SupportedLSKeys, nestedField: string): any => getLsObject()[field]?.[nestedField],
+
+  deepPut: (field: SupportedLSKeys, nestedField: string, value: any) => {
+    const ls = getLsObject();
+    if (ls[field]) ls[field] = { ...ls[field], [nestedField]: value };
+    else ls[field] = { [nestedField]: value };
     localStorage.setItem(envs.LOCAL_STORAGE_KEY, JSON.stringify(ls));
   },
 };

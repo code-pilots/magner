@@ -91,9 +91,10 @@
 import 'styles/pages/table.css';
 import {
   computed,
-  defineComponent, PropType, reactive, ref, watch,
+  defineComponent, PropType, reactive, ref, watch, watchEffect,
 } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import lstorage from 'core/utils/local-storage';
 import type { TableConfig } from 'core/types/configs';
 import DataTable from 'core/views/components/table.vue';
 import useMobile from 'core/utils/is-mobile';
@@ -151,7 +152,11 @@ export default defineComponent({
       sort: { ...(props.config.filters.sort || {}) },
     });
 
-    filterUrlDataComparison(requestData, store.state.project.helpers.urlToData(route.query));
+    // Depending on URL query existence and configuration, load initial data from URL or LocalStorage
+    const initialData = props.config.filters.saveToLocalStorage && !Object.keys(route.query).length
+      ? lstorage.deepRead('filters', route.name)
+      : store.state.project.helpers.urlToData(route.query);
+    filterUrlDataComparison(requestData, initialData);
 
     const appliedFilters = computed(() => Object.values(requestData.filters).filter((filter) => !!filter).length);
     const clearFilters = () => formRef.value.clearForm?.();
@@ -178,6 +183,12 @@ export default defineComponent({
       const query = store.state.project.helpers.dataToUrl(val);
       router.push(route.path + query);
     }, { deep: true });
+
+    watchEffect(() => {
+      if (props.config.filters.saveToLocalStorage) {
+        lstorage.deepPut('filters', route.name, { filters: requestData.filters });
+      }
+    });
 
     return {
       name,

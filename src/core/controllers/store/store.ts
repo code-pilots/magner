@@ -17,11 +17,6 @@ interface State {
   sidebarCollapsed: boolean,
 }
 
-const LSKeys = {
-  token: 'token',
-  sidebar: 'sidebarCollapsed',
-};
-
 /**
  * A key that is needed to access the store in a form of useStore() hook in the
  * setup() function of every component.
@@ -48,11 +43,11 @@ export const store = createStore<State>({
       allRoutes: [],
       project: {} as ProjectConfig,
 
-      token: lstorage.read(LSKeys.token) || null,
+      token: lstorage.read('token') || null,
       user: null,
       role: null,
 
-      sidebarCollapsed: lstorage.read(LSKeys.sidebar) || false,
+      sidebarCollapsed: lstorage.read('sidebarCollapsed') || false,
     };
   },
 
@@ -70,9 +65,9 @@ export const store = createStore<State>({
     setToken (state, value: string) {
       state.token = value;
       if (value) {
-        lstorage.put(LSKeys.token, value);
+        lstorage.put('token', value);
       } else {
-        lstorage.delete(LSKeys.token);
+        lstorage.delete('token');
       }
     },
 
@@ -87,9 +82,9 @@ export const store = createStore<State>({
     setSidebar (state, value: boolean) {
       state.sidebarCollapsed = value;
       if (value) {
-        lstorage.put(LSKeys.sidebar, value);
+        lstorage.put('sidebarCollapsed', value);
       } else {
-        lstorage.delete(LSKeys.sidebar);
+        lstorage.delete('sidebarCollapsed');
       }
     },
   },
