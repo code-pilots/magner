@@ -2,6 +2,7 @@
   <section class="table-page">
     <div class="table-page_top">
       <GenericForm
+        ref="formRef"
         :config="config.filters"
         :loading="false"
         :filters-show-amount="config.filters.filtersShowAmount"
@@ -12,6 +13,9 @@
         <template #after>
           <template v-if="config.filters.filtersShowAmount < config.filters.fields.length">
             <el-button type="primary" icon="el-icon-s-operation" @click="drawerOpen = true">Больше фильтров</el-button>
+            <el-tag v-if="appliedFilters" closable @close="clearFilters">
+              Применено фильтров: {{ appliedFilters }}
+            </el-tag>
           </template>
           <div class="flex-grow" />
         </template>
@@ -68,7 +72,7 @@
           <el-pagination
             v-model:currentPage="response.pagination.currentPage"
             :page-sizes="[10, 25, 50, 100]"
-            :page-size="requestData.pagination.items || 10"
+            :page-size="parseInt(requestData.pagination.items) || 10"
             :total="response.total"
             :pager-count="7"
             :small="isMobile"
@@ -119,6 +123,7 @@ export default defineComponent({
     const name = ref('');
     const check = ref(false);
     const drawerOpen = ref(false);
+    const formRef = ref<GenericForm>();
 
     const isMobile = useMobile();
 
@@ -147,6 +152,9 @@ export default defineComponent({
     });
 
     filterUrlDataComparison(requestData, store.state.project.helpers.urlToData(route.query));
+
+    const appliedFilters = computed(() => Object.values(requestData.filters).filter((filter) => !!filter).length);
+    const clearFilters = () => formRef.value.clearForm?.();
 
     const filterItems = (form: Record<string, string>) => {
       requestData.filters = { ...form };
@@ -178,8 +186,11 @@ export default defineComponent({
       drawerOpen,
       isMobile,
       drawerComponent,
+      appliedFilters,
+      formRef,
       filterItems,
       changeSort,
+      clearFilters,
     };
   },
 });
