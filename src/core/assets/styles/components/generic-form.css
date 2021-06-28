@@ -1,8 +1,4 @@
 .generic-form {
-    &:not(.generic-form-columns) {
-        max-width: 800px;
-    }
-
     &_columns {
         display: flex;
         flex-direction: column;
@@ -37,6 +33,22 @@
 
     &_error {
         margin-bottom: 8px;
+    }
+
+    &_actions {
+        display: flex;
+        flex-direction: column;
+
+        @media (--breakpoint-md) {
+            flex-direction: row;
+
+            & > * {
+                max-width: 200px;
+                &:not(:last-child) {
+                    margin-right: 12px;
+                }
+            }
+        }
     }
 
     &_item {

@@ -24,6 +24,9 @@ export interface GenericForm {
 
   size?: 'medium'|'small'|'mini',
 
+  /** Can the form be cleared? Displays a proper button */
+  clearable?: boolean,
+
   /**
    * Reacting to which event the form will trigger 'submit' event.
    * Case 'submit' - only on Submit button or Enter key press

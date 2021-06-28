@@ -29,7 +29,7 @@ export const dataTypeToInitial = (dataType: SupportedDataTypes): DataTypeInitial
  * This object is used when the form triggers the 'submit' event.
  */
 export const fieldsToModels = (
-  fields: GenericComponent[], initialData: Record<string, any>,
+  fields: GenericComponent[], initialData?: Record<string, any>,
 ): Record<string, DataTypeInitials> => fields
   .reduce((accum, currentValue) => {
     accum[currentValue.name] = initialData?.[currentValue.name] || dataTypeToInitial(currentValue.dataType || 'string');

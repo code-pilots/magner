@@ -27,6 +27,7 @@
             ...config.filters,
             submitEvent: 'submit',
             size: isMobile ? 'medium' : 'small',
+            clearable: true,
           }"
           :initial-data="requestData.filters"
           :loading="false"

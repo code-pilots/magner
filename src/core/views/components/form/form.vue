@@ -56,6 +56,16 @@
     <div class="generic-form_actions">
       <slot name="actions-before" />
       <el-button
+        v-if="config.clearable"
+        :size="config.size"
+        native-type="button"
+        type="secondary"
+        :class="['generic-form_clear', 'width-full']"
+        @click="clearForm"
+      >
+        Очистить
+      </el-button>
+      <el-button
         v-if="(config.submitEvent === 'submit' || !config.submitEvent) && config.submit"
         :loading="loading"
         :size="config.size"
@@ -180,6 +190,11 @@ export default defineComponent({
       errors.value[field] = err;
     };
 
+    const clearForm = () => {
+      Object.assign(form, fieldsToModels(props.config.fields));
+      submit();
+    };
+
     watchEffect(() => {
       Object.assign(form, props.initialData);
     });
@@ -211,6 +226,7 @@ export default defineComponent({
       submit,
       setFieldError,
       controlOnInput,
+      clearForm,
     };
   },
 });

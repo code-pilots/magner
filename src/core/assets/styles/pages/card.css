@@ -18,21 +18,5 @@
             margin-left: 0;
             margin-bottom: 12px;
         }
-
-        & .generic-form_actions {
-            display: flex;
-            flex-direction: column;
-
-            @media (--breakpoint-md) {
-                flex-direction: row;
-
-                & > * {
-                    max-width: 200px;
-                    &:not(:last-child) {
-                        margin-right: 12px;
-                    }
-                }
-            }
-        }
     }
 }

@@ -33,6 +33,7 @@ const patientsFilters = filtersFormController({
       type: 'input',
       name: 'fullName',
       validation: null,
+      column: 1,
       component: {
         type: 'text',
         placeholder: 'Полное имя',
@@ -42,6 +43,13 @@ const patientsFilters = filtersFormController({
     {
       type: 'select',
       name: 'sort',
+      column: 2,
+      validation: null,
+      component: {
+        placeholder: 'Пример селекта',
+        valueKey: 'id',
+        clearable: true,
+      },
       options: [
         {
           id: 1,
@@ -55,25 +63,7 @@ const patientsFilters = filtersFormController({
           value: 'DESC',
           label: 'В обратном алфавитном порядке по имени',
         },
-        {
-          id: 3,
-          slug: 'receptionDate',
-          value: 'DESC',
-          label: 'Сначала ближайшие даты записи',
-        },
-        {
-          id: 4,
-          slug: 'receptionDate',
-          value: 'ASC',
-          label: 'Сначала старые даты записи',
-        },
       ],
-      validation: null,
-      component: {
-        placeholder: 'Сортировка',
-        valueKey: 'id',
-        clearable: true,
-      },
     },
   ],
 });
