@@ -1,5 +1,7 @@
 import type { RouteComponent, RouteRecordRaw } from 'vue-router';
-import type { RoutingConfig, PresetRoute, SimpleRoute } from 'core/types/configs';
+import type {
+  GroupRoute, PresetRoute, RouteOrGroup, RoutingConfig, SimpleRoute,
+} from 'core/types/configs';
 import allPresets from 'core/controllers/router/presets';
 import checkAuth from 'core/utils/check-auth';
 
@@ -8,8 +10,18 @@ const simpleToPreset = (route: SimpleRoute): PresetRoute => ({
   preset: 'empty',
 });
 
-const makeRoutes = (config: RoutingConfig): RouteRecordRaw[] => config.routes
+const isGroup = (route: RouteOrGroup): route is GroupRoute => !!route.group;
+
+/**
+ * The function receives routes configuration, parses them
+ * and outputs the format that is acceptable by vue router.
+ */
+const makeRoutes = (routes: RoutingConfig['routes']): RouteRecordRaw[] => routes
   .map((route) => {
+    if (isGroup(route)) {
+      return makeRoutes(route.routes);
+    }
+
     const presettedRoute: PresetRoute = route.preset ? route : simpleToPreset(route);
 
     const fullPreset = {
@@ -72,6 +84,7 @@ const makeRoutes = (config: RoutingConfig): RouteRecordRaw[] => config.routes
     }
 
     return finalRoute;
-  });
+  })
+  .flat();
 
 export default makeRoutes;

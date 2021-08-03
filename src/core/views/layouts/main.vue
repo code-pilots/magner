@@ -22,10 +22,10 @@
 <script lang="ts">
 import 'styles/layouts/main.css';
 import {
-  computed, defineComponent, ref, watchEffect,
+  computed, defineComponent, ref,
 } from 'vue';
 import { useRoute } from 'vue-router';
-import type { CustomRoute } from 'core/types/configs';
+import type { RouteOrGroup } from 'core/types/configs';
 import useStore from 'core/controllers/store/store';
 import Header from '../components/header.vue';
 import Sidebar from '../components/sidebar.vue';
@@ -44,7 +44,7 @@ export default defineComponent({
     const sidebarCollapsed = computed<boolean>(() => store.state.sidebarCollapsed);
 
     const routes = store.state.allRoutes;
-    const activeRoute = computed<CustomRoute>(() => routes.find((item) => item.route?.name === route.name) || null);
+    const activeRoute = computed<RouteOrGroup>(() => routes.find((item) => item.route?.name === route.name) || null);
 
     return {
       sidebarCollapsed,

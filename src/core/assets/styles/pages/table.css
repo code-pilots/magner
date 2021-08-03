@@ -11,8 +11,8 @@
     &_top {
         display: flex;
         justify-content: space-between;
-        margin: 12px 0;
-        padding: 0 12px;
+        padding: 12px;
+        border-bottom: 1px solid #EBEEF5;
 
         @media (--breakpoint-small) {
             flex-direction: column;
@@ -100,7 +100,6 @@
     &_table {
         width: 100%;
         //height: 60vh;
-        border-top: 1px solid #EBEEF5;
         overflow-y: auto;
         @media (--breakpoint-small) {
             padding-bottom: 40px;

@@ -46,6 +46,7 @@ export type Route = RouteRecordSingleViewOverride | RouteRecordRedirectOverride;
  * Define custom routes to be used in configuration
  */
 export interface BaseRoute {
+  group?: false,
   layout?: 'main' | string | null | RouteComponent | (() => Promise<RouteComponent>),
   config?: Record<string, any>,
   roles: ROLE[] | null,
@@ -125,7 +126,17 @@ export interface SimpleRoute extends BaseRoute {
 
 export type CustomRoute = SimpleRoute | PresetLoginRoute | PresetTableRoute | PresetCardRoute;
 
-export interface RoutingConfig {
+export interface GroupRoute {
+  group: true,
+  name: string,
+  title: string,
+  icon: string,
   routes: CustomRoute[],
+}
+
+export type RouteOrGroup = CustomRoute | GroupRoute;
+
+export interface RoutingConfig {
+  routes: RouteOrGroup[],
   global: GlobalRouting,
 }

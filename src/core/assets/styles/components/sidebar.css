@@ -32,6 +32,10 @@
                 margin-left: 6px;
             }
         }
+
+        & .el-icon-margin-right {
+            margin-right: 4px;
+        }
     }
 
     &_scroll {

@@ -23,7 +23,7 @@ export interface Proxy {
 
 const dataToProxy: ProxyFunc<Response, Proxy> = (data) => ({
   token: data.token,
-  role: data.result.user.roles.length ? data.result.user.roles[0] : null,
+  role: data.result.user.roles?.length ? data.result.user.roles[0] : null,
   user: data.result.user,
 });
 

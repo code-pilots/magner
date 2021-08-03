@@ -96,31 +96,38 @@ const router = routerController({
     },
 
     {
-      preset: 'table',
-      config: consultationTypesTable,
-      roles: [ROLE.SUPER_ADMIN, ROLE.DOCTOR, ROLE.DOCTOR],
-      visible: true,
-      title: 'Типы консультаций',
+      group: true,
+      name: 'dicts',
+      title: 'Справочники',
       icon: 'grid',
-      route: {
-        name: 'consultation-types',
-        path: '/consultation-types',
-        component: 'table',
-      },
-    },
-
-    {
-      preset: 'table',
-      config: specializationTable,
-      roles: [ROLE.SUPER_ADMIN, ROLE.DOCTOR, ROLE.DOCTOR],
-      visible: true,
-      title: 'Специализации',
-      icon: 'grid',
-      route: {
-        name: 'specializations',
-        path: '/specializations',
-        component: 'table',
-      },
+      routes: [
+        {
+          preset: 'table',
+          config: specializationTable,
+          roles: [ROLE.SUPER_ADMIN, ROLE.DOCTOR, ROLE.DOCTOR],
+          visible: true,
+          title: 'Специализации',
+          icon: 'grid',
+          route: {
+            name: 'specializations',
+            path: '/specializations',
+            component: 'table',
+          },
+        },
+        {
+          preset: 'table',
+          config: consultationTypesTable,
+          roles: [ROLE.SUPER_ADMIN, ROLE.DOCTOR, ROLE.DOCTOR],
+          visible: true,
+          title: 'Типы консультаций',
+          icon: 'grid',
+          route: {
+            name: 'consultation-types',
+            path: '/consultation-types',
+            component: 'table',
+          },
+        },
+      ],
     },
 
     {

@@ -12,6 +12,7 @@ import type {
 } from 'core/types/configs';
 
 const loginPreset: RequiredPreset<PresetLoginRoute> = {
+  group: false,
   preset: 'login',
   layout: null,
   roles: null,
@@ -30,6 +31,7 @@ const loginPreset: RequiredPreset<PresetLoginRoute> = {
 };
 
 const tablePreset: RequiredPreset<PresetTableRoute> = {
+  group: false,
   preset: 'table',
   layout: 'main',
   roles: null,
@@ -48,6 +50,7 @@ const tablePreset: RequiredPreset<PresetTableRoute> = {
 };
 
 const cardPreset: RequiredPreset<PresetCardRoute> = {
+  group: false,
   preset: 'card',
   layout: 'main',
   roles: null,
@@ -66,6 +69,7 @@ const cardPreset: RequiredPreset<PresetCardRoute> = {
 };
 
 const emptyPreset: RequiredPreset<PresetEmptyRoute> = {
+  group: false,
   preset: 'empty',
   layout: null,
   roles: null,

@@ -8,8 +8,34 @@
         @select="navigate"
       >
         <template v-for="route in routing">
+          <el-submenu
+            v-if="route.group"
+            :key="route.name"
+            :index="route.name"
+          >
+            <template #title>
+              <svg-icon :name="route.icon" class="el-icon-margin-right" />
+              <span>{{ route.title }}</span>
+            </template>
+            <template v-for="nested in route.routes">
+              <el-menu-item
+                v-if="nested.visible"
+                :key="nested.route.name"
+                :index="nested.route.name"
+                class="sidebar_menu_item"
+              >
+                <svg-icon :name="nested.icon" class="el-icon-no-icon-just-kiddin" />
+                <template #title>
+                  <span class="sidebar_menu_item_title">
+                    {{ nested.title }}
+                  </span>
+                </template>
+              </el-menu-item>
+            </template>
+          </el-submenu>
+
           <el-menu-item
-            v-if="route.visible"
+            v-else-if="route.visible"
             :key="route.route.name"
             :index="route.route.name"
             class="sidebar_menu_item"
@@ -22,19 +48,6 @@
             </template>
           </el-menu-item>
         </template>
-        <!-- TODO: Implement routing children
-        <el-submenu index="1">
-          <template #title>
-            <i class="el-icon-location"></i>
-            <span>Navigator One</span>
-          </template>
-          <el-menu-item-group>
-            <template #title><span>Group One</span></template>
-            <el-menu-item index="1-1">item one</el-menu-item>
-            <el-menu-item index="1-2">item two</el-menu-item>
-          </el-menu-item-group>
-        </el-submenu>
-        -->
       </el-menu>
     </el-scrollbar>
 
@@ -66,7 +79,7 @@ export default defineComponent({
       default: null,
     },
   },
-  setup () {
+  setup (props) {
     const router = useRouter();
     const store = useStore();
 
