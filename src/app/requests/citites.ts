@@ -1,4 +1,3 @@
-import api from 'core/utils/api';
 import request from 'core/utils/request';
 
 export interface City {
@@ -6,7 +5,7 @@ export interface City {
   name: string,
 }
 
-const citiesRequest = request(async ({ data }) => {
+const citiesRequest = request(async ({ data, api }) => {
   try {
     const res = await api.get<{ result: City[] }>(`cities/search?q=${data || ''}`);
 

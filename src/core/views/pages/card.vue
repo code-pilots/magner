@@ -21,7 +21,7 @@
 
           <template #actions-before>
             <el-button
-              v-if="!isNew"
+              v-if="!isNew && !!config.deleteRequest"
               type="danger"
               :loading="deleteLoading"
               @click="deleteEntity"

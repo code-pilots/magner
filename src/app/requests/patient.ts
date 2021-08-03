@@ -1,4 +1,3 @@
-import api from 'core/utils/api';
 import parseError from 'app/utils/parse-error';
 import request from 'core/utils/request';
 
@@ -59,7 +58,7 @@ const patientProxy = (data: Patient): PatientProxy => ({
   photo: data.photo?.src || null,
 });
 
-export const patientGet = request(async ({ data, router }) => {
+export const patientGet = request(async ({ data, router, api }) => {
   try {
     const res = await api.get<{ result: { patient: Patient } }>(`patients/${data}`);
     const proxied = patientProxy(res.result.patient);
@@ -71,7 +70,7 @@ export const patientGet = request(async ({ data, router }) => {
   }
 });
 
-export const patientCreate = request(async ({ data }) => {
+export const patientCreate = request(async ({ data, api }) => {
   try {
     const res = await api.post('patients', data, {
       isFormdata: true,
@@ -82,7 +81,7 @@ export const patientCreate = request(async ({ data }) => {
   }
 });
 
-export const patientUpdate = request<any, { id: number, data: any }>(async ({ data }) => {
+export const patientUpdate = request<any, { id: number, data: any }>(async ({ data, api }) => {
   try {
     const res = await api.post(`patients/${data.id}/update`, data, {
       isFormdata: true,
@@ -93,7 +92,7 @@ export const patientUpdate = request<any, { id: number, data: any }>(async ({ da
   }
 });
 
-export const patientDelete = request<any, number>(async ({ data, router }) => {
+export const patientDelete = request<any, number>(async ({ data, router, api }) => {
   try {
     const res = await api.delete(`patients/${data}`);
     await router.push({ name: 'patients' });

@@ -6,7 +6,7 @@ const specializationTable = tablePageController({
   request: specializationsRequest,
 
   table: {
-    // rowLink: (row) => ({ name: 'consultation-type', params: { id: row.id } }),
+    rowLink: (row) => ({ name: 'specialization', params: { id: row.id } }),
     columns: [
       {
         prop: 'id',
