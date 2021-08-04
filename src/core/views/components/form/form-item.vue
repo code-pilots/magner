@@ -15,6 +15,13 @@
       @update:modelValue="updVal"
     />
 
+    <FormRadio
+      v-else-if="field.type === 'radio'"
+      v-model="val"
+      :field="field"
+      @update:modelValue="updVal"
+    />
+
     <FormSelect
       v-else-if="field.type === 'select'"
       v-model="val"
@@ -41,10 +48,16 @@ import useMobile from 'core/utils/is-mobile';
 import FormInput from 'core/views/components/form/form-input.vue';
 import FormSelect from 'core/views/components/form/select.vue';
 import Dropzone from 'core/views/components/form/dropzone.vue';
+import FormRadio from 'core/views/components/form/radio.vue';
 
 export default defineComponent({
   name: 'FormItem',
-  components: { Dropzone, FormSelect, FormInput },
+  components: {
+    FormRadio,
+    Dropzone,
+    FormSelect,
+    FormInput,
+  },
   props: {
     field: {
       type: Object as PropType<GenericComponent>,

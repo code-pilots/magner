@@ -1,5 +1,4 @@
 import { formController } from 'core/controllers';
-import citiesRequest from 'app/requests/citites';
 
 const specializationsForm = formController({
   submit: {
@@ -21,18 +20,26 @@ const specializationsForm = formController({
       },
     },
     {
-      type: 'input',
+      type: 'radio',
       name: 'type',
       label: 'Тип',
       column: 1,
-      component: {
-        type: 'text',
-        placeholder: 'Взрослый',
-      },
-      validation: {
-        type: 'empty',
-        trigger: 'blur',
-      },
+      component: {},
+      validation: null,
+      options: [
+        {
+          value: 'all',
+          label: 'Любой',
+        },
+        {
+          value: 'adult',
+          label: 'Взрослый',
+        },
+        {
+          value: 'child',
+          label: 'Ребенок',
+        },
+      ],
     },
 
     {

@@ -23,14 +23,12 @@ export interface SpecializationProxy {
   id: number,
   title: string
   prices: SpecializationPrice[],
-  type: {
-    label: string,
-    slug: 'adult'|'child'|'all',
-  },
+  type: 'adult'|'child'|'all',
 }
 
 const patientProxy = (data: Specialization): SpecializationProxy => ({
   ...data,
+  type: data.type.slug,
 });
 
 export const specializationGet = request(async ({ data, router, api }) => {
