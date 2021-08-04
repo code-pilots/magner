@@ -76,7 +76,6 @@ const router = routerController({
         /** In presets, you can redefine route params in this object */
         name: 'patients',
         path: '/patients',
-        component: 'table',
       },
     },
 
@@ -92,7 +91,6 @@ const router = routerController({
       route: {
         name: 'patient',
         path: '/patients/:id',
-        component: 'card',
       },
     },
 
@@ -112,7 +110,6 @@ const router = routerController({
           route: {
             name: 'specializations',
             path: '/specializations',
-            component: 'table',
           },
         },
         {
@@ -127,7 +124,6 @@ const router = routerController({
           route: {
             name: 'specialization',
             path: '/specialization/:id',
-            component: 'card',
           },
         },
 
@@ -141,7 +137,6 @@ const router = routerController({
           route: {
             name: 'consultation-types',
             path: '/consultation-types',
-            component: 'table',
           },
         },
       ],

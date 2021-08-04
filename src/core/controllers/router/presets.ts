@@ -25,7 +25,7 @@ const loginPreset: RequiredPreset<PresetLoginRoute> = {
   route: {
     name: 'login',
     path: '/login',
-    component: 'login',
+    component: () => import('../../views/pages/login.vue'),
     props: {},
   },
 };
@@ -44,7 +44,7 @@ const tablePreset: RequiredPreset<PresetTableRoute> = {
   route: {
     name: 'table',
     path: '/table',
-    component: 'table',
+    component: () => import('../../views/pages/table.vue'),
     props: {},
   },
 };
@@ -63,7 +63,7 @@ const cardPreset: RequiredPreset<PresetCardRoute> = {
   route: {
     name: 'card',
     path: '/card/:id',
-    component: 'card',
+    component: () => import('../../views/pages/card.vue'),
     props: {},
   },
 };

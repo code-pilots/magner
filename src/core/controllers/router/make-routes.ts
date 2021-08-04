@@ -41,7 +41,7 @@ const makeRoutes = (routes: RoutingConfig['routes']): RouteRecordRaw[] => routes
     let component: RouteComponent | (() => Promise<RouteComponent>);
     if (fullPreset.route.component) {
       if (typeof fullPreset.route.component === 'string') {
-        const concat = `../../views/pages/${fullPreset.route.component}.vue`;
+        const concat = `../../../app/pages/${fullPreset.route.component}.vue`;
         component = () => import(/* @vite-ignore */ concat);
       } else {
         component = fullPreset.route.component;

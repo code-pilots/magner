@@ -5,7 +5,7 @@
         ref="formRef"
         :config="config.filters"
         :loading="false"
-        :filters-show-amount="config.filters.fieldsShowAmount"
+        :fields-show-amount="config.filters.fieldsShowAmount"
         :initial-data="requestData.filters"
         class="table-page_top_filters"
         @submit="filterItems"

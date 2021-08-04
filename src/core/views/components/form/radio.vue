@@ -1,0 +1,69 @@
+<template>
+  <el-radio-group
+    :model-value="val"
+    :text-color="field.component.activeTextColor"
+    :fill="field.component.fill"
+    @change="changeVal"
+  >
+    <template v-if="field.radioButtons">
+      <el-radio-button
+        v-for="option in field.options"
+        :key="option.value"
+        :label="option.value"
+        :disabled="option.disabled"
+      >
+        {{ option.label }}
+      </el-radio-button>
+    </template>
+
+    <template v-else>
+      <el-radio
+        v-for="option in field.options"
+        :key="option.value"
+        :label="option.value"
+        :disabled="option.disabled"
+      >
+        {{ option.label }}
+      </el-radio>
+    </template>
+  </el-radio-group>
+</template>
+
+<script lang="ts">
+import {
+  defineComponent, PropType, ref, watchEffect,
+} from 'vue';
+import { RadioField } from 'core/types/form/radio';
+
+export default defineComponent({
+  name: 'FormRadio',
+  props: {
+    field: {
+      type: Object as PropType<RadioField>,
+      required: true,
+    },
+    modelValue: {
+      type: [String, Number],
+      default: '',
+    },
+  },
+  emits: ['update:modelValue'],
+  setup (props, context) {
+    const val = ref<number|string>(props.modelValue);
+
+    watchEffect(() => {
+      val.value = props.modelValue;
+    });
+
+    const changeVal = (newVal) => {
+      val.value = newVal;
+      context.emit('update:modelValue', newVal);
+    };
+
+    return {
+      val,
+      changeVal,
+    };
+  },
+});
+</script>

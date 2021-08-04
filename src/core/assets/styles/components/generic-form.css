@@ -2,6 +2,7 @@
     &_columns {
         display: flex;
         flex-direction: column;
+        width: 100%;
 
         @media (--breakpoint-md) {
             flex-direction: row;
@@ -37,6 +38,17 @@
 
     &_error {
         margin-bottom: 8px;
+    }
+
+    & .el-tag {
+        @media (--breakpoint-small) {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 4px;
+            margin-left: 0;
+        }
     }
 
     &_actions {

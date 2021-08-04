@@ -28,7 +28,7 @@ declare module 'vue-router' {
 type _RouteRecordProps = Record<string, any>;
 interface RouteRecordSingleViewOverride extends _RouteRecordBase {
   name: string,
-  component: string | RouteComponent | (() => Promise<RouteComponent>),
+  component?: string | RouteComponent | (() => Promise<RouteComponent>),
   components?: never,
   props?: _RouteRecordProps,
 }
@@ -71,7 +71,7 @@ export interface PresetLoginRoute extends PresetRoute {
   route?: {
     name: 'login',
     path: '/login',
-    component: 'login',
+    component?: string | RouteComponent | (() => Promise<RouteComponent>),
     props?: {
       config?: LoginConfig,
     },
@@ -85,7 +85,7 @@ export interface PresetTableRoute extends PresetRoute {
   route: {
     name: string,
     path: string,
-    component: string | RouteComponent | (() => Promise<RouteComponent>),
+    component?: string | RouteComponent | (() => Promise<RouteComponent>),
     props?: {
       config?: TableConfig,
     },
@@ -99,7 +99,7 @@ export interface PresetCardRoute extends PresetRoute {
   route: {
     name: string,
     path: string,
-    component: string | RouteComponent | (() => Promise<RouteComponent>),
+    component?: string | RouteComponent | (() => Promise<RouteComponent>),
     props?: {
       config?: CardConfig,
     },
@@ -112,7 +112,7 @@ export interface PresetEmptyRoute extends PresetRoute {
   route?: {
     name: '',
     path: '',
-    component: '',
+    component?: '',
   }
 }
 
