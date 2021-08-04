@@ -118,4 +118,18 @@
             }
         }
     }
+
+    .field-group-move {
+        transition: max-height .2s, height .2s;
+    }
+
+    .field-group-enter-active, .field-group-leave-active {
+        transition: all .2s;
+        max-height: 230px;
+    }
+
+    .field-group-enter, .field-group-leave-to {
+        opacity: 0;
+        max-height: 0px;
+    }
 }

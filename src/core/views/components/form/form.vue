@@ -4,7 +4,7 @@
     :model="form"
     :rules="validation"
     :label-position="'top'"
-    :size="config.size"
+    :size="reactiveConfig.size"
     :class="['generic-form', { 'generic-form-no-columns': groupedFields.length <= 1 }]"
     @submit.prevent="submit"
   >
@@ -12,10 +12,12 @@
 
     <template v-if="groupedFields.length > 1">
       <div :class="['generic-form_columns', `generic-form-${groupedFields.length}-columns`]">
-        <div
+        <transition-group
           v-for="(column, i) in groupedFields"
           :key="i"
           :class="['generic-form_columns_column', 'generic-form_column-' + (i + 1)]"
+          name="field-group"
+          tag="div"
         >
           <FormItem
             v-for="field in column"
@@ -27,22 +29,23 @@
             @error="setFieldError(field.name, $event)"
             @update:modelValue="controlOnInput(field.name, $event)"
           />
-        </div>
+        </transition-group>
       </div>
     </template>
 
-    <template v-else>
-      <FormItem
-        v-for="field in (groupedFields[0] || [])"
-        :key="field.name"
-        :ref="setItemEls"
-        v-model="form[field.name]"
-        :error="errors[field.name]"
-        :field="field"
-        @error="setFieldError(field.name, $event)"
-        @update:modelValue="controlOnInput(field.name, $event)"
-      />
-    </template>
+    <transition-group v-else name="field-group" tag="div">
+      <template v-for="field in (groupedFields[0] || [])" :key="field.name">
+        <FormItem
+          v-show="!field.hidden"
+          :ref="setItemEls"
+          v-model="form[field.name]"
+          :error="errors[field.name]"
+          :field="field"
+          @error="setFieldError(field.name, $event)"
+          @update:modelValue="controlOnInput(field.name, $event)"
+        />
+      </template>
+    </transition-group>
 
     <slot name="after" />
 
@@ -90,7 +93,8 @@ import {
   reactive,
   ref,
   PropType,
-  watchEffect, computed,
+  watchEffect,
+  computed,
 } from 'vue';
 import type { GenericForm } from 'core/types/form';
 import { DataTypeInitials, fieldsToColumns, fieldsToModels } from 'core/utils/form';
@@ -152,9 +156,10 @@ export default defineComponent({
   setup (props, context) {
     const isMobile = useMobile();
 
-    const form = reactive(fieldsToModels(props.config.fields, props.initialData));
-    const validation = setupValidators(props.config.fields, props.allowEmptyFields);
-    const groupedFields = computed(() => fieldsToColumns(props.config.fields, props.fieldsShowAmount));
+    const reactiveConfig = reactive(props.config);
+    const form = reactive(fieldsToModels(reactiveConfig.fields, props.initialData));
+    const validation = setupValidators(reactiveConfig.fields, props.allowEmptyFields);
+    const groupedFields = computed(() => fieldsToColumns(reactiveConfig.fields, props.fieldsShowAmount));
 
     const globalError = ref<string>(props.error); // Error of the whole form
     const errors = ref<Record<string, string>>(props.fieldErrors); // Field errors record
@@ -191,9 +196,12 @@ export default defineComponent({
 
     const controlOnInput = (field: string, newValue: any) => {
       form[field] = newValue;
-      if (props.config.submitEvent === 'input') {
+      if (reactiveConfig.submitEvent === 'input') {
         submit();
       }
+
+      const fieldConfig = reactiveConfig.fields.find((option) => option.name === field);
+      fieldConfig.changeAction?.(form, reactiveConfig);
     };
 
     const setFieldError = (field: string, err: string) => {
@@ -201,7 +209,7 @@ export default defineComponent({
     };
 
     const clearForm = () => {
-      Object.assign(form, fieldsToModels(props.config.fields));
+      Object.assign(form, fieldsToModels(reactiveConfig.fields));
       submit();
     };
 
@@ -225,6 +233,7 @@ export default defineComponent({
     });
 
     return {
+      reactiveConfig,
       form,
       groupedFields,
       validation,

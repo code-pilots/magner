@@ -1,5 +1,6 @@
 import type { SupportedValidators } from 'core/utils/validators';
 import type { SupportedDataTypes } from 'core/utils/form';
+import type { GenericForm } from 'core/types/form/index';
 
 export type SupportedComponentTypes =
   'input'
@@ -18,6 +19,8 @@ export interface BaseValidation {
   /** An event that triggers the validation to start */
   trigger: 'blur'|'change'|'input',
 }
+
+export type FieldInteractions = (form: Record<string, any>, config: GenericForm) => void
 
 export interface BaseField {
   /** Choose any supported type of the field */
@@ -48,4 +51,13 @@ export interface BaseField {
   /** Is the field required.
    * !!! Doesn't work as expected, so use validation with type 'empty' on a field */
   required?: boolean,
+
+  /** Hides the fields with v-show, so that Vue can display it later with some transition */
+  hidden?: boolean,
+
+  /**
+   * When the field value is changed, this action is triggered. Use it to change other fields
+   * configuration. Can be used in cases like dynamic displaying/disabling of hidden fields etc.
+   */
+  changeAction?: FieldInteractions,
 }

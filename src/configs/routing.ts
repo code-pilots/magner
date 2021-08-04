@@ -6,6 +6,7 @@ import loginPageConfig from 'configs/pages/login';
 import consultationTypesTable from 'configs/pages/dictionaries/consultation-types/table';
 import specializationTable from 'configs/pages/dictionaries/specializations/table';
 import specializationConfig from 'configs/pages/dictionaries/specializations/card';
+import bigtestConfig from 'configs/pages/big-test';
 
 const router = routerController({
   global: {
@@ -140,6 +141,19 @@ const router = routerController({
           },
         },
       ],
+    },
+
+    {
+      preset: 'card',
+      title: 'Тест формы',
+      icon: 'key',
+      visible: true,
+      roles: [ROLE.SUPER_ADMIN, ROLE.DOCTOR, ROLE.DOCTOR],
+      config: bigtestConfig,
+      route: {
+        path: '/big-test',
+        name: 'bigtest',
+      },
     },
 
     {
