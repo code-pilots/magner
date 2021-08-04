@@ -15,7 +15,7 @@ export interface Specialization {
   prices: SpecializationPrice[],
   type: {
     label: string,
-    slug: 'adult',
+    slug: 'adult'|'child'|'all',
   },
 }
 
@@ -25,7 +25,7 @@ export interface SpecializationProxy {
   prices: SpecializationPrice[],
   type: {
     label: string,
-    slug: 'adult',
+    slug: 'adult'|'child'|'all',
   },
 }
 

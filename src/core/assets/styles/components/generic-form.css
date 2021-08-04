@@ -16,6 +16,10 @@
         }
     }
 
+    &.generic-form-no-columns {
+        max-width: 800px;
+    }
+
     & .el-form-item {
         &__label {
             padding: 0;

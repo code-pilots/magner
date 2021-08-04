@@ -10,7 +10,7 @@ export interface FiltersForm extends GenericForm {
   },
 
   /** How many filters should be displayed in the top filters row */
-  filtersShowAmount?: number,
+  fieldsShowAmount?: number,
 
   /** Whether filters should be saved in localstorage or not */
   saveToLocalStorage?: boolean,

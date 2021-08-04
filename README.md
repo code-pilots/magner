@@ -28,3 +28,16 @@ npm run test:e2e-open
 npm run build
 npm start
 ```
+
+## Documentation
+
+Basically, this admin panel requires you to follow the structure of the project. 
+The `src` directory consists of:
+* `envs.ts` – File collects all environmental variables. You should provide at least 2 required variables for the project
+* `main.ts` - Initial project setup. It collects important configuration files and puts everything together. This is the best place to add your project-dependent styles
+* `core` – Directory with useful controllers, types, views. Just like a library of tools that you'll need.
+* `configs` – Directory JSON configurations for the projects. Use controllers for better Developer Experience (DX).
+* `app` – Add your own logic there: requests and proxies
+
+To understand different core functionality, follow other README links:
+* [Generic Forms](./src/core/views/components/form/readme.md)

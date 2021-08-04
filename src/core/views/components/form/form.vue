@@ -5,7 +5,7 @@
     :rules="validation"
     :label-position="'top'"
     :size="config.size"
-    :class="['generic-form', {'generic-form-columns': groupedFields.length > 1}]"
+    :class="['generic-form', { 'generic-form-no-columns': groupedFields.length <= 1 }]"
     @submit.prevent="submit"
   >
     <slot name="before" />
@@ -30,6 +30,7 @@
         </div>
       </div>
     </template>
+
     <template v-else>
       <FormItem
         v-for="field in (groupedFields[0] || [])"
@@ -109,14 +110,19 @@ export default defineComponent({
       type: Object as PropType<GenericForm>,
       required: true,
     },
+
+    /** Object with keys as field names and values as whatever you pass to a form field */
     initialData: {
       type: Object,
       default: () => ({}),
     },
+
+    /** When submitting, emit the object with modified fields only */
     returnInitialDifference: {
       type: Boolean,
       default: false,
     },
+
     loading: {
       type: Boolean,
       default: false,
@@ -129,10 +135,14 @@ export default defineComponent({
       type: Object,
       default: () => ({}),
     },
-    filtersShowAmount: {
+
+    /** Property trims all fields that are out of this amount */
+    fieldsShowAmount: {
       type: Number,
       default: null,
     },
+
+    /** If the field has validation of type 'empty', skip this validation (Used in filters) */
     allowEmptyFields: {
       type: Boolean,
       default: false,
@@ -144,7 +154,7 @@ export default defineComponent({
 
     const form = reactive(fieldsToModels(props.config.fields, props.initialData));
     const validation = setupValidators(props.config.fields, props.allowEmptyFields);
-    const groupedFields = computed(() => fieldsToColumns(props.config.fields, props.filtersShowAmount));
+    const groupedFields = computed(() => fieldsToColumns(props.config.fields, props.fieldsShowAmount));
 
     const globalError = ref<string>(props.error); // Error of the whole form
     const errors = ref<Record<string, string>>(props.fieldErrors); // Field errors record

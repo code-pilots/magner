@@ -14,6 +14,8 @@ export default defineComponent({
       type: [String, Number, Object] as PropType<string|File>,
       default: null,
     },
+
+    /** When value passed as an object, this property helps to distinguish which key of an object has an image value */
     srcKey: {
       type: String,
       default: 'src',

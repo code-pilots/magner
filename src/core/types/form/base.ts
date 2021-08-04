@@ -31,7 +31,7 @@ export interface BaseField {
   labelWidth?: string,
 
   /**
-   * If set, fields will be grouped in the columns (doesn't work with the Form's 'filtersShowAmount' property).
+   * If set, fields will be grouped in the columns (doesn't work with the Form's 'fieldsShowAmount' property).
    * Default is 1
    */
   column?: number,

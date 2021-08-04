@@ -6,7 +6,7 @@ const patientsFilters = filtersFormController({
     routeName: 'patient',
   },
 
-  filtersShowAmount: 1,
+  fieldsShowAmount: 1,
 
   saveToLocalStorage: true,
 

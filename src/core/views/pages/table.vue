@@ -5,13 +5,13 @@
         ref="formRef"
         :config="config.filters"
         :loading="false"
-        :filters-show-amount="config.filters.filtersShowAmount"
+        :filters-show-amount="config.filters.fieldsShowAmount"
         :initial-data="requestData.filters"
         class="table-page_top_filters"
         @submit="filterItems"
       >
         <template #after>
-          <template v-if="config.filters.filtersShowAmount < config.filters.fields.length">
+          <template v-if="config.filters.fieldsShowAmount < config.filters.fields.length">
             <el-button type="primary" icon="el-icon-s-operation" @click="drawerOpen = true">Больше фильтров</el-button>
             <el-tag v-if="appliedFilters" closable @close="clearFilters">
               Применено фильтров: {{ appliedFilters }}
