@@ -1,7 +1,7 @@
 import type { GenericComponent } from 'core/types/form';
 import type { SupportedDataTypes } from 'core/utils/form';
 
-export type SupportedValidators = 'password'|'email'|'empty';
+export type SupportedValidators = 'password'|'email'|'phone'|'empty';
 export type ValidatorFunc = (rule: SupportedValidators, value: any, callback: Function) => void;
 
 export interface ValidationField {
@@ -35,6 +35,15 @@ export const validators: Record<SupportedValidators, ValidatorFunc> = {
       callback(new Error('Пожалуйста, введите Е-мейл'));
     } else if (!value.match(/[^@]+@[^.]+\..+/i)) {
       callback(new Error('Неверный формат Е-мейл'));
+    } else {
+      callback();
+    }
+  },
+  phone: (rule, value, callback) => {
+    if (value === '') {
+      callback(new Error('Пожалуйста, введите номер телефона'));
+    } else if (!value.match(/\+7-[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}/i)) {
+      callback(new Error('Неверный формат номера телефона'));
     } else {
       callback();
     }

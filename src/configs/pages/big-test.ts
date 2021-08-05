@@ -1,25 +1,31 @@
 import { cardPageController } from 'core/controllers';
-import { bigtestCreate, bigtestGet, bigtestUpdate } from 'app/requests/big-test';
+import {
+  bigtestCreate, bigtestDelete, bigtestGet, bigtestUpdate,
+} from 'app/requests/big-test';
 import { SelectField } from 'core/types/form/select';
+import citiesRequest from 'app/requests/citites';
 
 export default cardPageController({
-  title: 'Тест формы',
+  title: 'Form example',
   getRequest: bigtestGet,
   createRequest: bigtestCreate,
   updateRequest: bigtestUpdate,
+  deleteRequest: bigtestDelete,
+
+  confirmDelete: true,
 
   form: {
     submit: {
-      text: 'Сохранить',
+      text: 'Save',
     },
     fields: [
       {
         type: 'input',
         name: 'phone',
-        label: 'Пример текстового инпута с маской',
+        label: 'Example of the text input with a mask and validation',
         column: 1,
         validation: {
-          type: 'empty',
+          type: 'phone',
           trigger: 'blur',
         },
         component: {
@@ -34,11 +40,11 @@ export default cardPageController({
       {
         type: 'select',
         name: 'cityId',
-        label: 'Город',
+        label: 'City',
         column: 1,
         hidden: true,
         component: {
-          placeholder: 'Выбрать',
+          placeholder: 'Choose',
         },
         options: [],
         validation: null,
@@ -47,21 +53,21 @@ export default cardPageController({
       {
         type: 'select',
         name: 'country',
-        label: 'Страна (пример взаимодействующих инпутов)',
+        label: 'Country (example of field interactions)',
         column: 1,
         options: [
           {
             value: 'rus',
-            label: 'Россия',
+            label: 'Russia',
           },
           {
             value: 'norus',
-            label: 'Не Россия',
+            label: 'Not russia',
           },
         ],
         validation: null,
         component: {
-          placeholder: 'Выбрать',
+          placeholder: 'Choose',
           clearable: true,
         },
         changeAction: (form, config) => {
@@ -72,19 +78,94 @@ export default cardPageController({
               city.hidden = false;
               city.options = [{
                 value: 'mos',
-                label: 'Москва',
+                label: 'Moscow',
               }];
             } else if (form.country) {
               city.hidden = false;
               city.options = [{
                 value: 'ber',
-                label: 'Берлин',
+                label: 'Berlin',
               }];
             } else {
               city.hidden = true;
             }
           }
         },
+      },
+
+      {
+        type: 'select',
+        name: 'city',
+        label: 'Example of the select with remote data loading',
+        column: 1,
+        component: {
+          filterable: true,
+          remote: true,
+          remoteMethod: citiesRequest,
+          valueKey: 'id',
+          labelKey: 'name',
+          placeholder: 'Moscow',
+          loadingText: 'Loading',
+          noDataText: 'No city were found',
+        },
+        options: [],
+        validation: null,
+      },
+
+      {
+        type: 'radio',
+        name: 'radio',
+        label: 'Radio group example',
+        column: 1,
+        component: {},
+        validation: null,
+        options: [
+          {
+            value: 'all',
+            label: 'Any',
+          },
+          {
+            value: 'adult',
+            label: 'Adult',
+          },
+          {
+            value: 'child',
+            label: 'Child',
+          },
+        ],
+      },
+
+      {
+        type: 'radio',
+        name: 'radio-button',
+        label: 'Example of the radio-button group',
+        column: 1,
+        radioButtons: true,
+        component: {},
+        validation: null,
+        options: [
+          {
+            value: 'all',
+            label: 'Any',
+          },
+          {
+            value: 'adult',
+            label: 'Adult',
+          },
+          {
+            value: 'child',
+            label: 'Child',
+          },
+        ],
+      },
+
+      {
+        type: 'dropzone',
+        name: 'photo',
+        label: 'Dropzone example',
+        column: 1,
+        component: {},
+        validation: null,
       },
     ],
   },
