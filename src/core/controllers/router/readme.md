@@ -9,16 +9,14 @@ There are different types of routes. Here are they:
 
 ```ts
 route = {
-  /** Simple vue-router route config except that the 'component' is a path-string from 'views' directory */
   route: {
     /** Required name property as a unique route identifier  */
     name: 'dashboard',
 
     path: '/',
 
-    /** Component is a view laying in the app/pages directory,
-     *  or the imported (or lazy imported with () => import()) component */
-    component: 'home',
+    /** Custom component that is passed to the vue router */
+    component: () => import('app/pages/home.vue'),
 
     /** Additional information about the route */
     meta: {},
@@ -30,7 +28,7 @@ route = {
   /** An array of role Enums. If 'roles' === null, no authorization needed */
   roles: [ROLE.DOCTOR, ROLE.ADMIN, ROLE.SUPER_ADMIN],
 
-  /** Path-string (.vue file from layouts folder) that specifies page layout */
+  /** 'main', 'empty' or your own layout component */
   layout: 'main',
 
   /** Views accept configs as page props to display everything according to those configs */
@@ -45,8 +43,7 @@ route = {
 ```
 
 This example route shows how to create a page from scratch. You just define the route's
-name, path and a custom vue component. For easiness, paths are .vue files laying in the specified directory
-(remember the structure of the app). Then you give the page a title, icon and visibility – the info is used
+name, path and a custom vue component. Then you give the page a title, icon and visibility – the info is used
 in the sidebar. Layout specifies the header and a sidebar itself (it's better to always put layout: 'main' if you
 require authorization in the route).
 

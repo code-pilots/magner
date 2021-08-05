@@ -28,7 +28,7 @@ declare module 'vue-router' {
 type _RouteRecordProps = Record<string, any>;
 interface RouteRecordSingleViewOverride extends _RouteRecordBase {
   name: string,
-  component?: string | RouteComponent | (() => Promise<RouteComponent>),
+  component?: RouteComponent | (() => Promise<RouteComponent>),
   components?: never,
   props?: _RouteRecordProps,
 }
@@ -47,7 +47,7 @@ export type Route = RouteRecordSingleViewOverride | RouteRecordRedirectOverride;
  */
 export interface BaseRoute {
   group?: false,
-  layout?: 'main' | string | null | RouteComponent | (() => Promise<RouteComponent>),
+  layout?: 'main' | 'empty' | null | RouteComponent | (() => Promise<RouteComponent>),
   config?: Record<string, any>,
   roles: ROLE[] | null,
 
@@ -67,11 +67,11 @@ export interface PresetRoute extends BaseRoute {
 export interface PresetLoginRoute extends PresetRoute {
   preset: 'login',
   config?: LoginConfig,
-  layout?: string|null,
+  layout?: null,
   route?: {
     name: 'login',
     path: '/login',
-    component?: string | RouteComponent | (() => Promise<RouteComponent>),
+    component?: RouteComponent | (() => Promise<RouteComponent>),
     props?: {
       config?: LoginConfig,
     },
@@ -81,11 +81,11 @@ export interface PresetLoginRoute extends PresetRoute {
 export interface PresetTableRoute extends PresetRoute {
   preset: 'table',
   config?: TableConfig,
-  layout?: 'main'|string|null,
+  layout?: 'main'| 'empty' | null,
   route: {
     name: string,
     path: string,
-    component?: string | RouteComponent | (() => Promise<RouteComponent>),
+    component?: RouteComponent | (() => Promise<RouteComponent>),
     props?: {
       config?: TableConfig,
     },
@@ -95,11 +95,11 @@ export interface PresetTableRoute extends PresetRoute {
 export interface PresetCardRoute extends PresetRoute {
   preset: 'card',
   config?: CardConfig,
-  layout?: 'main'|string|null,
+  layout?: 'main'| 'empty' | null,
   route: {
     name: string,
     path: string,
-    component?: string | RouteComponent | (() => Promise<RouteComponent>),
+    component?: RouteComponent | (() => Promise<RouteComponent>),
     props?: {
       config?: CardConfig,
     },
@@ -112,7 +112,7 @@ export interface PresetEmptyRoute extends PresetRoute {
   route?: {
     name: '',
     path: '',
-    component?: '',
+    component?: RouteComponent | (() => Promise<RouteComponent>),
   }
 }
 

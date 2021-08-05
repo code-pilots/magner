@@ -40,12 +40,7 @@ const makeRoutes = (routes: RoutingConfig['routes']): RouteRecordRaw[] => routes
     /** Transform component string to a real dynamically imported page view */
     let component: RouteComponent | (() => Promise<RouteComponent>);
     if (fullPreset.route.component) {
-      if (typeof fullPreset.route.component === 'string') {
-        const concat = `../../../app/pages/${fullPreset.route.component}.vue`;
-        component = () => import(/* @vite-ignore */ concat);
-      } else {
-        component = fullPreset.route.component;
-      }
+      component = fullPreset.route.component;
     } else {
       throw new Error(`Component for the route with path "${fullPreset.route.path}" is not defined.`);
     }
@@ -67,14 +62,9 @@ const makeRoutes = (routes: RoutingConfig['routes']): RouteRecordRaw[] => routes
 
     /** Transform layout into a nested route */
     if (fullPreset.layout) {
-      let layout: RouteComponent | (() => Promise<RouteComponent>);
-      if (typeof fullPreset.layout === 'string') {
-        const concat = `../../views/layouts/${fullPreset.layout}.vue`;
-        layout = () => import(/* @vite-ignore */ concat);
-      } else {
-        // @ts-ignore
-        layout = fullPreset.route.component;
-      }
+      const layout = fullPreset.layout === 'main'
+        ? () => import('core/views/layouts/main.vue')
+        : () => import('core/views/layouts/empty.vue');
 
       return {
         path: '/',

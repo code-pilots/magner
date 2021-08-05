@@ -23,9 +23,8 @@ const router = routerController({
 
         path: '/',
 
-        /** Component is a view laying in the core/views/pages directory,
-         *  or the imported (or lazy imported with () => import()) component */
-        component: 'home',
+        /** Custom component that is passed to the vue router */
+        component: () => import('app/pages/home.vue'),
 
         /** Additional information about the route */
         meta: {},
@@ -160,7 +159,7 @@ const router = routerController({
       route: {
         name: 'error',
         path: '/:pathMatch(.*)*',
-        component: 'error',
+        component: () => import('app/pages/error.vue'),
       },
       roles: null,
       config: {},

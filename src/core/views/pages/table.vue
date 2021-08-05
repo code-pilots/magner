@@ -64,7 +64,7 @@
         </div>
 
         <div
-          v-if="response.pagination && requestData.pagination"
+          v-if="(response && response.pagination) && (requestData && requestData.pagination)"
           class="table-page_pagination flex-center"
         >
           <el-pagination

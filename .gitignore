@@ -8,3 +8,4 @@ cypress
 .env
 coverage
 .secrets
+.vercel

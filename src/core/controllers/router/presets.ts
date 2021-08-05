@@ -82,7 +82,6 @@ const emptyPreset: RequiredPreset<PresetEmptyRoute> = {
   route: {
     name: '',
     path: '',
-    component: '',
   },
 };
 

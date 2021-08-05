@@ -27,4 +27,7 @@ export default defineConfig({
   server: {
     port: parseInt(process.env.PORT || '8080', 10),
   },
+  build: {
+    chunkSizeWarningLimit: 1024,
+  },
 });
