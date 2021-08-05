@@ -43,6 +43,13 @@
       @update:modelValue="updVal"
     />
 
+    <FormSwitch
+      v-else-if="field.type === 'switch'"
+      v-model="val"
+      :field="field"
+      @update:modelValue="updVal"
+    />
+
     <FormSelect
       v-else-if="field.type === 'select'"
       v-model="val"
@@ -72,10 +79,12 @@ import Dropzone from 'core/views/components/form/dropzone.vue';
 import FormRadio from 'core/views/components/form/radio.vue';
 import SvgIcon from 'core/views/components/icon.vue';
 import FormCheckbox from 'core/views/components/form/checkbox.vue';
+import FormSwitch from 'core/views/components/form/switch.vue';
 
 export default defineComponent({
   name: 'FormItem',
   components: {
+    FormSwitch,
     FormCheckbox,
     SvgIcon,
     FormRadio,
@@ -93,7 +102,7 @@ export default defineComponent({
       default: '',
     },
     modelValue: {
-      type: [String, Number, Object, Array] as PropType<any>,
+      type: [String, Number, Object, Array, Boolean] as PropType<any>,
       default: '',
     },
   },

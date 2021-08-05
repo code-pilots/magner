@@ -167,7 +167,7 @@ export default cardPageController({
         dataType: 'array',
         label: 'Example of the checkbox-button group. Maximum 3 checks allowed',
         column: 1,
-        radioButtons: true,
+        checkboxButtons: true,
         component: {
           max: 3,
         },
@@ -187,6 +187,18 @@ export default cardPageController({
             label: 'Old',
           },
         ],
+      },
+
+      {
+        type: 'switch',
+        dataType: 'boolean',
+        name: 'isactive',
+        label: '',
+        column: 1,
+        validation: null,
+        component: {
+          inactiveLabel: 'Are you active?',
+        },
       },
 
       {

@@ -5,6 +5,7 @@ import type { RadioField } from './radio';
 import type { SelectField } from './select';
 import type { ButtonComponent } from './button';
 import type { DropzoneField } from './dropzone';
+import type { SwitchField } from './switch';
 
 /**
  * The type of a field used in the forms. Defined by its required 'type' which
@@ -15,6 +16,7 @@ export type GenericComponent =
   | TextareaField
   | CheckboxField
   | RadioField
+  | SwitchField
   | SelectField
   | DropzoneField;
 

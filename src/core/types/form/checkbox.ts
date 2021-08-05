@@ -27,5 +27,5 @@ export interface CheckboxField extends BaseField {
   component: CheckboxComponent,
   options: CheckboxOption[],
   dataType: 'array',
-  radioButtons?: boolean,
+  checkboxButtons?: boolean,
 }

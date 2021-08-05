@@ -7,7 +7,7 @@
     :fill="field.component.fill"
     @change="changeVal"
   >
-    <template v-if="field.radioButtons">
+    <template v-if="field.checkboxButtons">
       <el-checkbox-button
         v-for="option in field.options"
         :key="option.value"

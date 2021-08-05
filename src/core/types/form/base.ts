@@ -7,6 +7,7 @@ export type SupportedComponentTypes =
   | 'textarea'
   | 'checkbox'
   | 'radio'
+  | 'switch'
   | 'select'
   | 'dropzone';
 
