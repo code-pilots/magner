@@ -36,6 +36,13 @@
       @update:modelValue="updVal"
     />
 
+    <FormCheckbox
+      v-else-if="field.type === 'checkbox'"
+      v-model="val"
+      :field="field"
+      @update:modelValue="updVal"
+    />
+
     <FormSelect
       v-else-if="field.type === 'select'"
       v-model="val"
@@ -64,10 +71,12 @@ import FormSelect from 'core/views/components/form/select.vue';
 import Dropzone from 'core/views/components/form/dropzone.vue';
 import FormRadio from 'core/views/components/form/radio.vue';
 import SvgIcon from 'core/views/components/icon.vue';
+import FormCheckbox from 'core/views/components/form/checkbox.vue';
 
 export default defineComponent({
   name: 'FormItem',
   components: {
+    FormCheckbox,
     SvgIcon,
     FormRadio,
     Dropzone,

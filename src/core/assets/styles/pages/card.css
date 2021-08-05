@@ -6,6 +6,7 @@
 
         @media (--breakpoint-small) {
             width: 90%;
+            padding: 12px 0;
         }
 
         &_title {

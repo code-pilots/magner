@@ -75,6 +75,12 @@
             }
         }
 
+        & .el-form-item__label {
+            @media (--breakpoint-small) {
+                line-height: 18px;
+            }
+        }
+
         &-dropzone {
             & .el-form-item__content {
                 line-height: normal;

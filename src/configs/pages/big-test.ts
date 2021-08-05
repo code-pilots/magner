@@ -5,6 +5,21 @@ import {
 import { SelectField } from 'core/types/form/select';
 import citiesRequest from 'app/requests/citites';
 
+const RadioOptions = [
+  {
+    value: 'all',
+    label: 'Any',
+  },
+  {
+    value: 'adult',
+    label: 'Adult',
+  },
+  {
+    value: 'child',
+    label: 'Child',
+  },
+];
+
 export default cardPageController({
   title: 'Form example',
   getRequest: bigtestGet,
@@ -121,20 +136,7 @@ export default cardPageController({
         column: 1,
         component: {},
         validation: null,
-        options: [
-          {
-            value: 'all',
-            label: 'Any',
-          },
-          {
-            value: 'adult',
-            label: 'Adult',
-          },
-          {
-            value: 'child',
-            label: 'Child',
-          },
-        ],
+        options: RadioOptions,
       },
 
       {
@@ -145,18 +147,44 @@ export default cardPageController({
         radioButtons: true,
         component: {},
         validation: null,
+        options: RadioOptions,
+      },
+
+      {
+        type: 'checkbox',
+        name: 'checkbox',
+        dataType: 'array',
+        label: 'Checkbox group example',
+        column: 1,
+        component: {},
+        validation: null,
+        options: RadioOptions,
+      },
+
+      {
+        type: 'checkbox',
+        name: 'checkbox-button',
+        dataType: 'array',
+        label: 'Example of the checkbox-button group. Maximum 3 checks allowed',
+        column: 1,
+        radioButtons: true,
+        component: {
+          max: 3,
+        },
+        validation: null,
         options: [
+          ...RadioOptions,
           {
-            value: 'all',
-            label: 'Any',
+            value: 'teen',
+            label: 'Teenager',
           },
           {
-            value: 'adult',
-            label: 'Adult',
+            value: 'young',
+            label: 'Young',
           },
           {
-            value: 'child',
-            label: 'Child',
+            value: 'old',
+            label: 'Old',
           },
         ],
       },
