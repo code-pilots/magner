@@ -70,6 +70,8 @@ export default cardPageController({
           placeholder: 'Choose',
           clearable: true,
         },
+        hint: `When you select the country, a city field will appear<br/>
+        with pre-added options (cities of concrete country)`,
         changeAction: (form, config) => {
           const city = config.fields.find((field) => field.name === 'cityId') as SelectField;
 

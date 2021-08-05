@@ -68,6 +68,13 @@
     }
 
     &_item {
+        &_help {
+            cursor: pointer;
+            & svg {
+                transform: rotate(0deg) translateY(2px) !important;
+            }
+        }
+
         &-dropzone {
             & .el-form-item__content {
                 line-height: normal;

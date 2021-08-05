@@ -33,6 +33,9 @@ export interface BaseField {
   label?: string,
   labelWidth?: string,
 
+  /** If you need to explain what some field means, put the hint there. HTML is allowed in the tooltip */
+  hint?: string,
+
   /**
    * If set, fields will be grouped in the columns (doesn't work with the Form's 'fieldsShowAmount' property).
    * Default is 1

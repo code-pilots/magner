@@ -8,6 +8,20 @@
     :error="error"
     :class="['generic-form_item', 'generic-form_item-' + field.type]"
   >
+    <template v-if="field.label" #label>
+      {{ field.label }}
+      <el-tooltip v-if="field.hint">
+        <SvgIcon
+          name="question"
+          size="sm"
+          class="generic-form_item_help"
+        />
+        <template #content>
+          <span v-html="field.hint" />
+        </template>
+      </el-tooltip>
+    </template>
+
     <FormInput
       v-if="field.type === 'input'"
       v-model="val"
@@ -49,10 +63,12 @@ import FormInput from 'core/views/components/form/form-input.vue';
 import FormSelect from 'core/views/components/form/select.vue';
 import Dropzone from 'core/views/components/form/dropzone.vue';
 import FormRadio from 'core/views/components/form/radio.vue';
+import SvgIcon from 'core/views/components/icon.vue';
 
 export default defineComponent({
   name: 'FormItem',
   components: {
+    SvgIcon,
     FormRadio,
     Dropzone,
     FormSelect,
