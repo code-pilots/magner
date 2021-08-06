@@ -1,6 +1,7 @@
 import { InjectionKey } from 'vue';
 import { createStore, useStore as baseUseStore, Store } from 'vuex';
 import type { CustomRoute, GlobalRouting, ProjectConfig } from 'core/types/configs';
+import type { SupportedLanguages } from 'configs/translation';
 import ROLE from 'configs/roles';
 import lstorage from 'core/utils/local-storage';
 
@@ -14,6 +15,7 @@ interface State {
   user: any|null,
   role: ROLE|null,
 
+  language: SupportedLanguages,
   sidebarCollapsed: boolean,
 }
 
@@ -47,6 +49,7 @@ export const store = createStore<State>({
       user: null,
       role: null,
 
+      language: '' as SupportedLanguages,
       sidebarCollapsed: lstorage.read('sidebarCollapsed') || false,
     };
   },
@@ -60,6 +63,15 @@ export const store = createStore<State>({
     },
     setProject (state, value: ProjectConfig) {
       state.project = value;
+    },
+
+    setLanguage (state, value: SupportedLanguages) {
+      state.language = value;
+      if (value) {
+        lstorage.put('language', value);
+      } else {
+        lstorage.delete('language');
+      }
     },
 
     setToken (state, value: string) {
@@ -98,6 +110,9 @@ export const store = createStore<State>({
     },
     changeProject (context, value: ProjectConfig) {
       context.commit('setProject', value);
+    },
+    changeLanguage (context, value: SupportedLanguages) {
+      context.commit('setLanguage', value);
     },
 
     changeToken (context, value: string) {

@@ -12,9 +12,11 @@
       >
         <template #after>
           <template v-if="config.filters.fieldsShowAmount < config.filters.fields.length">
-            <el-button type="primary" icon="el-icon-s-operation" @click="drawerOpen = true">Больше фильтров</el-button>
+            <el-button type="primary" icon="el-icon-s-operation" @click="drawerOpen = true">
+              {{ t('core.table.more_filters') }}
+            </el-button>
             <el-tag v-if="appliedFilters" closable @close="clearFilters">
-              Применено фильтров: {{ appliedFilters }}
+              {{ t('core.table.filters_applied') }}: {{ appliedFilters }}
             </el-tag>
           </template>
           <div class="flex-grow" />
@@ -91,6 +93,7 @@ import {
   computed,
   defineComponent, PropType, reactive, ref, watch, watchEffect,
 } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
 import lstorage from 'core/utils/local-storage';
 import type { TableConfig } from 'core/types/configs';
@@ -115,6 +118,7 @@ export default defineComponent({
     },
   },
   setup (props) {
+    const { t } = useI18n();
     const route = useRoute();
     const router = useRouter();
     const store = useStore();
@@ -147,7 +151,7 @@ export default defineComponent({
     } : {
       component: 'el-dialog',
       props: {
-        title: 'Фильтры',
+        title: t('core.table.filters'),
         width: '70%',
         top: '114px',
         customClass: 'table-page_dialog',
@@ -199,6 +203,7 @@ export default defineComponent({
     });
 
     return {
+      t,
       requestData,
       drawerOpen,
       isMobile,

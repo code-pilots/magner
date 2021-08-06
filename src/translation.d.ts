@@ -1,7 +1,8 @@
-import { TranslationSchema } from 'core/controllers/i18n/en';
+import type { TranslationSchema } from 'core/controllers/i18n/en';
+import type { CustomTranslationSchema } from 'configs/translation/en';
 
 declare module 'vue-i18n' {
-  export interface DefineLocaleMessage extends TranslationSchema {}
+  export interface DefineLocaleMessage extends TranslationSchema, CustomTranslationSchema {}
 
   // define the datetime format schema
   export interface DefineDateTimeFormat {

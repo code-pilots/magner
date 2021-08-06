@@ -28,7 +28,9 @@
       @click="select"
     >
       <i class="el-icon-upload" />
-      <div class="el-upload__text">Перетащите файлы сюда или <em>нажмите для загрузки</em></div>
+      <div class="el-upload__text">
+        {{ t('core.form.dropzone.drag_here') }} <em>{{ t('core.form.dropzone.click_upload') }}</em>
+      </div>
     </div>
 
     <div
@@ -59,6 +61,7 @@ import {
 import type { DropzoneField, DropzoneError } from 'core/types/form/dropzone';
 import DropzoneImage from 'core/views/components/form/dropzone-image.vue';
 import { requestWrapper } from 'core/utils/request';
+import { useI18n } from 'vue-i18n';
 
 type ValueType = File | string | (File | string)[] | null;
 
@@ -81,6 +84,7 @@ export default defineComponent({
   },
   emits: ['update:modelValue', 'errors', 'textErrors', 'dragenter', 'dragleave', 'dragover', 'drop'],
   setup (props, context) {
+    const { t } = useI18n();
     const values = ref<ValueType>(props.modelValue);
     const dragOver = ref<boolean>(false);
     const inputEl = ref<HTMLInputElement>();
@@ -150,11 +154,11 @@ export default defineComponent({
       errors.forEach((err) => {
         const fileName = err.name ? `(${err.name})` : '';
         if (err.type === 'FormatsError') {
-          errStr += `Неправильный формат файла ${fileName}`;
+          errStr += t('core.form.dropzone.wrong_format', { filename: fileName });
         } else if (err.type === 'MaxSizeError') {
-          errStr += `Превышен максимальный размер файла ${fileName}. Максимум: ${err.allowed}Мб`;
+          errStr += t('core.form.dropzone.wrong_size', { filename: fileName, size: err.allowed });
         } else if (err.type === 'MaxAmountError') {
-          errStr += `Максимальное количество загружаемых файлов: ${err.allowed}`;
+          errStr += t('core.form.dropzone.max_files', { max: err.allowed });
         }
       });
       return errStr;
@@ -245,6 +249,7 @@ export default defineComponent({
     };
 
     return {
+      t,
       values,
       dragOver,
       files,

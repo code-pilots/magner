@@ -53,7 +53,7 @@
 
     <el-button class="sidebar_toggle" @click="toggleCollapse">
       <svg-icon name="chevrons" :rotate="isCollapsed ? 'right' : 'left'" />
-      {{ isCollapsed ? '' : 'Collapse' }}
+      {{ isCollapsed ? '' : t('core.sidebar.collapse') }}
     </el-button>
   </nav>
 </template>
@@ -61,6 +61,7 @@
 <script lang="ts">
 import 'styles/components/sidebar.css';
 import { computed, defineComponent, PropType } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 import { CustomRoute } from 'core/types/configs';
 import useStore from 'core/controllers/store/store';
@@ -79,7 +80,8 @@ export default defineComponent({
       default: null,
     },
   },
-  setup (props) {
+  setup () {
+    const { t } = useI18n();
     const router = useRouter();
     const store = useStore();
 
@@ -94,6 +96,7 @@ export default defineComponent({
     };
 
     return {
+      t,
       isCollapsed,
       toggleCollapse,
       navigate,

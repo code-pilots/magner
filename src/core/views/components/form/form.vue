@@ -48,7 +48,7 @@
         :class="['generic-form_clear', 'width-full']"
         @click="clearForm"
       >
-        Очистить
+        {{ t('core.form.clear') }}
       </el-button>
       <el-button
         v-if="(config.submitEvent === 'submit' || !config.submitEvent) && config.submit"
@@ -83,6 +83,7 @@ import setupValidators from 'core/utils/validators';
 import useMobile from 'core/utils/is-mobile';
 import FormItem from 'core/views/components/form/form-item.vue';
 import FormLayout from 'core/views/components/form/layout.vue';
+import { useI18n } from 'vue-i18n';
 
 interface FormValidator extends HTMLFormElement {
   validate: Function,
@@ -136,6 +137,7 @@ export default defineComponent({
   },
   emits: ['submit'],
   setup (props, context) {
+    const t = useI18n();
     const isMobile = useMobile();
 
     const reactiveConfig = reactive(props.config);
@@ -214,6 +216,7 @@ export default defineComponent({
     });
 
     return {
+      t,
       reactiveConfig,
       form,
       validation,

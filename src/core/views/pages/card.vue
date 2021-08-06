@@ -26,7 +26,7 @@
               :loading="deleteLoading"
               @click="deleteEntity"
             >
-              Удалить
+              {{ t('core.card.remove') }}
             </el-button>
           </template>
         </GenericForm>
@@ -41,6 +41,7 @@ import {
   computed, defineComponent, PropType, ref,
 } from 'vue';
 import { useRoute } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 import { ElMessageBox, ElMessage } from 'element-plus';
 import type { CardConfig } from 'core/types/configs';
 import { requestWrapper } from 'core/utils/request';
@@ -57,6 +58,7 @@ export default defineComponent({
     },
   },
   setup (props) {
+    const { t } = useI18n();
     const route = useRoute();
     const cardId = computed(() => route.params.id);
     const isNew = computed<boolean>(() => cardId.value === 'new');
@@ -124,6 +126,7 @@ export default defineComponent({
     };
 
     return {
+      t,
       cardId,
       isNew,
       createLoading,

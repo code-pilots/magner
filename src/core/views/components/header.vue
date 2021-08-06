@@ -24,7 +24,7 @@
 
           <template #dropdown>
             <el-dropdown-menu>
-              <el-dropdown-item @click="logout">Выйти</el-dropdown-item>
+              <el-dropdown-item @click="logout">{{ t('core.header.logout') }}</el-dropdown-item>
             </el-dropdown-menu>
           </template>
         </el-dropdown>
@@ -45,6 +45,7 @@
 <script lang="ts">
 import 'styles/components/header.css';
 import { defineComponent, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 import useStore from 'core/controllers/store/store';
 import SvgIcon from './icon.vue';
@@ -66,6 +67,7 @@ export default defineComponent({
   },
   emits: ['update:sidebar'],
   setup (props, context) {
+    const { t } = useI18n();
     const store = useStore();
     const router = useRouter();
 
@@ -84,6 +86,7 @@ export default defineComponent({
     };
 
     return {
+      t,
       open,
       projectName,
       toggleOpen,
