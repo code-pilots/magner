@@ -25,7 +25,6 @@ const specializationsForm = formController({
       label: 'Тип',
       column: 1,
       component: {},
-      validation: null,
       options: [
         {
           value: 'all',

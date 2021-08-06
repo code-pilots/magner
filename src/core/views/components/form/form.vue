@@ -5,38 +5,19 @@
     :rules="validation"
     :label-position="'top'"
     :size="reactiveConfig.size"
-    :class="['generic-form', { 'generic-form-no-columns': groupedFields.length <= 1 }]"
+    :class="['generic-form']"
     @submit.prevent="submit"
   >
     <slot name="before" />
 
-    <template v-if="groupedFields.length > 1">
-      <div :class="['generic-form_columns', `generic-form-${groupedFields.length}-columns`]">
-        <transition-group
-          v-for="(column, i) in groupedFields"
-          :key="i"
-          :class="['generic-form_columns_column', 'generic-form_column-' + (i + 1)]"
-          name="field-group"
-          tag="div"
-        >
-          <FormItem
-            v-for="field in column"
-            :key="field.name"
-            :ref="setItemEls"
-            v-model="form[field.name]"
-            :error="errors[field.name]"
-            :field="field"
-            @error="setFieldError(field.name, $event)"
-            @update:modelValue="controlOnInput(field.name, $event)"
-          />
-        </transition-group>
-      </div>
-    </template>
-
-    <transition-group v-else name="field-group" tag="div">
-      <template v-for="field in (groupedFields[0] || [])" :key="field.name">
+    <FormLayout
+      :fields="reactiveConfig.fields"
+      :show-amount="fieldsShowAmount"
+    >
+      <template #item="field">
         <FormItem
           v-show="!field.hidden"
+          :key="field.name"
           :ref="setItemEls"
           v-model="form[field.name]"
           :error="errors[field.name]"
@@ -45,7 +26,7 @@
           @update:modelValue="controlOnInput(field.name, $event)"
         />
       </template>
-    </transition-group>
+    </FormLayout>
 
     <slot name="after" />
 
@@ -97,10 +78,11 @@ import {
   computed,
 } from 'vue';
 import type { GenericForm } from 'core/types/form';
-import { DataTypeInitials, fieldsToColumns, fieldsToModels } from 'core/utils/form';
+import { DataTypeInitials, fieldsToLayout, fieldsToModels } from 'core/utils/form';
 import setupValidators from 'core/utils/validators';
 import useMobile from 'core/utils/is-mobile';
 import FormItem from 'core/views/components/form/form-item.vue';
+import FormLayout from 'core/views/components/form/layout.vue';
 
 interface FormValidator extends HTMLFormElement {
   validate: Function,
@@ -108,7 +90,7 @@ interface FormValidator extends HTMLFormElement {
 
 export default defineComponent({
   name: 'GenericForm',
-  components: { FormItem },
+  components: { FormLayout, FormItem },
   props: {
     config: {
       type: Object as PropType<GenericForm>,
@@ -159,7 +141,6 @@ export default defineComponent({
     const reactiveConfig = reactive(props.config);
     const form = reactive(fieldsToModels(reactiveConfig.fields, props.initialData));
     const validation = setupValidators(reactiveConfig.fields, props.allowEmptyFields);
-    const groupedFields = computed(() => fieldsToColumns(reactiveConfig.fields, props.fieldsShowAmount));
 
     const globalError = ref<string>(props.error); // Error of the whole form
     const errors = ref<Record<string, string>>(props.fieldErrors); // Field errors record
@@ -235,7 +216,6 @@ export default defineComponent({
     return {
       reactiveConfig,
       form,
-      groupedFields,
       validation,
       formEl,
       globalError,

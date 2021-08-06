@@ -54,15 +54,26 @@ export default cardPageController({
 
       {
         type: 'select',
-        name: 'cityId',
-        label: 'City',
+        name: 'city',
+        label: 'Example of the select with remote data loading',
         column: 1,
-        hidden: true,
         component: {
-          placeholder: 'Choose',
+          filterable: true,
+          remote: true,
+          remoteMethod: citiesRequest,
+          valueKey: 'id',
+          labelKey: 'name',
+          placeholder: 'Moscow',
+          loadingText: 'Loading',
+          noDataText: 'No city were found',
         },
         options: [],
-        validation: null,
+      },
+
+      {
+        type: 'divider',
+        name: 'first',
+        component: {},
       },
 
       {
@@ -80,7 +91,6 @@ export default cardPageController({
             label: 'Not russia',
           },
         ],
-        validation: null,
         component: {
           placeholder: 'Choose',
           clearable: true,
@@ -112,21 +122,20 @@ export default cardPageController({
 
       {
         type: 'select',
-        name: 'city',
-        label: 'Example of the select with remote data loading',
-        column: 1,
+        name: 'cityId',
+        label: 'City',
+        column: 2,
+        hidden: true,
         component: {
-          filterable: true,
-          remote: true,
-          remoteMethod: citiesRequest,
-          valueKey: 'id',
-          labelKey: 'name',
-          placeholder: 'Moscow',
-          loadingText: 'Loading',
-          noDataText: 'No city were found',
+          placeholder: 'Choose',
         },
         options: [],
-        validation: null,
+      },
+
+      {
+        type: 'divider',
+        name: 'radios',
+        component: {},
       },
 
       {
@@ -135,7 +144,6 @@ export default cardPageController({
         label: 'Radio group example',
         column: 1,
         component: {},
-        validation: null,
         options: RadioOptions,
       },
 
@@ -143,10 +151,9 @@ export default cardPageController({
         type: 'radio',
         name: 'radio-button',
         label: 'Example of the radio-button group',
-        column: 1,
+        column: 2,
         radioButtons: true,
         component: {},
-        validation: null,
         options: RadioOptions,
       },
 
@@ -157,7 +164,6 @@ export default cardPageController({
         label: 'Checkbox group example',
         column: 1,
         component: {},
-        validation: null,
         options: RadioOptions,
       },
 
@@ -166,12 +172,11 @@ export default cardPageController({
         name: 'checkbox-button',
         dataType: 'array',
         label: 'Example of the checkbox-button group. Maximum 3 checks allowed',
-        column: 1,
+        column: 2,
         checkboxButtons: true,
         component: {
           max: 3,
         },
-        validation: null,
         options: [
           ...RadioOptions,
           {
@@ -195,10 +200,15 @@ export default cardPageController({
         name: 'isactive',
         label: '',
         column: 1,
-        validation: null,
         component: {
           inactiveLabel: 'Are you active?',
         },
+      },
+
+      {
+        type: 'divider',
+        name: 'last',
+        component: {},
       },
 
       {
@@ -207,7 +217,6 @@ export default cardPageController({
         label: 'Dropzone example',
         column: 1,
         component: {},
-        validation: null,
       },
     ],
   },

@@ -112,7 +112,6 @@ const patientForm = formController({
           label: 'Мужской',
         },
       ],
-      validation: null,
       component: {
         placeholder: 'Выбрать',
       },
@@ -134,7 +133,6 @@ const patientForm = formController({
         noDataText: 'Город не найден',
       },
       options: [],
-      validation: null,
     },
     {
       type: 'input',
@@ -171,7 +169,6 @@ const patientForm = formController({
       label: 'Фотография',
       column: 2,
       component: {},
-      validation: null,
     },
   ],
 });

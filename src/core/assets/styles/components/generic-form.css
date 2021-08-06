@@ -1,15 +1,21 @@
 .generic-form {
-    &_columns {
+    &_row {
         display: flex;
         flex-direction: column;
         width: 100%;
 
         @media (--breakpoint-md) {
             flex-direction: row;
+        }
 
-            &_column {
-                width: 50%;
-                max-width: 800px;
+        &.generic-form_row-1-columns {
+            /*max-width: 800px;*/
+        }
+
+        &.generic-form_row-2-columns {
+            /*max-width: 800px;*/
+            & .generic-form_column {
+                flex-grow: 1;
                 &:not(:last-child) {
                     margin-right: 24px;
                 }
@@ -17,8 +23,8 @@
         }
     }
 
-    &.generic-form-no-columns {
-        max-width: 800px;
+    &_column {
+        width: 100%;
     }
 
     & .el-form-item {

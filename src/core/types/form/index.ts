@@ -6,6 +6,7 @@ import type { SelectField } from './select';
 import type { ButtonComponent } from './button';
 import type { DropzoneField } from './dropzone';
 import type { SwitchField } from './switch';
+import type { Divider } from './divider';
 
 /**
  * The type of a field used in the forms. Defined by its required 'type' which
@@ -13,6 +14,7 @@ import type { SwitchField } from './switch';
  */
 export type GenericComponent =
   InputField
+  | Divider
   | TextareaField
   | CheckboxField
   | RadioField

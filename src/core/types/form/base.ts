@@ -4,6 +4,7 @@ import type { GenericForm } from 'core/types/form/index';
 
 export type SupportedComponentTypes =
   'input'
+  | 'divider'
   | 'textarea'
   | 'checkbox'
   | 'radio'
@@ -46,8 +47,8 @@ export interface BaseField {
   /** Any attributes passed to the base HTML-tag */
   component: BaseComponent,
 
-  /** How and when to validate the field. Use 'null' if no validation needed */
-  validation: BaseValidation|null,
+  /** How and when to validate the field */
+  validation?: BaseValidation,
 
   /** Needed to setup initial values for the fields. Default is 'string' that returns and empty string '' */
   dataType?: SupportedDataTypes,

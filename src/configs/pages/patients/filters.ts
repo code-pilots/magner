@@ -34,7 +34,6 @@ const patientsFilters = filtersFormController({
     {
       type: 'input',
       name: 'fullName',
-      validation: null,
       column: 1,
       component: {
         type: 'text',
@@ -46,7 +45,6 @@ const patientsFilters = filtersFormController({
       type: 'select',
       name: 'sort',
       column: 2,
-      validation: null,
       component: {
         placeholder: 'Пример селекта',
         valueKey: 'id',
