@@ -1,5 +1,6 @@
 import { createApp } from 'vue';
 import ElementPlus from 'element-plus';
+import i18n from 'core/controllers/i18n';
 
 import type { StoreController } from './store';
 import type { RouterController } from './router';
@@ -24,5 +25,6 @@ export const mainController = (router: RouterController, store: StoreController)
     .component('SvgIcon', SvgIcon)
     .use(...store)
     .use(router)
+    .use(i18n)
     .mount('#app');
 };

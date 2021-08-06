@@ -1,13 +1,13 @@
 <template>
   <section class="home-page">
-    <h1>Hello from Admin template!</h1>
+    <h1>{{ t('home.hello') }}</h1>
 
-    <p>This is a fully custom page. And you can make your own too!</p>
+    <p>{{ t('home.custom') }}</p>
 
     <img src="/cat.gif" alt="funny cat">
 
     <router-link :to="{ name: 'patients' }" class="link">
-      <el-button type="secondary">Explore table</el-button>
+      <el-button type="secondary">{{ t('home.explore') }}</el-button>
     </router-link>
   </section>
 </template>
@@ -15,8 +15,16 @@
 <script lang="ts">
 import 'app/assets/styles/home.css';
 import { defineComponent } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 export default defineComponent({
   name: 'HomePage',
+  setup () {
+    const { t } = useI18n();
+
+    return {
+      t,
+    };
+  },
 });
 </script>
