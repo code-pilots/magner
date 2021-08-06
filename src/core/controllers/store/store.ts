@@ -11,11 +11,13 @@ interface State {
 
   project: ProjectConfig,
 
+  language: SupportedLanguages,
+  allLanguages: Record<SupportedLanguages, string>,
+
   token: string|null,
   user: any|null,
   role: ROLE|null,
 
-  language: SupportedLanguages,
   sidebarCollapsed: boolean,
 }
 
@@ -45,11 +47,13 @@ export const store = createStore<State>({
       allRoutes: [],
       project: {} as ProjectConfig,
 
+      language: '' as SupportedLanguages,
+      allLanguages: {} as Record<SupportedLanguages, string>,
+
       token: lstorage.read('token') || null,
       user: null,
       role: null,
 
-      language: '' as SupportedLanguages,
       sidebarCollapsed: lstorage.read('sidebarCollapsed') || false,
     };
   },
@@ -72,6 +76,9 @@ export const store = createStore<State>({
       } else {
         lstorage.delete('language');
       }
+    },
+    setLanguages (state, value: Record<SupportedLanguages, string>) {
+      state.allLanguages = value;
     },
 
     setToken (state, value: string) {
@@ -113,6 +120,9 @@ export const store = createStore<State>({
     },
     changeLanguage (context, value: SupportedLanguages) {
       context.commit('setLanguage', value);
+    },
+    changeAllLanguages (context, value: Record<SupportedLanguages, string>) {
+      context.commit('setLanguages', value);
     },
 
     changeToken (context, value: string) {

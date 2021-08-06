@@ -33,6 +33,7 @@ export const translationController = <SUPPORTED_LANGUAGES extends string>(
   }, {} as Record<SUPPORTED_LANGUAGES, any>);
 
   globalValues.store.dispatch('changeLanguage', config.mainLanguage);
+  globalValues.store.dispatch('changeAllLanguages', config.languages);
 
   const i18n = createI18n({
     legacy: false,

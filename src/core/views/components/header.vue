@@ -14,10 +14,27 @@
       <div class="header_right">
         <el-dropdown size="small" trigger="hover">
           <template #default>
-            <el-button
-              size="mini"
-              circle
-            >
+            <el-button size="mini" circle>
+              <svg-icon name="globe" />
+            </el-button>
+          </template>
+
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item
+                v-for="lang in Object.entries(allLanguages)"
+                :key="lang[0]"
+                @click="changeLang(lang[0])"
+              >
+                {{ lang[1] }}
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
+
+        <el-dropdown size="small" trigger="hover">
+          <template #default>
+            <el-button size="mini" circle>
               <svg-icon name="user" />
             </el-button>
           </template>
@@ -48,6 +65,7 @@ import { defineComponent, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 import useStore from 'core/controllers/store/store';
+import { SupportedLanguages } from 'configs/translation';
 import SvgIcon from './icon.vue';
 
 export default defineComponent({
@@ -67,12 +85,13 @@ export default defineComponent({
   },
   emits: ['update:sidebar'],
   setup (props, context) {
-    const { t } = useI18n();
+    const { t, locale } = useI18n();
     const store = useStore();
     const router = useRouter();
 
     const open = ref<boolean>(props.sidebar);
     const projectName = store.state.project.name;
+    const allLanguages = store.state.allLanguages;
 
     const toggleOpen = () => {
       const newVal = !open.value;
@@ -85,10 +104,17 @@ export default defineComponent({
       router.push({ name: store.state.globalRoutes.homeNoAuthName });
     };
 
+    const changeLang = (lang: SupportedLanguages) => {
+      store.dispatch('changeLanguage', lang);
+      locale.value = lang;
+    };
+
     return {
       t,
       open,
       projectName,
+      allLanguages,
+      changeLang,
       toggleOpen,
       logout,
     };
