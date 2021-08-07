@@ -7,6 +7,7 @@ import consultationTypesTable from 'configs/pages/dictionaries/consultation-type
 import specializationTable from 'configs/pages/dictionaries/specializations/table';
 import specializationConfig from 'configs/pages/dictionaries/specializations/card';
 import bigtestConfig from 'configs/pages/big-test';
+import translate from 'core/utils/translate';
 
 const router = routerController({
   global: {
@@ -43,7 +44,7 @@ const router = routerController({
       visible: true,
 
       /** Name displayed in the sidebar menu and in the header when active */
-      title: 'Главная',
+      title: translate('pages.home'),
 
       /** Icon to be displayed in the sidebar */
       icon: 'home',
@@ -69,7 +70,7 @@ const router = routerController({
       roles: [ROLE.SUPER_ADMIN, ROLE.DOCTOR, ROLE.DOCTOR],
 
       visible: true,
-      title: 'Пациенты',
+      title: translate('pages.patients'),
       icon: 'users',
 
       route: {
@@ -85,7 +86,7 @@ const router = routerController({
       roles: [ROLE.SUPER_ADMIN, ROLE.DOCTOR, ROLE.DOCTOR],
 
       visible: false,
-      title: 'Пациент',
+      title: translate('pages.patient'),
       icon: '',
 
       route: {
@@ -97,7 +98,7 @@ const router = routerController({
     {
       group: true,
       name: 'dicts',
-      title: 'Справочники',
+      title: translate('pages.dictionaries'),
       icon: 'grid',
       routes: [
         {
@@ -105,7 +106,7 @@ const router = routerController({
           config: specializationTable,
           roles: [ROLE.SUPER_ADMIN, ROLE.DOCTOR, ROLE.DOCTOR],
           visible: true,
-          title: 'Специализации',
+          title: translate('pages.specializations'),
           icon: 'grid',
           route: {
             name: 'specializations',
@@ -118,7 +119,7 @@ const router = routerController({
           roles: [ROLE.SUPER_ADMIN, ROLE.DOCTOR, ROLE.DOCTOR],
 
           visible: false,
-          title: 'Специализация',
+          title: translate('pages.specialization'),
           icon: '',
 
           route: {
@@ -132,7 +133,7 @@ const router = routerController({
           config: consultationTypesTable,
           roles: [ROLE.SUPER_ADMIN, ROLE.DOCTOR, ROLE.DOCTOR],
           visible: true,
-          title: 'Типы консультаций',
+          title: translate('pages.consultation_types'),
           icon: 'grid',
           route: {
             name: 'consultation-types',
@@ -144,7 +145,7 @@ const router = routerController({
 
     {
       preset: 'card',
-      title: 'Тест формы',
+      title: translate('pages.form_test'),
       icon: 'key',
       visible: true,
       roles: [ROLE.SUPER_ADMIN, ROLE.DOCTOR, ROLE.DOCTOR],

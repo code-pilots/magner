@@ -42,7 +42,7 @@ export const translationController = <SUPPORTED_LANGUAGES extends string>(
     messages,
   });
 
-  globalValues.i18n = i18n;
+  globalValues.t = i18n.global.t;
 
   return i18n;
 };

@@ -5,7 +5,7 @@ import type { I18n } from 'vue-i18n';
 export interface GlobalValues {
   router: Router,
   store: StoreType,
-  i18n: I18n,
+  t: I18n['global']['t'],
 }
 
 const globalValues = {} as GlobalValues;

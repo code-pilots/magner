@@ -7,11 +7,11 @@
     <nav class="header_nav">
       <div class="header_left">
         <h2>
-          {{ title }}
+          {{ customT(title) }}
         </h2>
       </div>
 
-      <div class="header_right">
+      <div v-if="Object.keys(allLanguages).length > 1" class="header_right">
         <el-dropdown size="small" trigger="hover">
           <template #default>
             <el-button size="mini" circle>
@@ -61,9 +61,9 @@
 
 <script lang="ts">
 import 'styles/components/header.css';
-import { defineComponent, ref } from 'vue';
-import { useI18n } from 'vue-i18n';
+import { defineComponent, PropType, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { TranslateData, useTranslate } from 'core/utils/translate';
 import useStore from 'core/controllers/store/store';
 import { SupportedLanguages } from 'configs/translation';
 import SvgIcon from './icon.vue';
@@ -75,7 +75,7 @@ export default defineComponent({
   },
   props: {
     title: {
-      type: String,
+      type: [String, Object] as PropType<string | TranslateData>,
       default: '',
     },
     sidebar: {
@@ -85,7 +85,7 @@ export default defineComponent({
   },
   emits: ['update:sidebar'],
   setup (props, context) {
-    const { t, locale } = useI18n();
+    const { customT, t, locale } = useTranslate();
     const store = useStore();
     const router = useRouter();
 
@@ -111,6 +111,7 @@ export default defineComponent({
 
     return {
       t,
+      customT,
       open,
       projectName,
       allLanguages,

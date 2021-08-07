@@ -15,7 +15,7 @@
           >
             <template #title>
               <svg-icon :name="route.icon" class="el-icon-margin-right" />
-              <span>{{ route.title }}</span>
+              <span>{{ customT(route.title) }}</span>
             </template>
             <template v-for="nested in route.routes">
               <el-menu-item
@@ -27,7 +27,7 @@
                 <svg-icon :name="nested.icon" class="el-icon-no-icon-just-kiddin" />
                 <template #title>
                   <span class="sidebar_menu_item_title">
-                    {{ nested.title }}
+                    {{ customT(nested.title) }}
                   </span>
                 </template>
               </el-menu-item>
@@ -43,7 +43,7 @@
             <svg-icon :name="route.icon" class="el-icon-no-icon-just-kiddin" />
             <template #title>
               <span class="sidebar_menu_item_title">
-                {{ route.title }}
+                {{ customT(route.title) }}
               </span>
             </template>
           </el-menu-item>
@@ -61,7 +61,7 @@
 <script lang="ts">
 import 'styles/components/sidebar.css';
 import { computed, defineComponent, PropType } from 'vue';
-import { useI18n } from 'vue-i18n';
+import { useTranslate } from 'core/utils/translate';
 import { useRouter } from 'vue-router';
 import { CustomRoute } from 'core/types/configs';
 import useStore from 'core/controllers/store/store';
@@ -81,7 +81,7 @@ export default defineComponent({
     },
   },
   setup () {
-    const { t } = useI18n();
+    const { customT, t } = useTranslate();
     const router = useRouter();
     const store = useStore();
 
@@ -98,6 +98,7 @@ export default defineComponent({
     return {
       t,
       isCollapsed,
+      customT,
       toggleCollapse,
       navigate,
     };
