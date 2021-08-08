@@ -44,3 +44,4 @@ To understand different core functionality, follow other README links:
 * [Router](./src/core/controllers/router/readme.md)
 * [Requests](./src/core/utils/api/readme.md)
 * [Generic Forms](./src/core/views/components/form/readme.md)
+* [Translation](./src/core/controllers/i18n/readme.md)
