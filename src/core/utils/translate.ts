@@ -12,7 +12,7 @@ const translate = (key: TArgs[0], params?: TArgs[1]) => ({
   params: params || null,
 });
 
-export type TranslateData = ReturnType<typeof translate>;
+export type TranslateData = string | ReturnType<typeof translate>;
 
 /**
  * Function applies reactive i18n to the translate data. Use it in the Vue component's setup
@@ -28,7 +28,9 @@ export const useTranslate = () => {
     d,
     n,
     locale,
-    customT: (data: string | TranslateData): string => {
+    customT: (data: TranslateData): string => {
+      if (!data) return '';
+
       if (typeof data === 'string') {
         return data;
       }

@@ -1,8 +1,9 @@
 import { filtersFormController } from 'core/controllers';
+import translate from 'core/utils/translate';
 
 const patientsFilters = filtersFormController({
   linkToCreateNew: {
-    label: 'Создать',
+    label: translate('patients.filters.create_new'),
     routeName: 'patient',
   },
 
@@ -13,7 +14,7 @@ const patientsFilters = filtersFormController({
   submit: {
     type: 'primary',
     nativeType: 'submit',
-    text: 'Подтвердить',
+    text: translate('patients.filters.submit'),
   },
   submitEvent: 'input',
 
@@ -37,7 +38,7 @@ const patientsFilters = filtersFormController({
       column: 1,
       component: {
         type: 'text',
-        placeholder: 'Полное имя',
+        placeholder: translate('patients.filters.fullname_placeholder'),
         inputDelay: 400,
       },
     },
@@ -46,7 +47,7 @@ const patientsFilters = filtersFormController({
       name: 'sort',
       column: 2,
       component: {
-        placeholder: 'Пример селекта',
+        placeholder: translate('patients.filters.sort_placeholder'),
         valueKey: 'id',
         clearable: true,
       },
@@ -55,13 +56,13 @@ const patientsFilters = filtersFormController({
           id: 1,
           slug: 'fullName',
           value: 'ASC',
-          label: 'В алфавитном порядке по имени',
+          label: translate('patients.filters.sort_alphabetical'),
         },
         {
           id: 2,
           slug: 'fullName',
           value: 'DESC',
-          label: 'В обратном алфавитном порядке по имени',
+          label: translate('patients.filters.sort_alphabetical_reverse'),
         },
       ],
     },

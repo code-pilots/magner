@@ -1,9 +1,10 @@
-import { BaseComponent, BaseField } from 'core/types/form/base';
+import type { BaseComponent, BaseField } from 'core/types/form/base';
+import type { TranslateData } from 'core/utils/translate';
 
 export interface InputComponent extends BaseComponent {
   type: 'text'|'number'|'email'|'password'|'tel'|string,
   id?: string,
-  placeholder?: string,
+  placeholder?: TranslateData,
   icon?: string,
 
   /** An amount of milliseconds (put 400 for the best UX) of the delay for the 'update:modelValue' event of

@@ -1,12 +1,13 @@
 import loginRequest from 'app/requests/login';
 import { loginPageController } from 'core/controllers';
+import translate from 'core/utils/translate';
 
 const loginPageConfig = loginPageController({
-  title: 'Вход',
+  title: translate('login.title'),
   request: loginRequest,
   form: {
     submit: {
-      text: 'Войти',
+      text: translate('login.submitButton'),
     },
     fields: [
       {
@@ -19,7 +20,7 @@ const loginPageConfig = loginPageController({
         },
         component: {
           type: 'text',
-          placeholder: 'Е-мейл',
+          placeholder: translate('login.fields.email_placeholder'),
           icon: 'mail',
         },
       },
@@ -33,7 +34,7 @@ const loginPageConfig = loginPageController({
         },
         component: {
           type: 'password',
-          placeholder: 'Пароль',
+          placeholder: translate('login.fields.password_placeholder'),
           icon: 'lock',
         },
       },

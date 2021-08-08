@@ -75,7 +75,7 @@ export default defineComponent({
   },
   props: {
     title: {
-      type: [String, Object] as PropType<string | TranslateData>,
+      type: [String, Object] as PropType<TranslateData>,
       default: '',
     },
     sidebar: {

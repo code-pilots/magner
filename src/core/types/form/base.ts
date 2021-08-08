@@ -1,6 +1,7 @@
 import type { SupportedValidators } from 'core/utils/validators';
 import type { SupportedDataTypes } from 'core/utils/form';
 import type { GenericForm } from 'core/types/form/index';
+import type { TranslateData } from 'core/utils/translate';
 
 export type SupportedComponentTypes =
   'input'
@@ -32,11 +33,11 @@ export interface BaseField {
   name: string,
 
   /** A label to be displayed next to the field component */
-  label?: string,
+  label?: TranslateData,
   labelWidth?: string,
 
   /** If you need to explain what some field means, put the hint there. HTML is allowed in the tooltip */
-  hint?: string,
+  hint?: TranslateData,
 
   /**
    * If set, fields will be grouped in the columns (doesn't work with the Form's 'fieldsShowAmount' property).

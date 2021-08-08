@@ -50,7 +50,9 @@
         :to="{name: config.filters.linkToCreateNew.routeName, params: { id: 'new' }}"
         class="table-page_top_create"
       >
-        <el-button native-type="button" type="primary">{{ config.filters.linkToCreateNew.label }}</el-button>
+        <el-button native-type="button" type="primary">
+          {{ customT(config.filters.linkToCreateNew.label) }}
+        </el-button>
       </router-link>
     </div>
 
@@ -93,7 +95,7 @@ import {
   computed,
   defineComponent, PropType, reactive, ref, watch, watchEffect,
 } from 'vue';
-import { useI18n } from 'vue-i18n';
+import { useTranslate } from 'core/utils/translate';
 import { useRoute, useRouter } from 'vue-router';
 import lstorage from 'core/utils/local-storage';
 import type { TableConfig } from 'core/types/configs';
@@ -118,7 +120,7 @@ export default defineComponent({
     },
   },
   setup (props) {
-    const { t } = useI18n();
+    const { t, customT } = useTranslate();
     const route = useRoute();
     const router = useRouter();
     const store = useStore();
@@ -204,6 +206,7 @@ export default defineComponent({
 
     return {
       t,
+      customT,
       requestData,
       drawerOpen,
       isMobile,

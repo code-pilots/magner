@@ -12,7 +12,7 @@
         :label="option.value"
         :disabled="option.disabled"
       >
-        {{ option.label }}
+        {{ customT(option.label) }}
       </el-radio-button>
     </template>
 
@@ -23,7 +23,7 @@
         :label="option.value"
         :disabled="option.disabled"
       >
-        {{ option.label }}
+        {{ customT(option.label) }}
       </el-radio>
     </template>
   </el-radio-group>
@@ -33,6 +33,7 @@
 import {
   defineComponent, PropType, ref, watchEffect,
 } from 'vue';
+import { useTranslate } from 'core/utils/translate';
 import type { RadioField } from 'core/types/form/radio';
 
 export default defineComponent({
@@ -49,6 +50,7 @@ export default defineComponent({
   },
   emits: ['update:modelValue'],
   setup (props, context) {
+    const { customT } = useTranslate();
     const val = ref<number|string>(props.modelValue);
 
     watchEffect(() => {
@@ -62,6 +64,7 @@ export default defineComponent({
 
     return {
       val,
+      customT,
       changeVal,
     };
   },

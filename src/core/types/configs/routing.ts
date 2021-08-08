@@ -53,7 +53,7 @@ export interface BaseRoute {
   roles: ROLE[] | null,
 
   visible?: boolean,
-  title?: string | TranslateData,
+  title?: TranslateData,
   icon?: string,
 }
 
@@ -130,7 +130,7 @@ export type CustomRoute = SimpleRoute | PresetLoginRoute | PresetTableRoute | Pr
 export interface GroupRoute {
   group: true,
   name: string,
-  title: string | TranslateData,
+  title: TranslateData,
   icon: string,
   routes: CustomRoute[],
 }

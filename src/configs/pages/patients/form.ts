@@ -1,19 +1,20 @@
 import { formController } from 'core/controllers';
 import citiesRequest from 'app/requests/citites';
+import translate from 'core/utils/translate';
 
 const patientForm = formController({
   submit: {
-    text: 'Сохранить',
+    text: translate('patient.form.submit_button'),
   },
   fields: [
     {
       type: 'input',
       name: 'surname',
-      label: 'Фамилия',
+      label: translate('patient.form.lastname_label'),
       column: 1,
       component: {
         type: 'text',
-        placeholder: 'Иванов',
+        placeholder: translate('patient.form.lastname_placeholder'),
       },
       validation: {
         type: 'empty',
@@ -23,11 +24,11 @@ const patientForm = formController({
     {
       type: 'input',
       name: 'firstname',
-      label: 'Имя',
+      label: translate('patient.form.firstname_label'),
       column: 1,
       component: {
         type: 'text',
-        placeholder: 'Иван',
+        placeholder: translate('patient.form.firstname_placeholder'),
       },
       validation: {
         type: 'empty',
@@ -37,11 +38,11 @@ const patientForm = formController({
     {
       type: 'input',
       name: 'patronymic',
-      label: 'Отчество',
+      label: translate('patient.form.patronymic_label'),
       column: 1,
       component: {
         type: 'text',
-        placeholder: 'Иванович',
+        placeholder: translate('patient.form.patronymic_placeholder'),
       },
       validation: {
         type: 'empty',
@@ -51,7 +52,7 @@ const patientForm = formController({
     {
       type: 'input',
       name: 'email',
-      label: 'Е-мейл',
+      label: translate('patient.form.email_label'),
       column: 1,
       validation: {
         type: 'email',
@@ -66,7 +67,7 @@ const patientForm = formController({
     {
       type: 'input',
       name: 'phone',
-      label: 'Номер телефона',
+      label: translate('patient.form.phone_number_label'),
       column: 1,
       validation: {
         type: 'empty',
@@ -74,7 +75,7 @@ const patientForm = formController({
       },
       component: {
         type: 'tel',
-        placeholder: '+7-915-820-14-02',
+        placeholder: translate('patient.form.phone_number_placeholder'),
         mask: {
           mask: '+7-###-###-##-##',
         },
@@ -83,11 +84,11 @@ const patientForm = formController({
     {
       type: 'input',
       name: 'birthDate',
-      label: 'Дата рождения',
+      label: translate('patient.form.birthday_label'),
       column: 1,
       component: {
         type: 'text',
-        placeholder: '1984-12-21',
+        placeholder: translate('patient.form.birthday_placeholder'),
         mask: {
           mask: '####-##-##',
         },
@@ -100,27 +101,27 @@ const patientForm = formController({
     {
       type: 'select',
       name: 'gender',
-      label: 'Пол',
+      label: translate('patient.form.gender_label'),
       column: 2,
       options: [
         {
           value: 'female',
-          label: 'Женский',
+          label: translate('patient.form.gender_female'),
         },
         {
           value: 'male',
-          label: 'Мужской',
+          label: translate('patient.form.gender_male'),
         },
       ],
       component: {
-        placeholder: 'Выбрать',
+        placeholder: translate('patient.form.gender_placeholder'),
       },
     },
 
     {
       type: 'select',
       name: 'cityId',
-      label: 'Город',
+      label: translate('patient.form.city_label'),
       column: 2,
       component: {
         filterable: true,
@@ -128,20 +129,20 @@ const patientForm = formController({
         remoteMethod: citiesRequest,
         valueKey: 'id',
         labelKey: 'name',
-        placeholder: 'Москва',
-        loadingText: 'Загрузка',
-        noDataText: 'Город не найден',
+        placeholder: translate('patient.form.city_placeholder'),
+        loadingText: translate('patient.form.city_loading_text'),
+        noDataText: translate('patient.form.city_no_data_text'),
       },
       options: [],
     },
     {
       type: 'input',
       name: 'address',
-      label: 'Адрес',
+      label: translate('patient.form.address_label'),
       column: 2,
       component: {
         type: 'text',
-        placeholder: 'ул. Южная, д. 14',
+        placeholder: translate('patient.form.address_placeholder'),
       },
       validation: {
         type: 'empty',
@@ -151,11 +152,11 @@ const patientForm = formController({
     {
       type: 'input',
       name: 'apartment',
-      label: 'Квартира',
+      label: translate('patient.form.apartments_label'),
       column: 2,
       component: {
         type: 'text',
-        placeholder: 'кв. 4',
+        placeholder: translate('patient.form.apartments_placeholder'),
       },
       validation: {
         type: 'empty',
@@ -166,7 +167,7 @@ const patientForm = formController({
     {
       type: 'dropzone',
       name: 'photo',
-      label: 'Фотография',
+      label: translate('patient.form.photo_label'),
       column: 2,
       component: {},
     },

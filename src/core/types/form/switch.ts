@@ -1,10 +1,11 @@
-import { BaseComponent, BaseField } from 'core/types/form/base';
+import type { BaseComponent, BaseField } from 'core/types/form/base';
+import type { TranslateData } from 'core/utils/translate';
 
 export interface SwitchComponent extends BaseComponent {
   /** Text to display on the left side of the switch */
-  inactiveLabel?: string,
+  inactiveLabel?: TranslateData,
   /** Text to display on the right side of the switch */
-  activeLabel?: string,
+  activeLabel?: TranslateData,
 
   /** Switch's background color when not checked */
   inactiveColor?: string,

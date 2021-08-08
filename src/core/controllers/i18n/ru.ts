@@ -10,6 +10,12 @@ const ruLocale: TranslationSchema = {
     },
     card: {
       remove: 'Удалить',
+      success_creation: 'Создание прошло успешно!',
+      success_removal: 'Удаление прошло успешно!',
+      attention: 'Внимание!',
+      removal_confirm: 'Вы уверены, что хотите удалить "{msg}"?',
+      confirm_button_text: 'Да',
+      cancel_button_text: 'Отмена',
     },
     form: {
       clear: 'Очистить',

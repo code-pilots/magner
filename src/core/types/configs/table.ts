@@ -1,11 +1,12 @@
 import type { RequestCallback } from 'core/types/utils';
 import type { GenericForm } from 'core/types/form';
 import type { Table } from 'core/types/components/table';
+import type { TranslateData } from 'core/utils/translate';
 
 export interface FiltersForm extends GenericForm {
   /** Display the button link for some other page like entity create or not */
   linkToCreateNew?: {
-    label: string,
+    label: TranslateData,
     routeName: string,
   },
 
@@ -55,7 +56,7 @@ export type TableRequest<ROW = any> = RequestCallback<TableFiltersResponse<ROW>,
 
 export interface TableConfig {
   /** Page title */
-  title: string,
+  title: TranslateData,
 
   /** Data request. Must return the data array in the field 'rows' and a pagination object */
   request: TableRequest,

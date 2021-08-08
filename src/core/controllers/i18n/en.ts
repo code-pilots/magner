@@ -8,6 +8,12 @@ const enLocale = {
     },
     card: {
       remove: 'Remove',
+      success_creation: 'Created successfully!',
+      success_removal: 'Removed successfully!',
+      attention: 'Attention!',
+      removal_confirm: 'Are you sure you want to delete "{msg}"?',
+      confirm_button_text: 'Yes',
+      cancel_button_text: 'Cancel',
     },
     form: {
       clear: 'Clear',
