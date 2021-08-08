@@ -1,4 +1,5 @@
-import { BaseComponent, BaseField } from 'core/types/form/base';
+import type { BaseComponent, BaseField } from 'core/types/form/base';
+import type { TranslateData } from 'core/utils/translate';
 
 export interface CheckboxComponent extends BaseComponent {
   /** Minimum/Maximum number of checkbox checked */
@@ -14,7 +15,7 @@ export interface CheckboxComponent extends BaseComponent {
 
 export interface CheckboxOption extends Record<string, any> {
   /** Text to be displayed, same as value if omitted */
-  label?: string,
+  label?: TranslateData,
 
   /** Unique value of the Option. This value will be returned by form when submitted */
   value?: string|number|boolean|Record<string, any>,

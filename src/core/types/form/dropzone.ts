@@ -1,5 +1,5 @@
-import { BaseComponent, BaseField } from 'core/types/form/base';
-import { RequestCallback } from 'core/types/utils';
+import type { BaseComponent, BaseField } from 'core/types/form/base';
+import type { RequestCallback } from 'core/types/utils';
 
 export type DropzoneUploadReturn = string | number | File | Record<string, any>;
 

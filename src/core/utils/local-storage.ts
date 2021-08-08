@@ -1,6 +1,6 @@
 import envs from '../../envs';
 
-type SupportedLSKeys = 'token'|'sidebarCollapsed'|'filters';
+type SupportedLSKeys = 'token'|'sidebarCollapsed'|'filters'|'language';
 
 /**
  * Manipulate with the stringified object placed in the LocalStorage for

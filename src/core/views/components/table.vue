@@ -10,7 +10,7 @@
       v-for="column in config.columns"
       :key="column.prop"
       :prop="column.prop"
-      :label="column.label"
+      :label="customT(column.label)"
       :width="column.width"
       :min-width="column.minWidth"
       :fixed="column.fixed"
@@ -44,6 +44,7 @@
 import 'core/assets/styles/components/data-table.css';
 import { defineComponent, PropType } from 'vue';
 import type { Table, TableColumn } from 'core/types/components/table';
+import { useTranslate } from 'core/utils/translate';
 
 export default defineComponent({
   name: 'DataTable',
@@ -63,6 +64,8 @@ export default defineComponent({
   },
   emits: ['sort'],
   setup (props, context) {
+    const { customT } = useTranslate();
+
     const sort = (e) => {
       context.emit('sort', e);
     };
@@ -76,6 +79,7 @@ export default defineComponent({
     };
 
     return {
+      customT,
       sort,
       formatCell,
     };

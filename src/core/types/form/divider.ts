@@ -1,8 +1,9 @@
-import { BaseComponent, BaseField } from 'core/types/form/base';
+import type { BaseComponent, BaseField } from 'core/types/form/base';
+import type { TranslateData } from 'core/utils/translate';
 
 export interface DividerComponent extends BaseComponent {
   visible?: boolean,
-  label?: string,
+  label?: TranslateData,
 }
 
 export interface Divider extends BaseField {

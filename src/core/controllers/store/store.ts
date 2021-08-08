@@ -1,6 +1,7 @@
 import { InjectionKey } from 'vue';
 import { createStore, useStore as baseUseStore, Store } from 'vuex';
 import type { CustomRoute, GlobalRouting, ProjectConfig } from 'core/types/configs';
+import type { SupportedLanguages } from 'configs/translation';
 import ROLE from 'configs/roles';
 import lstorage from 'core/utils/local-storage';
 
@@ -9,6 +10,9 @@ interface State {
   allRoutes: CustomRoute[],
 
   project: ProjectConfig,
+
+  language: SupportedLanguages,
+  allLanguages: Record<SupportedLanguages, string>,
 
   token: string|null,
   user: any|null,
@@ -43,6 +47,9 @@ export const store = createStore<State>({
       allRoutes: [],
       project: {} as ProjectConfig,
 
+      language: '' as SupportedLanguages,
+      allLanguages: {} as Record<SupportedLanguages, string>,
+
       token: lstorage.read('token') || null,
       user: null,
       role: null,
@@ -60,6 +67,18 @@ export const store = createStore<State>({
     },
     setProject (state, value: ProjectConfig) {
       state.project = value;
+    },
+
+    setLanguage (state, value: SupportedLanguages) {
+      state.language = value;
+      if (value) {
+        lstorage.put('language', value);
+      } else {
+        lstorage.delete('language');
+      }
+    },
+    setLanguages (state, value: Record<SupportedLanguages, string>) {
+      state.allLanguages = value;
     },
 
     setToken (state, value: string) {
@@ -98,6 +117,12 @@ export const store = createStore<State>({
     },
     changeProject (context, value: ProjectConfig) {
       context.commit('setProject', value);
+    },
+    changeLanguage (context, value: SupportedLanguages) {
+      context.commit('setLanguage', value);
+    },
+    changeAllLanguages (context, value: Record<SupportedLanguages, string>) {
+      context.commit('setLanguages', value);
     },
 
     changeToken (context, value: string) {

@@ -1,6 +1,11 @@
 import ROLE from 'configs/roles';
-import type { User } from 'app/types/user';
 import type { ProxyFunc } from 'core/types/utils';
+
+interface User {
+  id: number,
+  login: string,
+  phone: string,
+}
 
 export interface Response {
   result: {

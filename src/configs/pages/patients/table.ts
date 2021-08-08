@@ -1,7 +1,8 @@
 import { tableController } from 'core/controllers';
+import translate from 'core/utils/translate';
 
 const patientsTable = tableController({
-  emptyText: 'Пациенты не найдены',
+  emptyText: translate('patients.table.not_found'),
   rowLink: (row) => ({ name: 'patient', params: { id: row.id } }),
   columns: [
     {
@@ -12,42 +13,42 @@ const patientsTable = tableController({
     },
     {
       prop: 'fullName',
-      label: 'Полное имя',
+      label: translate('patients.table.fullname'),
       width: 300,
       sortable: true,
       showOverflowTooltip: true,
     },
     {
       prop: 'gender',
-      label: 'Пол',
+      label: translate('patients.table.gender'),
       width: 80,
     },
     {
       prop: 'email',
-      label: 'Е-мейл',
+      label: translate('patients.table.email'),
       width: 250,
       sortable: true,
       showOverflowTooltip: true,
     },
     {
       prop: 'address',
-      label: 'Адрес',
+      label: translate('patients.table.address'),
       width: 300,
       showOverflowTooltip: true,
     },
     {
       prop: 'apartment',
-      label: 'Апартаменты',
+      label: translate('patients.table.apartments'),
       width: 150,
     },
     {
       prop: 'lat',
-      label: 'Широта',
+      label: translate('patients.table.latitude'),
       width: 150,
     },
     {
       prop: 'long',
-      label: 'Долгота',
+      label: translate('patients.table.longitude'),
       width: 150,
     },
   ],

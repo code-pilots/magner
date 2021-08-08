@@ -2,7 +2,7 @@
   <el-input
     ref="input"
     :model-value="val"
-    :placeholder="field.component.placeholder"
+    :placeholder="field.component.placeholder && customT(field.component.placeholder)"
     :type="field.component.type"
     @input="changeVal"
   >
@@ -18,6 +18,7 @@
 import {
   defineComponent, PropType, ref, watchEffect, onMounted, nextTick,
 } from 'vue';
+import { useTranslate } from 'core/utils/translate';
 import { InputField } from 'core/types/form/input';
 import { create as Maska } from 'maska';
 
@@ -35,6 +36,8 @@ export default defineComponent({
   },
   emits: ['update:modelValue'],
   setup (props, context) {
+    const { customT } = useTranslate();
+
     const val = ref<number|string>(props.modelValue);
     const input = ref<HTMLInputElement>();
 
@@ -74,6 +77,7 @@ export default defineComponent({
     });
 
     return {
+      customT,
       val,
       input,
       changeVal,

@@ -1,4 +1,5 @@
-import { BaseComponent, BaseField } from 'core/types/form/base';
+import type { BaseComponent, BaseField } from 'core/types/form/base';
+import type { TranslateData } from 'core/utils/translate';
 
 export interface RadioComponent extends BaseComponent {
   /** Font color when button is active */
@@ -10,7 +11,7 @@ export interface RadioComponent extends BaseComponent {
 
 export interface RadioOption extends Record<string, any> {
   /** Text to be displayed, same as value if omitted */
-  label?: string,
+  label?: TranslateData,
 
   /** Unique value of the Option. This value will be returned by form when submitted */
   value?: string|number|boolean|Record<string, any>,

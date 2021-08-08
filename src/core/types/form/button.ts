@@ -1,3 +1,5 @@
+import type { TranslateData } from 'core/utils/translate';
+
 export type ButtonType = 'primary' | 'success' | 'warning' | 'danger' | 'info' | 'text';
 export type ButtonNativeType = 'button' | 'submit';
 
@@ -6,7 +8,7 @@ export type ButtonNativeType = 'button' | 'submit';
  */
 export interface ButtonComponent {
   /** Button content */
-  text: string,
+  text: TranslateData,
 
   class?: string,
 

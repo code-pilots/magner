@@ -14,7 +14,7 @@
         :label="option.value"
         :disabled="option.disabled"
       >
-        {{ option.label }}
+        {{ customT(option.label) }}
       </el-checkbox-button>
     </template>
 
@@ -25,7 +25,7 @@
         :label="option.value"
         :disabled="option.disabled"
       >
-        {{ option.label }}
+        {{ customT(option.label) }}
       </el-checkbox>
     </template>
   </el-checkbox-group>
@@ -36,6 +36,7 @@ import {
   defineComponent, PropType, ref, watchEffect,
 } from 'vue';
 import type { CheckboxField } from 'core/types/form/checkbox';
+import { useTranslate } from 'core/utils/translate';
 
 export default defineComponent({
   name: 'FormCheckbox',
@@ -51,6 +52,7 @@ export default defineComponent({
   },
   emits: ['update:modelValue'],
   setup (props, context) {
+    const { customT } = useTranslate();
     const val = ref<any[]>(props.modelValue);
 
     watchEffect(() => {
@@ -64,6 +66,7 @@ export default defineComponent({
 
     return {
       val,
+      customT,
       changeVal,
     };
   },

@@ -44,11 +44,10 @@
         v-if="config.clearable"
         :size="config.size"
         native-type="button"
-        type="secondary"
         :class="['generic-form_clear', 'width-full']"
         @click="clearForm"
       >
-        Очистить
+        {{ t('core.form.clear') }}
       </el-button>
       <el-button
         v-if="(config.submitEvent === 'submit' || !config.submitEvent) && config.submit"
@@ -58,7 +57,7 @@
         :type="config.submit.type || 'primary'"
         :class="['generic-form_submit', 'width-full', config.submit.class || '']"
       >
-        {{ config.submit.text }}
+        {{ customT(config.submit.text) }}
       </el-button>
       <slot name="actions-after" />
     </div>
@@ -83,6 +82,8 @@ import setupValidators from 'core/utils/validators';
 import useMobile from 'core/utils/is-mobile';
 import FormItem from 'core/views/components/form/form-item.vue';
 import FormLayout from 'core/views/components/form/layout.vue';
+import { useI18n } from 'vue-i18n';
+import { useTranslate } from 'core/utils/translate';
 
 interface FormValidator extends HTMLFormElement {
   validate: Function,
@@ -136,6 +137,7 @@ export default defineComponent({
   },
   emits: ['submit'],
   setup (props, context) {
+    const { customT, t } = useTranslate();
     const isMobile = useMobile();
 
     const reactiveConfig = reactive(props.config);
@@ -214,6 +216,8 @@ export default defineComponent({
     });
 
     return {
+      t,
+      customT,
       reactiveConfig,
       form,
       validation,

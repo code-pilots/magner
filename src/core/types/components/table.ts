@@ -1,11 +1,12 @@
-import { RouteLocationRaw } from 'vue-router';
+import type { RouteLocationRaw } from 'vue-router';
+import type { TranslateData } from 'core/utils/translate';
 
 export interface TableColumn {
   /** Property name of the field in the row data for specific column */
   prop: string,
 
   /** Label to display in the header cell */
-  label?: string,
+  label?: TranslateData,
 
   /** Column fixed width */
   width?: number|string,
@@ -48,7 +49,7 @@ export interface Table {
   columns: TableColumn[],
 
   /** Text to display in the table when no data is available */
-  emptyText?: string,
+  emptyText?: TranslateData,
 
   /** If present, table row becomes a link (doesn't work on columns with 'columnLink' property) */
   rowLink?: (row: any) => RouteLocationRaw,

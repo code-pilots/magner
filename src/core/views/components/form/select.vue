@@ -3,7 +3,7 @@
     :model-value="val"
     :loading="loading"
     :value-key="field.component.valueKey || 'value'"
-    :placeholder="field.component.placeholder || ''"
+    :placeholder="customT(field.component.placeholder || '')"
     :disabled="field.component.disabled || false"
     :clearable="field.component.clearable || false"
     :multiple="field.component.multiple || false"
@@ -14,16 +14,16 @@
     :filter-method="field.component.filterMethod || null"
     :remote="field.component.remote || false"
     :remote-method="remoteMethod"
-    :loading-text="field.component.loadingText || ''"
-    :no-match-text="field.component.noMatchText || ''"
-    :no-data-text="field.component.noDataText || ''"
+    :loading-text="customT(field.component.loadingText || '')"
+    :no-match-text="customT(field.component.noMatchText || '')"
+    :no-data-text="customT(field.component.noDataText || '')"
     @change="changeVal"
   >
     <el-option
       v-for="option in allOptions"
       :key="field.component.valueKey ? option[field.component.valueKey] : option.value"
       :value="field.component.valueKey ? option[field.component.valueKey] : option.value"
-      :label="field.component.labelKey ? option[field.component.labelKey] : option.label"
+      :label="field.component.labelKey ? customT(option[field.component.labelKey]) : customT(option.label)"
       :disabled="option.disabled"
     />
   </el-select>
@@ -38,6 +38,7 @@ import {
 } from 'vue';
 import type { SelectField } from 'core/types/form/select';
 import { requestWrapper } from 'core/utils/request';
+import { useTranslate } from 'core/utils/translate';
 
 export default defineComponent({
   name: 'FormSelect',
@@ -53,6 +54,8 @@ export default defineComponent({
   },
   emits: ['update:modelValue'],
   setup (props, context) {
+    const { customT } = useTranslate();
+
     const val = ref<number|string>(props.modelValue);
     const allOptions = ref<Record<string, any>[]>(props.field.options || []);
     const loading = ref<boolean>(false);
@@ -82,6 +85,7 @@ export default defineComponent({
       val,
       loading,
       allOptions,
+      customT,
       changeVal,
       remoteMethod,
     };

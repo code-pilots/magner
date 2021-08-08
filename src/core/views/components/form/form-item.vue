@@ -3,13 +3,12 @@
     :key="field.name"
     :prop="field.name"
     :required="!!field.required"
-    :label="field.label || undefined"
     :label-width="field.label ? (isMobile ? null : '100px') : '0'"
     :error="error"
     :class="['generic-form_item', 'generic-form_item-' + field.type]"
   >
     <template v-if="field.label" #label>
-      {{ field.label }}
+      {{ customT(field.label) }}
       <el-tooltip v-if="field.hint">
         <SvgIcon
           name="question"
@@ -17,7 +16,7 @@
           class="generic-form_item_help"
         />
         <template #content>
-          <span v-html="field.hint" />
+          <span v-html="customT(field.hint)" />
         </template>
       </el-tooltip>
     </template>
@@ -80,6 +79,7 @@ import FormRadio from 'core/views/components/form/radio.vue';
 import SvgIcon from 'core/views/components/icon.vue';
 import FormCheckbox from 'core/views/components/form/checkbox.vue';
 import FormSwitch from 'core/views/components/form/switch.vue';
+import { useTranslate } from 'core/utils/translate';
 
 export default defineComponent({
   name: 'FormItem',
@@ -108,6 +108,7 @@ export default defineComponent({
   },
   emits: ['update:modelValue', 'error'],
   setup (props, context) {
+    const { customT } = useTranslate();
     const isMobile = useMobile();
 
     const val = ref(props.modelValue);
@@ -126,6 +127,7 @@ export default defineComponent({
     return {
       val,
       isMobile,
+      customT,
       updVal,
       setError,
     };

@@ -1,8 +1,9 @@
 import type { RequestCallback } from 'core/types/utils';
 import type { GenericForm } from 'core/types/form';
+import type { TranslateData } from 'core/utils/translate';
 
 export interface CardConfig {
-  title: string,
+  title: TranslateData,
 
   /** CRUD requests for working with entity data */
   getRequest: RequestCallback,

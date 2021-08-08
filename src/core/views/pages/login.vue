@@ -13,7 +13,7 @@
       >
         <template #before>
           <h1 class="login-page_form_title">
-            {{ config.title }}
+            {{ customT(config.title) }}
           </h1>
         </template>
       </GenericForm>
@@ -28,9 +28,8 @@ import {
   ref,
   PropType,
 } from 'vue';
-import { useRouter } from 'vue-router';
 import type { LoginConfig } from 'core/types/configs';
-import useStore from 'core/controllers/store/store';
+import { useTranslate } from 'core/utils/translate';
 import { requestWrapper } from 'core/utils/request';
 import GenericForm from '../components/form/form.vue';
 
@@ -44,6 +43,7 @@ export default defineComponent({
     },
   },
   setup (props) {
+    const { customT } = useTranslate();
     const loading = ref<boolean>(false);
     const error = ref('');
 
@@ -64,6 +64,7 @@ export default defineComponent({
     return {
       loading,
       error,
+      customT,
       login,
     };
   },

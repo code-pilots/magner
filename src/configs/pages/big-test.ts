@@ -4,24 +4,25 @@ import {
 } from 'app/requests/big-test';
 import { SelectField } from 'core/types/form/select';
 import citiesRequest from 'app/requests/citites';
+import translate from 'core/utils/translate';
 
 const RadioOptions = [
   {
     value: 'all',
-    label: 'Any',
+    label: translate('form_test.form.option_any'),
   },
   {
     value: 'adult',
-    label: 'Adult',
+    label: translate('form_test.form.option_adult'),
   },
   {
     value: 'child',
-    label: 'Child',
+    label: translate('form_test.form.option_child'),
   },
 ];
 
 export default cardPageController({
-  title: 'Form example',
+  title: translate('form_test.title'),
   getRequest: bigtestGet,
   createRequest: bigtestCreate,
   updateRequest: bigtestUpdate,
@@ -31,13 +32,13 @@ export default cardPageController({
 
   form: {
     submit: {
-      text: 'Save',
+      text: translate('form_test.submit_text'),
     },
     fields: [
       {
         type: 'input',
         name: 'phone',
-        label: 'Example of the text input with a mask and validation',
+        label: translate('form_test.form.phone_label'),
         column: 1,
         validation: {
           type: 'phone',
@@ -55,7 +56,7 @@ export default cardPageController({
       {
         type: 'select',
         name: 'city',
-        label: 'Example of the select with remote data loading',
+        label: translate('form_test.form.city_label'),
         column: 1,
         component: {
           filterable: true,
@@ -63,9 +64,9 @@ export default cardPageController({
           remoteMethod: citiesRequest,
           valueKey: 'id',
           labelKey: 'name',
-          placeholder: 'Moscow',
-          loadingText: 'Loading',
-          noDataText: 'No city were found',
+          placeholder: translate('form_test.form.city_placeholder'),
+          loadingText: translate('form_test.form.city_loading_text'),
+          noDataText: translate('form_test.form.city_no_data_text'),
         },
         options: [],
       },
@@ -79,24 +80,23 @@ export default cardPageController({
       {
         type: 'select',
         name: 'country',
-        label: 'Country (example of field interactions)',
+        label: translate('form_test.form.country_label'),
         column: 1,
         options: [
           {
             value: 'rus',
-            label: 'Russia',
+            label: translate('form_test.form.country_russia'),
           },
           {
             value: 'norus',
-            label: 'Not russia',
+            label: translate('form_test.form.country_norussia'),
           },
         ],
         component: {
-          placeholder: 'Choose',
+          placeholder: translate('form_test.form.country_placeholder'),
           clearable: true,
         },
-        hint: `When you select the country, a city field will appear<br/>
-        with pre-added options (cities of concrete country)`,
+        hint: translate('form_test.form.country_hint'),
         changeAction: (form, config) => {
           const city = config.fields.find((field) => field.name === 'cityId') as SelectField;
 
@@ -105,13 +105,13 @@ export default cardPageController({
               city.hidden = false;
               city.options = [{
                 value: 'mos',
-                label: 'Moscow',
+                label: translate('form_test.form.city_moscow'),
               }];
             } else if (form.country) {
               city.hidden = false;
               city.options = [{
                 value: 'ber',
-                label: 'Berlin',
+                label: translate('form_test.form.city_berlin'),
               }];
             } else {
               city.hidden = true;
@@ -123,11 +123,11 @@ export default cardPageController({
       {
         type: 'select',
         name: 'cityId',
-        label: 'City',
+        label: translate('form_test.form.city_plain_label'),
         column: 2,
         hidden: true,
         component: {
-          placeholder: 'Choose',
+          placeholder: translate('form_test.form.city_plain_placeholder'),
         },
         options: [],
       },
@@ -141,7 +141,7 @@ export default cardPageController({
       {
         type: 'radio',
         name: 'radio',
-        label: 'Radio group example',
+        label: '',
         column: 1,
         component: {},
         options: RadioOptions,
@@ -150,7 +150,7 @@ export default cardPageController({
       {
         type: 'radio',
         name: 'radio-button',
-        label: 'Example of the radio-button group',
+        label: '',
         column: 2,
         radioButtons: true,
         component: {},
@@ -161,7 +161,7 @@ export default cardPageController({
         type: 'checkbox',
         name: 'checkbox',
         dataType: 'array',
-        label: 'Checkbox group example',
+        label: '',
         column: 1,
         component: {},
         options: RadioOptions,
@@ -171,7 +171,7 @@ export default cardPageController({
         type: 'checkbox',
         name: 'checkbox-button',
         dataType: 'array',
-        label: 'Example of the checkbox-button group. Maximum 3 checks allowed',
+        label: '',
         column: 2,
         checkboxButtons: true,
         component: {
@@ -181,15 +181,15 @@ export default cardPageController({
           ...RadioOptions,
           {
             value: 'teen',
-            label: 'Teenager',
+            label: translate('form_test.form.option_teen'),
           },
           {
             value: 'young',
-            label: 'Young',
+            label: translate('form_test.form.option_young'),
           },
           {
             value: 'old',
-            label: 'Old',
+            label: translate('form_test.form.option_old'),
           },
         ],
       },
@@ -201,7 +201,7 @@ export default cardPageController({
         label: '',
         column: 1,
         component: {
-          inactiveLabel: 'Are you active?',
+          inactiveLabel: translate('form_test.form.switch_label'),
         },
       },
 
@@ -214,7 +214,7 @@ export default cardPageController({
       {
         type: 'dropzone',
         name: 'photo',
-        label: 'Dropzone example',
+        label: translate('form_test.form.dropzone_label'),
         column: 1,
         component: {},
       },

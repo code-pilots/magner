@@ -15,7 +15,7 @@
         >
           <template #before>
             <h1 class="card-page_form_title">
-              {{ config.title }}
+              {{ customT(config.title) }}
             </h1>
           </template>
 
@@ -26,7 +26,7 @@
               :loading="deleteLoading"
               @click="deleteEntity"
             >
-              Удалить
+              {{ t('core.card.remove') }}
             </el-button>
           </template>
         </GenericForm>
@@ -41,6 +41,7 @@ import {
   computed, defineComponent, PropType, ref,
 } from 'vue';
 import { useRoute } from 'vue-router';
+import { useTranslate } from 'core/utils/translate';
 import { ElMessageBox, ElMessage } from 'element-plus';
 import type { CardConfig } from 'core/types/configs';
 import { requestWrapper } from 'core/utils/request';
@@ -57,6 +58,7 @@ export default defineComponent({
     },
   },
   setup (props) {
+    const { customT, t } = useTranslate();
     const route = useRoute();
     const cardId = computed(() => route.params.id);
     const isNew = computed<boolean>(() => cardId.value === 'new');
@@ -86,14 +88,14 @@ export default defineComponent({
 
       ElMessage({
         type: 'success',
-        message: 'Успешно создано!',
+        message: t('core.card.success_creation'),
       });
     };
 
     const confirmDelete = (): Promise<boolean> => new Promise((resolve) => {
-      ElMessageBox.confirm(`Вы уверены, что хотите удалить сущность "${props.config.title}"`, 'Внимание!', {
-        confirmButtonText: 'Да',
-        cancelButtonText: 'Отмена',
+      ElMessageBox.confirm(t('core.card.removal_confirm', { msg: props.config.title }), t('core.card.attention'), {
+        confirmButtonText: t('core.card.confirm_button_text'),
+        cancelButtonText: t('core.card.cancel_button_text'),
         type: 'warning',
       }).then(() => {
         resolve(true);
@@ -119,11 +121,13 @@ export default defineComponent({
       deleteLoading.value = false;
       ElMessage({
         type: 'success',
-        message: 'Удаление прошло успешно!',
+        message: t('core.card.success_removal'),
       });
     };
 
     return {
+      customT,
+      t,
       cardId,
       isNew,
       createLoading,

@@ -12,9 +12,11 @@
       >
         <template #after>
           <template v-if="config.filters.fieldsShowAmount < config.filters.fields.length">
-            <el-button type="primary" icon="el-icon-s-operation" @click="drawerOpen = true">Больше фильтров</el-button>
+            <el-button type="primary" icon="el-icon-s-operation" @click="drawerOpen = true">
+              {{ t('core.table.more_filters') }}
+            </el-button>
             <el-tag v-if="appliedFilters" closable @close="clearFilters">
-              Применено фильтров: {{ appliedFilters }}
+              {{ t('core.table.filters_applied') }}: {{ appliedFilters }}
             </el-tag>
           </template>
           <div class="flex-grow" />
@@ -48,7 +50,9 @@
         :to="{name: config.filters.linkToCreateNew.routeName, params: { id: 'new' }}"
         class="table-page_top_create"
       >
-        <el-button native-type="button" type="primary">{{ config.filters.linkToCreateNew.label }}</el-button>
+        <el-button native-type="button" type="primary">
+          {{ customT(config.filters.linkToCreateNew.label) }}
+        </el-button>
       </router-link>
     </div>
 
@@ -91,6 +95,7 @@ import {
   computed,
   defineComponent, PropType, reactive, ref, watch, watchEffect,
 } from 'vue';
+import { useTranslate } from 'core/utils/translate';
 import { useRoute, useRouter } from 'vue-router';
 import lstorage from 'core/utils/local-storage';
 import type { TableConfig } from 'core/types/configs';
@@ -115,6 +120,7 @@ export default defineComponent({
     },
   },
   setup (props) {
+    const { t, customT } = useTranslate();
     const route = useRoute();
     const router = useRouter();
     const store = useStore();
@@ -147,7 +153,7 @@ export default defineComponent({
     } : {
       component: 'el-dialog',
       props: {
-        title: 'Фильтры',
+        title: t('core.table.filters'),
         width: '70%',
         top: '114px',
         customClass: 'table-page_dialog',
@@ -199,6 +205,8 @@ export default defineComponent({
     });
 
     return {
+      t,
+      customT,
       requestData,
       drawerOpen,
       isMobile,

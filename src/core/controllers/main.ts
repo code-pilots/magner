@@ -2,6 +2,7 @@ import { createApp } from 'vue';
 import ElementPlus from 'element-plus';
 
 import type { StoreController } from './store';
+import type { TranslationController } from './i18n';
 import type { RouterController } from './router';
 
 import App from '../views/app.vue';
@@ -17,12 +18,13 @@ import 'styles/breakpoints.css';
 import 'styles/ui.css';
 import 'styles/typography.css';
 
-export const mainController = (router: RouterController, store: StoreController) => {
+export const mainController = (router: RouterController, store: StoreController, i18n: TranslationController) => {
   /** Register Vue 3 application with router, store, Element and useful directives. */
   createApp(App)
     .use(ElementPlus)
     .component('SvgIcon', SvgIcon)
     .use(...store)
     .use(router)
+    .use(i18n)
     .mount('#app');
 };

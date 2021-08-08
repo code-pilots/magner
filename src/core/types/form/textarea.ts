@@ -1,8 +1,9 @@
-import { BaseComponent, BaseField } from 'core/types/form/base';
+import type { BaseComponent, BaseField } from 'core/types/form/base';
+import type { TranslateData } from 'core/utils/translate';
 
 export interface TextareaComponent extends BaseComponent {
   id?: string,
-  placeholder?: string,
+  placeholder?: TranslateData,
 }
 
 export interface TextareaField extends BaseField {

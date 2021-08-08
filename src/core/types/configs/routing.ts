@@ -4,9 +4,10 @@ import {
   RouteRecordRedirectOption,
 } from 'vue-router';
 import ROLE from 'configs/roles';
-import { LoginConfig } from 'core/types/configs/login';
-import { TableConfig } from 'core/types/configs/table';
-import { CardConfig } from 'core/types/configs/card';
+import type { LoginConfig } from 'core/types/configs/login';
+import type { TableConfig } from 'core/types/configs/table';
+import type { CardConfig } from 'core/types/configs/card';
+import type { TranslateData } from 'core/utils/translate';
 
 /** Global routing configuration that defines special needs in routing like programmatic navigation */
 export interface GlobalRouting {
@@ -52,7 +53,7 @@ export interface BaseRoute {
   roles: ROLE[] | null,
 
   visible?: boolean,
-  title?: string,
+  title?: TranslateData,
   icon?: string,
 }
 
@@ -129,7 +130,7 @@ export type CustomRoute = SimpleRoute | PresetLoginRoute | PresetTableRoute | Pr
 export interface GroupRoute {
   group: true,
   name: string,
-  title: string,
+  title: TranslateData,
   icon: string,
   routes: CustomRoute[],
 }
