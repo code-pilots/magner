@@ -10,10 +10,7 @@
   >
     <slot name="before" />
 
-    <FormLayout
-      :fields="reactiveConfig.fields"
-      :show-amount="fieldsShowAmount"
-    >
+    <FormLayout :layout="reactiveConfig.layout">
       <template #item="field">
         <FormItem
           v-show="!field.hidden"
@@ -123,12 +120,6 @@ export default defineComponent({
       default: () => ({}),
     },
 
-    /** Property trims all fields that are out of this amount */
-    fieldsShowAmount: {
-      type: Number,
-      default: null,
-    },
-
     /** If the field has validation of type 'empty', skip this validation (Used in filters) */
     allowEmptyFields: {
       type: Boolean,
@@ -141,8 +132,8 @@ export default defineComponent({
     const isMobile = useMobile();
 
     const reactiveConfig = reactive(props.config);
-    const form = reactive(fieldsToModels(reactiveConfig.fields, props.initialData));
-    const validation = setupValidators(reactiveConfig.fields, props.allowEmptyFields);
+    const form = reactive(fieldsToModels(reactiveConfig.layout, props.initialData));
+    const validation = setupValidators(reactiveConfig.layout, props.allowEmptyFields);
 
     const globalError = ref<string>(props.error); // Error of the whole form
     const errors = ref<Record<string, string>>(props.fieldErrors); // Field errors record

@@ -39,12 +39,6 @@ export interface BaseField {
   /** If you need to explain what some field means, put the hint there. HTML is allowed in the tooltip */
   hint?: TranslateData,
 
-  /**
-   * If set, fields will be grouped in the columns (doesn't work with the Form's 'fieldsShowAmount' property).
-   * Default is 1
-   */
-  column?: number,
-
   /** Any attributes passed to the base HTML-tag */
   component: BaseComponent,
 
