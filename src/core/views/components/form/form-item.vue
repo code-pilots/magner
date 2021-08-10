@@ -72,14 +72,14 @@ import {
 } from 'vue';
 import type { GenericComponent } from 'core/types/form';
 import useMobile from 'core/utils/is-mobile';
-import FormInput from 'core/views/components/form/form-input.vue';
-import FormSelect from 'core/views/components/form/select.vue';
-import Dropzone from 'core/views/components/form/dropzone.vue';
-import FormRadio from 'core/views/components/form/radio.vue';
-import SvgIcon from 'core/views/components/icon.vue';
-import FormCheckbox from 'core/views/components/form/checkbox.vue';
-import FormSwitch from 'core/views/components/form/switch.vue';
 import { useTranslate } from 'core/utils/translate';
+import SvgIcon from 'core/views/components/icon.vue';
+import FormInput from 'core/views/components/form/fields/form-input.vue';
+import FormSelect from 'core/views/components/form/fields/select.vue';
+import Dropzone from 'core/views/components/form/fields/dropzone.vue';
+import FormRadio from 'core/views/components/form/fields/radio.vue';
+import FormCheckbox from 'core/views/components/form/fields/checkbox.vue';
+import FormSwitch from 'core/views/components/form/fields/switch.vue';
 
 export default defineComponent({
   name: 'FormItem',

@@ -71,15 +71,13 @@ import {
   ref,
   PropType,
   watchEffect,
-  computed,
 } from 'vue';
 import type { GenericForm } from 'core/types/form';
-import { DataTypeInitials, fieldsToLayout, fieldsToModels } from 'core/utils/form';
+import { DataTypeInitials, fieldsToModels } from 'core/utils/form';
 import setupValidators from 'core/utils/validators';
 import useMobile from 'core/utils/is-mobile';
 import FormItem from 'core/views/components/form/form-item.vue';
 import FormLayout from 'core/views/components/form/layout.vue';
-import { useI18n } from 'vue-i18n';
 import { useTranslate } from 'core/utils/translate';
 
 interface FormValidator extends HTMLFormElement {

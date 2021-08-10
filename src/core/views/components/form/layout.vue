@@ -7,43 +7,23 @@
     </transition-group>
   </template>
 
-  <div
-    v-else
-  >
-    khi
-  </div>
-
-  <!--<div
-    v-for="(row, i) in fieldsLayout"
-    :key="i"
-    :class="[
-      'generic-form_row',
-    ]"
-  >
-    <transition-group
-      v-for="(column, j) in row.columns"
-      :key="j"
-      :class="['generic-form_column', 'generic-form_column-' + (i + 1)]"
-      name="field-group"
-      tag="div"
-    >
-      <template v-for="field in column" :key="field.name">
-        <slot name="item" v-bind="field" />
-      </template>
-    </transition-group>
-  </div>-->
+  <FormLayoutBlock :block="layout">
+    <template #item="item">
+      <slot name="item" v-bind="item" />
+    </template>
+  </FormLayoutBlock>
 </template>
 
 <script lang="ts">
-import 'styles/pages/card.css';
 import {
   defineComponent, PropType,
 } from 'vue';
 import type { FormLayout } from 'core/types/form/layout';
+import FormLayoutBlock from 'core/views/components/form/layout-block.vue';
 
 export default defineComponent({
   name: 'FormLayout',
-  components: {},
+  components: { FormLayoutBlock },
   props: {
     layout: {
       type: [Object, Array] as PropType<FormLayout>,

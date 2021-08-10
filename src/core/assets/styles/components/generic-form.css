@@ -1,26 +1,16 @@
 .generic-form {
-    &_row {
+    &_block-row {
+        position: relative;
         display: flex;
-        flex-direction: column;
-        width: 100%;
+        gap: 12px;
 
-        @media (--breakpoint-md) {
-            flex-direction: row;
+        & > * {
+            flex-grow: 1;
         }
+    }
 
-        &.generic-form_row-1-columns {
-            /*max-width: 800px;*/
-        }
-
-        &.generic-form_row-2-columns {
-            /*max-width: 800px;*/
-            & .generic-form_column {
-                flex-grow: 1;
-                &:not(:last-child) {
-                    margin-right: 24px;
-                }
-            }
-        }
+    &_block-column {
+        position: relative;
     }
 
     &_column {
