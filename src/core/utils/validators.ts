@@ -1,5 +1,6 @@
-import type { GenericComponent } from 'core/types/form';
 import type { SupportedDataTypes } from 'core/utils/form';
+import type { GenericComponent } from 'core/types/form';
+import { layoutToFields } from 'core/utils/form';
 
 export type SupportedValidators = 'password'|'email'|'phone'|'empty';
 export type ValidatorFunc = (rule: SupportedValidators, value: any, callback: Function) => void;
@@ -56,17 +57,21 @@ type SetupFunc = (fields: GenericComponent[], allowEmpty: boolean) => Record<str
  * The function goes through all the form fields and collects the 'validation' property, transforms it
  * to the function from the existing validation types and passed to the Form component as a 'rules' prop.
  */
-const setupValidators: SetupFunc = (fields, allowEmpty) => fields.reduce((accum, field) => {
-  if (!field.validation) return accum;
-  if (field.validation.type === 'empty' && allowEmpty) return accum;
+const setupValidators: SetupFunc = (layout, allowEmpty) => {
+  const fields = layoutToFields(layout);
 
-  accum[field.name] = {
-    type: field.dataType || 'string',
-    validator: validators[field.validation.type],
-    trigger: field.validation.trigger,
-  };
+  return fields.reduce((accum, field) => {
+    if (!field.validation) return accum;
+    if (field.validation.type === 'empty' && allowEmpty) return accum;
 
-  return accum;
-}, {} as Record<string, ValidationField>);
+    accum[field.name] = {
+      type: field.dataType || 'string',
+      validator: validators[field.validation.type],
+      trigger: field.validation.trigger,
+    };
+
+    return accum;
+  }, {} as Record<string, ValidationField>);
+};
 
 export default setupValidators;

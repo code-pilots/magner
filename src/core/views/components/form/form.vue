@@ -10,10 +10,7 @@
   >
     <slot name="before" />
 
-    <FormLayout
-      :fields="reactiveConfig.fields"
-      :show-amount="fieldsShowAmount"
-    >
+    <FormLayout :layout="reactiveConfig.layout">
       <template #item="field">
         <FormItem
           v-show="!field.hidden"
@@ -73,16 +70,14 @@ import {
   reactive,
   ref,
   PropType,
-  watchEffect,
-  computed,
+  watchEffect, computed,
 } from 'vue';
 import type { GenericForm } from 'core/types/form';
-import { DataTypeInitials, fieldsToLayout, fieldsToModels } from 'core/utils/form';
+import { DataTypeInitials, fieldsToModels, layoutToFields } from 'core/utils/form';
 import setupValidators from 'core/utils/validators';
 import useMobile from 'core/utils/is-mobile';
 import FormItem from 'core/views/components/form/form-item.vue';
 import FormLayout from 'core/views/components/form/layout.vue';
-import { useI18n } from 'vue-i18n';
 import { useTranslate } from 'core/utils/translate';
 
 interface FormValidator extends HTMLFormElement {
@@ -123,12 +118,6 @@ export default defineComponent({
       default: () => ({}),
     },
 
-    /** Property trims all fields that are out of this amount */
-    fieldsShowAmount: {
-      type: Number,
-      default: null,
-    },
-
     /** If the field has validation of type 'empty', skip this validation (Used in filters) */
     allowEmptyFields: {
       type: Boolean,
@@ -141,8 +130,9 @@ export default defineComponent({
     const isMobile = useMobile();
 
     const reactiveConfig = reactive(props.config);
-    const form = reactive(fieldsToModels(reactiveConfig.fields, props.initialData));
-    const validation = setupValidators(reactiveConfig.fields, props.allowEmptyFields);
+    const allFields = computed(() => layoutToFields(reactiveConfig.layout));
+    const form = reactive(fieldsToModels(allFields.value, props.initialData));
+    const validation = setupValidators(allFields.value, props.allowEmptyFields);
 
     const globalError = ref<string>(props.error); // Error of the whole form
     const errors = ref<Record<string, string>>(props.fieldErrors); // Field errors record
@@ -177,14 +167,15 @@ export default defineComponent({
       });
     };
 
+    const getField = (name: string) => allFields.value.find((field) => field.name === name);
     const controlOnInput = (field: string, newValue: any) => {
       form[field] = newValue;
       if (reactiveConfig.submitEvent === 'input') {
         submit();
       }
 
-      const fieldConfig = reactiveConfig.fields.find((option) => option.name === field);
-      fieldConfig.changeAction?.(form, reactiveConfig);
+      const fieldConfig = getField(field);
+      fieldConfig.changeAction?.(form, getField, reactiveConfig);
     };
 
     const setFieldError = (field: string, err: string) => {

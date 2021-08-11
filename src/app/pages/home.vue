@@ -7,7 +7,7 @@
     <img src="/cat.gif" alt="funny cat">
 
     <router-link :to="{ name: 'patients' }" class="link">
-      <el-button>{{ t('home.explore') }}</el-button>
+      <el-button type="primary">{{ t('home.explore') }}</el-button>
     </router-link>
   </section>
 </template>

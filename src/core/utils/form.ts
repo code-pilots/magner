@@ -1,10 +1,8 @@
 import type { GenericComponent } from 'core/types/form';
-import type { Divider } from 'core/types/form/divider';
+import type { FormLayout, GenericFormLayout } from 'core/types/form/layout';
 
 export type SupportedDataTypes = 'string'|'number'|'array'|'object'|'boolean';
 export type DataTypeInitials = '' | null | [] | {} | false;
-
-export type FieldsRow = { divider: Divider|null, columns: GenericComponent[][] };
 
 /**
  * If there is a field which operates a data not of a string type, it is recommended to
@@ -27,6 +25,33 @@ export const dataTypeToInitial = (dataType: SupportedDataTypes): DataTypeInitial
   }
 };
 
+/** Function extracts all fields from the nested layout recursively */
+export const collectFieldsFromLayout = (layout: GenericFormLayout | GenericFormLayout[]): GenericComponent[] => {
+  const fields: GenericComponent[] = [];
+
+  if (Array.isArray(layout)) {
+    fields.push(...layout.map((singleLayout) => collectFieldsFromLayout(singleLayout)).flat());
+  } else if (layout.layout) {
+    fields.push(...collectFieldsFromLayout(layout.layout));
+  } else if (layout.fields) {
+    fields.push(...layout.fields);
+  }
+
+  return fields;
+};
+
+/** Extract all generic components (fields) from layout */
+export const layoutToFields = (layout: FormLayout): GenericComponent[] => {
+  let fields: GenericComponent[];
+  if (Array.isArray(layout)) {
+    fields = layout;
+  } else {
+    fields = collectFieldsFromLayout(layout);
+  }
+
+  return fields;
+};
+
 /**
  * Creates an object with initial values for each field of a form.
  * This object is used when the form triggers the 'submit' event.
@@ -35,46 +60,7 @@ export const fieldsToModels = (
   fields: GenericComponent[], initialData?: Record<string, any>,
 ): Record<string, DataTypeInitials> => fields
   .reduce((accum, currentValue) => {
-    accum[currentValue.name] = initialData?.[currentValue.name] || dataTypeToInitial(currentValue.dataType || 'string');
+    accum[currentValue.name] = initialData?.[currentValue.name]
+      || dataTypeToInitial(currentValue.dataType || 'string');
     return accum;
   }, {} as Record<string, DataTypeInitials>);
-
-/** Group fields in rows by columns.  */
-const groupFields = (fields: GenericComponent[]) => {
-  const grouped = fields.reduce((accum, current) => {
-    if (!accum[current.column || 1]) accum[current.column || 1] = [];
-
-    accum[current.column || 1].push(current);
-    return accum;
-  }, {} as Record<number, GenericComponent[]>);
-
-  return Object.values(grouped);
-};
-
-/**
- * Function creates a row-columns layout out of an array of form fields.
- * Firstly, it makes rows by splitting an array by chunk. Divider plays the role of such splitter.
- * Secondly, fields in each row are grouped by columns depending on the 'column' key in them.
- * Default 'column' value is 1.
- */
-export const fieldsToLayout = (fields: GenericComponent[], showAmount?: number): FieldsRow[] => {
-  if (showAmount) return [{ divider: null, columns: [fields.slice(0, showAmount)] }];
-
-  // Each divider makes all previous fields go into the same row. Following fields go to the next row
-  const rows = fields.reduce((accum, current) => {
-    if (current.type === 'divider') {
-      accum[accum.length - 1].divider = current;
-      accum[accum.length] = { divider: null, fields: [] };
-    } else {
-      if (!accum.length) accum[0] = { divider: null, fields: [] };
-      accum[accum.length - 1].fields.push(current);
-    }
-
-    return accum;
-  }, [] as { divider: Divider|null, fields: GenericComponent[] }[]);
-
-  return rows.map((row) => ({
-    divider: row.divider,
-    columns: groupFields(row.fields),
-  })) as FieldsRow[];
-};

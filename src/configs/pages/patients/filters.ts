@@ -31,42 +31,53 @@ const patientsFilters = filtersFormController({
     fullName: 'ASC',
   },
 
-  fields: [
-    {
-      type: 'input',
-      name: 'fullName',
-      column: 1,
-      component: {
-        type: 'text',
-        placeholder: translate('patients.filters.fullname_placeholder'),
-        inputDelay: 400,
+  layout: {
+    type: 'row',
+    layout: [
+      {
+        type: 'column',
+        fields: [
+          {
+            type: 'input',
+            name: 'fullName',
+            component: {
+              type: 'text',
+              placeholder: translate('patients.filters.fullname_placeholder'),
+              inputDelay: 400,
+            },
+          },
+        ],
       },
-    },
-    {
-      type: 'select',
-      name: 'sort',
-      column: 2,
-      component: {
-        placeholder: translate('patients.filters.sort_placeholder'),
-        valueKey: 'id',
-        clearable: true,
+      {
+        type: 'column',
+        fields: [
+          {
+            type: 'select',
+            name: 'sort',
+            component: {
+              placeholder: translate('patients.filters.sort_placeholder'),
+              valueKey: 'id',
+              clearable: true,
+            },
+            options: [
+              {
+                id: 1,
+                slug: 'fullName',
+                value: 'ASC',
+                label: translate('patients.filters.sort_alphabetical'),
+              },
+              {
+                id: 2,
+                slug: 'fullName',
+                value: 'DESC',
+                label: translate('patients.filters.sort_alphabetical_reverse'),
+              },
+            ],
+          },
+        ],
       },
-      options: [
-        {
-          id: 1,
-          slug: 'fullName',
-          value: 'ASC',
-          label: translate('patients.filters.sort_alphabetical'),
-        },
-        {
-          id: 2,
-          slug: 'fullName',
-          value: 'DESC',
-          label: translate('patients.filters.sort_alphabetical_reverse'),
-        },
-      ],
-    },
-  ],
+    ],
+  },
 });
 
 export default patientsFilters;

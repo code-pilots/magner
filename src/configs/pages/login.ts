@@ -9,7 +9,7 @@ const loginPageConfig = loginPageController({
     submit: {
       text: translate('login.submitButton'),
     },
-    fields: [
+    layout: [
       {
         type: 'input',
         name: 'login',

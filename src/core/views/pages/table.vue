@@ -3,22 +3,19 @@
     <div v-if="hasFilters" class="table-page_top">
       <GenericForm
         ref="formRef"
-        :config="config.filters"
+        :config="{ ...config.filters, layout: topFilters }"
         :loading="false"
-        :fields-show-amount="config.filters.fieldsShowAmount"
         :initial-data="requestData.filters"
         class="table-page_top_filters"
         @submit="filterItems"
       >
         <template #after>
-          <template v-if="config.filters.fieldsShowAmount < config.filters.fields.length">
-            <el-button type="primary" icon="el-icon-s-operation" @click="drawerOpen = true">
-              {{ t('core.table.more_filters') }}
-            </el-button>
-            <el-tag v-if="appliedFilters" closable @close="clearFilters">
-              {{ t('core.table.filters_applied') }}: {{ appliedFilters }}
-            </el-tag>
-          </template>
+          <el-button type="primary" icon="el-icon-s-operation" @click="drawerOpen = true">
+            {{ t('core.table.more_filters') }}
+          </el-button>
+          <el-tag v-if="appliedFilters" closable @close="clearFilters">
+            {{ t('core.table.filters_applied') }}: {{ appliedFilters }}
+          </el-tag>
           <div class="flex-grow" />
         </template>
       </GenericForm>
@@ -103,6 +100,7 @@ import DataTable from 'core/views/components/table.vue';
 import useMobile from 'core/utils/is-mobile';
 import useStore from 'core/controllers/store/store';
 import filterUrlDataComparison from 'core/utils/filter-url-data-comparison';
+import { layoutToFields } from 'core/utils/form';
 import Dynamic from '../components/dynamic.vue';
 import GenericForm from '../components/form/form.vue';
 
@@ -126,10 +124,13 @@ export default defineComponent({
     const store = useStore();
     const isMobile = useMobile();
 
+    const topFilters = computed(() => layoutToFields(props.config.filters.layout)
+      .slice(0, props.config.filters.fieldsShowAmount || undefined));
+
     const drawerOpen = ref(false);
     const formRef = ref<GenericForm>();
 
-    const hasFilters = computed(() => props.config.filters.fields.length || props.config.filters.linkToCreateNew);
+    const hasFilters = computed(() => !!(topFilters.value.length || props.config.filters.linkToCreateNew));
     const tableHeight = computed(() => {
       const headerHeight = 50;
       const topHeight = hasFilters.value ? 64 : 0;
@@ -215,6 +216,7 @@ export default defineComponent({
       formRef,
       hasFilters,
       tableHeight,
+      topFilters,
       filterItems,
       changeSort,
       clearFilters,

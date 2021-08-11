@@ -59,7 +59,7 @@ import {
   computed, defineComponent, PropType, ref,
 } from 'vue';
 import type { DropzoneField, DropzoneError } from 'core/types/form/dropzone';
-import DropzoneImage from 'core/views/components/form/dropzone-image.vue';
+import DropzoneImage from 'core/views/components/form/fields/dropzone-image.vue';
 import { requestWrapper } from 'core/utils/request';
 import { useI18n } from 'vue-i18n';
 
