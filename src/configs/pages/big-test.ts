@@ -144,81 +144,77 @@ export default cardPageController({
           layout: [
             {
               type: 'row',
-              layout: [
+              title: 'Radio buttons',
+              component: {
+                justify: 'space-between',
+              },
+              fields: [
                 {
-                  type: 'column',
+                  type: 'radio',
+                  name: 'radio',
+                  component: {},
+                  options: RadioOptions,
+                },
+                {
+                  type: 'radio',
+                  name: 'radio-button',
+                  radioButtons: true,
+                  component: {},
+                  options: RadioOptions,
+                },
+              ],
+            },
+            {
+              type: 'row',
+              title: 'Checkboxes',
+              component: {
+                justify: 'space-between',
+              },
+              fields: [
+                {
+                  type: 'checkbox',
+                  name: 'checkbox',
+                  dataType: 'array',
+                  component: {},
+                  options: RadioOptions,
+                },
+                {
+                  type: 'checkbox',
+                  name: 'checkbox-button',
+                  dataType: 'array',
+                  checkboxButtons: true,
                   component: {
-                    span: 8,
-                    xs: 24,
+                    max: 3,
                   },
-                  fields: [
+                  options: [
+                    ...RadioOptions,
                     {
-                      type: 'radio',
-                      name: 'radio',
-                      label: 'Radio example',
-                      component: {},
-                      options: RadioOptions,
+                      value: 'teen',
+                      label: translate('form_test.form.option_teen'),
                     },
                     {
-                      type: 'checkbox',
-                      name: 'checkbox',
-                      dataType: 'array',
-                      label: 'Checkboxes',
-                      component: {},
-                      options: RadioOptions,
+                      value: 'young',
+                      label: translate('form_test.form.option_young'),
                     },
                     {
-                      type: 'switch',
-                      dataType: 'boolean',
-                      name: 'isactive',
-                      label: 'Switch',
-                      component: {
-                        inactiveLabel: translate('form_test.form.switch_label'),
-                      },
+                      value: 'old',
+                      label: translate('form_test.form.option_old'),
                     },
                   ],
                 },
+              ],
+            },
+            {
+              type: 'row',
+              fields: [
                 {
-                  type: 'column',
+                  type: 'switch',
+                  dataType: 'boolean',
+                  name: 'isactive',
+                  label: 'Switch',
                   component: {
-                    span: 16,
-                    xs: 24,
+                    inactiveLabel: translate('form_test.form.switch_label'),
                   },
-                  fields: [
-                    {
-                      type: 'radio',
-                      name: 'radio-button',
-                      label: 'Radio button example',
-                      radioButtons: true,
-                      component: {},
-                      options: RadioOptions,
-                    },
-                    {
-                      type: 'checkbox',
-                      name: 'checkbox-button',
-                      dataType: 'array',
-                      label: 'Checkbox buttons',
-                      checkboxButtons: true,
-                      component: {
-                        max: 3,
-                      },
-                      options: [
-                        ...RadioOptions,
-                        {
-                          value: 'teen',
-                          label: translate('form_test.form.option_teen'),
-                        },
-                        {
-                          value: 'young',
-                          label: translate('form_test.form.option_young'),
-                        },
-                        {
-                          value: 'old',
-                          label: translate('form_test.form.option_old'),
-                        },
-                      ],
-                    },
-                  ],
                 },
               ],
             },

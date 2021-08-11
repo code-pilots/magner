@@ -12,6 +12,7 @@
       :class="[`generic-form_block-${block.type}`, block.class]"
       v-bind="getProps(block).props"
     >
+      <div v-if="block.title" class="el-form-item__label custom-label">{{ block.title }}</div>
       <template
         v-for="(nestedBlock, i) in block.layout"
         :key="i"
@@ -31,6 +32,7 @@
       :class="[`generic-form_block-${block.type}`, block.class]"
       v-bind="getProps(block).props"
     >
+      <div v-if="block.title" class="el-form-item__label custom-label">{{ block.title }}</div>
       <template v-for="field in block.fields" :key="field.name">
         <slot name="item" v-bind="field" />
       </template>
