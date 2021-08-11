@@ -1,5 +1,5 @@
 import type { SupportedDataTypes } from 'core/utils/form';
-import { FormLayout } from 'core/types/form/layout';
+import type { GenericComponent } from 'core/types/form';
 import { layoutToFields } from 'core/utils/form';
 
 export type SupportedValidators = 'password'|'email'|'phone'|'empty';
@@ -51,7 +51,7 @@ export const validators: Record<SupportedValidators, ValidatorFunc> = {
   },
 };
 
-type SetupFunc = (layout: FormLayout, allowEmpty: boolean) => Record<string, ValidationField>;
+type SetupFunc = (fields: GenericComponent[], allowEmpty: boolean) => Record<string, ValidationField>;
 
 /**
  * The function goes through all the form fields and collects the 'validation' property, transforms it

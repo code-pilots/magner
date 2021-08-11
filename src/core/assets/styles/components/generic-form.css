@@ -2,19 +2,18 @@
     &_block-row {
         position: relative;
         display: flex;
-        gap: 12px;
+        flex-wrap: wrap;
+        gap: 24px;
+        width: 100%;
 
         & > * {
             flex-grow: 1;
+            flex-shrink: 1;
         }
     }
 
     &_block-column {
         position: relative;
-    }
-
-    &_column {
-        width: 100%;
     }
 
     & .el-form-item {

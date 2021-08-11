@@ -1,5 +1,9 @@
 <template>
-  <div v-if="block.layout" :class="[`generic-form_block-${block.type}`]">
+  <div
+    v-if="block.layout"
+    :class="[`generic-form_block-${block.type}`, block.class]"
+    :style="{'flex-grow': block.growAmount || 1}"
+  >
     <template
       v-for="(nestedBlock, i) in block.layout"
       :key="i"
@@ -11,8 +15,14 @@
       </FormLayoutBlock>
     </template>
   </div>
+
   <template v-else-if="block.fields && block.fields.length">
-    <transition-group name="field-group" tag="div" :class="[`generic-form_block-${block.type}`]">
+    <transition-group
+      name="field-group"
+      tag="div"
+      :class="[`generic-form_block-${block.type}`, block.class]"
+      :style="{'flex-grow': block.growAmount || 1}"
+    >
       <template v-for="field in block.fields" :key="field.name">
         <slot name="item" v-bind="field" />
       </template>

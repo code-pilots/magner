@@ -70,10 +70,10 @@ import {
   reactive,
   ref,
   PropType,
-  watchEffect,
+  watchEffect, computed,
 } from 'vue';
 import type { GenericForm } from 'core/types/form';
-import { DataTypeInitials, fieldsToModels } from 'core/utils/form';
+import { DataTypeInitials, fieldsToModels, layoutToFields } from 'core/utils/form';
 import setupValidators from 'core/utils/validators';
 import useMobile from 'core/utils/is-mobile';
 import FormItem from 'core/views/components/form/form-item.vue';
@@ -130,8 +130,9 @@ export default defineComponent({
     const isMobile = useMobile();
 
     const reactiveConfig = reactive(props.config);
-    const form = reactive(fieldsToModels(reactiveConfig.layout, props.initialData));
-    const validation = setupValidators(reactiveConfig.layout, props.allowEmptyFields);
+    const allFields = computed(() => layoutToFields(reactiveConfig.layout));
+    const form = reactive(fieldsToModels(allFields.value, props.initialData));
+    const validation = setupValidators(allFields.value, props.allowEmptyFields);
 
     const globalError = ref<string>(props.error); // Error of the whole form
     const errors = ref<Record<string, string>>(props.fieldErrors); // Field errors record
@@ -166,14 +167,15 @@ export default defineComponent({
       });
     };
 
+    const getField = (name: string) => allFields.value.find((field) => field.name === name);
     const controlOnInput = (field: string, newValue: any) => {
       form[field] = newValue;
       if (reactiveConfig.submitEvent === 'input') {
         submit();
       }
 
-      const fieldConfig = reactiveConfig.fields.find((option) => option.name === field);
-      fieldConfig.changeAction?.(form, reactiveConfig);
+      const fieldConfig = getField(field);
+      fieldConfig.changeAction?.(form, getField, reactiveConfig);
     };
 
     const setFieldError = (field: string, err: string) => {

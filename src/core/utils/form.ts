@@ -1,5 +1,5 @@
 import type { GenericComponent } from 'core/types/form';
-import { FormLayout, GenericFormLayout } from 'core/types/form/layout';
+import type { FormLayout, GenericFormLayout } from 'core/types/form/layout';
 
 export type SupportedDataTypes = 'string'|'number'|'array'|'object'|'boolean';
 export type DataTypeInitials = '' | null | [] | {} | false;
@@ -57,14 +57,10 @@ export const layoutToFields = (layout: FormLayout): GenericComponent[] => {
  * This object is used when the form triggers the 'submit' event.
  */
 export const fieldsToModels = (
-  layout: FormLayout, initialData?: Record<string, any>,
-): Record<string, DataTypeInitials> => {
-  const fields = layoutToFields(layout);
-
-  return fields
-    .reduce((accum, currentValue) => {
-      accum[currentValue.name] = initialData?.[currentValue.name]
-        || dataTypeToInitial(currentValue.dataType || 'string');
-      return accum;
-    }, {} as Record<string, DataTypeInitials>);
-};
+  fields: GenericComponent[], initialData?: Record<string, any>,
+): Record<string, DataTypeInitials> => fields
+  .reduce((accum, currentValue) => {
+    accum[currentValue.name] = initialData?.[currentValue.name]
+      || dataTypeToInitial(currentValue.dataType || 'string');
+    return accum;
+  }, {} as Record<string, DataTypeInitials>);

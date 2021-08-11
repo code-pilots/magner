@@ -1,6 +1,6 @@
 import type { SupportedValidators } from 'core/utils/validators';
 import type { SupportedDataTypes } from 'core/utils/form';
-import type { GenericForm } from 'core/types/form/index';
+import type { GenericComponent, GenericForm } from 'core/types/form/index';
 import type { TranslateData } from 'core/utils/translate';
 
 export type SupportedComponentTypes =
@@ -23,7 +23,11 @@ export interface BaseValidation {
   trigger: 'blur'|'change'|'input',
 }
 
-export type FieldInteractions = (form: Record<string, any>, config: GenericForm) => void
+export type FieldInteractions = (
+  form: Record<string, any>,
+  getField: <FIELD = GenericComponent>(name: string) => FIELD,
+  config: GenericForm,
+) => void
 
 export interface BaseField {
   /** Choose any supported type of the field */

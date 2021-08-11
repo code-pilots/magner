@@ -35,7 +35,7 @@ const specializationTable = tablePageController({
       items: 25,
       page: 1,
     },
-    fields: [],
+    layout: [],
   },
 });
 

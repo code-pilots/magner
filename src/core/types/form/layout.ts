@@ -8,6 +8,7 @@ interface FormLayoutBase {
   class?: string,
   layout?: GenericFormLayout[],
   fields?: GenericComponent[],
+  growAmount?: number,
 }
 
 /** Define different row types */
