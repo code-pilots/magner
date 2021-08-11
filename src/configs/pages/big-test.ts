@@ -36,9 +36,16 @@ export default cardPageController({
     },
     layout: {
       type: 'row',
+      component: {
+        gutter: 20,
+      },
       layout: [
         {
           type: 'column',
+          component: {
+            span: 10,
+            xs: 24,
+          },
           fields: [
             {
               type: 'input',
@@ -130,13 +137,20 @@ export default cardPageController({
         },
         {
           type: 'column',
-          growAmount: 2,
+          component: {
+            span: 14,
+            xs: 24,
+          },
           layout: [
             {
               type: 'row',
               layout: [
                 {
                   type: 'column',
+                  component: {
+                    span: 8,
+                    xs: 24,
+                  },
                   fields: [
                     {
                       type: 'radio',
@@ -166,6 +180,10 @@ export default cardPageController({
                 },
                 {
                   type: 'column',
+                  component: {
+                    span: 16,
+                    xs: 24,
+                  },
                   fields: [
                     {
                       type: 'radio',

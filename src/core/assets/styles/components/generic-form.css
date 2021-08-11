@@ -1,19 +1,21 @@
 .generic-form {
     &_block-row {
         position: relative;
-        display: flex;
         flex-wrap: wrap;
-        gap: 24px;
         width: 100%;
 
-        & > * {
-            flex-grow: 1;
-            flex-shrink: 1;
+        @media (--breakpoint-small) {
+            margin-left: 0 !important;
+            margin-right: 0 !important;
         }
     }
 
     &_block-column {
         position: relative;
+        @media (--breakpoint-small) {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
     }
 
     & .el-form-item {
@@ -77,6 +79,8 @@
         }
 
         &-dropzone {
+            width: 100%;
+
             & .el-form-item__content {
                 line-height: normal;
             }
