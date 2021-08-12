@@ -63,12 +63,20 @@
       @textErrors="setError"
       @update:modelValue="updVal"
     />
+
+    <template v-else-if="field.type === 'custom' && customComponent">
+      <component
+        :is="customComponent"
+        v-bind="field.component"
+        @action="customAction"
+      />
+    </template>
   </el-form-item>
 </template>
 
 <script lang="ts">
 import {
-  defineComponent, PropType, ref, watchEffect,
+  shallowRef, defineComponent, PropType, ref, watchEffect,
 } from 'vue';
 import type { GenericComponent } from 'core/types/form';
 import useMobile from 'core/utils/is-mobile';
@@ -106,10 +114,11 @@ export default defineComponent({
       default: '',
     },
   },
-  emits: ['update:modelValue', 'error'],
+  emits: ['update:modelValue', 'error', 'action'],
   setup (props, context) {
     const { customT } = useTranslate();
     const isMobile = useMobile();
+    const customComponent = shallowRef(props.field.type === 'custom' ? props.field.element() : null);
 
     const val = ref(props.modelValue);
     watchEffect(() => {
@@ -124,12 +133,18 @@ export default defineComponent({
       context.emit('error', newValue);
     };
 
+    const customAction = (e: any) => {
+      context.emit('action', e);
+    };
+
     return {
       val,
       isMobile,
+      customComponent,
       customT,
       updVal,
       setError,
+      customAction,
     };
   },
 });

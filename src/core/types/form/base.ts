@@ -2,6 +2,7 @@ import type { SupportedValidators } from 'core/utils/validators';
 import type { SupportedDataTypes } from 'core/utils/form';
 import type { GenericComponent, GenericForm } from 'core/types/form/index';
 import type { TranslateData } from 'core/utils/translate';
+import type { DialogForm } from 'core/types/form/dialog-forms';
 
 export type SupportedComponentTypes =
   'input'
@@ -11,7 +12,8 @@ export type SupportedComponentTypes =
   | 'radio'
   | 'switch'
   | 'select'
-  | 'dropzone';
+  | 'dropzone'
+  | 'custom';
 
 export interface BaseComponent {}
 
@@ -23,11 +25,13 @@ export interface BaseValidation {
   trigger: 'blur'|'change'|'input',
 }
 
-export type FieldInteractions = (
+export interface FormInteractionsData {
   form: Record<string, any>,
-  getField: <FIELD = GenericComponent>(name: string) => FIELD,
+  getField: <FIELD extends GenericComponent = GenericComponent>(name: string) => FIELD | undefined,
+  getDialogForm: <FORM = DialogForm>(name: string) => DialogForm | undefined,
   config: GenericForm,
-) => void
+}
+export type FieldInteractions = (arg_1: FormInteractionsData) => void
 
 export interface BaseField {
   /** Choose any supported type of the field */

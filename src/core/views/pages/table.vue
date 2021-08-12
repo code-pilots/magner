@@ -101,6 +101,7 @@ import useMobile from 'core/utils/is-mobile';
 import useStore from 'core/controllers/store/store';
 import filterUrlDataComparison from 'core/utils/filter-url-data-comparison';
 import { layoutToFields } from 'core/utils/form';
+import useDialogForm from 'core/utils/use-dialog-form';
 import Dynamic from '../components/dynamic.vue';
 import GenericForm from '../components/form/form.vue';
 
@@ -123,6 +124,7 @@ export default defineComponent({
     const router = useRouter();
     const store = useStore();
     const isMobile = useMobile();
+    const drawerComponent = useDialogForm();
 
     const topFilters = computed(() => layoutToFields(props.config.filters.layout)
       .slice(0, props.config.filters.fieldsShowAmount || undefined));
@@ -143,24 +145,6 @@ export default defineComponent({
       return `calc(100vh - ${height + 1}px)`;
     });
 
-    const drawerComponent = computed(() => (isMobile.value ? {
-      component: 'el-drawer',
-      props: {
-        direction: 'btt',
-        size: 'auto',
-        withHeader: false,
-        customClass: 'table-page_drawer',
-      },
-    } : {
-      component: 'el-dialog',
-      props: {
-        title: t('core.table.filters'),
-        width: '70%',
-        top: '114px',
-        customClass: 'table-page_dialog',
-      },
-    }));
-
     const requestData = reactive({
       pagination: { ...(props.config.filters.pagination || {}) },
       filters: { ...(props.config.filters.filtersData || {}) },
@@ -169,7 +153,7 @@ export default defineComponent({
 
     // Depending on URL query existence and configuration, load initial data from URL or LocalStorage
     const initialData = props.config.filters.saveToLocalStorage && !Object.keys(route.query).length
-      ? lstorage.deepRead('filters', route.name)
+      ? lstorage.deepRead('filters', route.name as string)
       : store.state.project.helpers.urlToData(route.query);
     filterUrlDataComparison(requestData, initialData);
 
@@ -201,7 +185,7 @@ export default defineComponent({
 
     watchEffect(() => {
       if (props.config.filters.saveToLocalStorage) {
-        lstorage.deepPut('filters', route.name, { filters: requestData.filters });
+        lstorage.deepPut('filters', route.name as string, { filters: requestData.filters });
       }
     });
 

@@ -36,7 +36,7 @@ import {
   ref,
   watchEffect,
 } from 'vue';
-import type { SelectField } from 'core/types/form/select';
+import type { SelectField } from 'core/types/form/fields/select';
 import { requestWrapper } from 'core/utils/request';
 import { useTranslate } from 'core/utils/translate';
 

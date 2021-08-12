@@ -29,6 +29,15 @@
               {{ t('core.card.remove') }}
             </el-button>
           </template>
+
+          <template v-if="config.form.dialogForms && config.form.dialogForms.length" #dialogs="formData">
+            <DialogForm
+              v-for="dialogForm in config.form.dialogForms"
+              :key="dialogForm.name"
+              :config="dialogForm"
+              :form-data="formData"
+            />
+          </template>
         </GenericForm>
       </section>
     </template>
@@ -46,11 +55,12 @@ import { ElMessageBox, ElMessage } from 'element-plus';
 import type { CardConfig } from 'core/types/configs';
 import { requestWrapper } from 'core/utils/request';
 import Dynamic from 'core/views/components/dynamic.vue';
-import GenericForm from '../components/form/form.vue';
+import GenericForm from 'core/views/components/form/form.vue';
+import DialogForm from 'core/views/components/form/dialog-form.vue';
 
 export default defineComponent({
   name: 'CardPage',
-  components: { Dynamic, GenericForm },
+  components: { DialogForm, Dynamic, GenericForm },
   props: {
     config: {
       type: Object as PropType<CardConfig>,
@@ -105,6 +115,7 @@ export default defineComponent({
     });
 
     const deleteEntity = async () => {
+      if (!props.config.deleteRequest) return;
       if (props.config.confirmDelete && !(await confirmDelete())) return;
 
       deleteLoading.value = true;

@@ -10,6 +10,8 @@ export interface ProjectConfig {
   /** Project description */
   description?: string,
 
+  noBackendMode?: boolean,
+
   /** Helper functions required for proper functioning of the admin panel */
   helpers: {
     /** Proxy function from the request data to URL needed in GET requests */

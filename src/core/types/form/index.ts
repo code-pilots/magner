@@ -1,12 +1,15 @@
-import type { InputField } from './input';
-import type { TextareaField } from './textarea';
-import type { CheckboxField } from './checkbox';
-import type { RadioField } from './radio';
-import type { SelectField } from './select';
-import type { ButtonComponent } from './button';
-import type { DropzoneField } from './dropzone';
-import type { SwitchField } from './switch';
+import type { InputField } from './fields/input';
+import type { TextareaField } from './fields/textarea';
+import type { CheckboxField } from './fields/checkbox';
+import type { RadioField } from './fields/radio';
+import type { SelectField } from './fields/select';
+import type { ButtonComponent } from './fields/button';
+import type { DropzoneField } from './fields/dropzone';
+import type { SwitchField } from './fields/switch';
+import type { CustomField } from './fields/custom';
+
 import type { FormLayout } from './layout';
+import type { DialogForm } from './dialog-forms';
 
 /**
  * The type of a field used in the forms. Defined by its required 'type' which
@@ -19,12 +22,18 @@ export type GenericComponent =
   | RadioField
   | SwitchField
   | SelectField
-  | DropzoneField;
+  | DropzoneField
+  | CustomField;
 
 export interface GenericForm {
   submit: ButtonComponent|null,
 
   layout: FormLayout,
+
+  /**
+   * Dialog forms
+   */
+  dialogForms?: DialogForm[],
 
   size?: 'medium'|'small'|'mini',
 

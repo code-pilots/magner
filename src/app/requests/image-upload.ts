@@ -1,5 +1,5 @@
 import request from 'core/utils/request';
-import type { DropzoneUploadReturn } from 'core/types/form/dropzone';
+import type { DropzoneUploadReturn } from 'core/types/form/fields/dropzone';
 
 type RequestBody = { image: File };
 type RequestResponse = {result: { image: { src: string, id: null }}};

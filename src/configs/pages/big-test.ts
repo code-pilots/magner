@@ -2,9 +2,10 @@ import { cardPageController } from 'core/controllers';
 import {
   bigtestCreate, bigtestDelete, bigtestGet, bigtestUpdate,
 } from 'app/requests/big-test';
-import { SelectField } from 'core/types/form/select';
+import type { SelectField } from 'core/types/form/fields/select';
 import citiesRequest from 'app/requests/citites';
 import translate from 'core/utils/translate';
+import DialogOpener from 'app/components/dialog-opener.vue';
 
 const RadioOptions = [
   {
@@ -40,6 +41,23 @@ export default cardPageController({
         gutter: 20,
       },
       layout: [
+        {
+          type: 'row',
+          fields: [
+            {
+              type: 'custom',
+              name: 'dialogger',
+              element: () => DialogOpener,
+              component: {},
+              changeAction: ({ getDialogForm }) => {
+                const dialog = getDialogForm('suspect');
+                if (dialog) {
+                  dialog.open = true;
+                }
+              },
+            },
+          ],
+        },
         {
           type: 'column',
           component: {
@@ -100,7 +118,7 @@ export default cardPageController({
                 clearable: true,
               },
               hint: translate('form_test.form.country_hint'),
-              changeAction: (form, getField, config) => {
+              changeAction: ({ form, getField }) => {
                 const city = getField<SelectField>('cityId');
 
                 if (city) {
@@ -233,5 +251,25 @@ export default cardPageController({
         },
       ],
     },
+    dialogForms: [
+      {
+        name: 'suspect',
+        open: false,
+        submit: {
+          text: translate('form_test.submit_text'),
+        },
+        layout: [
+          {
+            type: 'input',
+            name: 'nothing',
+            label: 'Nothing',
+            component: {
+              type: 'text',
+              placeholder: 'Example',
+            },
+          },
+        ],
+      },
+    ],
   },
 });

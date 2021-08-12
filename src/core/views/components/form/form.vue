@@ -20,6 +20,7 @@
           :error="errors[field.name]"
           :field="field"
           @error="setFieldError(field.name, $event)"
+          @action="customAction(field.name, $event)"
           @update:modelValue="controlOnInput(field.name, $event)"
         />
       </template>
@@ -59,6 +60,7 @@
       <slot name="actions-after" />
     </div>
 
+    <slot name="dialogs" v-bind="formData" />
     <slot name="end" />
   </el-form>
 </template>
@@ -168,6 +170,14 @@ export default defineComponent({
     };
 
     const getField = (name: string) => allFields.value.find((field) => field.name === name);
+    const getDialogForm = (name: string) => reactiveConfig.dialogForms?.find((dialogForm) => dialogForm.name === name);
+    const formData = reactive({
+      form,
+      getField,
+      getDialogForm,
+      reactiveConfig,
+    });
+
     const controlOnInput = (field: string, newValue: any) => {
       form[field] = newValue;
       if (reactiveConfig.submitEvent === 'input') {
@@ -175,7 +185,12 @@ export default defineComponent({
       }
 
       const fieldConfig = getField(field);
-      fieldConfig.changeAction?.(form, getField, reactiveConfig);
+      if (fieldConfig?.changeAction) fieldConfig.changeAction(formData);
+    };
+
+    const customAction = (field: string, e: { type: string }) => {
+      const fieldConfig = getField(field);
+      if (fieldConfig?.changeAction) fieldConfig.changeAction(formData);
     };
 
     const setFieldError = (field: string, err: string) => {
@@ -183,7 +198,7 @@ export default defineComponent({
     };
 
     const clearForm = () => {
-      Object.assign(form, fieldsToModels(reactiveConfig.fields));
+      Object.assign(form, fieldsToModels(allFields.value));
       submit();
     };
 
@@ -216,11 +231,13 @@ export default defineComponent({
       globalError,
       errors,
       isMobile,
+      formData,
       setItemEls,
       submit,
       setFieldError,
       controlOnInput,
       clearForm,
+      customAction,
     };
   },
 });

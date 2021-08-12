@@ -19,7 +19,7 @@ import {
   defineComponent, PropType, ref, watchEffect, onMounted, nextTick,
 } from 'vue';
 import { useTranslate } from 'core/utils/translate';
-import { InputField } from 'core/types/form/input';
+import type { InputField } from 'core/types/form/fields/input';
 import { create as Maska } from 'maska';
 
 export default defineComponent({
