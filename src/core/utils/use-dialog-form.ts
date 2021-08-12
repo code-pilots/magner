@@ -1,8 +1,10 @@
 import useMobile from 'core/utils/is-mobile';
 import { computed } from 'vue';
+import { TranslateData, useTranslate } from 'core/utils/translate';
 
-const useDialogForm = (title?: string) => {
+const useDialogForm = (title?: TranslateData) => {
   const isMobile = useMobile();
+  const { customT } = useTranslate();
 
   return computed(() => (isMobile.value ? {
     component: 'el-drawer',
@@ -15,7 +17,7 @@ const useDialogForm = (title?: string) => {
   } : {
     component: 'el-dialog',
     props: {
-      title: title || '',
+      title: customT(title || ''),
       width: '70%',
       top: '114px',
       customClass: 'form_dialog',

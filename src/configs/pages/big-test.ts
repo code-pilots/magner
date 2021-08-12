@@ -3,9 +3,11 @@ import {
   bigtestCreate, bigtestDelete, bigtestGet, bigtestUpdate,
 } from 'app/requests/big-test';
 import type { SelectField } from 'core/types/form/fields/select';
-import citiesRequest from 'app/requests/citites';
+import type { CustomField } from 'core/types/form/fields/custom';
+import { citiesCreate, citiesGet } from 'app/requests/citites';
 import translate from 'core/utils/translate';
 import DialogOpener from 'app/components/dialog-opener.vue';
+import { requestWrapper } from 'core/utils/request';
 
 const RadioOptions = [
   {
@@ -48,7 +50,9 @@ export default cardPageController({
               type: 'custom',
               name: 'dialogger',
               element: () => DialogOpener,
-              component: {},
+              component: {
+                city: 'Create a city from the dialog menu',
+              },
               changeAction: ({ getDialogForm }) => {
                 const dialog = getDialogForm('suspect');
                 if (dialog) {
@@ -89,7 +93,7 @@ export default cardPageController({
               component: {
                 filterable: true,
                 remote: true,
-                remoteMethod: citiesRequest,
+                remoteMethod: citiesGet,
                 valueKey: 'id',
                 labelKey: 'name',
                 placeholder: translate('form_test.form.city_placeholder'),
@@ -254,6 +258,7 @@ export default cardPageController({
     dialogForms: [
       {
         name: 'suspect',
+        title: translate('form_test.form.dialog.title'),
         open: false,
         submit: {
           text: translate('form_test.submit_text'),
@@ -261,14 +266,33 @@ export default cardPageController({
         layout: [
           {
             type: 'input',
-            name: 'nothing',
-            label: 'Nothing',
+            name: 'name',
+            label: translate('form_test.form.dialog.city_label'),
             component: {
               type: 'text',
-              placeholder: 'Example',
+              placeholder: translate('form_test.form.dialog.city_placeholder'),
+            },
+          },
+          {
+            type: 'input',
+            name: 'timezone',
+            label: translate('form_test.form.dialog.timezone'),
+            component: {
+              type: 'text',
+              placeholder: translate('form_test.form.dialog.timezone_placeholder'),
             },
           },
         ],
+        submitAction: async (data, { form, getField, getDialogForm }) => {
+          const res = await requestWrapper(data, citiesCreate);
+
+          const custom = getField<CustomField>('dialogger');
+          const dialog = getDialogForm('suspect');
+          if (custom && dialog) {
+            custom.component.city = res;
+            dialog.open = false;
+          }
+        },
       },
     ],
   },

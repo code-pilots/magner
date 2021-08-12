@@ -1,5 +1,5 @@
 import { formController } from 'core/controllers';
-import citiesRequest from 'app/requests/citites';
+import { citiesGet } from 'app/requests/citites';
 import translate from 'core/utils/translate';
 
 const patientForm = formController({
@@ -128,7 +128,7 @@ const patientForm = formController({
             component: {
               filterable: true,
               remote: true,
-              remoteMethod: citiesRequest,
+              remoteMethod: citiesGet,
               valueKey: 'id',
               labelKey: 'name',
               placeholder: translate('patient.form.city_placeholder'),

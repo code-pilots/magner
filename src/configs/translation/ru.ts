@@ -101,6 +101,13 @@ const ruCustom: CustomTranslationSchema = {
       option_adult: 'Взрослый',
       option_child: 'Ребенок',
       dropzone_label: 'Пример дропзоны',
+      dialog: {
+        title: 'Вложенная форма',
+        city_label: 'Название города',
+        city_placeholder: 'Москва',
+        timezone: 'Временная зона',
+        timezone_placeholder: 'Europe/Moscow',
+      },
     },
   },
   home: {

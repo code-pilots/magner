@@ -188,6 +188,7 @@ export default defineComponent({
       if (fieldConfig?.changeAction) fieldConfig.changeAction(formData);
     };
 
+    // TODO: add e.type to the action handlers
     const customAction = (field: string, e: { type: string }) => {
       const fieldConfig = getField(field);
       if (fieldConfig?.changeAction) fieldConfig.changeAction(formData);

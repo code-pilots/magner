@@ -1,11 +1,12 @@
 import request from 'core/utils/request';
+import parseError from 'app/utils/parse-error';
 
 export interface City {
   id: number,
   name: string,
 }
 
-const citiesRequest = request(async ({ data, api }) => {
+export const citiesGet = request(async ({ data, api }) => {
   try {
     const res = await api.get<{ result: City[] }>(`cities/search?q=${data || ''}`);
 
@@ -16,4 +17,11 @@ const citiesRequest = request(async ({ data, api }) => {
   }
 });
 
-export default citiesRequest;
+export const citiesCreate = request(async ({ data, api }) => {
+  try {
+    const res = await api.post('cities', data);
+    return { data: res, error: null };
+  } catch (e) {
+    return { error: parseError(e), data: null };
+  }
+});

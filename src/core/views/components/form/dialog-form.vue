@@ -13,7 +13,7 @@
         clearable: true,
       }"
       :initial-data="{}"
-      :loading="false"
+      :loading="loading"
       @submit="submit"
     >
       <template #after>
@@ -52,8 +52,9 @@ export default defineComponent({
   emits: ['submit'],
   setup (props, context) {
     const isMobile = useMobile();
-    const formComponent = useDialogForm();
+    const formComponent = useDialogForm(props.config.title);
     const reactiveConfig = reactive(props.config);
+    const loading = ref(false);
 
     const open = ref(reactiveConfig.open);
 
@@ -63,8 +64,13 @@ export default defineComponent({
       reactiveConfig.open = val;
     };
 
-    const submit = (data: Record<string, string>) => {
+    const submit = async (data: Record<string, string>) => {
       context.emit('submit', data);
+      if (props.config.submitAction) {
+        loading.value = true;
+        await props.config.submitAction(data, props.formData);
+        loading.value = false;
+      }
     };
 
     watchEffect(() => {
@@ -76,6 +82,7 @@ export default defineComponent({
       isMobile,
       formComponent,
       reactiveConfig,
+      loading,
       submit,
       toggleOpen,
     };

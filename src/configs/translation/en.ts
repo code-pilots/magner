@@ -99,6 +99,13 @@ const enCustom = {
       option_adult: 'Adult',
       option_child: 'Child',
       dropzone_label: 'Dropzone example',
+      dialog: {
+        title: 'Nested form',
+        city_label: 'City name',
+        city_placeholder: 'New York',
+        timezone: 'Timezone',
+        timezone_placeholder: 'Europe/Moscow',
+      },
     },
   },
   home: {

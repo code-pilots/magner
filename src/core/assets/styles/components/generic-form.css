@@ -154,6 +154,10 @@
                 }
             }
         }
+
+        &-custom {
+            width: 100%;
+        }
     }
 
     .field-group-move {
