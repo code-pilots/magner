@@ -1,0 +1,21 @@
+.generic-form {
+  .test-form-collection {
+    &_name {
+      margin-right: 24px;
+      @media (--breakpoint-small) {
+        margin-right: 0;
+      }
+    }
+
+    & .add-more {
+      width: 100%;
+      margin-top: -6px;
+      & .el-button {
+        max-width: 200px;
+        & i {
+          transform: translateY(2px);
+        }
+      }
+    }
+  }
+}

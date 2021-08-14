@@ -101,6 +101,11 @@ const ruCustom: CustomTranslationSchema = {
       option_adult: 'Взрослый',
       option_child: 'Ребенок',
       dropzone_label: 'Пример дропзоны',
+      collection: {
+        title: 'Добавить пользователя',
+        name_placeholder: 'Имя',
+        surname_placeholder: 'Фамилия',
+      },
       dialog: {
         title: 'Вложенная форма',
         city_label: 'Название города',

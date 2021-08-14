@@ -99,6 +99,11 @@ const enCustom = {
       option_adult: 'Adult',
       option_child: 'Child',
       dropzone_label: 'Dropzone example',
+      collection: {
+        title: 'Add person',
+        name_placeholder: 'First name',
+        surname_placeholder: 'Last name',
+      },
       dialog: {
         title: 'Nested form',
         city_label: 'City name',

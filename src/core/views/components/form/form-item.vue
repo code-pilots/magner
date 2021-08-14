@@ -1,5 +1,6 @@
 <template>
   <el-form-item
+    v-if="field.type !== 'collection'"
     :key="field.name"
     :prop="field.name"
     :required="!!field.required"
@@ -72,6 +73,25 @@
       />
     </template>
   </el-form-item>
+
+  <template v-else>
+    <FormLayoutBlock
+      v-for="(layout, i) in field.layout"
+      :key="i"
+      :block="layout"
+    >
+      <template #item="item">
+        <FormItem :field="item" />
+      </template>
+    </FormLayoutBlock>
+
+    <div class="add-more">
+      <el-button type="primary" plain size="small">
+        <SvgIcon name="plus" size="sm" />
+        Add more
+      </el-button>
+    </div>
+  </template>
 </template>
 
 <script lang="ts">
@@ -88,10 +108,12 @@ import Dropzone from 'core/views/components/form/fields/dropzone.vue';
 import FormRadio from 'core/views/components/form/fields/radio.vue';
 import FormCheckbox from 'core/views/components/form/fields/checkbox.vue';
 import FormSwitch from 'core/views/components/form/fields/switch.vue';
+import FormLayoutBlock from 'core/views/components/form/layout-block.vue';
 
 export default defineComponent({
   name: 'FormItem',
   components: {
+    FormLayoutBlock,
     FormSwitch,
     FormCheckbox,
     SvgIcon,

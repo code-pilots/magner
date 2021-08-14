@@ -40,9 +40,10 @@ export default cardPageController({
     layout: {
       type: 'row',
       component: {
-        gutter: 20,
+        justify: 'space-between',
       },
       layout: [
+        /** Custom field that interacts with dialog forms */
         {
           type: 'row',
           fields: [
@@ -62,6 +63,60 @@ export default cardPageController({
             },
           ],
         },
+
+        /** Form Collection row */
+        {
+          type: 'row',
+          class: 'test-form-collection',
+          title: translate('form_test.form.collection.title'),
+          fields: [
+            {
+              type: 'collection',
+              name: 'people',
+              dataType: 'array',
+              component: {},
+              layout: [
+                {
+                  type: 'column',
+                  class: 'test-form-collection_name',
+                  component: {
+                    span: 8,
+                    xs: 24,
+                  },
+                  fields: [
+                    {
+                      type: 'input',
+                      name: 'firstname',
+                      component: {
+                        type: 'text',
+                        placeholder: translate('form_test.form.collection.name_placeholder'),
+                      },
+                    },
+                  ],
+                },
+                {
+                  type: 'column',
+                  component: {
+                    span: 8,
+                    xs: 24,
+                  },
+                  fields: [
+                    {
+                      type: 'input',
+                      name: 'lastname',
+                      component: {
+                        type: 'text',
+                        placeholder: translate('form_test.form.collection.surname_placeholder'),
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+
+        /** Text fields, selects */
         {
           type: 'column',
           component: {
@@ -157,6 +212,8 @@ export default cardPageController({
             },
           ],
         },
+
+        /** Radio buttons, checkboxes, switches */
         {
           type: 'column',
           component: {
@@ -242,6 +299,8 @@ export default cardPageController({
             },
           ],
         },
+
+        /** Dropzone */
         {
           type: 'row',
           fields: [
@@ -255,6 +314,8 @@ export default cardPageController({
         },
       ],
     },
+
+    /** Dialog form that creates an entity 'city' and passes it to the custom component */
     dialogForms: [
       {
         name: 'suspect',

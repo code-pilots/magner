@@ -13,6 +13,7 @@ export type SupportedComponentTypes =
   | 'switch'
   | 'select'
   | 'dropzone'
+  | 'collection'
   | 'custom';
 
 export interface BaseComponent {}

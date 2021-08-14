@@ -14,7 +14,6 @@
       <template #item="field">
         <FormItem
           v-show="!field.hidden"
-          :key="field.name"
           :ref="setItemEls"
           v-model="form[field.name]"
           :error="errors[field.name]"

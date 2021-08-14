@@ -7,6 +7,7 @@ import type { ButtonComponent } from './fields/button';
 import type { DropzoneField } from './fields/dropzone';
 import type { SwitchField } from './fields/switch';
 import type { CustomField } from './fields/custom';
+import type { CollectionField } from './fields/collection';
 
 import type { FormLayout } from './layout';
 import type { DialogForm } from './dialog-forms';
@@ -23,6 +24,7 @@ export type GenericComponent =
   | SwitchField
   | SelectField
   | DropzoneField
+  | CollectionField
   | CustomField;
 
 export interface GenericForm {

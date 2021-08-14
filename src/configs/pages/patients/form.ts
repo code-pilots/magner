@@ -8,9 +8,16 @@ const patientForm = formController({
   },
   layout: {
     type: 'row',
+    component: {
+      gutter: 24,
+    },
     layout: [
       {
         type: 'column',
+        component: {
+          span: 12,
+          xs: 24,
+        },
         fields: [
           {
             type: 'input',
@@ -101,6 +108,10 @@ const patientForm = formController({
       },
       {
         type: 'column',
+        component: {
+          span: 12,
+          xs: 24,
+        },
         fields: [
           {
             type: 'select',

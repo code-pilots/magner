@@ -6,5 +6,6 @@ import router from 'configs/routing';
 import 'configs/project';
 
 import 'element-plus/lib/theme-chalk/index.css';
+import 'app/assets/all.css';
 
 initMagner(router, store, translation);
