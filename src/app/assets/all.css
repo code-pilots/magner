@@ -9,13 +9,22 @@
 
     & .add-more {
       width: 100%;
-      margin-top: -6px;
       & .el-button {
         max-width: 200px;
         & i {
           transform: translateY(2px);
         }
       }
+    }
+
+    & .remove-more {
+      width: 40px;
+      height: 40px;
+      margin-left: 16px;
+    }
+
+    & .flex-grow {
+      width: 100%;
     }
   }
 }

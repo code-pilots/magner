@@ -74,7 +74,10 @@ export default cardPageController({
               type: 'collection',
               name: 'people',
               dataType: 'array',
-              component: {},
+              component: {
+                showFirst: true,
+                firstRemovable: false,
+              },
               layout: [
                 {
                   type: 'column',
@@ -90,6 +93,10 @@ export default cardPageController({
                       component: {
                         type: 'text',
                         placeholder: translate('form_test.form.collection.name_placeholder'),
+                      },
+                      validation: {
+                        type: 'empty',
+                        trigger: 'blur',
                       },
                     },
                   ],

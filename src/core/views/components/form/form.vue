@@ -14,7 +14,6 @@
       <template #item="field">
         <FormItem
           v-show="!field.hidden"
-          :ref="setItemEls"
           v-model="form[field.name]"
           :error="errors[field.name]"
           :field="field"
@@ -137,15 +136,7 @@ export default defineComponent({
 
     const globalError = ref<string>(props.error); // Error of the whole form
     const errors = ref<Record<string, string>>(props.fieldErrors); // Field errors record
-
     const formEl = ref<HTMLFormElement>();
-    const itemEls = ref<(typeof FormItem)[]>([]);
-
-    const setItemEls = (el: typeof FormItem) => {
-      if (el && el.field?.name && !itemEls.value.some((item) => item?.field?.name === el.field.name)) {
-        itemEls.value.push(el);
-      }
-    };
 
     const submit = () => {
       (formEl.value as FormValidator).validate(async (valid: boolean) => {
@@ -232,7 +223,6 @@ export default defineComponent({
       errors,
       isMobile,
       formData,
-      setItemEls,
       submit,
       setFieldError,
       controlOnInput,

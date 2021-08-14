@@ -75,18 +75,40 @@
   </el-form-item>
 
   <template v-else>
-    <FormLayoutBlock
-      v-for="(layout, i) in field.layout"
-      :key="i"
-      :block="layout"
-    >
-      <template #item="item">
-        <FormItem :field="item" />
+    <template v-for="(itm, i) in collectionItems" :key="i">
+      <template v-for="(layout, j) in field.layout" :key="i.toString() + j">
+        <FormLayoutBlock :block="layout">
+          <template #item="nestedField">
+            <FormItem
+              :field="nestedField"
+              v-model="itm[nestedField.name]"
+              @update:modelValue="changeCollectionItem(i, nestedField.name, $event)"
+            />
+          </template>
+        </FormLayoutBlock>
       </template>
-    </FormLayoutBlock>
+      <el-button
+        v-if="field.component.firstRemovable ? true : i !== 0"
+        type="danger"
+        plain
+        circle
+        size="small"
+        class="remove-more"
+        @click="changeCollectionItems(i)"
+      >
+        <SvgIcon name="x" size="sm" />
+      </el-button>
+
+      <div class="flex-grow" />
+    </template>
 
     <div class="add-more">
-      <el-button type="primary" plain size="small">
+      <el-button
+        type="primary"
+        size="small"
+        plain
+        @click="changeCollectionItems('new')"
+      >
         <SvgIcon name="plus" size="sm" />
         Add more
       </el-button>
@@ -96,7 +118,7 @@
 
 <script lang="ts">
 import {
-  shallowRef, defineComponent, PropType, ref, watchEffect,
+  shallowRef, defineComponent, PropType, ref, watchEffect, reactive,
 } from 'vue';
 import type { GenericComponent } from 'core/types/form';
 import useMobile from 'core/utils/is-mobile';
@@ -109,6 +131,7 @@ import FormRadio from 'core/views/components/form/fields/radio.vue';
 import FormCheckbox from 'core/views/components/form/fields/checkbox.vue';
 import FormSwitch from 'core/views/components/form/fields/switch.vue';
 import FormLayoutBlock from 'core/views/components/form/layout-block.vue';
+import { collectFieldsFromLayout, fieldsToModels } from 'core/utils/form';
 
 export default defineComponent({
   name: 'FormItem',
@@ -142,6 +165,11 @@ export default defineComponent({
     const isMobile = useMobile();
     const customComponent = shallowRef(props.field.type === 'custom' ? props.field.element() : null);
 
+    const collectionLen = props.field.type === 'collection' && props.field.component.showFirst ? 1 : 0;
+    const collectionFields = collectFieldsFromLayout(props.field.type === 'collection' ? props.field.layout : []);
+    const collectionItems = ref((new Array(collectionLen).fill(0))
+      .map(() => reactive(fieldsToModels(collectionFields))));
+
     const val = ref(props.modelValue);
     watchEffect(() => {
       val.value = props.modelValue;
@@ -159,14 +187,32 @@ export default defineComponent({
       context.emit('action', e);
     };
 
+    const changeCollectionItems = (num: number | 'new') => {
+      if (num === 'new') {
+        collectionItems.value = [...collectionItems.value, reactive(fieldsToModels(collectionFields))];
+      } else {
+        collectionItems.value = collectionItems.value.filter((_, i) => i !== num);
+      }
+      val.value = [...collectionItems.value];
+      context.emit('update:modelValue', val.value);
+    };
+
+    const changeCollectionItem = () => {
+      val.value = [...collectionItems.value];
+      context.emit('update:modelValue', val.value);
+    };
+
     return {
       val,
       isMobile,
       customComponent,
+      collectionItems,
       customT,
       updVal,
       setError,
       customAction,
+      changeCollectionItem,
+      changeCollectionItems,
     };
   },
 });
