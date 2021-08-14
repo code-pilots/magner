@@ -59,6 +59,11 @@
     </div>
 
     <slot name="dialogs" v-bind="formData" />
+
+    <div v-if="reactiveConfig.debug" class="generic-form_debug">
+      <pre>{{ JSON.stringify(form, null, 2) }}</pre>
+    </div>
+
     <slot name="end" />
   </el-form>
 </template>

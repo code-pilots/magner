@@ -173,4 +173,19 @@
         opacity: 0;
         max-height: 0px;
     }
+
+    &_debug {
+        position: absolute;
+        top: 0;
+        right: 0;
+        max-height: 300px;
+        overflow-y: auto;
+        background: rgba(0,0,0,0.9);
+        color: white;
+        padding: 4px 6px;
+        font-size: 12px;
+        & pre {
+            margin: 0;
+        }
+    }
 }

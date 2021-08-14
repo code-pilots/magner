@@ -48,4 +48,7 @@ export interface GenericForm {
    * Case 'input' – on any child component's change event
    * */
   submitEvent?: 'submit'|'input',
+
+  /** If 'true', shows the debug window with form fields on top right corner of the form */
+  debug?: boolean,
 }

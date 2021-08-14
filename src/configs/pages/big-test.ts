@@ -34,6 +34,7 @@ export default cardPageController({
   confirmDelete: true,
 
   form: {
+    debug: true,
     submit: {
       text: translate('form_test.submit_text'),
     },
