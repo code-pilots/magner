@@ -175,17 +175,48 @@
     }
 
     &_debug {
-        position: absolute;
-        top: 0;
+        position: fixed;
+        bottom: 0;
         right: 0;
-        max-height: 300px;
-        overflow-y: auto;
+        max-height: 30px;
+        height: auto;
         background: rgba(0,0,0,0.9);
         color: white;
         padding: 4px 6px;
         font-size: 12px;
+        transition: max-height .2s;
+        overflow: hidden;
+
+        @media (--breakpoint-small) {
+            display: none;
+        }
+
         & pre {
             margin: 0;
+        }
+
+        &:hover {
+            max-height: 800px;
+            &:after {
+                opacity: 0;
+                pointer-events: none;
+                user-select: none;
+            }
+        }
+
+        &:after {
+            content: "Debug";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #191919;
+            padding: 8px 10px;
+            pointer-events: all;
+            user-select: all;
+            opacity: 1;
+            transition: opacity .2s;
         }
     }
 }

@@ -80,8 +80,8 @@
         <FormLayoutBlock :block="layout">
           <template #item="nestedField">
             <FormItem
-              :field="nestedField"
               v-model="itm[nestedField.name]"
+              :field="nestedField"
               @update:modelValue="changeCollectionItem(i, nestedField.name, $event)"
             />
           </template>
@@ -121,6 +121,7 @@ import {
   shallowRef, defineComponent, PropType, ref, watchEffect, reactive,
 } from 'vue';
 import type { GenericComponent } from 'core/types/form';
+import type { GenericFormLayout } from 'core/types/form/layout';
 import useMobile from 'core/utils/is-mobile';
 import { useTranslate } from 'core/utils/translate';
 import SvgIcon from 'core/views/components/icon.vue';
@@ -132,6 +133,8 @@ import FormCheckbox from 'core/views/components/form/fields/checkbox.vue';
 import FormSwitch from 'core/views/components/form/fields/switch.vue';
 import FormLayoutBlock from 'core/views/components/form/layout-block.vue';
 import { collectFieldsFromLayout, fieldsToModels } from 'core/utils/form';
+
+type CollectionItems = ReturnType<typeof fieldsToModels>[];
 
 export default defineComponent({
   name: 'FormItem',
@@ -166,11 +169,13 @@ export default defineComponent({
     const customComponent = shallowRef(props.field.type === 'custom' ? props.field.element() : null);
 
     const collectionLen = props.field.type === 'collection' && props.field.component.showFirst ? 1 : 0;
-    const collectionFields = collectFieldsFromLayout(props.field.type === 'collection' ? props.field.layout : []);
-    const collectionItems = ref((new Array(collectionLen).fill(0))
+    const collectionFields = collectFieldsFromLayout(props.field.type === 'collection'
+      ? (props.field.layout as unknown as GenericFormLayout)
+      : []);
+    const collectionItems = ref<CollectionItems>((new Array(collectionLen).fill(0))
       .map(() => reactive(fieldsToModels(collectionFields))));
 
-    const val = ref(props.modelValue);
+    const val = ref<any>(props.modelValue);
     watchEffect(() => {
       val.value = props.modelValue;
     });
