@@ -135,6 +135,10 @@
         }
     }
 
+    &_collection {
+        width: 100%;
+    }
+
     .field-group-move {
         transition: max-height .2s, height .2s;
     }

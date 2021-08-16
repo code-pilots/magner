@@ -17,6 +17,7 @@
           v-model="form[field.name]"
           :error="errors[field.name]"
           :field="field"
+          :class="field.props.class"
           @error="setFieldError(field.name, $event)"
           @action="customAction(field.name, $event)"
           @update:modelValue="controlOnInput(field.name, $event)"

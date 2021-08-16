@@ -16,7 +16,9 @@ export type SupportedComponentTypes =
   | 'collection'
   | 'custom';
 
-export interface BaseProps {}
+export interface BaseProps {
+  class?: string,
+}
 
 export interface BaseValidation {
   /** Choose any supported validators to speed up the validation process */

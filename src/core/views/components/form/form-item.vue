@@ -77,7 +77,7 @@
   <template v-else>
     <template v-for="(itm, i) in collectionItems" :key="i">
       <template v-for="(layout, j) in field.layout" :key="i.toString() + j">
-        <FormLayoutBlock :block="layout">
+        <FormLayoutBlock :block="layout" :class="$attrs.class">
           <template #item="nestedField">
             <FormItem
               v-model="itm[nestedField.name]"

@@ -12,7 +12,7 @@
       :class="[
         `generic-form_block-${block.type}`,
         block.props.class,
-        block.props.isPaper ? 'el-card is-always-shadow' : ''
+        block.props.isPaper ? 'el-card is-always-shadow' : '',
       ]"
       v-bind="getProps(block).props"
     >
@@ -39,7 +39,7 @@
       :class="[
         `generic-form_block-${block.type}`,
         block.props.class,
-        block.props.isPaper ? 'el-card is-always-shadow' : ''
+        block.props.isPaper ? 'el-card is-always-shadow' : '',
       ]"
       v-bind="getProps(block).props"
     >

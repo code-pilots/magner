@@ -255,6 +255,7 @@ export default cardPageController({
               name: 'people',
               dataType: 'array',
               props: {
+                class: 'collection-people',
                 showFirst: true,
                 firstRemovable: false,
               },
