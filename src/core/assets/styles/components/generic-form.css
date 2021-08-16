@@ -6,11 +6,17 @@
 
         margin-left: 0 !important;
         margin-right: 0 !important;
-        & > *:first-child {
+        & > *.is-guttered:first-child {
             padding-left: 0 !important;
         }
-        & > *:last-child {
+        & > *.is-guttered:last-child {
             padding-right: 0 !important;
+        }
+        & *.is-guttered {
+            @media (--breakpoint-small) {
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+            }
         }
 
 
@@ -38,44 +44,6 @@
 
     &_block-column {
         position: relative;
-        @media (--breakpoint-small) {
-            padding-left: 0 !important;
-            padding-right: 0 !important;
-        }
-    }
-
-    & .el-form-item {
-        &__label {
-            padding: 0;
-            line-height: 30px;
-        }
-    }
-
-    & .el-form-item__label.custom-label {
-        width: 100%;
-    }
-
-    & .el-select {
-        width: 100%;
-    }
-
-    &_icon {
-        padding: 0 6px;
-    }
-
-    &_error {
-        margin-bottom: 8px;
-    }
-
-    & .el-tag {
-        @media (--breakpoint-small) {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            margin-top: 4px;
-            margin-left: 0;
-        }
     }
 
     &_actions {
@@ -88,7 +56,9 @@
             & > * {
                 max-width: 200px;
                 &:not(:last-child) {
-                    margin-right: 12px;
+                    @media (--breakpoint-md) {
+                        margin-right: 12px;
+                    }
                 }
             }
         }
@@ -223,5 +193,60 @@
             opacity: 1;
             transition: opacity .2s;
         }
+    }
+
+    &_only-fields {
+        width: 100%;
+    }
+
+    & .el-form-item {
+        &__label {
+            padding: 0;
+            line-height: 30px;
+        }
+    }
+
+    & .el-form-item__label.custom-label {
+        width: 100%;
+    }
+    & h2.custom-label {
+        width: 100%;
+        margin-bottom: 6px;
+    }
+
+    & .el-select {
+        width: 100%;
+    }
+
+    &_icon {
+        padding: 0 6px;
+    }
+
+    &_error {
+        margin-bottom: 8px;
+    }
+
+    & .el-card {
+        padding: 20px;
+        margin-bottom: 12px;
+
+        @media (--breakpoint-small) {
+            padding: 12px;
+        }
+    }
+
+    & .el-tag {
+        @media (--breakpoint-small) {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 4px;
+            margin-left: 0 !important;
+        }
+    }
+
+    & .el-button+.el-button {
+        margin-left: 0;
     }
 }

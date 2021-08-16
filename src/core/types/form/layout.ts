@@ -11,8 +11,15 @@ interface FormLayoutBase {
 }
 
 interface LayoutPropsBase {
+  /** Add any class to the layout block */
   class?: string,
-  titleType?: 'like-label' | 'heading',
+  /** Sets shadow and a padding to the block, visually taking it out of the form */
+  isPaper?: boolean,
+  /** What type of styles to apply to the title of the block:<br>
+   * • label – small text that can group fields in one row<br>
+   * • heading – h2 tag that visually separates the group from the form
+   */
+  titleType?: 'label' | 'heading',
 }
 
 /** RowBase defines element-ui el-row's attributes:

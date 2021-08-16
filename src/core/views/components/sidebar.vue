@@ -1,8 +1,8 @@
 <template>
-  <nav :class="{collapsed: isCollapsed}" class="sidebar">
+  <nav :class="{collapsed: isCollapsed && !isMobile}" class="sidebar">
     <el-scrollbar class="sidebar_scroll">
       <el-menu
-        :collapse="isCollapsed"
+        :collapse="isCollapsed && !isMobile"
         :default-active="activeRoute ? activeRoute.route.name : null"
         class="sidebar_menu"
         @select="navigate"
@@ -65,6 +65,7 @@ import { useTranslate } from 'core/utils/translate';
 import { useRouter } from 'vue-router';
 import { CustomRoute } from 'core/types/configs';
 import useStore from 'core/controllers/store/store';
+import useMobile from 'core/utils/is-mobile';
 import SvgIcon from './icon.vue';
 
 export default defineComponent({
@@ -82,6 +83,7 @@ export default defineComponent({
   },
   setup () {
     const { customT, t } = useTranslate();
+    const isMobile = useMobile();
     const router = useRouter();
     const store = useStore();
 
@@ -98,6 +100,7 @@ export default defineComponent({
     return {
       t,
       isCollapsed,
+      isMobile,
       customT,
       toggleCollapse,
       navigate,

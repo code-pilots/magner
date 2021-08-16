@@ -57,7 +57,7 @@
         }
     }
 
-    &_drawer {
+    & .form_drawer {
         padding: 8px 8px 56px;
 
         & .generic-form {
@@ -81,7 +81,7 @@
         }
     }
 
-    &_dialog {
+    & .form_dialog {
         & .el-dialog__body {
             padding-top: 12px;
         }

@@ -42,6 +42,7 @@ export default cardPageController({
       type: 'row',
       props: {
         justify: 'space-between',
+        gutter: 12,
       },
       layout: [
         /** Text fields, selects */
@@ -151,6 +152,8 @@ export default cardPageController({
               type: 'column',
               title: 'Radio buttons',
               props: {
+                titleType: 'heading',
+                isPaper: true,
                 span: 11,
                 xs: 24,
               },
@@ -174,7 +177,9 @@ export default cardPageController({
               type: 'column',
               title: 'Checkboxes',
               props: {
-                span: 11,
+                titleType: 'heading',
+                isPaper: true,
+                span: 12,
                 xs: 24,
               },
               fields: [

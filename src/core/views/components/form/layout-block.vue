@@ -9,12 +9,15 @@
   <template v-else-if="block.layout">
     <component
       :is="getProps(block).component"
-      :class="[`generic-form_block-${block.type}`, block.props.class]"
+      :class="[
+        `generic-form_block-${block.type}`,
+        block.props.class,
+        block.props.isPaper ? 'el-card is-always-shadow' : ''
+      ]"
       v-bind="getProps(block).props"
     >
-      <div v-if="block.title" class="el-form-item__label custom-label">
-        {{ customT(block.title) }}
-      </div>
+      <h2 v-if="block.title && block.props.titleType === 'heading'" class="custom-label">{{ customT(block.title) }}</h2>
+      <div v-else-if="block.title" class="el-form-item__label custom-label">{{ customT(block.title) }}</div>
 
       <template
         v-for="(nestedBlock, i) in block.layout"
@@ -33,10 +36,16 @@
   <template v-else-if="block.fields && block.fields.length">
     <component
       :is="getProps(block).component"
-      :class="[`generic-form_block-${block.type}`, block.props.class]"
+      :class="[
+        `generic-form_block-${block.type}`,
+        block.props.class,
+        block.props.isPaper ? 'el-card is-always-shadow' : ''
+      ]"
       v-bind="getProps(block).props"
     >
-      <div v-if="block.title" class="el-form-item__label custom-label">{{ customT(block.title) }}</div>
+      <h2 v-if="block.title && block.props.titleType === 'heading'" class="custom-label">{{ customT(block.title) }}</h2>
+      <div v-else-if="block.title" class="el-form-item__label custom-label">{{ customT(block.title) }}</div>
+
       <template v-for="field in block.fields" :key="field.name">
         <slot name="item" v-bind="field" />
       </template>
