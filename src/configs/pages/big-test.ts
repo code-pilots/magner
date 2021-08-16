@@ -366,7 +366,7 @@ export default cardPageController({
           const custom = getField<CustomField>('dialogger');
           const dialog = getDialogForm('suspect');
           if (custom && dialog) {
-            custom.props.city = res;
+            custom.props = { city: res };
             dialog.open = false;
           }
         },

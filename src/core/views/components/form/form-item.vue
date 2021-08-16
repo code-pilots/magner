@@ -68,8 +68,9 @@
     <template v-else-if="field.type === 'custom' && customComponent">
       <component
         :is="customComponent"
-        v-bind="field.props"
+        :field="field.props"
         @action="customAction"
+        @update:modelValue="updVal"
       />
     </template>
   </el-form-item>

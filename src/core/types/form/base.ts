@@ -33,6 +33,7 @@ export interface FormInteractionsData {
   getField: <FIELD extends GenericComponent = GenericComponent>(name: string) => FIELD | undefined,
   getDialogForm: <FORM = DialogForm>(name: string) => DialogForm | undefined,
   config: GenericForm,
+  data?: any,
 }
 export type FieldInteractions = (arg_1: FormInteractionsData) => void
 

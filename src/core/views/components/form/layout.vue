@@ -1,10 +1,10 @@
 <template>
   <template v-if="Array.isArray(layout)">
-    <transition-group name="field-group" tag="div" class="generic-form_only-fields">
+    <div class="generic-form_only-fields">
       <template v-for="field in layout" :key="field.name">
         <slot name="item" v-bind="field" />
       </template>
-    </transition-group>
+    </div>
   </template>
 
   <FormLayoutBlock :block="layout">
