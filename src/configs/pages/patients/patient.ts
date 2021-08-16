@@ -15,6 +15,18 @@ export default cardPageController({
   updateRequest: patientUpdate,
   deleteRequest: patientDelete,
 
+  tabs: [
+    {
+      active: true,
+      label: translate('patient.tabs.patient'),
+      link: { name: 'patient', params: {} },
+    },
+    {
+      label: translate('patient.tabs.specializations'),
+      link: { name: 'specializations' },
+    },
+  ],
+
   confirmDelete: true,
 
   form: patientForm,

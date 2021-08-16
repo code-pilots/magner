@@ -1,5 +1,5 @@
 .card-page {
-    &_form {
+    &_header, &_form {
         width: 100%;
         margin: 0 auto;
         padding: 12px 24px;
@@ -9,11 +9,45 @@
             padding: 12px 0;
         }
 
+        .el-tabs {
+            &__header {
+                border-bottom: none !important;
+            }
+
+            &--card > .el-tabs__header .el-tabs__item {
+                border-bottom: 1px solid #E4E7ED !important;
+            }
+
+            &__item {
+                padding: 0 !important;
+                & a, & span {
+                    display: inline-block;
+                    height: 100%;
+                    padding: 0 20px;
+                    color: inherit;
+                    text-decoration: inherit;
+                }
+            }
+        }
+    }
+
+    &_header {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+
+        @media (--breakpoint-md) {
+            flex-direction: row;
+            align-items: center;
+        }
+
         &_title {
             margin-bottom: 12px;
             text-align: left;
         }
+    }
 
+    &_form {
         & .el-button {
             width: 100%;
             margin-left: 0;

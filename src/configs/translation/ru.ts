@@ -42,6 +42,10 @@ const ruCustom: CustomTranslationSchema = {
   },
   patient: {
     title: 'Пациент',
+    tabs: {
+      patient: 'Пациент',
+      specializations: 'Специализации',
+    },
     form: {
       submit_button: 'Сохранить',
       lastname_label: 'Фамилия',

@@ -40,6 +40,10 @@ const enCustom = {
   },
   patient: {
     title: 'Patient',
+    tabs: {
+      patient: 'Patient',
+      specializations: 'Specializations',
+    },
     form: {
       submit_button: 'Save',
       lastname_label: 'Last name',

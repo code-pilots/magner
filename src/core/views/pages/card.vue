@@ -2,6 +2,26 @@
   <Dynamic :request="config.getRequest" :data="cardId" :disabled="isNew">
     <template #default="{response, loading}">
       <section v-loading="loading" class="card-page">
+        <div v-if="config.title || config.tabs" class="card-page_header">
+          <h1 class="card-page_header_title">
+            {{ customT(config.title) }}
+          </h1>
+          <el-tabs v-if="config.tabs" type="card">
+            <el-tab-pane
+              v-for="(tab, i) in config.tabs"
+              :key="i"
+              :name="i.toString()"
+            >
+              <template #label>
+                <router-link v-if="!tab.active" :to="typeof tab.link === 'function' ? tab.link(response) : tab.link">
+                  {{ customT(tab.label) }}
+                </router-link>
+                <span v-else>{{ customT(tab.label) }}</span>
+              </template>
+            </el-tab-pane>
+          </el-tabs>
+        </div>
+
         <GenericForm
           :initial-data="response"
           :config="config.form"
@@ -13,12 +33,6 @@
           class="card-page_form"
           @submit="save"
         >
-          <template #before>
-            <h1 class="card-page_form_title">
-              {{ customT(config.title) }}
-            </h1>
-          </template>
-
           <template #actions-before>
             <el-button
               v-if="!isNew && !!config.deleteRequest"
