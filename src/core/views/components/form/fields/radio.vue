@@ -1,8 +1,8 @@
 <template>
   <el-radio-group
     :model-value="val"
-    :text-color="field.component.activeTextColor"
-    :fill="field.component.fill"
+    :text-color="field.props.activeTextColor"
+    :fill="field.props.fill"
     @change="changeVal"
   >
     <template v-if="field.radioButtons">
@@ -57,7 +57,7 @@ export default defineComponent({
       val.value = props.modelValue;
     });
 
-    const changeVal = (newVal) => {
+    const changeVal = (newVal: number | string) => {
       val.value = newVal;
       context.emit('update:modelValue', newVal);
     };

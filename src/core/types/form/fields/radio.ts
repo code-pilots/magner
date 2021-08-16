@@ -1,7 +1,7 @@
-import type { BaseComponent, BaseField } from 'core/types/form/base';
+import type { BaseField, BaseProps } from 'core/types/form/base';
 import type { TranslateData } from 'core/utils/translate';
 
-export interface RadioComponent extends BaseComponent {
+export interface RadioProps extends BaseProps {
   /** Font color when button is active */
   activeTextColor?: string,
 
@@ -21,7 +21,7 @@ export interface RadioOption extends Record<string, any> {
 
 export interface RadioField extends BaseField {
   type: 'radio',
-  component: RadioComponent,
+  props: RadioProps,
   options: RadioOption[],
   radioButtons?: boolean,
 }

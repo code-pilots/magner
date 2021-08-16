@@ -16,7 +16,7 @@ export type SupportedComponentTypes =
   | 'collection'
   | 'custom';
 
-export interface BaseComponent {}
+export interface BaseProps {}
 
 export interface BaseValidation {
   /** Choose any supported validators to speed up the validation process */
@@ -49,7 +49,7 @@ export interface BaseField {
   hint?: TranslateData,
 
   /** Any attributes passed to the base HTML-tag */
-  component: BaseComponent,
+  props: BaseProps,
 
   /** How and when to validate the field */
   validation?: BaseValidation,

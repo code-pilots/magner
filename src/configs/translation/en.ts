@@ -8,6 +8,7 @@ const enCustom = {
     specializations: 'Specializations',
     consultation_types: 'Consultation types',
     form_test: 'Form test',
+    form_layout: 'Layout example',
   },
   login: {
     title: 'Log In',
@@ -76,6 +77,7 @@ const enCustom = {
     title: 'Form test',
     submit_text: 'Save',
     form: {
+      example_label: 'Example',
       phone_label: 'Example of the text input with a mask and validation',
       city_label: 'Example of the select with remote data loading',
       city_placeholder: 'Moscow',

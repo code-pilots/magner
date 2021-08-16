@@ -1,12 +1,12 @@
 <template>
   <el-switch
     :model-value="val"
-    :inactive-color="field.component.inactiveColor"
-    :active-color="field.component.activeColor"
-    :inactive-text="customT(field.component.inactiveLabel)"
-    :active-text="customT(field.component.activeLabel)"
-    :disabled="field.component.disabled"
-    :width="field.component.width"
+    :inactive-color="field.props.inactiveColor"
+    :active-color="field.props.activeColor"
+    :inactive-text="customT(field.props.inactiveLabel)"
+    :active-text="customT(field.props.activeLabel)"
+    :disabled="field.props.disabled"
+    :width="field.props.width"
     :loading="loading"
     :before-change="beforeChangeHook"
     @change="changeVal"
@@ -38,23 +38,23 @@ export default defineComponent({
     const { customT } = useTranslate();
 
     const val = ref<number|string|boolean>(props.modelValue);
-    const loading = ref<boolean>(props.field.component.loading);
+    const loading = ref<boolean>(!!props.field.props.loading);
 
     watchEffect(() => {
       val.value = props.modelValue;
     });
 
-    const changeVal = (newVal) => {
+    const changeVal = (newVal: number|string|boolean) => {
       val.value = newVal;
       context.emit('update:modelValue', newVal);
     };
 
     const beforeChangeHook = async (): Promise<boolean> => {
-      if (!props.field.component.beforeChange) return true;
+      if (!props.field.props.beforeChange) return true;
 
       const newVal = !val.value;
       loading.value = true;
-      const res = await props.field.component.beforeChange(newVal);
+      const res = await props.field.props.beforeChange(newVal);
       loading.value = false;
 
       return res;

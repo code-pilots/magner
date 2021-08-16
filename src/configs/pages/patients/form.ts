@@ -8,13 +8,13 @@ const patientForm = formController({
   },
   layout: {
     type: 'row',
-    component: {
+    props: {
       gutter: 24,
     },
     layout: [
       {
         type: 'column',
-        component: {
+        props: {
           span: 12,
           xs: 24,
         },
@@ -23,7 +23,7 @@ const patientForm = formController({
             type: 'input',
             name: 'surname',
             label: translate('patient.form.lastname_label'),
-            component: {
+            props: {
               type: 'text',
               placeholder: translate('patient.form.lastname_placeholder'),
             },
@@ -36,7 +36,7 @@ const patientForm = formController({
             type: 'input',
             name: 'firstname',
             label: translate('patient.form.firstname_label'),
-            component: {
+            props: {
               type: 'text',
               placeholder: translate('patient.form.firstname_placeholder'),
             },
@@ -49,7 +49,7 @@ const patientForm = formController({
             type: 'input',
             name: 'patronymic',
             label: translate('patient.form.patronymic_label'),
-            component: {
+            props: {
               type: 'text',
               placeholder: translate('patient.form.patronymic_placeholder'),
             },
@@ -66,7 +66,7 @@ const patientForm = formController({
               type: 'email',
               trigger: 'blur',
             },
-            component: {
+            props: {
               type: 'email',
               placeholder: 'ivanivanov@gmail.com',
               icon: 'mail',
@@ -80,7 +80,7 @@ const patientForm = formController({
               type: 'empty',
               trigger: 'blur',
             },
-            component: {
+            props: {
               type: 'tel',
               placeholder: translate('patient.form.phone_number_placeholder'),
               mask: {
@@ -92,7 +92,7 @@ const patientForm = formController({
             type: 'input',
             name: 'birthDate',
             label: translate('patient.form.birthday_label'),
-            component: {
+            props: {
               type: 'text',
               placeholder: translate('patient.form.birthday_placeholder'),
               mask: {
@@ -108,7 +108,7 @@ const patientForm = formController({
       },
       {
         type: 'column',
-        component: {
+        props: {
           span: 12,
           xs: 24,
         },
@@ -127,7 +127,7 @@ const patientForm = formController({
                 label: translate('patient.form.gender_male'),
               },
             ],
-            component: {
+            props: {
               placeholder: translate('patient.form.gender_placeholder'),
             },
           },
@@ -136,7 +136,7 @@ const patientForm = formController({
             type: 'select',
             name: 'cityId',
             label: translate('patient.form.city_label'),
-            component: {
+            props: {
               filterable: true,
               remote: true,
               remoteMethod: citiesGet,
@@ -152,7 +152,7 @@ const patientForm = formController({
             type: 'input',
             name: 'address',
             label: translate('patient.form.address_label'),
-            component: {
+            props: {
               type: 'text',
               placeholder: translate('patient.form.address_placeholder'),
             },
@@ -165,7 +165,7 @@ const patientForm = formController({
             type: 'input',
             name: 'apartment',
             label: translate('patient.form.apartments_label'),
-            component: {
+            props: {
               type: 'text',
               placeholder: translate('patient.form.apartments_placeholder'),
             },
@@ -179,7 +179,7 @@ const patientForm = formController({
             type: 'dropzone',
             name: 'photo',
             label: translate('patient.form.photo_label'),
-            component: {},
+            props: {},
           },
         ],
       },

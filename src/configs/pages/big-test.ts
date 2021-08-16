@@ -40,96 +40,15 @@ export default cardPageController({
     },
     layout: {
       type: 'row',
-      component: {
+      props: {
         justify: 'space-between',
       },
       layout: [
-        /** Custom field that interacts with dialog forms */
-        {
-          type: 'row',
-          fields: [
-            {
-              type: 'custom',
-              name: 'dialogger',
-              element: () => DialogOpener,
-              component: {
-                city: 'Create a city from the dialog menu',
-              },
-              changeAction: ({ getDialogForm }) => {
-                const dialog = getDialogForm('suspect');
-                if (dialog) {
-                  dialog.open = true;
-                }
-              },
-            },
-          ],
-        },
-
-        /** Form Collection row */
-        {
-          type: 'row',
-          class: 'test-form-collection',
-          title: translate('form_test.form.collection.title'),
-          fields: [
-            {
-              type: 'collection',
-              name: 'people',
-              dataType: 'array',
-              component: {
-                showFirst: true,
-                firstRemovable: false,
-              },
-              layout: [
-                {
-                  type: 'column',
-                  class: 'test-form-collection_name',
-                  component: {
-                    span: 8,
-                    xs: 24,
-                  },
-                  fields: [
-                    {
-                      type: 'input',
-                      name: 'firstname',
-                      component: {
-                        type: 'text',
-                        placeholder: translate('form_test.form.collection.name_placeholder'),
-                      },
-                      validation: {
-                        type: 'empty',
-                        trigger: 'blur',
-                      },
-                    },
-                  ],
-                },
-                {
-                  type: 'column',
-                  component: {
-                    span: 8,
-                    xs: 24,
-                  },
-                  fields: [
-                    {
-                      type: 'input',
-                      name: 'lastname',
-                      component: {
-                        type: 'text',
-                        placeholder: translate('form_test.form.collection.surname_placeholder'),
-                      },
-                    },
-                  ],
-                },
-              ],
-            },
-          ],
-        },
-
         /** Text fields, selects */
         {
           type: 'column',
-          component: {
-            span: 10,
-            xs: 24,
+          props: {
+            span: 24,
           },
           fields: [
             {
@@ -140,7 +59,7 @@ export default cardPageController({
                 type: 'phone',
                 trigger: 'blur',
               },
-              component: {
+              props: {
                 type: 'tel',
                 placeholder: '+7-915-820-14-02',
                 mask: {
@@ -153,7 +72,7 @@ export default cardPageController({
               type: 'select',
               name: 'city',
               label: translate('form_test.form.city_label'),
-              component: {
+              props: {
                 filterable: true,
                 remote: true,
                 remoteMethod: citiesGet,
@@ -180,7 +99,7 @@ export default cardPageController({
                   label: translate('form_test.form.country_norussia'),
                 },
               ],
-              component: {
+              props: {
                 placeholder: translate('form_test.form.country_placeholder'),
                 clearable: true,
               },
@@ -213,7 +132,7 @@ export default cardPageController({
               name: 'cityId',
               label: translate('form_test.form.city_plain_label'),
               hidden: true,
-              component: {
+              props: {
                 placeholder: translate('form_test.form.city_plain_placeholder'),
               },
               options: [],
@@ -223,46 +142,47 @@ export default cardPageController({
 
         /** Radio buttons, checkboxes, switches */
         {
-          type: 'column',
-          component: {
-            span: 14,
-            xs: 24,
+          type: 'row',
+          props: {
+            justify: 'space-between',
           },
           layout: [
             {
-              type: 'row',
+              type: 'column',
               title: 'Radio buttons',
-              component: {
-                justify: 'space-between',
+              props: {
+                span: 11,
+                xs: 24,
               },
               fields: [
                 {
                   type: 'radio',
                   name: 'radio',
-                  component: {},
+                  props: {},
                   options: RadioOptions,
                 },
                 {
                   type: 'radio',
                   name: 'radio-button',
                   radioButtons: true,
-                  component: {},
+                  props: {},
                   options: RadioOptions,
                 },
               ],
             },
             {
-              type: 'row',
+              type: 'column',
               title: 'Checkboxes',
-              component: {
-                justify: 'space-between',
+              props: {
+                span: 11,
+                xs: 24,
               },
               fields: [
                 {
                   type: 'checkbox',
                   name: 'checkbox',
                   dataType: 'array',
-                  component: {},
+                  props: {},
                   options: RadioOptions,
                 },
                 {
@@ -270,7 +190,7 @@ export default cardPageController({
                   name: 'checkbox-button',
                   dataType: 'array',
                   checkboxButtons: true,
-                  component: {
+                  props: {
                     max: 3,
                   },
                   options: [
@@ -289,17 +209,12 @@ export default cardPageController({
                     },
                   ],
                 },
-              ],
-            },
-            {
-              type: 'row',
-              fields: [
                 {
                   type: 'switch',
                   dataType: 'boolean',
                   name: 'isactive',
                   label: 'Switch',
-                  component: {
+                  props: {
                     inactiveLabel: translate('form_test.form.switch_label'),
                   },
                 },
@@ -311,12 +226,99 @@ export default cardPageController({
         /** Dropzone */
         {
           type: 'row',
+          props: {},
           fields: [
             {
               type: 'dropzone',
               name: 'photo',
               label: translate('form_test.form.dropzone_label'),
-              component: {},
+              props: {},
+            },
+          ],
+        },
+
+        /** Form Collection row */
+        {
+          type: 'row',
+          title: translate('form_test.form.collection.title'),
+          props: {
+            class: 'test-form-collection',
+          },
+          fields: [
+            {
+              type: 'collection',
+              name: 'people',
+              dataType: 'array',
+              props: {
+                showFirst: true,
+                firstRemovable: false,
+              },
+              layout: [
+                {
+                  type: 'column',
+                  props: {
+                    class: 'test-form-collection_name',
+                    span: 8,
+                    xs: 24,
+                  },
+                  fields: [
+                    {
+                      type: 'input',
+                      name: 'firstname',
+                      props: {
+                        type: 'text',
+                        placeholder: translate('form_test.form.collection.name_placeholder'),
+                      },
+                      validation: {
+                        type: 'empty',
+                        trigger: 'blur',
+                      },
+                    },
+                  ],
+                },
+                {
+                  type: 'column',
+                  props: {
+                    span: 8,
+                    xs: 24,
+                  },
+                  fields: [
+                    {
+                      type: 'input',
+                      name: 'lastname',
+                      props: {
+                        type: 'text',
+                        placeholder: translate('form_test.form.collection.surname_placeholder'),
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+
+        /** Custom field that interacts with dialog forms */
+        {
+          type: 'column',
+          props: {
+            span: 12,
+            xs: 24,
+          },
+          fields: [
+            {
+              type: 'custom',
+              name: 'dialogger',
+              component: () => DialogOpener,
+              props: {
+                city: 'Create a city from the dialog menu',
+              },
+              changeAction: ({ getDialogForm }) => {
+                const dialog = getDialogForm('suspect');
+                if (dialog) {
+                  dialog.open = true;
+                }
+              },
             },
           ],
         },
@@ -337,7 +339,7 @@ export default cardPageController({
             type: 'input',
             name: 'name',
             label: translate('form_test.form.dialog.city_label'),
-            component: {
+            props: {
               type: 'text',
               placeholder: translate('form_test.form.dialog.city_placeholder'),
             },
@@ -346,7 +348,7 @@ export default cardPageController({
             type: 'input',
             name: 'timezone',
             label: translate('form_test.form.dialog.timezone'),
-            component: {
+            props: {
               type: 'text',
               placeholder: translate('form_test.form.dialog.timezone_placeholder'),
             },
@@ -358,7 +360,7 @@ export default cardPageController({
           const custom = getField<CustomField>('dialogger');
           const dialog = getDialogForm('suspect');
           if (custom && dialog) {
-            custom.component.city = res;
+            custom.props.city = res;
             dialog.open = false;
           }
         },

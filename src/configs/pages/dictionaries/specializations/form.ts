@@ -9,7 +9,7 @@ const specializationsForm = formController({
       type: 'input',
       name: 'title',
       label: 'Название',
-      component: {
+      props: {
         type: 'text',
         placeholder: 'Иммунолог',
       },
@@ -22,7 +22,7 @@ const specializationsForm = formController({
       type: 'radio',
       name: 'type',
       label: 'Тип',
-      component: {},
+      props: {},
       options: [
         {
           value: 'all',
@@ -47,7 +47,7 @@ const specializationsForm = formController({
         type: 'empty',
         trigger: 'blur',
       },
-      component: {
+      props: {
         type: 'text',
         placeholder: 'Стоимость',
       },
@@ -60,7 +60,7 @@ const specializationsForm = formController({
         type: 'empty',
         trigger: 'blur',
       },
-      component: {
+      props: {
         type: 'text',
         placeholder: 'Стоимость с учетом уч. степени',
       },
@@ -74,7 +74,7 @@ const specializationsForm = formController({
         type: 'empty',
         trigger: 'blur',
       },
-      component: {
+      props: {
         type: 'text',
         placeholder: 'Стоимость',
       },
@@ -87,7 +87,7 @@ const specializationsForm = formController({
         type: 'empty',
         trigger: 'blur',
       },
-      component: {
+      props: {
         type: 'text',
         placeholder: 'Стоимость с учетом уч. степени',
       },
@@ -101,7 +101,7 @@ const specializationsForm = formController({
         type: 'empty',
         trigger: 'blur',
       },
-      component: {
+      props: {
         type: 'text',
         placeholder: 'Стоимость',
       },
@@ -114,7 +114,7 @@ const specializationsForm = formController({
         type: 'empty',
         trigger: 'blur',
       },
-      component: {
+      props: {
         type: 'text',
         placeholder: 'Стоимость с учетом уч. степени',
       },
@@ -128,7 +128,7 @@ const specializationsForm = formController({
         type: 'empty',
         trigger: 'blur',
       },
-      component: {
+      props: {
         type: 'text',
         placeholder: 'Стоимость',
       },
@@ -141,7 +141,7 @@ const specializationsForm = formController({
         type: 'empty',
         trigger: 'blur',
       },
-      component: {
+      props: {
         type: 'text',
         placeholder: 'Стоимость с учетом уч. степени',
       },

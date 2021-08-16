@@ -9,10 +9,13 @@
   <template v-else-if="block.layout">
     <component
       :is="getProps(block).component"
-      :class="[`generic-form_block-${block.type}`, block.class]"
+      :class="[`generic-form_block-${block.type}`, block.props.class]"
       v-bind="getProps(block).props"
     >
-      <div v-if="block.title" class="el-form-item__label custom-label">{{ customT(block.title) }}</div>
+      <div v-if="block.title" class="el-form-item__label custom-label">
+        {{ customT(block.title) }}
+      </div>
+
       <template
         v-for="(nestedBlock, i) in block.layout"
         :key="i"
@@ -30,7 +33,7 @@
   <template v-else-if="block.fields && block.fields.length">
     <component
       :is="getProps(block).component"
-      :class="[`generic-form_block-${block.type}`, block.class]"
+      :class="[`generic-form_block-${block.type}`, block.props.class]"
       v-bind="getProps(block).props"
     >
       <div v-if="block.title" class="el-form-item__label custom-label">{{ customT(block.title) }}</div>
@@ -65,12 +68,12 @@ export default defineComponent({
       if (block.type === 'row') {
         return {
           component: 'el-row',
-          props: block.component || {},
+          props: block.props || {},
         };
       }
       return {
         component: 'el-col',
-        props: block.component || {},
+        props: block.props || {},
       };
     };
 

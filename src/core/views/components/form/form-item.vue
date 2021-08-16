@@ -68,7 +68,7 @@
     <template v-else-if="field.type === 'custom' && customComponent">
       <component
         :is="customComponent"
-        v-bind="field.component"
+        v-bind="field.props"
         @action="customAction"
       />
     </template>
@@ -88,7 +88,7 @@
         </FormLayoutBlock>
       </template>
       <el-button
-        v-if="field.component.firstRemovable ? true : i !== 0"
+        v-if="field.props.firstRemovable ? true : i !== 0"
         type="danger"
         plain
         circle
@@ -110,7 +110,7 @@
         @click="changeCollectionItems('new')"
       >
         <SvgIcon name="plus" size="sm" />
-        Add more
+        {{ t('core.card.add_more') }}
       </el-button>
     </div>
   </template>
@@ -164,11 +164,11 @@ export default defineComponent({
   },
   emits: ['update:modelValue', 'error', 'action'],
   setup (props, context) {
-    const { customT } = useTranslate();
+    const { customT, t } = useTranslate();
     const isMobile = useMobile();
-    const customComponent = shallowRef(props.field.type === 'custom' ? props.field.element() : null);
+    const customComponent = shallowRef(props.field.type === 'custom' ? props.field.component() : null);
 
-    const collectionLen = props.field.type === 'collection' && props.field.component.showFirst ? 1 : 0;
+    const collectionLen = props.field.type === 'collection' && props.field.props.showFirst ? 1 : 0;
     const collectionFields = collectFieldsFromLayout(props.field.type === 'collection'
       ? (props.field.layout as unknown as GenericFormLayout)
       : []);
@@ -212,6 +212,7 @@ export default defineComponent({
       isMobile,
       customComponent,
       collectionItems,
+      t,
       customT,
       updVal,
       setError,

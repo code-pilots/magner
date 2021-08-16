@@ -14,9 +14,9 @@
       ref="inputEl"
       type="file"
       style="display: none"
-      :multiple="field.component.multiple || false"
-      :disabled="field.component.disabled || false"
-      v-bind="field.component.inputAtts || {}"
+      :multiple="field.props.multiple || false"
+      :disabled="field.props.disabled || false"
+      v-bind="field.props.inputAtts || {}"
       @change="inputChange"
     >
 
@@ -44,7 +44,7 @@
         <template #default>
           <DropzoneImage
             :model-value="image"
-            :src-key="field.component.srcKey"
+            :src-key="field.props.srcKey"
           />
         </template>
       </suspense>
@@ -95,12 +95,14 @@ export default defineComponent({
     const uploadToBackend = async (newVal: (File|string)[]) => {
       const uploadedFiles = await Promise.all(newVal.map(async (file) => {
         if (!file) return null;
-        if (!props.field.component.saveToBackend) return file;
+        if (!props.field.props.saveToBackend) return file;
 
-        const res = await requestWrapper(file, props.field.component.saveToBackend);
+        const res = await requestWrapper(file, props.field.props.saveToBackend);
         if (res.error) return null;
 
-        if (props.field.component.valueKey) return res.data[props.field.component.valueKey];
+        // @ts-ignore
+        if (res.data && typeof res.data === 'object') return res.data[props.field.props.valueKey || 'value'];
+        if (props.field.props.valueKey && res.data) return res.data;
         return res.data;
       }));
 
@@ -115,11 +117,12 @@ export default defineComponent({
       },
       async set (val: File | string | (File | string)[]) {
         let value;
-        if (props.field.component.multiple) {
+        if (props.field.props.multiple) {
           value = Array.isArray(val)
             ? [...(files.value as File[]), ...(await uploadToBackend(val))]
             : await uploadToBackend([val]);
         } else {
+          // @ts-ignore
           value = (await uploadToBackend([Array.isArray(val) ? val[0] || null : val]))?.[0] || null;
         }
 
@@ -133,7 +136,7 @@ export default defineComponent({
     };
 
     const toggleDragOver = (val: boolean) => {
-      if (props.field.component.noDrop || props.field.component.disabled) return;
+      if (props.field.props.noDrop || props.field.props.disabled) return;
       dragOver.value = val;
     };
 
@@ -173,12 +176,12 @@ export default defineComponent({
 
         // Handle MaxAmountError and prevent all files from being uploaded if the
         // given amount of files is more than allowed
-        if (props.field.component.multiple && props.field.component.maxAmount
-          && thisFiles.length + newFiles.length > props.field.component.maxAmount) {
+        if (props.field.props.multiple && props.field.props.maxAmount
+          && thisFiles.length + newFiles.length > props.field.props.maxAmount) {
           errors.push({
             type: 'MaxAmountError',
             value: thisFiles.length + newFiles.length,
-            allowed: props.field.component.maxAmount,
+            allowed: props.field.props.maxAmount,
           });
           context.emit('errors', errors);
           context.emit('textErrors', getErrorTexts(errors));
@@ -188,7 +191,7 @@ export default defineComponent({
         const passedFiles: File[] = [];
         newFiles.forEach((file) => {
           // Handle FormatsError - when single file is not in the list of allowed formats
-          const formats = props.field.component.formats || [];
+          const formats = props.field.props.formats || [];
           if (formats && formats.length) {
             const format = file.name.substring(file.name.lastIndexOf('.') + 1).toLowerCase();
             if (formats.indexOf(format) === -1) {
@@ -203,12 +206,12 @@ export default defineComponent({
           }
 
           // Handle MaxSizeError - when single file is too heavy
-          if (props.field.component.maxSize && file.size >= props.field.component.maxSize * 1024 * 1024) {
+          if (props.field.props.maxSize && file.size >= props.field.props.maxSize * 1024 * 1024) {
             errors.push({
               type: 'MaxSizeError',
               value: file.size,
               name: file.name,
-              allowed: props.field.component.maxSize,
+              allowed: props.field.props.maxSize,
             });
             return;
           }
@@ -239,13 +242,13 @@ export default defineComponent({
       toggleDragOver(false);
       commonHandler(event);
 
-      if (props.field.component.noDrop || props.field.component.disabled) return;
+      if (props.field.props.noDrop || props.field.props.disabled) return;
       if (event.dataTransfer) upload(Array.from(event.dataTransfer.files));
       else upload([]);
     };
 
     const inputChange = ({ target }: {target: HTMLInputElement}) => {
-      if (target.files && !props.field.component.disabled) upload(Array.from(target.files));
+      if (target.files && !props.field.props.disabled) upload(Array.from(target.files));
     };
 
     return {

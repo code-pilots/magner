@@ -2,13 +2,13 @@
   <el-input
     ref="input"
     :model-value="val"
-    :placeholder="field.component.placeholder && customT(field.component.placeholder)"
-    :type="field.component.type"
+    :placeholder="field.props.placeholder && customT(field.props.placeholder)"
+    :type="field.props.type"
     @input="changeVal"
   >
-    <template v-if="field.component.icon" #prefix>
+    <template v-if="field.props.icon" #prefix>
       <div class="generic-form_icon">
-        <svg-icon :name="field.component.icon" size="sm" />
+        <svg-icon :name="field.props.icon" size="sm" />
       </div>
     </template>
   </el-input>
@@ -65,14 +65,14 @@ export default defineComponent({
       };
     };
 
-    const changeVal = debounceOnInput(props.field.component.inputDelay, (newVal: string|number) => {
+    const changeVal = debounceOnInput(props.field.props.inputDelay, (newVal: string|number) => {
       context.emit('update:modelValue', newVal);
     });
 
     onMounted(() => {
       const inpEl = (input.value as any).input as HTMLInputElement;
-      if (props.field.component.mask && inpEl) {
-        mask = Maska(inpEl, props.field.component.mask);
+      if (props.field.props.mask && inpEl) {
+        mask = Maska(inpEl, props.field.props.mask);
       }
     });
 

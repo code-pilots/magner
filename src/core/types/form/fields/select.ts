@@ -1,4 +1,4 @@
-import type { BaseComponent, BaseField } from 'core/types/form/base';
+import type { BaseField, BaseProps } from 'core/types/form/base';
 import type { RequestCallback } from 'core/types/utils';
 import type { TranslateData } from 'core/utils/translate';
 
@@ -6,7 +6,7 @@ import type { TranslateData } from 'core/utils/translate';
  * Props of the Select component from element-ui:
  * https://element-plus.org/#/en-US/component/select#select-attributes
  */
-export interface SelectComponent extends BaseComponent {
+export interface SelectProps extends BaseProps {
   placeholder?: TranslateData,
 
   /** Use first option as initially selected */
@@ -58,6 +58,6 @@ export interface OptionComponent extends Record<string, any> {
 
 export interface SelectField extends BaseField {
   type: 'select',
-  component: SelectComponent,
+  props: SelectProps,
   options: OptionComponent[],
 }

@@ -18,7 +18,7 @@ const loginPageConfig = loginPageController({
           type: 'empty',
           trigger: 'blur',
         },
-        component: {
+        props: {
           type: 'text',
           placeholder: translate('login.fields.email_placeholder'),
           icon: 'mail',
@@ -32,7 +32,7 @@ const loginPageConfig = loginPageController({
           type: 'password',
           trigger: 'blur',
         },
-        component: {
+        props: {
           type: 'password',
           placeholder: translate('login.fields.password_placeholder'),
           icon: 'lock',

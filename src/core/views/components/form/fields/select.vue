@@ -2,28 +2,28 @@
   <el-select
     :model-value="val"
     :loading="loading"
-    :value-key="field.component.valueKey || 'value'"
-    :placeholder="customT(field.component.placeholder || '')"
-    :disabled="field.component.disabled || false"
-    :clearable="field.component.clearable || false"
-    :multiple="field.component.multiple || false"
-    :collapse-tags="field.component.collapseTags || false"
-    :multiple-limit="field.component.multipleLimit || 0"
-    :default-first-option="field.component.defaultFirstOption || false"
-    :filterable="field.component.filterable || false"
-    :filter-method="field.component.filterMethod || null"
-    :remote="field.component.remote || false"
+    :value-key="field.props.valueKey || 'value'"
+    :placeholder="customT(field.props.placeholder || '')"
+    :disabled="field.props.disabled || false"
+    :clearable="field.props.clearable || false"
+    :multiple="field.props.multiple || false"
+    :collapse-tags="field.props.collapseTags || false"
+    :multiple-limit="field.props.multipleLimit || 0"
+    :default-first-option="field.props.defaultFirstOption || false"
+    :filterable="field.props.filterable || false"
+    :filter-method="field.props.filterMethod || null"
+    :remote="field.props.remote || false"
     :remote-method="remoteMethod"
-    :loading-text="customT(field.component.loadingText || '')"
-    :no-match-text="customT(field.component.noMatchText || '')"
-    :no-data-text="customT(field.component.noDataText || '')"
+    :loading-text="customT(field.props.loadingText || '')"
+    :no-match-text="customT(field.props.noMatchText || '')"
+    :no-data-text="customT(field.props.noDataText || '')"
     @change="changeVal"
   >
     <el-option
       v-for="option in allOptions"
-      :key="field.component.valueKey ? option[field.component.valueKey] : option.value"
-      :value="field.component.valueKey ? option[field.component.valueKey] : option.value"
-      :label="field.component.labelKey ? customT(option[field.component.labelKey]) : customT(option.label)"
+      :key="field.props.valueKey ? option[field.props.valueKey] : option.value"
+      :value="field.props.valueKey ? option[field.props.valueKey] : option.value"
+      :label="field.props.labelKey ? customT(option[field.props.labelKey]) : customT(option.label)"
       :disabled="option.disabled"
     />
   </el-select>
@@ -66,10 +66,10 @@ export default defineComponent({
     };
 
     const remoteMethod = async (search: string) => {
-      if (!props.field.component.remote || !props.field.component.remoteMethod) return;
+      if (!props.field.props.remote || !props.field.props.remoteMethod) return;
 
       loading.value = true;
-      const newOptions = await requestWrapper(search, props.field.component.remoteMethod);
+      const newOptions = await requestWrapper(search, props.field.props.remoteMethod);
       allOptions.value = newOptions.data || [];
       loading.value = false;
     };

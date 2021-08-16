@@ -14,6 +14,7 @@ const enLocale = {
       removal_confirm: 'Are you sure you want to delete "{msg}"?',
       confirm_button_text: 'Yes',
       cancel_button_text: 'Cancel',
+      add_more: 'Add more',
     },
     form: {
       clear: 'Clear',

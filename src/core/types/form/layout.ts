@@ -6,84 +6,91 @@ import type { TranslateData } from 'core/utils/translate';
 
 interface FormLayoutBase {
   title?: TranslateData,
-  class?: string,
   layout?: GenericFormLayout[],
   fields?: GenericComponent[],
 }
 
+interface LayoutPropsBase {
+  class?: string,
+  titleType?: 'like-label' | 'heading',
+}
+
 /** RowBase defines element-ui el-row's attributes:
  *  https://element-plus.org/#/en-US/component/layout#row-attributes */
-interface RowBase {
-  component?: {
-    /** Grid spacing */
-    gutter?: number,
+interface RowBase extends LayoutPropsBase {
+  /** Grid spacing */
+  gutter?: number,
 
-    /** Horizontal alignment of flex layout */
-    justify?: 'start' | 'end' | 'center' | 'space-around' | 'space-between',
+  /** Horizontal alignment of flex layout */
+  justify?: 'start' | 'end' | 'center' | 'space-around' | 'space-between',
 
-    /** Vertical alignment of flex layout */
-    align?: 'top' | 'middle' | 'bottom',
+  /** Vertical alignment of flex layout */
+  align?: 'top' | 'middle' | 'bottom',
 
-    /** Custom element tag */
-    tag?: string,
-  },
+  /** Custom element tag */
+  tag?: string,
 }
 
 /** Define different column types */
-interface RowFields extends FormLayoutBase, RowBase {
+interface RowFields extends FormLayoutBase {
   type: 'row',
+  props: RowBase,
   layout?: never,
+  component?: never,
   fields: GenericComponent[],
 }
-interface RowLayout extends FormLayoutBase, RowBase {
+interface RowLayout extends FormLayoutBase {
   type: 'row',
+  props: RowBase,
   layout: GenericFormLayout[],
+  component?: never,
   fields?: never,
 }
 export type FormLayoutRow = RowLayout | RowFields;
 
 /** ColumnBase defines element-ui el-col's attributes:
  *  https://element-plus.org/#/en-US/component/layout#col-attributes */
-interface ColumnBase {
-  /** Props to be passed to el-col component */
-  component?: {
-    /** Number of column the grid spans */
-    span?: number,
+interface ColumnBase extends LayoutPropsBase {
+  /** Number of column the grid spans */
+  span?: number,
 
-    /** Number of spacing on the left side of the grid */
-    offset?: number,
+  /** Number of spacing on the left side of the grid */
+  offset?: number,
 
-    /** Number of columns that grid moves to the right */
-    push?: number,
+  /** Number of columns that grid moves to the right */
+  push?: number,
 
-    /** Number of columns that grid moves to the left */
-    pull?: number,
+  /** Number of columns that grid moves to the left */
+  pull?: number,
 
-    /** Column Span for <768px */
-    xs?: number | { span: number, offset: number },
-    /** Column Span for ≥768px */
-    sm?: number | { span: number, offset: number },
-    /** Column Span for ≥992px */
-    md?: number | { span: number, offset: number },
-    /** Column Span for ≥1200px */
-    lg?: number | { span: number, offset: number },
-    /** Column Span for ≥1920px */
-    xl?: number | { span: number, offset: number },
+  /** Column Span for <768px */
+  xs?: number | { span: number, offset: number },
+  /** Column Span for ≥768px */
+  sm?: number | { span: number, offset: number },
+  /** Column Span for ≥992px */
+  md?: number | { span: number, offset: number },
+  /** Column Span for ≥1200px */
+  lg?: number | { span: number, offset: number },
+  /** Column Span for ≥1920px */
+  xl?: number | { span: number, offset: number },
 
-    /** Custom element tag */
-    tag?: string,
-  },
+  /** Custom element tag */
+  tag?: string,
 }
 
 /** Define different column types */
-export interface ColumnFields extends FormLayoutBase, ColumnBase {
+export interface ColumnFields extends FormLayoutBase {
   type: 'column',
+  props: ColumnBase,
   layout?: never,
+  component?: never,
   fields: GenericComponent[],
 }
 export interface ColumnLayout extends FormLayoutBase, ColumnBase {
   type: 'column',
+  props: ColumnBase,
   layout: GenericFormLayout[],
+  component?: never,
   fields?: never,
 }
 

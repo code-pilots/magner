@@ -33,14 +33,16 @@ const patientsFilters = filtersFormController({
 
   layout: {
     type: 'row',
+    props: {},
     layout: [
       {
         type: 'column',
+        props: {},
         fields: [
           {
             type: 'input',
             name: 'fullName',
-            component: {
+            props: {
               type: 'text',
               placeholder: translate('patients.filters.fullname_placeholder'),
               inputDelay: 400,
@@ -50,11 +52,12 @@ const patientsFilters = filtersFormController({
       },
       {
         type: 'column',
+        props: {},
         fields: [
           {
             type: 'select',
             name: 'sort',
-            component: {
+            props: {
               placeholder: translate('patients.filters.sort_placeholder'),
               valueKey: 'id',
               clearable: true,

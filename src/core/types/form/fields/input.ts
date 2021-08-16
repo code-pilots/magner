@@ -1,7 +1,7 @@
-import type { BaseComponent, BaseField } from 'core/types/form/base';
+import type { BaseField, BaseProps } from 'core/types/form/base';
 import type { TranslateData } from 'core/utils/translate';
 
-export interface InputComponent extends BaseComponent {
+export interface InputProps extends BaseProps {
   type: 'text'|'number'|'email'|'password'|'tel'|string,
   id?: string,
   placeholder?: TranslateData,
@@ -30,5 +30,5 @@ export interface InputComponent extends BaseComponent {
 
 export interface InputField extends BaseField {
   type: 'input',
-  component: InputComponent,
+  props: InputProps,
 }

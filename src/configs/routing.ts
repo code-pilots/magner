@@ -7,6 +7,7 @@ import consultationTypesTable from 'configs/pages/dictionaries/consultation-type
 import specializationTable from 'configs/pages/dictionaries/specializations/table';
 import specializationConfig from 'configs/pages/dictionaries/specializations/card';
 import bigtestConfig from 'configs/pages/big-test';
+import formLayoutConfig from 'configs/pages/form-layout';
 import translate from 'core/utils/translate';
 
 const router = routerController({
@@ -153,6 +154,19 @@ const router = routerController({
       route: {
         path: '/big-test',
         name: 'bigtest',
+      },
+    },
+
+    {
+      preset: 'card',
+      title: translate('pages.form_layout'),
+      icon: 'layout',
+      visible: true,
+      roles: [ROLE.SUPER_ADMIN, ROLE.DOCTOR, ROLE.DOCTOR],
+      config: formLayoutConfig,
+      route: {
+        path: '/form-layout',
+        name: 'form-layout',
       },
     },
 

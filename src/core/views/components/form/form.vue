@@ -78,6 +78,7 @@ import {
   watchEffect, computed,
 } from 'vue';
 import type { GenericForm } from 'core/types/form';
+import type { FormInteractionsData } from 'core/types/form/base';
 import { DataTypeInitials, fieldsToModels, layoutToFields } from 'core/utils/form';
 import setupValidators from 'core/utils/validators';
 import useMobile from 'core/utils/is-mobile';
@@ -166,11 +167,12 @@ export default defineComponent({
 
     const getField = (name: string) => allFields.value.find((field) => field.name === name);
     const getDialogForm = (name: string) => reactiveConfig.dialogForms?.find((dialogForm) => dialogForm.name === name);
-    const formData = reactive({
+    const formData = reactive<FormInteractionsData>({
       form,
+      // @ts-ignore
       getField,
       getDialogForm,
-      reactiveConfig,
+      config: reactiveConfig,
     });
 
     const controlOnInput = (field: string, newValue: any) => {

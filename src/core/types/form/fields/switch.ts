@@ -1,7 +1,7 @@
-import type { BaseComponent, BaseField } from 'core/types/form/base';
+import type { BaseField, BaseProps } from 'core/types/form/base';
 import type { TranslateData } from 'core/utils/translate';
 
-export interface SwitchComponent extends BaseComponent {
+export interface SwitchProps extends BaseProps {
   /** Text to display on the left side of the switch */
   inactiveLabel?: TranslateData,
   /** Text to display on the right side of the switch */
@@ -25,5 +25,5 @@ export interface SwitchComponent extends BaseComponent {
 export interface SwitchField extends BaseField {
   type: 'switch',
   dataType: 'boolean',
-  component: SwitchComponent,
+  props: SwitchProps,
 }

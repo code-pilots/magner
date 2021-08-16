@@ -1,10 +1,10 @@
 <template>
   <el-checkbox-group
     :model-value="val"
-    :min="field.component.min"
-    :max="field.component.max"
-    :text-color="field.component.activeTextColor"
-    :fill="field.component.fill"
+    :min="field.props.min"
+    :max="field.props.max"
+    :text-color="field.props.activeTextColor"
+    :fill="field.props.fill"
     @change="changeVal"
   >
     <template v-if="field.checkboxButtons">
@@ -59,7 +59,7 @@ export default defineComponent({
       val.value = props.modelValue;
     });
 
-    const changeVal = (newVal) => {
+    const changeVal = (newVal: any[]) => {
       val.value = newVal;
       context.emit('update:modelValue', newVal);
     };

@@ -10,6 +10,7 @@ const ruCustom: CustomTranslationSchema = {
     specializations: 'Специализации',
     consultation_types: 'Типы консультаций',
     form_test: 'Тест формы',
+    form_layout: 'Пример разметки',
   },
   login: {
     title: 'Вход',
@@ -78,6 +79,7 @@ const ruCustom: CustomTranslationSchema = {
     title: 'Тест формы',
     submit_text: 'Сохранить',
     form: {
+      example_label: 'Пример',
       phone_label: 'Пример текстового поля с маской и валидацией',
       city_label: 'Пример селекта с загружаемыми данными',
       city_placeholder: 'Москва',

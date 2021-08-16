@@ -1,7 +1,7 @@
-import type { BaseComponent, BaseField } from 'core/types/form/base';
+import type { BaseField, BaseProps } from 'core/types/form/base';
 import type { TranslateData } from 'core/utils/translate';
 
-export interface CheckboxComponent extends BaseComponent {
+export interface CheckboxProps extends BaseProps {
   /** Minimum/Maximum number of checkbox checked */
   min?: number,
   max?: number,
@@ -25,7 +25,7 @@ export interface CheckboxOption extends Record<string, any> {
 
 export interface CheckboxField extends BaseField {
   type: 'checkbox',
-  component: CheckboxComponent,
+  props: CheckboxProps,
   options: CheckboxOption[],
   dataType: 'array',
   checkboxButtons?: boolean,

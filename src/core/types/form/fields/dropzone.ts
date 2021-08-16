@@ -1,4 +1,4 @@
-import type { BaseComponent, BaseField } from 'core/types/form/base';
+import type { BaseField, BaseProps } from 'core/types/form/base';
 import type { RequestCallback } from 'core/types/utils';
 
 export type DropzoneUploadReturn = string | number | File | Record<string, any>;
@@ -16,7 +16,7 @@ export interface DropzoneError {
 }
 
 /** Dropzone component properties */
-export interface DropzoneComponent extends BaseComponent {
+export interface DropzoneProps extends BaseProps {
   /**
    * Function that receives a file as data in the RequestCallback.
    * It must return error if upload didn't happen and a string or a file representing the value
@@ -58,5 +58,5 @@ export interface DropzoneComponent extends BaseComponent {
 
 export interface DropzoneField extends BaseField {
   type: 'dropzone',
-  component: DropzoneComponent,
+  props: DropzoneProps,
 }
