@@ -34,7 +34,7 @@ export interface DateTimeProps extends BaseProps {
   /** Default time value after picking a date. If non-range, just Date. If range, array of two Dates */
   defaultTime?: Date | [Date, Date],
 
-  /** Unlink two date-panels in range-picker */
+  /** Allow both panels of the picker select month and year independently of each other */
   unlinkPanels?: boolean,
 
   /** Whether to show clear button */

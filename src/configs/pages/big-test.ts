@@ -277,6 +277,8 @@ export default cardPageController({
                   label: translate('form_test.form.dates.label1'),
                   props: {
                     type: 'date',
+                    format: 'DD.MM.YYYY',
+                    placeholder: '04.10.2001',
                   },
                 },
                 {

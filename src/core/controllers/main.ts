@@ -1,4 +1,5 @@
 import { createApp } from 'vue';
+
 import ElementPlus from 'element-plus';
 
 import type { StoreController } from './store';

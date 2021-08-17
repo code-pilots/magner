@@ -3,6 +3,7 @@ import type { TranslationConfig } from 'core/types/configs/translation';
 import globalValues from 'core/global';
 import enLocale from 'core/controllers/i18n/en';
 import ruLocale from 'core/controllers/i18n/ru';
+import lstorage from 'core/utils/local-storage';
 
 export type TranslationController = I18n;
 
@@ -32,12 +33,13 @@ export const translationController = <SUPPORTED_LANGUAGES extends string>(
     return accum;
   }, {} as Record<SUPPORTED_LANGUAGES, any>);
 
+  globalValues.locales = config.elLocales;
   globalValues.store.dispatch('changeLanguage', config.mainLanguage);
   globalValues.store.dispatch('changeAllLanguages', config.languages);
 
   const i18n = createI18n({
     legacy: false,
-    locale: config.mainLanguage,
+    locale: lstorage.read('language') || config.mainLanguage,
     fallbackLocale: config.fallbackLanguage,
     messages,
   });

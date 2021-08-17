@@ -1,7 +1,8 @@
-import lstorage from 'core/utils/local-storage';
 import { translationController } from 'core/controllers';
 import enCustom from 'configs/translation/en';
 import ruCustom from 'configs/translation/ru';
+import ruElLocale from 'element-plus/lib/locale/lang/ru';
+import enElLocale from 'element-plus/lib/locale/lang/en';
 
 // eslint-disable-next-line no-shadow
 export enum SupportedLanguages {
@@ -9,10 +10,8 @@ export enum SupportedLanguages {
   RUS = 'ru',
 }
 
-const language = lstorage.read('language') || 'ru';
-
 const i18n = translationController<SupportedLanguages>({
-  mainLanguage: language,
+  mainLanguage: 'ru',
   fallbackLanguage: 'en',
   languages: {
     en: 'English',
@@ -21,6 +20,10 @@ const i18n = translationController<SupportedLanguages>({
   translation: {
     en: enCustom,
     ru: ruCustom,
+  },
+  elLocales: {
+    en: enElLocale,
+    ru: ruElLocale,
   },
 });
 

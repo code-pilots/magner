@@ -62,9 +62,9 @@
 <script lang="ts">
 import 'styles/components/header.css';
 import { defineComponent, PropType, ref } from 'vue';
+import useStore from 'core/controllers/store/store';
 import { useRouter } from 'vue-router';
 import { TranslateData, useTranslate } from 'core/utils/translate';
-import useStore from 'core/controllers/store/store';
 import { SupportedLanguages } from 'configs/translation';
 import SvgIcon from './icon.vue';
 

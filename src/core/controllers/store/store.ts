@@ -2,8 +2,10 @@ import { InjectionKey } from 'vue';
 import { createStore, useStore as baseUseStore, Store } from 'vuex';
 import type { CustomRoute, GlobalRouting, ProjectConfig } from 'core/types/configs';
 import type { SupportedLanguages } from 'configs/translation';
+import { locale as elLocale } from 'element-plus';
 import ROLE from 'configs/roles';
 import lstorage from 'core/utils/local-storage';
+import globalValues from 'core/global';
 
 interface State {
   globalRoutes: GlobalRouting,
@@ -118,8 +120,12 @@ export const store = createStore<State>({
     changeProject (context, value: ProjectConfig) {
       context.commit('setProject', value);
     },
+
     changeLanguage (context, value: SupportedLanguages) {
       context.commit('setLanguage', value);
+      if (globalValues.locales?.[value]) {
+        elLocale(globalValues.locales[value]);
+      }
     },
     changeAllLanguages (context, value: Record<SupportedLanguages, string>) {
       context.commit('setLanguages', value);
