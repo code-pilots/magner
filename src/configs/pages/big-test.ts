@@ -49,7 +49,8 @@ export default cardPageController({
         {
           type: 'column',
           props: {
-            span: 24,
+            span: 12,
+            xs: 24,
           },
           fields: [
             {
@@ -69,6 +70,31 @@ export default cardPageController({
               },
             },
 
+            {
+              type: 'textarea',
+              name: 'textarea',
+              label: translate('form_test.form.textarea_label'),
+              props: {
+                placeholder: translate('form_test.form.textarea_placeholder'),
+                autosize: { minRows: 3, maxRows: 5 },
+                maxLength: 1024,
+                showLetterLimit: true,
+              },
+              validation: {
+                type: 'empty',
+                trigger: 'blur',
+              },
+            },
+          ],
+        },
+
+        {
+          type: 'column',
+          props: {
+            span: 12,
+            xs: 24,
+          },
+          fields: [
             {
               type: 'select',
               name: 'city',
@@ -317,11 +343,11 @@ export default cardPageController({
               name: 'dialogger',
               component: () => DialogOpener,
               props: {
-                city: 'Create a city from the dialog menu',
+                city: 'Open dialog menu',
               },
-              changeAction: ({ getDialogForm }) => {
+              changeAction: ({ getDialogForm, data }) => {
                 const dialog = getDialogForm('suspect');
-                if (dialog) {
+                if (dialog && data?.type === 'open-suspect') {
                   dialog.open = true;
                 }
               },

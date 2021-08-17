@@ -29,6 +29,13 @@
       @update:modelValue="updVal"
     />
 
+    <FormTextarea
+      v-if="field.type === 'textarea'"
+      v-model="val"
+      :field="field"
+      @update:modelValue="updVal"
+    />
+
     <FormRadio
       v-else-if="field.type === 'radio'"
       v-model="val"
@@ -134,12 +141,14 @@ import FormCheckbox from 'core/views/components/form/fields/checkbox.vue';
 import FormSwitch from 'core/views/components/form/fields/switch.vue';
 import FormLayoutBlock from 'core/views/components/form/layout-block.vue';
 import { collectFieldsFromLayout, fieldsToModels } from 'core/utils/form';
+import FormTextarea from 'core/views/components/form/fields/textarea.vue';
 
 type CollectionItems = ReturnType<typeof fieldsToModels>[];
 
 export default defineComponent({
   name: 'FormItem',
   components: {
+    FormTextarea,
     FormLayoutBlock,
     FormSwitch,
     FormCheckbox,

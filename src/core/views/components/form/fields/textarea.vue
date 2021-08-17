@@ -1,39 +1,35 @@
 <template>
   <el-input
-    ref="input"
     :model-value="val"
+    type="textarea"
     :placeholder="customT(field.props.placeholder)"
-    :type="field.props.type"
+    :rows="field.props.rows"
+    :autosize="field.props.autosize"
     :maxlength="field.props.maxLength"
     :minlength="field.props.minLength"
     :show-word-limit="field.props.showLetterLimit"
     :clearable="field.props.clearable"
     :disabled="field.props.disabled"
+    :resize="field.props.resize"
     :autofocus="field.props.autofocus"
     @input="changeVal"
-  >
-    <template v-if="field.props.icon" #prefix>
-      <div class="generic-form_icon">
-        <svg-icon :name="field.props.icon" size="sm" />
-      </div>
-    </template>
-  </el-input>
+  />
 </template>
 
 <script lang="ts">
 import {
-  defineComponent, PropType, ref, watchEffect, onMounted, nextTick,
+  defineComponent, PropType, ref, watchEffect,
 } from 'vue';
 import { useTranslate } from 'core/utils/translate';
 import type { InputField } from 'core/types/form/fields/input';
-import { create as Maska } from 'maska';
 import debounceOnInput from 'core/utils/input-debounce';
+import { TextareaField } from 'core/types/form/fields/textarea';
 
 export default defineComponent({
-  name: 'FormInput',
+  name: 'FormTextarea',
   props: {
     field: {
-      type: Object as PropType<InputField>,
+      type: Object as PropType<TextareaField>,
       required: true,
     },
     modelValue: {
@@ -46,29 +42,17 @@ export default defineComponent({
     const { customT } = useTranslate();
 
     const val = ref<number|string>(props.modelValue);
-    const input = ref<HTMLInputElement>();
-
     watchEffect(() => {
       val.value = props.modelValue;
     });
-
-    let mask;
 
     const changeVal = debounceOnInput(props.field.props.inputDelay, val, (newVal: string|number) => {
       context.emit('update:modelValue', newVal);
     });
 
-    onMounted(() => {
-      const inpEl = (input.value as any).input as HTMLInputElement;
-      if (props.field.props.mask && inpEl) {
-        mask = Maska(inpEl, props.field.props.mask);
-      }
-    });
-
     return {
       customT,
       val,
-      input,
       changeVal,
     };
   },

@@ -79,6 +79,8 @@ const enCustom = {
     form: {
       example_label: 'Example',
       phone_label: 'Example of the text input with a mask and validation',
+      textarea_label: 'Example of autosize textarea',
+      textarea_placeholder: 'Write some text here',
       city_label: 'Example of the select with remote data loading',
       city_placeholder: 'Moscow',
       city_loading_text: 'Loading',

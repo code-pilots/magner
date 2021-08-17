@@ -3,8 +3,9 @@ import type { TranslateData } from 'core/utils/translate';
 
 export interface InputProps extends BaseProps {
   type: 'text'|'number'|'email'|'password'|'tel'|string,
-  id?: string,
   placeholder?: TranslateData,
+
+  /** Icon name from the 'app/assets/icons' folder */
   icon?: string,
 
   /** An amount of milliseconds (put 400 for the best UX) of the delay for the 'update:modelValue' event of
@@ -25,7 +26,18 @@ export interface InputProps extends BaseProps {
       uppercase?: boolean,
       transform?: (char: string) => string,
     }>,
-  }
+  },
+
+  /** Whether to show the letter count in form of '5/30' if 'maxLength: 30' */
+  showLetterLimit?: boolean,
+  maxLength?: number,
+  minLength?: number,
+
+  /** Whether to show clear button */
+  clearable?: boolean,
+
+  disabled?: boolean,
+  autofocus?: boolean,
 }
 
 export interface InputField extends BaseField {

@@ -31,7 +31,7 @@ export default defineComponent({
   emits: ['action', 'update:modelValue'],
   setup (props, context) {
     const handleOpen = () => {
-      context.emit('action', { type: 'click' });
+      context.emit('action', { type: 'open-suspect' });
     };
 
     watchEffect(() => {
