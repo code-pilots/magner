@@ -28,7 +28,7 @@
           :loading="createLoading"
           :error="error"
           :field-errors="fieldErrors"
-          :allow-empty-fields="!isNew"
+          :skip-validation="!isNew ? ['empty'] : false"
           :return-initial-difference="!isNew"
           class="card-page_form"
           @submit="save"

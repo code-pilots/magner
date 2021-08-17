@@ -8,16 +8,20 @@ import globalValues from 'core/global';
  */
 const checkAuth = async (isRouteProtected: boolean) => {
   const store = globalValues.store;
-  if (store?.state?.token === 'null') await store.dispatch('changeToken', null);
+  if (store.state.project.noBackendMode) {
+    return true;
+  }
+
+  if (store.state.token === 'null') await store.dispatch('changeToken', null);
 
   const globalRoutes = store.state.globalRoutes;
 
   if (isRouteProtected) {
-    if (store?.state.user) {
+    if (store.state.user) {
       return true;
     }
 
-    if (store?.state.token) {
+    if (store.state.token) {
       const user = await profileRequest();
       if (user.data) {
         await store.dispatch('changeUser', user.data);
@@ -30,11 +34,11 @@ const checkAuth = async (isRouteProtected: boolean) => {
   }
 
   // If route is not protected
-  if (store?.state.user) {
+  if (store.state.user) {
     return { name: globalRoutes.homeHasAuthName };
   }
 
-  if (store?.state.token) {
+  if (store.state.token) {
     const user = await profileRequest();
     if (user.data) {
       await store.dispatch('changeUser', user.data);

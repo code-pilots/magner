@@ -51,18 +51,25 @@ export const validators: Record<SupportedValidators, ValidatorFunc> = {
   },
 };
 
-type SetupFunc = (fields: GenericComponent[], allowEmpty: boolean) => Record<string, ValidationField>;
+type SetupFunc = (
+  fields: GenericComponent[],
+  skipValidation: boolean | SupportedValidators[],
+) => Record<string, ValidationField>;
 
 /**
  * The function goes through all the form fields and collects the 'validation' property, transforms it
  * to the function from the existing validation types and passed to the Form component as a 'rules' prop.
  */
-const setupValidators: SetupFunc = (layout, allowEmpty) => {
+const setupValidators: SetupFunc = (layout, skipValidation) => {
   const fields = layoutToFields(layout);
 
   return fields.reduce((accum, field) => {
-    if (!field.validation) return accum;
-    if (field.validation.type === 'empty' && allowEmpty) return accum;
+    if (!field.validation
+      || skipValidation === true
+      || (Array.isArray(skipValidation) && skipValidation.includes(field.validation.type))
+    ) {
+      return accum;
+    }
 
     accum[field.name] = {
       type: field.dataType || 'string',

@@ -81,7 +81,7 @@ import {
 import type { GenericForm } from 'core/types/form';
 import type { FormInteractionsData } from 'core/types/form/base';
 import { DataTypeInitials, fieldsToModels, layoutToFields } from 'core/utils/form';
-import setupValidators from 'core/utils/validators';
+import setupValidators, { SupportedValidators } from 'core/utils/validators';
 import useMobile from 'core/utils/is-mobile';
 import FormItem from 'core/views/components/form/form-item.vue';
 import FormLayout from 'core/views/components/form/layout.vue';
@@ -125,9 +125,9 @@ export default defineComponent({
       default: () => ({}),
     },
 
-    /** If the field has validation of type 'empty', skip this validation (Used in filters) */
-    allowEmptyFields: {
-      type: Boolean,
+    /** Skip all validations (true) of the form or several validation types (array of validator strings) */
+    skipValidation: {
+      type: [Boolean, Array] as PropType<boolean | SupportedValidators[]>,
       default: false,
     },
   },
@@ -139,7 +139,7 @@ export default defineComponent({
     const reactiveConfig = reactive(props.config);
     const allFields = computed(() => layoutToFields(reactiveConfig.layout));
     const form = reactive(fieldsToModels(allFields.value, props.initialData));
-    const validation = setupValidators(allFields.value, props.allowEmptyFields);
+    const validation = setupValidators(allFields.value, props.skipValidation);
 
     const globalError = ref<string>(props.error); // Error of the whole form
     const errors = ref<Record<string, string>>(props.fieldErrors); // Field errors record

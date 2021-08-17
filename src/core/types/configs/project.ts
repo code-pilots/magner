@@ -10,6 +10,9 @@ export interface ProjectConfig {
   /** Project description */
   description?: string,
 
+  /** Used for creating the admin panel during first stages of development if you still don't have a backend.
+   * It disables the roles feature and helps logging in.<br>
+   * But it still requires request functions to be written which you can simple make empty (return void). */
   noBackendMode?: boolean,
 
   /** Helper functions required for proper functioning of the admin panel */
