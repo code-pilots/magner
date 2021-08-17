@@ -107,6 +107,17 @@ const enCustom = {
       option_adult: 'Adult',
       option_child: 'Child',
       dropzone_label: 'Dropzone example',
+      dates: {
+        title: 'Date Pickers and ranges',
+        label1: 'Day',
+        label2: 'Week',
+        label3: 'Month',
+        label4: 'Year',
+        label5: 'Datetime',
+        label6: 'Date range',
+        label7: 'Date time range',
+        label8: 'Month range',
+      },
       collection: {
         title: 'Add person',
         name_placeholder: 'First name',

@@ -130,6 +130,15 @@
             }
         }
 
+        &-datetime {
+            @media (--breakpoint-small) {
+                width: 100%;
+                & .el-range-editor {
+                    width: 100%;
+                }
+            }
+        }
+
         &-custom {
             width: 100%;
         }
@@ -254,5 +263,23 @@
 
     & .el-button+.el-button {
         margin-left: 0;
+    }
+}
+
+.el-picker__popper {
+    @media (--breakpoint-small) {
+        & .el-date-range-picker {
+            width: 300px;
+        }
+
+        & .el-picker-panel__body {
+            min-width: unset;
+            display: flex;
+            flex-direction: column;
+
+            & .el-date-range-picker__content {
+                width: 100%;
+            }
+        }
     }
 }

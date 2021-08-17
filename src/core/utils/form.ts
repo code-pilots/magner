@@ -1,7 +1,7 @@
 import type { GenericComponent } from 'core/types/form';
 import type { FormLayout, GenericFormLayout } from 'core/types/form/layout';
 
-export type SupportedDataTypes = 'string'|'number'|'array'|'object'|'boolean';
+export type SupportedDataTypes = 'string'|'number'|'array'|'object'|'date'|'boolean';
 export type DataTypeInitials = '' | null | [] | {} | false;
 
 /**
@@ -20,6 +20,8 @@ export const dataTypeToInitial = (dataType: SupportedDataTypes): DataTypeInitial
       return [];
     case 'object':
       return {};
+    case 'date':
+      return null;
     default:
       return '';
   }

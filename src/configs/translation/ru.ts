@@ -109,6 +109,17 @@ const ruCustom: CustomTranslationSchema = {
       option_adult: 'Взрослый',
       option_child: 'Ребенок',
       dropzone_label: 'Пример дропзоны',
+      dates: {
+        title: 'Date Pickers',
+        label1: 'День',
+        label2: 'Неделя',
+        label3: 'Месяц',
+        label4: 'Год',
+        label5: 'Дата и время',
+        label6: 'Промежуток дат',
+        label7: 'Промежуток дат и времени',
+        label8: 'Промежуток месяцев',
+      },
       collection: {
         title: 'Добавить пользователя',
         name_placeholder: 'Имя',

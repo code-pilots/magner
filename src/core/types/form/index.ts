@@ -11,6 +11,7 @@ import type { CollectionField } from './fields/collection';
 
 import type { FormLayout } from './layout';
 import type { DialogForm } from './dialog-forms';
+import { DateTimeField } from 'core/types/form/fields/datetime';
 
 /**
  * The type of a field used in the forms. Defined by its required 'type' which
@@ -24,6 +25,7 @@ export type GenericComponent =
   | SwitchField
   | SelectField
   | DropzoneField
+  | DateTimeField
   | CollectionField
   | CustomField;
 

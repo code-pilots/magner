@@ -45,7 +45,7 @@ export default cardPageController({
         gutter: 12,
       },
       layout: [
-        /** Text fields, selects */
+        /** Text fields */
         {
           type: 'column',
           props: {
@@ -88,6 +88,7 @@ export default cardPageController({
           ],
         },
 
+        /** Selects */
         {
           type: 'column',
           props: {
@@ -247,6 +248,106 @@ export default cardPageController({
                   label: 'Switch',
                   props: {
                     inactiveLabel: translate('form_test.form.switch_label'),
+                  },
+                },
+              ],
+            },
+          ],
+        },
+
+        /** Dates */
+        {
+          type: 'row',
+          title: translate('form_test.form.dates.title'),
+          props: {
+            titleType: 'heading',
+            isPaper: true,
+          },
+          layout: [
+            {
+              type: 'row',
+              props: {
+                justify: 'space-around',
+              },
+              fields: [
+                {
+                  type: 'datetime',
+                  name: 'datetime1',
+                  dataType: 'date',
+                  label: translate('form_test.form.dates.label1'),
+                  props: {
+                    type: 'date',
+                  },
+                },
+                {
+                  type: 'datetime',
+                  name: 'datetime2',
+                  dataType: 'date',
+                  label: translate('form_test.form.dates.label2'),
+                  props: {
+                    type: 'week',
+                  },
+                },
+                {
+                  type: 'datetime',
+                  name: 'datetime3',
+                  dataType: 'date',
+                  label: translate('form_test.form.dates.label3'),
+                  props: {
+                    type: 'month',
+                  },
+                },
+                {
+                  type: 'datetime',
+                  name: 'datetime4',
+                  dataType: 'date',
+                  label: translate('form_test.form.dates.label4'),
+                  props: {
+                    type: 'year',
+                  },
+                },
+                {
+                  type: 'datetime',
+                  name: 'datetime5',
+                  dataType: 'date',
+                  label: translate('form_test.form.dates.label5'),
+                  props: {
+                    type: 'datetime',
+                  },
+                },
+              ],
+            },
+            {
+              type: 'row',
+              props: {
+                justify: 'space-around',
+              },
+              fields: [
+                {
+                  type: 'datetime',
+                  name: 'datetime6',
+                  dataType: 'array',
+                  label: translate('form_test.form.dates.label6'),
+                  props: {
+                    type: 'daterange',
+                  },
+                },
+                {
+                  type: 'datetime',
+                  name: 'datetime7',
+                  dataType: 'array',
+                  label: translate('form_test.form.dates.label7'),
+                  props: {
+                    type: 'datetimerange',
+                  },
+                },
+                {
+                  type: 'datetime',
+                  name: 'datetime8',
+                  dataType: 'array',
+                  label: translate('form_test.form.dates.label8'),
+                  props: {
+                    type: 'monthrange',
                   },
                 },
               ],

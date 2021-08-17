@@ -64,6 +64,13 @@
       @update:modelValue="updVal"
     />
 
+    <DateTime
+      v-else-if="field.type === 'datetime'"
+      v-model="val"
+      :field="field"
+      @update:modelValue="updVal"
+    />
+
     <Dropzone
       v-else-if="field.type === 'dropzone'"
       v-model="val"
@@ -142,12 +149,14 @@ import FormSwitch from 'core/views/components/form/fields/switch.vue';
 import FormLayoutBlock from 'core/views/components/form/layout-block.vue';
 import { collectFieldsFromLayout, fieldsToModels } from 'core/utils/form';
 import FormTextarea from 'core/views/components/form/fields/textarea.vue';
+import DateTime from 'core/views/components/form/fields/datetime.vue';
 
 type CollectionItems = ReturnType<typeof fieldsToModels>[];
 
 export default defineComponent({
   name: 'FormItem',
   components: {
+    DateTime,
     FormTextarea,
     FormLayoutBlock,
     FormSwitch,

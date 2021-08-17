@@ -13,6 +13,7 @@ export type SupportedComponentTypes =
   | 'switch'
   | 'select'
   | 'dropzone'
+  | 'datetime'
   | 'collection'
   | 'custom';
 
