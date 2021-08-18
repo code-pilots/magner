@@ -43,7 +43,7 @@ export default defineComponent({
         data: {},
         onChange: (editor) => {
           editor.saver?.save?.().then((outputData) => {
-            changeVal(outputData);
+            changeVal(JSON.stringify(outputData));
           });
         },
       });

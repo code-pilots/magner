@@ -108,6 +108,11 @@ const enCustom = {
       option_adult: 'Adult',
       option_child: 'Child',
       dropzone_label: 'Dropzone example',
+      editor: {
+        placeholder: 'The story begins here',
+        button_text: 'Open editor modal',
+        dialog_text: 'Editor',
+      },
       dates: {
         title: 'Date Pickers and ranges',
         label1: 'Day',

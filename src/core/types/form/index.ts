@@ -3,7 +3,7 @@ import type { TextareaField } from './fields/textarea';
 import type { CheckboxField } from './fields/checkbox';
 import type { RadioField } from './fields/radio';
 import type { SelectField } from './fields/select';
-import type { ButtonComponent } from './fields/button';
+import type { ButtonProps, ButtonField } from './fields/button';
 import type { DropzoneField } from './fields/dropzone';
 import type { SwitchField } from './fields/switch';
 import type { CustomField } from './fields/custom';
@@ -19,7 +19,8 @@ import type { DialogForm } from './dialog-forms';
  * can be literally anything: from text input to color picker.
  */
 export type GenericComponent =
-  InputField
+  ButtonField
+  | InputField
   | TextareaField
   | CheckboxField
   | RadioField
@@ -32,7 +33,7 @@ export type GenericComponent =
   | CustomField;
 
 export interface GenericForm {
-  submit: ButtonComponent|null,
+  submit: ButtonProps | null,
 
   layout: FormLayout,
 

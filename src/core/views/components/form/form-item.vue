@@ -22,8 +22,16 @@
       </el-tooltip>
     </template>
 
+    <FormButton
+      v-if="field.type === 'button'"
+      v-model="val"
+      :field="field"
+      @action="customAction"
+      @update:modelValue="updVal"
+    />
+
     <FormInput
-      v-if="field.type === 'input'"
+      v-else-if="field.type === 'input'"
       v-model="val"
       :field="field"
       @update:modelValue="updVal"
@@ -158,12 +166,14 @@ import { collectFieldsFromLayout, fieldsToModels } from 'core/utils/form';
 import FormTextarea from 'core/views/components/form/fields/textarea.vue';
 import DateTime from 'core/views/components/form/fields/datetime.vue';
 import FormEditor from 'core/views/components/form/fields/editor.vue';
+import FormButton from 'core/views/components/form/fields/button.vue';
 
 type CollectionItems = ReturnType<typeof fieldsToModels>[];
 
 export default defineComponent({
   name: 'FormItem',
   components: {
+    FormButton,
     FormEditor,
     DateTime,
     FormTextarea,

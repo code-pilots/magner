@@ -5,7 +5,8 @@ import type { TranslateData } from 'core/utils/translate';
 import type { DialogForm } from 'core/types/form/dialog-forms';
 
 export type SupportedComponentTypes =
-  'input'
+  'button'
+  | 'input'
   | 'divider'
   | 'textarea'
   | 'checkbox'

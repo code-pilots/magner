@@ -8,6 +8,7 @@ import { citiesCreate, citiesGet } from 'app/requests/citites';
 import translate from 'core/utils/translate';
 import DialogOpener from 'app/components/dialog-opener.vue';
 import { requestWrapper } from 'core/utils/request';
+import { ButtonField } from 'core/types/form/fields/button';
 
 const RadioOptions = [
   {
@@ -382,7 +383,23 @@ export default cardPageController({
               name: 'editor1',
               props: {
                 id: 'editor1',
-                placeholder: 'The story begins here',
+                placeholder: translate('form_test.form.editor.placeholder'),
+                class: 'form-element-border-bottom',
+              },
+            },
+            {
+              type: 'button',
+              name: 'editor2',
+              value: '',
+              clickActionType: 'open-editor',
+              changeAction: ({ getDialogForm, data }) => {
+                const dialog = getDialogForm('editor');
+                if (dialog && data?.type === 'open-editor') {
+                  dialog.open = true;
+                }
+              },
+              props: {
+                text: translate('form_test.form.editor.button_text'),
               },
             },
           ],
@@ -513,6 +530,33 @@ export default cardPageController({
           const dialog = getDialogForm('suspect');
           if (custom && dialog) {
             custom.props = { city: res };
+            dialog.open = false;
+          }
+        },
+      },
+
+      {
+        name: 'editor',
+        title: translate('form_test.form.editor.dialog_text'),
+        open: false,
+        submit: {
+          text: translate('form_test.submit_text'),
+        },
+        layout: [
+          {
+            type: 'editor',
+            name: 'editor2',
+            props: {
+              id: 'editor2',
+              placeholder: translate('form_test.form.editor.placeholder'),
+            },
+          },
+        ],
+        submitAction: (data, { getField, getDialogForm }) => {
+          const custom = getField<ButtonField>('editor2');
+          const dialog = getDialogForm('editor');
+          if (custom && dialog) {
+            custom.value = data?.editor2;
             dialog.open = false;
           }
         },

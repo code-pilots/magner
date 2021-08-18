@@ -155,7 +155,7 @@
             }
         }
 
-        &-custom {
+        &-custom, &-button {
             width: 100%;
         }
     }

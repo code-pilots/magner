@@ -110,6 +110,11 @@ const ruCustom: CustomTranslationSchema = {
       option_adult: 'Взрослый',
       option_child: 'Ребенок',
       dropzone_label: 'Пример дропзоны',
+      editor: {
+        placeholder: 'Начните писать историю',
+        button_text: 'Открыть модальное окно с редактором',
+        dialog_text: 'Редактор текста',
+      },
       dates: {
         title: 'Date Pickers',
         label1: 'День',
