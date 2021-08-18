@@ -154,7 +154,7 @@ export default defineComponent({
     // Depending on URL query existence and configuration, load initial data from URL or LocalStorage
     const initialData = props.config.filters.saveToLocalStorage && !Object.keys(route.query).length
       ? lstorage.deepRead('filters', route.name as string)
-      : store.state.project.helpers.urlToData(route.query);
+      : store.state.project.development.urlParsers.urlToData(route.query);
     filterUrlDataComparison(requestData, initialData);
 
     const appliedFilters = computed(() => Object.values(requestData.filters).filter((filter) => !!filter).length);
@@ -179,7 +179,7 @@ export default defineComponent({
     };
 
     watch(() => requestData, (val) => {
-      const query = store.state.project.helpers.dataToUrl(val);
+      const query = store.state.project.development.urlParsers.dataToUrl(val);
       router.push(route.path + query);
     }, { deep: true });
 

@@ -10,8 +10,7 @@
     :loading="loading"
     :before-change="beforeChangeHook"
     @change="changeVal"
-  >
-  </el-switch>
+  />
 </template>
 
 <script lang="ts">

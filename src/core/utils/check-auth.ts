@@ -8,13 +8,13 @@ import globalValues from 'core/global';
  */
 const checkAuth = async (isRouteProtected: boolean) => {
   const store = globalValues.store;
-  if (store.state.project.noBackendMode) {
+  if (globalValues.development.noBackendMode) {
     return true;
   }
 
   if (store.state.token === 'null') await store.dispatch('changeToken', null);
 
-  const globalRoutes = store.state.globalRoutes;
+  const globalRoutes = globalValues.routes.global;
 
   if (isRouteProtected) {
     if (store.state.user) {

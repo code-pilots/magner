@@ -1,6 +1,6 @@
 import type { Router } from 'vue-router';
 import type { StoreType } from 'core/controllers/store/store';
-import type { ApiError } from 'core/types/configs';
+import type { ApiError, ErrorParser, UrlParsers } from 'core/types/configs';
 import type { ApiType } from 'core/utils/api';
 
 /** A proxy that accepts anything and returns something different */
@@ -24,6 +24,8 @@ export type RequestCallback<RESULT = any, DATA = any> = (info: {
   api: ApiType,
   store: StoreType,
   router: Router,
+  errorParser: ErrorParser,
+  urlParsers: UrlParsers,
 }) => Promise<BaseResponse<RESULT>>;
 
 export type RequestFunc = <RESULT = any, DATA = any>(cb: RequestCallback<RESULT, DATA>) =>

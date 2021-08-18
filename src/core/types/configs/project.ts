@@ -1,7 +1,7 @@
 import type {
   ManifestController, RouterController, StoreController, TranslationController,
 } from 'core/controllers';
-import type { DevelopmentConfig } from 'core/types/configs/development';
+import type { DevelopmentConfig } from 'core/types/configs';
 
 export interface ProjectConfig {
   manifest: ManifestController,

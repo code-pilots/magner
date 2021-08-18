@@ -43,7 +43,7 @@ export default defineComponent({
     const sidebarOpen = ref<boolean>(false);
     const sidebarCollapsed = computed<boolean>(() => store.state.sidebarCollapsed);
 
-    const routes = store.state.allRoutes;
+    const routes = store.state.project.routes.routes;
     const activeRoute = computed<RouteOrGroup>(() => routes.find((item) => item.route?.name === route.name) || null);
 
     return {

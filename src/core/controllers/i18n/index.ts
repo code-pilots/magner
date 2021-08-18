@@ -1,11 +1,13 @@
 import { createI18n, I18n } from 'vue-i18n';
 import type { TranslationConfig } from 'core/types/configs/translation';
-import globalValues from 'core/global';
 import enLocale from 'core/controllers/i18n/en';
 import ruLocale from 'core/controllers/i18n/ru';
 import lstorage from 'core/utils/local-storage';
 
-export type TranslationController = () => I18n;
+export type TranslationController = () => {
+  i18n: I18n,
+  config: TranslationConfig<any>,
+};
 
 const coreMessages = {
   en: enLocale,
@@ -33,10 +35,6 @@ export const translationController = <SUPPORTED_LANGUAGES extends string>(
       return accum;
     }, {} as Record<SUPPORTED_LANGUAGES, any>);
 
-    globalValues.locales = config.elLocales;
-    globalValues.store.dispatch('changeLanguage', config.mainLanguage);
-    globalValues.store.dispatch('changeAllLanguages', config.languages);
-
     const i18n = createI18n({
       legacy: false,
       locale: lstorage.read('language') || config.mainLanguage,
@@ -44,7 +42,8 @@ export const translationController = <SUPPORTED_LANGUAGES extends string>(
       messages,
     });
 
-    globalValues.t = i18n.global.t;
-
-    return i18n;
+    return {
+      i18n,
+      config,
+    };
   };

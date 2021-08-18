@@ -90,8 +90,8 @@ export default defineComponent({
     const router = useRouter();
 
     const open = ref<boolean>(props.sidebar);
-    const projectName = store.state.project.name;
-    const allLanguages = store.state.allLanguages;
+    const projectName = store.state.project.manifest.name;
+    const allLanguages = store.state.project.languages;
 
     const toggleOpen = () => {
       const newVal = !open.value;
@@ -101,7 +101,7 @@ export default defineComponent({
 
     const logout = () => {
       store.dispatch('logout');
-      router.push({ name: store.state.globalRoutes.homeNoAuthName });
+      router.push({ name: store.state.project.routes.global.homeNoAuthName });
     };
 
     const changeLang = (lang: SupportedLanguages) => {

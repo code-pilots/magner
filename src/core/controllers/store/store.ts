@@ -1,20 +1,14 @@
 import { InjectionKey } from 'vue';
 import { createStore, useStore as baseUseStore, Store } from 'vuex';
-import type { CustomRoute, GlobalRouting, ProjectConfig } from 'core/types/configs';
 import type { SupportedLanguages } from 'configs/translation';
+import type { GlobalValues } from 'core/global';
 import { locale as elLocale } from 'element-plus';
 import ROLE from 'configs/roles';
 import lstorage from 'core/utils/local-storage';
-import globalValues from 'core/global';
 
 interface State {
-  globalRoutes: GlobalRouting,
-  allRoutes: CustomRoute[],
-
-  project: ProjectConfig,
-
+  project: GlobalValues,
   language: SupportedLanguages,
-  allLanguages: Record<SupportedLanguages, string>,
 
   token: string|null,
   user: any|null,
@@ -42,16 +36,9 @@ export const store = createStore<State>({
    */
   state () {
     return {
-      globalRoutes: {
-        homeNoAuthName: '',
-        homeHasAuthName: '',
-      },
-      allRoutes: [],
-      project: {} as ProjectConfig,
+      project: {} as GlobalValues,
 
       language: '' as SupportedLanguages,
-      allLanguages: {} as Record<SupportedLanguages, string>,
-
       token: lstorage.read('token') || null,
       user: null,
       role: null,
@@ -61,13 +48,7 @@ export const store = createStore<State>({
   },
 
   mutations: {
-    setGlobalRoutes (state, value: GlobalRouting) {
-      state.globalRoutes = value;
-    },
-    setAllRoutes (state, value: CustomRoute[]) {
-      state.allRoutes = value;
-    },
-    setProject (state, value: ProjectConfig) {
+    setProject (state, value: GlobalValues) {
       state.project = value;
     },
 
@@ -78,9 +59,6 @@ export const store = createStore<State>({
       } else {
         lstorage.delete('language');
       }
-    },
-    setLanguages (state, value: Record<SupportedLanguages, string>) {
-      state.allLanguages = value;
     },
 
     setToken (state, value: string) {
@@ -111,24 +89,15 @@ export const store = createStore<State>({
   },
 
   actions: {
-    changeGlobalRoutes (context, value: GlobalRouting) {
-      context.commit('setGlobalRoutes', value);
-    },
-    changeAllRoutes (context, value: CustomRoute[]) {
-      context.commit('setAllRoutes', value);
-    },
-    changeProject (context, value: ProjectConfig) {
+    changeProject (context, value: GlobalValues) {
       context.commit('setProject', value);
     },
 
     changeLanguage (context, value: SupportedLanguages) {
       context.commit('setLanguage', value);
-      if (globalValues.locales?.[value]) {
-        elLocale(globalValues.locales[value]);
+      if (context.state.project.locales?.[value]) {
+        elLocale(context.state.project.locales[value]);
       }
-    },
-    changeAllLanguages (context, value: Record<SupportedLanguages, string>) {
-      context.commit('setLanguages', value);
     },
 
     changeToken (context, value: string) {

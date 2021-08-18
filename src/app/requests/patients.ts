@@ -25,9 +25,9 @@ interface Response {
   },
 }
 
-const patientsRequest: TableRequest<Patient> = request(async ({ data, api, store }) => {
+const patientsRequest: TableRequest<Patient> = request(async ({ data, api, urlParsers }) => {
   try {
-    const query = store.state.project.helpers.dataToUrl({
+    const query = urlParsers.dataToUrl({
       ...data.pagination,
       filters: data.filters,
       sort: data.sort,

@@ -9,6 +9,8 @@ export const requestWrapper: RequestWrapper = (data, cb) => cb({
   api,
   store: globalValues.store,
   router: globalValues.router,
+  errorParser: globalValues.store.state.project.development.errorParser,
+  urlParsers: globalValues.store.state.project.development.urlParsers,
 });
 
 export default request;

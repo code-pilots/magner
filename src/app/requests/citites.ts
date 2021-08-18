@@ -1,5 +1,4 @@
 import request from 'core/utils/request';
-import parseError from 'app/utils/parse-error';
 
 export interface City {
   id: number,
@@ -17,11 +16,11 @@ export const citiesGet = request(async ({ data, api }) => {
   }
 });
 
-export const citiesCreate = request(async ({ data, api }) => {
+export const citiesCreate = request(async ({ data, api, errorParser }) => {
   try {
     const res = await api.post('cities', data);
     return { data: res, error: null };
   } catch (e) {
-    return { error: parseError(e), data: null };
+    return { error: errorParser(e), data: null };
   }
 });
