@@ -1,5 +1,4 @@
 import { routerController } from 'core/controllers';
-import ROLE from 'configs/roles';
 import patientsConfig from 'configs/pages/patients/patients';
 import patientConfig from 'configs/pages/patients/patient';
 import loginPageConfig from 'configs/pages/login';
@@ -10,7 +9,14 @@ import bigtestConfig from 'configs/pages/big-test';
 import formLayoutConfig from 'configs/pages/form-layout';
 import translate from 'core/utils/translate';
 
-const router = routerController({
+// eslint-disable-next-line no-shadow
+export enum ROLE {
+  ADMIN = 'ROLE_ADMINISTRATOR',
+  SUPER_ADMIN = 'ROLE_SUPER_ADMIN',
+  DOCTOR = 'ROLE_DOCTOR',
+}
+
+const router = routerController<ROLE>({
   global: {
     homeNoAuthName: 'login',
     homeHasAuthName: 'dashboard',
@@ -68,7 +74,7 @@ const router = routerController({
       /** Redefine route config */
       config: patientsConfig,
 
-      roles: [ROLE.SUPER_ADMIN, ROLE.DOCTOR, ROLE.DOCTOR],
+      roles: [ROLE.DOCTOR, ROLE.ADMIN, ROLE.SUPER_ADMIN],
 
       visible: true,
       title: translate('pages.patients'),
@@ -84,7 +90,7 @@ const router = routerController({
     {
       preset: 'card',
       config: patientConfig,
-      roles: [ROLE.SUPER_ADMIN, ROLE.DOCTOR, ROLE.DOCTOR],
+      roles: [ROLE.DOCTOR, ROLE.ADMIN, ROLE.SUPER_ADMIN],
 
       visible: false,
       title: translate('pages.patient'),
@@ -105,7 +111,7 @@ const router = routerController({
         {
           preset: 'table',
           config: specializationTable,
-          roles: [ROLE.SUPER_ADMIN, ROLE.DOCTOR, ROLE.DOCTOR],
+          roles: [ROLE.DOCTOR, ROLE.ADMIN, ROLE.SUPER_ADMIN],
           visible: true,
           title: translate('pages.specializations'),
           icon: 'grid',
@@ -117,7 +123,7 @@ const router = routerController({
         {
           preset: 'card',
           config: specializationConfig,
-          roles: [ROLE.SUPER_ADMIN, ROLE.DOCTOR, ROLE.DOCTOR],
+          roles: [ROLE.DOCTOR, ROLE.ADMIN, ROLE.SUPER_ADMIN],
 
           visible: false,
           title: translate('pages.specialization'),
@@ -132,7 +138,7 @@ const router = routerController({
         {
           preset: 'table',
           config: consultationTypesTable,
-          roles: [ROLE.SUPER_ADMIN, ROLE.DOCTOR, ROLE.DOCTOR],
+          roles: [ROLE.DOCTOR, ROLE.ADMIN, ROLE.SUPER_ADMIN],
           visible: true,
           title: translate('pages.consultation_types'),
           icon: 'grid',
@@ -149,7 +155,7 @@ const router = routerController({
       title: translate('pages.form_test'),
       icon: 'key',
       visible: true,
-      roles: [ROLE.SUPER_ADMIN, ROLE.DOCTOR, ROLE.DOCTOR],
+      roles: [ROLE.DOCTOR, ROLE.ADMIN, ROLE.SUPER_ADMIN],
       config: bigtestConfig,
       route: {
         path: '/big-test',
@@ -162,7 +168,7 @@ const router = routerController({
       title: translate('pages.form_layout'),
       icon: 'layout',
       visible: true,
-      roles: [ROLE.SUPER_ADMIN, ROLE.DOCTOR, ROLE.DOCTOR],
+      roles: [ROLE.DOCTOR, ROLE.ADMIN, ROLE.SUPER_ADMIN],
       config: formLayoutConfig,
       route: {
         path: '/form-layout',

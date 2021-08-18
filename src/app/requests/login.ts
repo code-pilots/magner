@@ -1,5 +1,4 @@
 import request from 'core/utils/request';
-import ROLE from 'configs/roles';
 import type { ProxyFunc } from 'core/types/utils';
 
 interface User {
@@ -15,14 +14,14 @@ export interface Response {
       login: string,
       phone: string,
       roleTitle: string,
-      roles: ROLE[],
+      roles: string[],
     },
   },
   token: string,
 }
 
 export interface Proxy {
-  role: ROLE | null,
+  role: string | null,
   token: string,
   user: User,
 }

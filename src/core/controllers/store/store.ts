@@ -3,7 +3,6 @@ import { createStore, useStore as baseUseStore, Store } from 'vuex';
 import type { SupportedLanguages } from 'configs/translation';
 import type { GlobalValues } from 'core/global';
 import { locale as elLocale } from 'element-plus';
-import ROLE from 'configs/roles';
 import lstorage from 'core/utils/local-storage';
 
 interface State {
@@ -12,7 +11,7 @@ interface State {
 
   token: string|null,
   user: any|null,
-  role: ROLE|null,
+  role: string|null,
 
   sidebarCollapsed: boolean,
 }
@@ -74,7 +73,7 @@ export const store = createStore<State>({
       state.user = value;
     },
 
-    setRole (state, value: ROLE | null) {
+    setRole (state, value: string | null) {
       state.role = value;
     },
 
@@ -106,7 +105,7 @@ export const store = createStore<State>({
     changeUser (context, value: any) {
       context.commit('setUser', value);
     },
-    changeRole (context, value: ROLE | null) {
+    changeRole (context, value: string | null) {
       context.commit('setRole', value);
     },
     logout (context) {

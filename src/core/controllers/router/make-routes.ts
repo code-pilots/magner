@@ -53,7 +53,7 @@ const makeRoutes = (routes: RoutingConfig['routes']): RouteRecordRaw[] => routes
       fullPreset.route.props.config = fullPreset.config;
     }
 
-    fullPreset.route.beforeEnter = checkAuth.bind(null, !!fullPreset.roles);
+    fullPreset.route.beforeEnter = checkAuth.bind(null, fullPreset);
 
     const finalRoute = {
       ...fullPreset.route,

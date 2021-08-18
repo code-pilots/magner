@@ -3,7 +3,6 @@ import {
   RouteComponent,
   RouteRecordRedirectOption,
 } from 'vue-router';
-import ROLE from 'configs/roles';
 import type { LoginConfig } from 'core/types/configs/login';
 import type { TableConfig } from 'core/types/configs/table';
 import type { CardConfig } from 'core/types/configs/card';
@@ -22,7 +21,7 @@ export interface GlobalRouting {
 
 declare module 'vue-router' {
   interface RouteMeta {
-    roles?: ROLE[] | null,
+    roles?: string[] | null,
   }
 }
 
@@ -46,7 +45,7 @@ export type Route = RouteRecordSingleViewOverride | RouteRecordRedirectOverride;
 /**
  * Define custom routes to be used in configuration
  */
-export interface BaseRoute {
+export interface BaseRoute<ROLE extends string = string> {
   group?: false,
   layout?: 'main' | 'empty' | null | RouteComponent | (() => Promise<RouteComponent>),
   config?: Record<string, any>,
@@ -59,13 +58,13 @@ export interface BaseRoute {
 
 export type SupportedRoutePresets = 'login'|'table'|'card'|'empty';
 
-export interface PresetRoute extends BaseRoute {
+export interface PresetRoute<ROLE extends string = string> extends BaseRoute<ROLE> {
   preset: SupportedRoutePresets,
   config?: Record<string, any>,
   route?: Route,
 }
 
-export interface PresetLoginRoute extends PresetRoute {
+export interface PresetLoginRoute<ROLE extends string = string> extends PresetRoute<ROLE> {
   preset: 'login',
   config?: LoginConfig,
   layout?: null,
@@ -79,7 +78,7 @@ export interface PresetLoginRoute extends PresetRoute {
   },
 }
 
-export interface PresetTableRoute extends PresetRoute {
+export interface PresetTableRoute<ROLE extends string = string> extends PresetRoute<ROLE> {
   preset: 'table',
   config?: TableConfig,
   layout?: 'main'| 'empty' | null,
@@ -93,7 +92,7 @@ export interface PresetTableRoute extends PresetRoute {
   },
 }
 
-export interface PresetCardRoute extends PresetRoute {
+export interface PresetCardRoute<ROLE extends string = string> extends PresetRoute<ROLE> {
   preset: 'card',
   config?: CardConfig,
   layout?: 'main'| 'empty' | null,
@@ -107,7 +106,7 @@ export interface PresetCardRoute extends PresetRoute {
   },
 }
 
-export interface PresetEmptyRoute extends PresetRoute {
+export interface PresetEmptyRoute<ROLE extends string = string> extends PresetRoute<ROLE> {
   preset: 'empty',
   layout?: null,
   route?: {
@@ -119,25 +118,32 @@ export interface PresetEmptyRoute extends PresetRoute {
 
 export type RequiredPreset<T extends PresetRoute> = Required<T>;
 
-export interface SimpleRoute extends BaseRoute {
+export interface SimpleRoute<ROLE extends string = string> extends BaseRoute<ROLE> {
   preset?: never,
   route: Route,
   config: Record<string, any>,
 }
 
-export type CustomRoute = SimpleRoute | PresetLoginRoute | PresetTableRoute | PresetCardRoute;
+export type CustomRoute<ROLE extends string = string> =
+  | SimpleRoute<ROLE>
+  | PresetLoginRoute<ROLE>
+  | PresetTableRoute<ROLE>
+  | PresetCardRoute<ROLE>;
 
-export interface GroupRoute {
+export interface GroupRoute<ROLE extends string = string> {
   group: true,
   name: string,
   title: TranslateData,
   icon: string,
-  routes: CustomRoute[],
+  roles?: string[] | null,
+  routes: CustomRoute<ROLE>[],
 }
 
-export type RouteOrGroup = CustomRoute | GroupRoute;
+export type RouteOrGroup<ROLE extends string = string> =
+  | CustomRoute<ROLE>
+  | GroupRoute<ROLE>;
 
-export interface RoutingConfig {
-  routes: RouteOrGroup[],
+export interface RoutingConfig<ROLE extends string = string> {
+  routes: RouteOrGroup<ROLE>[],
   global: GlobalRouting,
 }

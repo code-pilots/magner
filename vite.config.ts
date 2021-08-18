@@ -1,20 +1,18 @@
 import path from 'path';
 import vue from '@vitejs/plugin-vue';
 import { defineConfig } from 'vite';
-import { VitePWA } from 'vite-plugin-pwa';
+// import { VitePWA } from 'vite-plugin-pwa';
 
 // @ts-ignore
 import transformSvg from './src/transformSvg.js';
-import manifest from './src/configs/manifest';
 
 export default defineConfig({
   plugins: [
     vue(),
     transformSvg(),
-    VitePWA({
-      manifest,
-      workbox: {},
-    }),
+    // VitePWA({
+    //   workbox: {},
+    // }),
   ],
   resolve: {
     alias: {

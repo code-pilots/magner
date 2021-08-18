@@ -8,7 +8,7 @@ export interface RoutingFinalConfig {
 }
 export type RouterController = () => RoutingFinalConfig;
 
-export const routerController = (config: RoutingConfig): RouterController => () => {
+export const routerController = <ROLE extends string>(config: RoutingConfig): RouterController => () => {
   const routes = makeRoutes(config.routes);
 
   const router = createRouter({
