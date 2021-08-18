@@ -1,10 +1,6 @@
 import { createApp } from 'vue';
-
 import ElementPlus from 'element-plus';
-
-import type { StoreController } from './store';
-import type { TranslationController } from './i18n';
-import type { RouterController } from './router';
+import type { ProjectConfig } from 'core/types/configs';
 
 import App from '../views/app.vue';
 import SvgIcon from '../views/components/icon.vue';
@@ -19,7 +15,11 @@ import 'styles/breakpoints.css';
 import 'styles/ui.css';
 import 'styles/typography.css';
 
-export const mainController = (router: RouterController, store: StoreController, i18n: TranslationController) => {
+export const mainController = (project: ProjectConfig) => {
+  const store = project.store();
+  const i18n = project.i18n();
+  const router = project.routing();
+
   /** Register Vue 3 application with router, store, Element and useful directives. */
   createApp(App)
     .use(ElementPlus)

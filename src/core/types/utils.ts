@@ -1,6 +1,6 @@
 import type { Router } from 'vue-router';
 import type { StoreType } from 'core/controllers/store/store';
-import type { ApiError } from 'app/utils/parse-error';
+import type { ApiError } from 'core/types/configs';
 import type { ApiType } from 'core/utils/api';
 
 /** A proxy that accepts anything and returns something different */

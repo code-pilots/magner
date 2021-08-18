@@ -1,9 +1,11 @@
-const manifest = {
-  background_color: '#6c6ee5',
-  theme_color: '#fff',
+import { manifestController } from 'core/controllers';
+
+const manifest = manifestController({
   name: 'Universal Admin Panel',
   short_name: 'universal-admin',
   display: 'standalone',
+  background_color: '#6c6ee5',
+  theme_color: '#fff',
   start_url: '/',
   icons: [
     {
@@ -17,6 +19,6 @@ const manifest = {
       type: 'image/png',
     },
   ],
-};
+});
 
 export default manifest;

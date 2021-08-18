@@ -1,0 +1,10 @@
+import type {
+  DevelopmentConfig, UrlParsers, ErrorParser,
+} from 'core/types/configs';
+
+export type DevelopmentController = () => DevelopmentConfig;
+
+export const developmentController = (config: DevelopmentConfig): DevelopmentController => () => config;
+
+export const urlParsersController = (config: UrlParsers): UrlParsers => config;
+export const errorParserController = (parser: ErrorParser): ErrorParser => parser;

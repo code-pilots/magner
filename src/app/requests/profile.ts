@@ -1,4 +1,4 @@
-import dataToProxy, { Response, Proxy } from 'app/proxies/login';
+import { dataToProxy, Response, Proxy } from 'app/requests/login';
 import type { BaseResponse } from 'core/types/utils';
 import api from 'core/utils/api';
 
