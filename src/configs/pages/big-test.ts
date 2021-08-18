@@ -539,6 +539,7 @@ export default cardPageController({
         name: 'editor',
         title: translate('form_test.form.editor.dialog_text'),
         open: false,
+        dialogOnMobile: true,
         submit: {
           text: translate('form_test.submit_text'),
         },

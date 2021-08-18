@@ -52,7 +52,7 @@ export default defineComponent({
   emits: ['submit'],
   setup (props, context) {
     const isMobile = useMobile();
-    const formComponent = useDialogForm(props.config.title);
+    const formComponent = useDialogForm(props.config.title, props.config.dialogOnMobile);
     const reactiveConfig = reactive(props.config);
     const loading = ref(false);
 
