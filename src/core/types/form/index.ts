@@ -8,10 +8,11 @@ import type { DropzoneField } from './fields/dropzone';
 import type { SwitchField } from './fields/switch';
 import type { CustomField } from './fields/custom';
 import type { CollectionField } from './fields/collection';
+import type { DateTimeField } from './fields/datetime';
+import type { EditorField } from './fields/editor';
 
 import type { FormLayout } from './layout';
 import type { DialogForm } from './dialog-forms';
-import { DateTimeField } from 'core/types/form/fields/datetime';
 
 /**
  * The type of a field used in the forms. Defined by its required 'type' which
@@ -26,6 +27,7 @@ export type GenericComponent =
   | SelectField
   | DropzoneField
   | DateTimeField
+  | EditorField
   | CollectionField
   | CustomField;
 

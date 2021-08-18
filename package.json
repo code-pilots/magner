@@ -17,6 +17,10 @@
     "test:e2e-open": "cypress open -b chrome"
   },
   "dependencies": {
+    "@editorjs/editorjs": "^2.22.2",
+    "@editorjs/header": "^2.6.1",
+    "@editorjs/list": "^1.6.2",
+    "editorjs-table": "github:VanishMax/editorjs-table",
     "element-plus": "^1.0.2-beta.43",
     "maska": "^1.4.2",
     "vue": "^3.0.5",

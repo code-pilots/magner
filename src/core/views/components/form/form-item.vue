@@ -79,6 +79,13 @@
       @update:modelValue="updVal"
     />
 
+    <FormEditor
+      v-else-if="field.type === 'editor'"
+      v-model="val"
+      :field="field"
+      @update:modelValue="updVal"
+    />
+
     <template v-else-if="field.type === 'custom' && customComponent">
       <component
         :is="customComponent"
@@ -150,12 +157,14 @@ import FormLayoutBlock from 'core/views/components/form/layout-block.vue';
 import { collectFieldsFromLayout, fieldsToModels } from 'core/utils/form';
 import FormTextarea from 'core/views/components/form/fields/textarea.vue';
 import DateTime from 'core/views/components/form/fields/datetime.vue';
+import FormEditor from 'core/views/components/form/fields/editor.vue';
 
 type CollectionItems = ReturnType<typeof fieldsToModels>[];
 
 export default defineComponent({
   name: 'FormItem',
   components: {
+    FormEditor,
     DateTime,
     FormTextarea,
     FormLayoutBlock,

@@ -14,6 +14,7 @@ export type SupportedComponentTypes =
   | 'select'
   | 'dropzone'
   | 'datetime'
+  | 'editor'
   | 'collection'
   | 'custom';
 

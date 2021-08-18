@@ -371,6 +371,23 @@ export default cardPageController({
           ],
         },
 
+        /** Editors */
+        {
+          type: 'row',
+          title: 'Editors',
+          props: { isPaper: true, titleType: 'heading' },
+          fields: [
+            {
+              type: 'editor',
+              name: 'editor1',
+              props: {
+                id: 'editor1',
+                placeholder: 'The story begins here',
+              },
+            },
+          ],
+        },
+
         /** Form Collection row */
         {
           type: 'row',
