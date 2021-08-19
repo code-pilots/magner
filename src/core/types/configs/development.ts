@@ -1,5 +1,5 @@
 import type { ProxyFunc, RequestCallback } from 'core/types/utils';
-import { SupportedDataTypes } from 'core/utils/form';
+import { SupportedDataTypes } from 'core/utils/form/form';
 
 type DataBody = Record<string, any>;
 export type DataToUrlHelper = ProxyFunc<DataBody, string>;

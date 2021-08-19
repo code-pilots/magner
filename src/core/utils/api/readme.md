@@ -15,7 +15,7 @@ type RequestCallback<RESULT = any, DATA = any> = (info: {
 And is used in request files as:
 
 ```ts
-import request from 'core/utils/request';
+import { request } from 'core/utils';
 
 export interface City {
   id: number,

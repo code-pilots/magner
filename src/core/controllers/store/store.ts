@@ -1,14 +1,13 @@
 import { InjectionKey } from 'vue';
 import { createStore, useStore as baseUseStore, Store } from 'vuex';
-import type { SupportedLanguages } from 'configs/translation';
 import type { GlobalValues } from 'core/global';
 import { locale as elLocale } from 'element-plus';
-import lstorage from 'core/utils/local-storage';
+import lstorage from 'core/utils/core/local-storage';
 
 interface State {
   project: GlobalValues,
-  language: SupportedLanguages,
 
+  language: string,
   token: string|null,
   user: any|null,
   role: string|null,
@@ -37,7 +36,7 @@ export const store = createStore<State>({
     return {
       project: {} as GlobalValues,
 
-      language: '' as SupportedLanguages,
+      language: '',
       token: lstorage.read('token') || null,
       user: null,
       role: null,
@@ -51,7 +50,7 @@ export const store = createStore<State>({
       state.project = value;
     },
 
-    setLanguage (state, value: SupportedLanguages) {
+    setLanguage (state, value: string) {
       state.language = value;
       if (value) {
         lstorage.put('language', value);
@@ -92,7 +91,7 @@ export const store = createStore<State>({
       context.commit('setProject', value);
     },
 
-    changeLanguage (context, value: SupportedLanguages) {
+    changeLanguage (context, value: string) {
       context.commit('setLanguage', value);
       if (context.state.project.locales?.[value]) {
         elLocale(context.state.project.locales[value]);

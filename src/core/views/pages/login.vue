@@ -32,12 +32,11 @@ import {
   PropType, reactive, computed,
 } from 'vue';
 import type { LoginConfig } from 'core/types/configs';
-import useStore from 'core/controllers/store/store';
-import { useTranslate } from 'core/utils/translate';
-import { requestWrapper } from 'core/utils/request';
-import { layoutToFields } from 'core/utils/form';
-import GenericForm from 'core/views/components/form/form.vue';
 import { useRouter } from 'vue-router';
+import useStore from 'core/controllers/store/store';
+import { useTranslate, requestWrapper } from 'core/utils';
+import { layoutToFields } from 'core/utils/form/form';
+import GenericForm from 'core/views/components/form/form.vue';
 
 export default defineComponent({
   name: 'LoginPage',

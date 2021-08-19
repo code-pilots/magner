@@ -36,7 +36,7 @@ import {
   defineComponent, PropType, ref, watchEffect,
 } from 'vue';
 import type { CheckboxField } from 'core/types/form/fields/checkbox';
-import { useTranslate } from 'core/utils/translate';
+import { useTranslate } from 'core/utils';
 
 export default defineComponent({
   name: 'FormCheckbox',

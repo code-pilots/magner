@@ -59,7 +59,7 @@ import {
   defineComponent, PropType,
 } from 'vue';
 import type { GenericFormLayout, FormLayoutColumn, FormLayoutRow } from 'core/types/form/layout';
-import { useTranslate } from 'core/utils/translate';
+import { useTranslate } from 'core/utils';
 
 export default defineComponent({
   name: 'FormLayoutBlock',

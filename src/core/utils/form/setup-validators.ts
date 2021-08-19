@@ -1,6 +1,6 @@
 import type { GenericComponent } from 'core/types/form';
 import type { SupportedValidators, ValidationField } from 'core/types/configs';
-import { layoutToFields } from 'core/utils/form';
+import { layoutToFields } from 'core/utils/form/form';
 import globalValues from 'core/global';
 
 type SetupFunc = (

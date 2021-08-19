@@ -6,7 +6,7 @@ import {
 import type { LoginConfig } from 'core/types/configs/pages/login';
 import type { TableConfig } from 'core/types/configs/pages/table';
 import type { CardConfig } from 'core/types/configs/pages/card';
-import type { TranslateData } from 'core/utils/translate';
+import type { TranslateData } from 'core/utils/core/translate';
 
 /** Global routing configuration that defines special needs in routing like programmatic navigation */
 export interface GlobalRouting {

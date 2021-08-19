@@ -1,6 +1,6 @@
 import type { BaseField, BaseProps } from 'core/types/form/base';
 import type { RequestCallback } from 'core/types/utils';
-import type { TranslateData } from 'core/utils/translate';
+import type { TranslateData } from 'core/utils/core/translate';
 
 /**
  * Props of the Select component from element-ui:

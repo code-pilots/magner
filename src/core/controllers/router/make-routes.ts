@@ -3,7 +3,7 @@ import type {
   GroupRoute, PresetRoute, RouteOrGroup, RoutingConfig, SimpleRoute,
 } from 'core/types/configs';
 import allPresets from 'core/controllers/router/presets';
-import checkAuth from 'core/utils/check-auth';
+import checkAuth from 'core/utils/core/check-auth';
 
 const simpleToPreset = (route: SimpleRoute): PresetRoute => ({
   ...route,

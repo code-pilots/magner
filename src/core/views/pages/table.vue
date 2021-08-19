@@ -92,16 +92,15 @@ import {
   computed,
   defineComponent, PropType, reactive, ref, watch, watchEffect,
 } from 'vue';
-import { useTranslate } from 'core/utils/translate';
-import { useRoute, useRouter } from 'vue-router';
-import lstorage from 'core/utils/local-storage';
 import type { TableConfig } from 'core/types/configs';
-import DataTable from 'core/views/components/table.vue';
-import useMobile from 'core/utils/is-mobile';
+import { useMobile, useTranslate } from 'core/utils';
+import { useRoute, useRouter } from 'vue-router';
+import useDialogForm from 'core/utils/form/use-dialog-form';
 import useStore from 'core/controllers/store/store';
-import filterUrlDataComparison from 'core/utils/filter-url-data-comparison';
-import { layoutToFields } from 'core/utils/form';
-import useDialogForm from 'core/utils/use-dialog-form';
+import { layoutToFields } from 'core/utils/form/form';
+import filterUrlDataComparison from 'core/utils/form/filter-url-data-comparison';
+import lstorage from 'core/utils/core/local-storage';
+import DataTable from 'core/views/components/table.vue';
 import Dynamic from '../components/dynamic.vue';
 import GenericForm from '../components/form/form.vue';
 

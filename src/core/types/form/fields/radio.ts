@@ -1,5 +1,5 @@
 import type { BaseField, BaseProps } from 'core/types/form/base';
-import type { TranslateData } from 'core/utils/translate';
+import type { TranslateData } from 'core/utils/core/translate';
 
 export interface RadioProps extends BaseProps {
   /** Font color when button is active */

@@ -9,7 +9,7 @@ function. It accepts all parameters as the `t` function from *vue-i18n-next* doe
 
 ```ts
 import { formController } from 'core/controllers';
-import translate from 'core/utils/translate';
+import { translate } from 'core/utils';
 
 const formConfig = formController({
   submit: {
@@ -35,7 +35,7 @@ In custom components, you need to define what to translate by yourself. Example:
 
 <script lang="ts">
   import {defineComponent } from 'vue';
-  import { useTranslate } from 'core/utils/translate';
+  import { useTranslate } from 'core/utils';
   
   export default defineComponent({
     setup () {

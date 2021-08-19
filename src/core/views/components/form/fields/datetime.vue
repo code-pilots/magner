@@ -13,7 +13,7 @@
 import {
   defineComponent, PropType, ref, watchEffect,
 } from 'vue';
-import { useTranslate } from 'core/utils/translate';
+import { useTranslate } from 'core/utils';
 import { DateTimeField } from 'core/types/form/fields/datetime';
 
 export default defineComponent({

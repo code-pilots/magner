@@ -37,8 +37,7 @@ import {
   watchEffect,
 } from 'vue';
 import type { SelectField } from 'core/types/form/fields/select';
-import { requestWrapper } from 'core/utils/request';
-import { useTranslate } from 'core/utils/translate';
+import { useTranslate, requestWrapper } from 'core/utils';
 
 export default defineComponent({
   name: 'FormSelect',

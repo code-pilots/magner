@@ -61,11 +61,10 @@
 <script lang="ts">
 import 'styles/components/sidebar.css';
 import { computed, defineComponent, PropType } from 'vue';
-import { useTranslate } from 'core/utils/translate';
+import { useTranslate, useMobile } from 'core/utils';
 import { useRouter } from 'vue-router';
 import { CustomRoute } from 'core/types/configs';
 import useStore from 'core/controllers/store/store';
-import useMobile from 'core/utils/is-mobile';
 
 export default defineComponent({
   name: 'Sidebar',

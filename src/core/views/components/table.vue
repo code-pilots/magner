@@ -44,7 +44,7 @@
 import 'core/assets/styles/components/data-table.css';
 import { defineComponent, PropType } from 'vue';
 import type { Table, TableColumn } from 'core/types/components/table';
-import { useTranslate } from 'core/utils/translate';
+import { useTranslate } from 'core/utils';
 
 export default defineComponent({
   name: 'DataTable',

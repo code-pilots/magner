@@ -153,8 +153,8 @@ import {
 } from 'vue';
 import type { GenericComponent } from 'core/types/form';
 import type { GenericFormLayout } from 'core/types/form/layout';
-import useMobile from 'core/utils/is-mobile';
-import { useTranslate } from 'core/utils/translate';
+import { collectFieldsFromLayout, fieldsToModels } from 'core/utils/form/form';
+import { useTranslate, useMobile } from 'core/utils';
 import FormInput from 'core/views/components/form/fields/form-input.vue';
 import FormSelect from 'core/views/components/form/fields/select.vue';
 import Dropzone from 'core/views/components/form/fields/dropzone.vue';
@@ -162,7 +162,6 @@ import FormRadio from 'core/views/components/form/fields/radio.vue';
 import FormCheckbox from 'core/views/components/form/fields/checkbox.vue';
 import FormSwitch from 'core/views/components/form/fields/switch.vue';
 import FormLayoutBlock from 'core/views/components/form/layout-block.vue';
-import { collectFieldsFromLayout, fieldsToModels } from 'core/utils/form';
 import FormTextarea from 'core/views/components/form/fields/textarea.vue';
 import DateTime from 'core/views/components/form/fields/datetime.vue';
 import FormEditor from 'core/views/components/form/fields/editor.vue';

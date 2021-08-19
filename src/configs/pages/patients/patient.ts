@@ -3,7 +3,7 @@ import {
 } from 'app/requests/patient';
 import { cardPageController } from 'core/controllers';
 import patientForm from 'configs/pages/patients/form';
-import translate from 'core/utils/translate';
+import { translate } from 'core/utils';
 
 /**
  * Real-life example of extending the CardConfig route in case of the patient card

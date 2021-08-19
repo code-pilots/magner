@@ -1,5 +1,5 @@
 import type { BaseField, BaseProps } from 'core/types/form/base';
-import type { TranslateData } from 'core/utils/translate';
+import type { TranslateData } from 'core/utils/core/translate';
 
 export interface DateTimeProps extends BaseProps {
   /** Type of the DateTime picker. Please, refer to the https://element-plus.org/#/en-US/component/datetime-picker */

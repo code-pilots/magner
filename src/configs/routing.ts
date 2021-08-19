@@ -7,7 +7,7 @@ import specializationTable from 'configs/pages/dictionaries/specializations/tabl
 import specializationConfig from 'configs/pages/dictionaries/specializations/card';
 import bigtestConfig from 'configs/pages/big-test';
 import formLayoutConfig from 'configs/pages/form-layout';
-import translate from 'core/utils/translate';
+import { translate } from 'core/utils';
 
 // eslint-disable-next-line no-shadow
 export enum ROLE {

@@ -2,7 +2,7 @@
 
 import type { GenericComponent } from 'core/types/form/index';
 import type { RouteComponent } from 'vue-router';
-import type { TranslateData } from 'core/utils/translate';
+import type { TranslateData } from 'core/utils/core/translate';
 
 interface FormLayoutBase {
   title?: TranslateData,

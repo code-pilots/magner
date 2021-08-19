@@ -64,8 +64,7 @@ import 'styles/components/header.css';
 import { defineComponent, PropType, ref } from 'vue';
 import useStore from 'core/controllers/store/store';
 import { useRouter } from 'vue-router';
-import { TranslateData, useTranslate } from 'core/utils/translate';
-import { SupportedLanguages } from 'configs/translation';
+import { TranslateData, useTranslate } from 'core/utils/core/translate';
 
 export default defineComponent({
   name: 'Header',
@@ -100,7 +99,7 @@ export default defineComponent({
       router.push({ name: store.state.project.routes.global.homeNoAuthName });
     };
 
-    const changeLang = (lang: SupportedLanguages) => {
+    const changeLang = (lang: string) => {
       store.dispatch('changeLanguage', lang);
       locale.value = lang;
     };

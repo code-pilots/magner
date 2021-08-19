@@ -32,8 +32,8 @@ import {
 } from 'vue';
 import type { DialogForm } from 'core/types/form/dialog-forms';
 import type { FormInteractionsData } from 'core/types/form/base';
-import useMobile from 'core/utils/is-mobile';
-import useDialogForm from 'core/utils/use-dialog-form';
+import { useMobile } from 'core/utils';
+import useDialogForm from 'core/utils/form/use-dialog-form';
 import GenericForm from './form.vue';
 
 export default defineComponent({

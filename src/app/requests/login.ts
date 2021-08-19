@@ -1,4 +1,4 @@
-import request from 'core/utils/request';
+import { request } from 'core/utils';
 import type { ProxyFunc } from 'core/types/utils';
 
 interface User {

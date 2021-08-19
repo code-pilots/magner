@@ -2,7 +2,7 @@ import { createI18n, I18n } from 'vue-i18n';
 import type { TranslationConfig } from 'core/types/configs/translation';
 import enLocale from 'core/controllers/i18n/en';
 import ruLocale from 'core/controllers/i18n/ru';
-import lstorage from 'core/utils/local-storage';
+import lstorage from 'core/utils/core/local-storage';
 
 export type TranslationController = () => {
   i18n: I18n,

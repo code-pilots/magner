@@ -64,10 +64,9 @@ import {
   computed, defineComponent, PropType, ref,
 } from 'vue';
 import { useRoute } from 'vue-router';
-import { useTranslate } from 'core/utils/translate';
+import { useTranslate, requestWrapper } from 'core/utils';
 import { ElMessageBox, ElMessage } from 'element-plus';
 import type { CardConfig } from 'core/types/configs';
-import { requestWrapper } from 'core/utils/request';
 import Dynamic from 'core/views/components/dynamic.vue';
 import GenericForm from 'core/views/components/form/form.vue';
 import DialogForm from 'core/views/components/form/dialog-form.vue';

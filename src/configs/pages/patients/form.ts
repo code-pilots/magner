@@ -1,6 +1,6 @@
 import { formController } from 'core/controllers';
 import { citiesGet } from 'app/requests/citites';
-import translate from 'core/utils/translate';
+import { translate } from 'core/utils';
 
 const patientForm = formController({
   submit: {

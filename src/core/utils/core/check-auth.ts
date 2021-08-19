@@ -1,5 +1,5 @@
 import globalValues from 'core/global';
-import { requestWrapper } from 'core/utils/request';
+import { requestWrapper } from 'core/utils';
 
 /**
  * Navigation guard that checks if you can enter a protected route.

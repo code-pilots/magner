@@ -18,7 +18,7 @@ import {
   defineComponent, PropType, ref, watchEffect,
 } from 'vue';
 import type { SwitchField } from 'core/types/form/fields/switch';
-import { useTranslate } from 'core/utils/translate';
+import { useTranslate } from 'core/utils';
 
 export default defineComponent({
   name: 'FormSwitch',

@@ -1,4 +1,4 @@
-import request from 'core/utils/request';
+import { request } from 'core/utils';
 import type { DropzoneUploadReturn } from 'core/types/form/fields/dropzone';
 
 type RequestBody = { image: File };

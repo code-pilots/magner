@@ -1,4 +1,4 @@
-import type { TranslateData } from 'core/utils/translate';
+import type { TranslateData } from 'core/utils/core/translate';
 import type { FormLayout } from 'core/types/form/layout';
 import type { ButtonProps } from 'core/types/form/fields/button';
 import type { FormInteractionsData } from 'core/types/form/base';

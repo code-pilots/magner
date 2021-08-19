@@ -2,7 +2,7 @@ import { cardPageController } from 'core/controllers';
 import {
   bigtestCreate, bigtestGet, bigtestUpdate,
 } from 'app/requests/big-test';
-import translate from 'core/utils/translate';
+import { translate } from 'core/utils';
 import type { InputField } from 'core/types/form/fields/input';
 import type { ColumnFields } from 'core/types/form/layout';
 

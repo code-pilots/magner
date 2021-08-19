@@ -80,12 +80,11 @@ import {
 } from 'vue';
 import type { GenericForm } from 'core/types/form';
 import type { FormInteractionsData } from 'core/types/form/base';
-import { DataTypeInitials, fieldsToModels, layoutToFields } from 'core/utils/form';
-import setupValidators from 'core/utils/setup-validators';
-import useMobile from 'core/utils/is-mobile';
+import { DataTypeInitials, fieldsToModels, layoutToFields } from 'core/utils/form/form';
+import { useMobile, useTranslate } from 'core/utils';
+import setupValidators from 'core/utils/form/setup-validators';
 import FormItem from 'core/views/components/form/form-item.vue';
 import FormLayout from 'core/views/components/form/layout.vue';
-import { useTranslate } from 'core/utils/translate';
 
 interface FormValidator extends HTMLFormElement {
   validate: Function,

@@ -11,7 +11,7 @@
 <script lang="ts">
 import { defineComponent, PropType, watchEffect } from 'vue';
 import type { ButtonField } from 'core/types/form/fields/button';
-import { useTranslate } from 'core/utils/translate';
+import { useTranslate } from 'core/utils';
 
 export default defineComponent({
   name: 'FormButton',

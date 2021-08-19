@@ -1,4 +1,4 @@
-import request from 'core/utils/request';
+import { request } from 'core/utils';
 import { PaginationType, TableRequest } from 'core/types/configs';
 
 interface Patient {
