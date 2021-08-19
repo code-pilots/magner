@@ -1,4 +1,5 @@
 import type { ProxyFunc, RequestCallback } from 'core/types/utils';
+import { SupportedDataTypes } from 'core/utils/form';
 
 type DataBody = Record<string, any>;
 export type DataToUrlHelper = ProxyFunc<DataBody, string>;
@@ -16,6 +17,32 @@ interface ProfileRequestResponse {
   user: any,
 }
 export type ProfileRequest = RequestCallback<ProfileRequestResponse>;
+
+export type SupportedValidators = 'password'|'email'|'phone'|'empty';
+
+export type ValidatorWrapper = (
+  data: {
+    rule: SupportedValidators,
+    value: any,
+    form: Record<string, any>,
+  },
+  callback: Function,
+) => void;
+
+export type ValidatorFunc = (
+  rule: SupportedValidators,
+  value: any,
+  callback: Function,
+) => ReturnType<ValidatorWrapper>;
+
+export interface ValidationField {
+  type: SupportedDataTypes,
+  validator: ValidatorFunc,
+  trigger: 'blur'|'change'|'input',
+}
+
+export type Validators<CUSTOM_VALIDATION extends string>
+  = Record<CUSTOM_VALIDATION, ValidatorWrapper>;
 
 export interface UrlParsers {
   /** Proxy function from the request data to URL needed in GET requests */
@@ -39,4 +66,6 @@ export interface DevelopmentConfig {
 
   /** Request to be used each time user enters the app to check for token validity and quickly authorize them */
   profileRequest: ProfileRequest,
+
+  validation: Validators<string>,
 }

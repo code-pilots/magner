@@ -1,4 +1,4 @@
-import type { SupportedValidators } from 'core/utils/validators';
+import type { SupportedValidators } from 'core/types/configs/development';
 import type { SupportedDataTypes } from 'core/utils/form';
 import type { GenericComponent, GenericForm } from 'core/types/form/index';
 import type { TranslateData } from 'core/utils/translate';

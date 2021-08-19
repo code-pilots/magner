@@ -81,7 +81,7 @@ import {
 import type { GenericForm } from 'core/types/form';
 import type { FormInteractionsData } from 'core/types/form/base';
 import { DataTypeInitials, fieldsToModels, layoutToFields } from 'core/utils/form';
-import setupValidators, { SupportedValidators } from 'core/utils/validators';
+import setupValidators from 'core/utils/setup-validators';
 import useMobile from 'core/utils/is-mobile';
 import FormItem from 'core/views/components/form/form-item.vue';
 import FormLayout from 'core/views/components/form/layout.vue';
@@ -139,7 +139,7 @@ export default defineComponent({
     const reactiveConfig = reactive(props.config);
     const allFields = computed(() => layoutToFields(reactiveConfig.layout));
     const form = reactive(fieldsToModels(allFields.value, props.initialData));
-    const validation = setupValidators(allFields.value, props.skipValidation);
+    const validation = setupValidators(allFields.value, props.skipValidation, form);
 
     const globalError = ref<string>(props.error); // Error of the whole form
     const errors = ref<Record<string, string>>(props.fieldErrors); // Field errors record

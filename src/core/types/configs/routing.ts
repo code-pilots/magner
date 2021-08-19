@@ -3,9 +3,9 @@ import {
   RouteComponent,
   RouteRecordRedirectOption,
 } from 'vue-router';
-import type { LoginConfig } from 'core/types/configs/login';
-import type { TableConfig } from 'core/types/configs/table';
-import type { CardConfig } from 'core/types/configs/card';
+import type { LoginConfig } from 'core/types/configs/pages/login';
+import type { TableConfig } from 'core/types/configs/pages/table';
+import type { CardConfig } from 'core/types/configs/pages/card';
 import type { TranslateData } from 'core/utils/translate';
 
 /** Global routing configuration that defines special needs in routing like programmatic navigation */
