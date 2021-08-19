@@ -1,6 +1,5 @@
-import useMobile from 'core/utils/is-mobile';
 import { computed } from 'vue';
-import { TranslateData, useTranslate } from 'core/utils/translate';
+import { useMobile, useTranslate, TranslateData } from 'core/utils';
 
 const useDialogForm = (title?: TranslateData, dialogOnMobile?: boolean) => {
   const isMobile = useMobile();

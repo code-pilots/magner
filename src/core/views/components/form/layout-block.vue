@@ -2,7 +2,7 @@
   <template v-if="block.type === 'custom'">
     <component
       :is="block.component"
-      v-bind="block.props"
+      :layout="block.props"
     />
   </template>
 
@@ -59,7 +59,7 @@ import {
   defineComponent, PropType,
 } from 'vue';
 import type { GenericFormLayout, FormLayoutColumn, FormLayoutRow } from 'core/types/form/layout';
-import { useTranslate } from 'core/utils/translate';
+import { useTranslate } from 'core/utils';
 
 export default defineComponent({
   name: 'FormLayoutBlock',

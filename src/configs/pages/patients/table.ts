@@ -1,5 +1,5 @@
 import { tableController } from 'core/controllers';
-import translate from 'core/utils/translate';
+import { translate } from 'core/utils';
 
 const patientsTable = tableController({
   emptyText: translate('patients.table.not_found'),

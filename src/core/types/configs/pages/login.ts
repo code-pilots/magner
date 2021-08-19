@@ -1,6 +1,6 @@
 import type { GenericForm } from 'core/types/form';
 import type { RequestCallback } from 'core/types/utils';
-import { TranslateData } from 'core/utils/translate';
+import type { TranslateData } from 'core/utils/core/translate';
 
 export interface LoginConfig {
   title: TranslateData,

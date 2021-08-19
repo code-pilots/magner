@@ -9,7 +9,7 @@
       >
         <template v-for="route in routing">
           <el-submenu
-            v-if="route.group"
+            v-if="route.group && (!route.roles || route.roles.includes(role))"
             :key="route.name"
             :index="route.name"
           >
@@ -19,7 +19,7 @@
             </template>
             <template v-for="nested in route.routes">
               <el-menu-item
-                v-if="nested.visible"
+                v-if="(!nested.roles || nested.roles.includes(role)) && nested.visible"
                 :key="nested.route.name"
                 :index="nested.route.name"
                 class="sidebar_menu_item"
@@ -35,7 +35,7 @@
           </el-submenu>
 
           <el-menu-item
-            v-else-if="route.visible"
+            v-else-if="(!route.roles || route.roles.includes(role)) && route.visible"
             :key="route.route.name"
             :index="route.route.name"
             class="sidebar_menu_item"
@@ -52,7 +52,7 @@
     </el-scrollbar>
 
     <el-button class="sidebar_toggle" @click="toggleCollapse">
-      <svg-icon name="chevrons" :rotate="isCollapsed ? 'right' : 'left'" />
+      <svg-icon name="chevrons" :rotate="isCollapsed ? 'right' : 'left'" is-core />
       {{ isCollapsed ? '' : t('core.sidebar.collapse') }}
     </el-button>
   </nav>
@@ -61,16 +61,13 @@
 <script lang="ts">
 import 'styles/components/sidebar.css';
 import { computed, defineComponent, PropType } from 'vue';
-import { useTranslate } from 'core/utils/translate';
+import { useTranslate, useMobile } from 'core/utils';
 import { useRouter } from 'vue-router';
 import { CustomRoute } from 'core/types/configs';
 import useStore from 'core/controllers/store/store';
-import useMobile from 'core/utils/is-mobile';
-import SvgIcon from './icon.vue';
 
 export default defineComponent({
   name: 'Sidebar',
-  components: { SvgIcon },
   props: {
     routing: {
       type: Array as PropType<CustomRoute[]>,
@@ -88,6 +85,7 @@ export default defineComponent({
     const store = useStore();
 
     const isCollapsed = computed<boolean>(() => store.state.sidebarCollapsed);
+    const role = computed<string>(() => store.state.role);
 
     const toggleCollapse = () => {
       store.dispatch('toggleSidebar');
@@ -101,6 +99,7 @@ export default defineComponent({
       t,
       isCollapsed,
       isMobile,
+      role,
       customT,
       toggleCollapse,
       navigate,

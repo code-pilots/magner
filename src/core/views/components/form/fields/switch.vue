@@ -10,8 +10,7 @@
     :loading="loading"
     :before-change="beforeChangeHook"
     @change="changeVal"
-  >
-  </el-switch>
+  />
 </template>
 
 <script lang="ts">
@@ -19,7 +18,7 @@ import {
   defineComponent, PropType, ref, watchEffect,
 } from 'vue';
 import type { SwitchField } from 'core/types/form/fields/switch';
-import { useTranslate } from 'core/utils/translate';
+import { useTranslate } from 'core/utils';
 
 export default defineComponent({
   name: 'FormSwitch',

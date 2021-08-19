@@ -1,5 +1,4 @@
-import parseError from 'app/utils/parse-error';
-import request from 'core/utils/request';
+import { request } from 'core/utils';
 
 export interface Patient {
   id: number,
@@ -58,7 +57,9 @@ const patientProxy = (data: Patient): PatientProxy => ({
   photo: data.photo?.src || null,
 });
 
-export const patientGet = request(async ({ data, router, api }) => {
+export const patientGet = request(async ({
+  data, router, api, errorParser,
+}) => {
   try {
     const res = await api.get<{ result: { patient: Patient } }>(`patients/${data}`);
     const proxied = patientProxy(res.result.patient);
@@ -66,38 +67,40 @@ export const patientGet = request(async ({ data, router, api }) => {
     return { data: proxied, error: null };
   } catch (e) {
     await router.push({ name: 'patients' });
-    return { error: parseError(e), data: null };
+    return { error: errorParser(e), data: null };
   }
 });
 
-export const patientCreate = request(async ({ data, api }) => {
+export const patientCreate = request(async ({ data, api, errorParser }) => {
   try {
     const res = await api.post('patients', data, {
       isFormdata: true,
     });
     return { data: res, error: null };
   } catch (e) {
-    return { error: parseError(e), data: null };
+    return { error: errorParser(e), data: null };
   }
 });
 
-export const patientUpdate = request<any, { id: number, data: any }>(async ({ data, api }) => {
+export const patientUpdate = request<any, { id: number, data: any }>(async ({ data, api, errorParser }) => {
   try {
     const res = await api.post(`patients/${data.id}/update`, data, {
       isFormdata: true,
     });
     return { data: res, error: null };
   } catch (e) {
-    return { error: parseError(e), data: null };
+    return { error: errorParser(e), data: null };
   }
 });
 
-export const patientDelete = request<any, number>(async ({ data, router, api }) => {
+export const patientDelete = request<any, number>(async ({
+  data, router, api, errorParser,
+}) => {
   try {
     const res = await api.delete(`patients/${data}`);
     await router.push({ name: 'patients' });
     return { data: res, error: null };
   } catch (e) {
-    return { error: parseError(e), data: null };
+    return { error: errorParser(e), data: null };
   }
 });

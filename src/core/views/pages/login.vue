@@ -32,12 +32,11 @@ import {
   PropType, reactive, computed,
 } from 'vue';
 import type { LoginConfig } from 'core/types/configs';
-import useStore from 'core/controllers/store/store';
-import { useTranslate } from 'core/utils/translate';
-import { requestWrapper } from 'core/utils/request';
-import { layoutToFields } from 'core/utils/form';
-import GenericForm from 'core/views/components/form/form.vue';
 import { useRouter } from 'vue-router';
+import useStore from 'core/controllers/store/store';
+import { useTranslate, requestWrapper } from 'core/utils';
+import { layoutToFields } from 'core/utils/form/form';
+import GenericForm from 'core/views/components/form/form.vue';
 
 export default defineComponent({
   name: 'LoginPage',
@@ -58,7 +57,7 @@ export default defineComponent({
     const fieldErrors = ref<Record<string, string>>({});
 
     /** No backend. Create fake data that will be accepted by the form */
-    const noBackend = computed(() => store.state.project.noBackendMode);
+    const noBackend = computed(() => store.state.project.development.noBackendMode);
     const fields = noBackend.value ? layoutToFields(props.config.form.layout) : [];
     const initialData = reactive(fields.reduce((accum, current) => {
       accum[current.name] = 'random';
@@ -73,7 +72,7 @@ export default defineComponent({
         loading.value = true;
         setTimeout(() => {
           loading.value = false;
-          router.push({ name: store.state.globalRoutes.homeHasAuthName });
+          router.push({ name: store.state.project.routes.global.homeHasAuthName });
         }, 500);
         return;
       }
@@ -88,7 +87,7 @@ export default defineComponent({
       } else if (res.error) {
         error.value = res.error;
       } else {
-        await router.push({ name: store.state.globalRoutes.homeHasAuthName });
+        await router.push({ name: store.state.project.routes.global.homeHasAuthName });
       }
     };
 

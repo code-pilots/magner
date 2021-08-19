@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-import 'app/assets/styles/home.css';
+import 'assets/styles/home.css';
 import { defineComponent } from 'vue';
 import { useI18n } from 'vue-i18n';
 

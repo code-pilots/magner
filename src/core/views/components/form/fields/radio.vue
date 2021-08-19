@@ -33,7 +33,7 @@
 import {
   defineComponent, PropType, ref, watchEffect,
 } from 'vue';
-import { useTranslate } from 'core/utils/translate';
+import { useTranslate } from 'core/utils';
 import type { RadioField } from 'core/types/form/fields/radio';
 
 export default defineComponent({

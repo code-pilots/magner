@@ -3,7 +3,7 @@ import type {
   GroupRoute, PresetRoute, RouteOrGroup, RoutingConfig, SimpleRoute,
 } from 'core/types/configs';
 import allPresets from 'core/controllers/router/presets';
-import checkAuth from 'core/utils/check-auth';
+import checkAuth from 'core/utils/core/check-auth';
 
 const simpleToPreset = (route: SimpleRoute): PresetRoute => ({
   ...route,
@@ -53,7 +53,7 @@ const makeRoutes = (routes: RoutingConfig['routes']): RouteRecordRaw[] => routes
       fullPreset.route.props.config = fullPreset.config;
     }
 
-    fullPreset.route.beforeEnter = checkAuth.bind(null, !!fullPreset.roles);
+    fullPreset.route.beforeEnter = checkAuth.bind(null, fullPreset.roles);
 
     const finalRoute = {
       ...fullPreset.route,

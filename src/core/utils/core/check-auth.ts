@@ -1,31 +1,37 @@
-import profileRequest from 'app/requests/profile';
 import globalValues from 'core/global';
+import { requestWrapper } from 'core/utils';
 
 /**
  * Navigation guard that checks if you can enter a protected route.
  * Gets your authorization token, sends it to the backend (if not verified)
  * and lets you proceed further.
  */
-const checkAuth = async (isRouteProtected: boolean) => {
+const checkAuth = async (roles: string[] | null) => {
   const store = globalValues.store;
-  if (store.state.project.noBackendMode) {
+  if (globalValues.development.noBackendMode) {
     return true;
   }
 
   if (store.state.token === 'null') await store.dispatch('changeToken', null);
 
-  const globalRoutes = store.state.globalRoutes;
+  const globalRoutes = globalValues.routes.global;
+  const profileRequest = globalValues.development.profileRequest;
 
-  if (isRouteProtected) {
+  if (roles) {
     if (store.state.user) {
-      return true;
+      return !!(store.state.role && roles.includes(store.state.role));
     }
 
     if (store.state.token) {
-      const user = await profileRequest();
+      const user = await requestWrapper(null, profileRequest);
+      const role = user.data?.role;
+
       if (user.data) {
         await store.dispatch('changeUser', user.data);
-        return true;
+        await store.dispatch('changeRole', user.data.role);
+
+        if (role && roles.includes(role)) return true;
+        return { name: globalRoutes.homeHasAuthName };
       }
       await store.dispatch('changeToken', null);
     }
@@ -39,7 +45,7 @@ const checkAuth = async (isRouteProtected: boolean) => {
   }
 
   if (store.state.token) {
-    const user = await profileRequest();
+    const user = await requestWrapper(null, profileRequest);
     if (user.data) {
       await store.dispatch('changeUser', user.data);
       return { name: globalRoutes.homeHasAuthName };

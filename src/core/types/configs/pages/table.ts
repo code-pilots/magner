@@ -1,7 +1,7 @@
 import type { RequestCallback } from 'core/types/utils';
 import type { GenericForm } from 'core/types/form';
 import type { Table } from 'core/types/components/table';
-import type { TranslateData } from 'core/utils/translate';
+import type { TranslateData } from 'core/utils/core/translate';
 
 export interface FiltersForm extends GenericForm {
   /** Display the button link for some other page like entity create or not */

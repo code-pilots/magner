@@ -1,4 +1,4 @@
-import request from 'core/utils/request';
+import { request } from 'core/utils';
 
 export const bigtestGet = request(async () => ({ data: {}, error: null }));
 

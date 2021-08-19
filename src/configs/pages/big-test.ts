@@ -5,9 +5,8 @@ import {
 import type { SelectField } from 'core/types/form/fields/select';
 import type { CustomField } from 'core/types/form/fields/custom';
 import { citiesCreate, citiesGet } from 'app/requests/citites';
-import translate from 'core/utils/translate';
+import { translate, requestWrapper } from 'core/utils';
 import DialogOpener from 'app/components/dialog-opener.vue';
-import { requestWrapper } from 'core/utils/request';
 import { ButtonField } from 'core/types/form/fields/button';
 
 const RadioOptions = [

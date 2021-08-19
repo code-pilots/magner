@@ -1,5 +1,5 @@
 import type { BaseField, BaseProps } from 'core/types/form/base';
-import type { TranslateData } from 'core/utils/translate';
+import type { TranslateData } from 'core/utils/core/translate';
 
 export interface CheckboxProps extends BaseProps {
   /** Minimum/Maximum number of checkbox checked */

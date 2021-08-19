@@ -1,5 +1,5 @@
 import { filtersFormController } from 'core/controllers';
-import translate from 'core/utils/translate';
+import { translate } from 'core/utils';
 
 const patientsFilters = filtersFormController({
   linkToCreateNew: {

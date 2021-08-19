@@ -79,6 +79,7 @@ const enCustom = {
     form: {
       example_label: 'Example',
       layout_text: 'You can do anything with this layout!',
+      custom_layout: 'I am fully custom!',
       phone_label: 'Example of the text input with a mask and validation',
       textarea_label: 'Example of autosize textarea',
       textarea_placeholder: 'Write some text here',

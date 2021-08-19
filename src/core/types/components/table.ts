@@ -1,5 +1,5 @@
 import type { RouteLocationRaw } from 'vue-router';
-import type { TranslateData } from 'core/utils/translate';
+import type { TranslateData } from 'core/utils/core/translate';
 
 export interface TableColumn {
   /** Property name of the field in the row data for specific column */

@@ -1,11 +1,8 @@
-import { initMagner } from 'core/controllers';
+import { initMagner } from 'core/index';
 
-import store from 'configs/store';
-import translation from 'configs/translation';
-import router from 'configs/routing';
-import 'configs/project';
+import project from 'configs/index';
 
 import 'element-plus/lib/theme-chalk/index.css';
-import 'app/assets/all.css';
+import 'assets/styles/all.css';
 
-initMagner(router, store, translation);
+initMagner(project);

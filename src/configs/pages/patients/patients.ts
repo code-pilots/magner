@@ -2,7 +2,7 @@ import patientsRequest from 'app/requests/patients';
 import { tablePageController } from 'core/controllers';
 import patientsFilters from 'configs/pages/patients/filters';
 import patientsTable from 'configs/pages/patients/table';
-import translate from 'core/utils/translate';
+import { translate } from 'core/utils';
 
 /**
  * Since Patients extend the 'table' route preset, it must extend TableConfig.

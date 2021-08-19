@@ -22,12 +22,12 @@
 
 <script lang="ts">
 import {
-  defineComponent, PropType, ref, watchEffect, onMounted, nextTick,
+  defineComponent, PropType, ref, watchEffect, onMounted,
 } from 'vue';
-import { useTranslate } from 'core/utils/translate';
+import { useTranslate } from 'core/utils';
 import type { InputField } from 'core/types/form/fields/input';
 import { create as Maska } from 'maska';
-import debounceOnInput from 'core/utils/input-debounce';
+import debounceOnInput from 'core/utils/form/input-debounce';
 
 export default defineComponent({
   name: 'FormInput',

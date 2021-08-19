@@ -20,9 +20,8 @@
 import {
   defineComponent, PropType, ref, watchEffect,
 } from 'vue';
-import { useTranslate } from 'core/utils/translate';
-import type { InputField } from 'core/types/form/fields/input';
-import debounceOnInput from 'core/utils/input-debounce';
+import { useTranslate } from 'core/utils';
+import debounceOnInput from 'core/utils/form/input-debounce';
 import { TextareaField } from 'core/types/form/fields/textarea';
 
 export default defineComponent({

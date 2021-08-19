@@ -1,7 +1,5 @@
-import globalValues from 'core/global';
-import { ProjectConfig } from '../types/configs';
+import type { ProjectConfig } from 'core/types/configs';
 
-export const projectController = (config: ProjectConfig) => {
-  globalValues.store.dispatch('changeProject', config);
-  return true;
-};
+export type ProjectController = () => ProjectConfig;
+
+export const projectController = (config: ProjectConfig): ProjectController => () => config;

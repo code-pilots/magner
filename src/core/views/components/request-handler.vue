@@ -7,7 +7,7 @@ import {
   defineComponent, PropType, ref, watch,
 } from 'vue';
 import type { RequestCallback } from 'core/types/utils';
-import { requestWrapper } from 'core/utils/request';
+import { requestWrapper } from 'core/utils';
 
 export default defineComponent({
   name: 'RequestHandler',

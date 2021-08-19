@@ -1,6 +1,6 @@
 import loginRequest from 'app/requests/login';
 import { loginPageController } from 'core/controllers';
-import translate from 'core/utils/translate';
+import { translate } from 'core/utils';
 
 const loginPageConfig = loginPageController({
   title: translate('login.title'),

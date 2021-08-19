@@ -7,7 +7,7 @@ type TArgs = Parameters<typeof globalValues.t>
  * Use this function in the configs and other non-reactive .ts files to get complete typings of i18n.
  * Returns an object that should be passed to 'translateDataToString' function in the vue component
  */
-const translate = (key: TArgs[0], params?: TArgs[1]) => ({
+export const translate = (key: TArgs[0], params?: TArgs[1]) => ({
   key,
   params: params || null,
 });
@@ -41,5 +41,3 @@ export const useTranslate = () => {
     },
   };
 };
-
-export default translate;

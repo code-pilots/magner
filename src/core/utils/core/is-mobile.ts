@@ -1,6 +1,6 @@
 import { ref } from 'vue';
 
-const useMobile = () => {
+export const useMobile = () => {
   const isMobile = ref<boolean>(false);
 
   const changeIsMobile = () => {
@@ -12,5 +12,3 @@ const useMobile = () => {
 
   return isMobile;
 };
-
-export default useMobile;

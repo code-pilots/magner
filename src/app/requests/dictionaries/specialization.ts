@@ -1,5 +1,4 @@
-import parseError from 'app/utils/parse-error';
-import request from 'core/utils/request';
+import { request } from 'core/utils';
 
 export interface SpecializationPrice {
   id: number
@@ -31,7 +30,9 @@ const patientProxy = (data: Specialization): SpecializationProxy => ({
   type: data.type.slug,
 });
 
-export const specializationGet = request(async ({ data, router, api }) => {
+export const specializationGet = request(async ({
+  data, router, api, errorParser,
+}) => {
   try {
     const res = await api.get<{ result: Specialization[] }>(`specializations/${data}`);
     const proxied = res.result?.[0] ? patientProxy(res.result[0]) : null;
@@ -43,28 +44,28 @@ export const specializationGet = request(async ({ data, router, api }) => {
     return { data: proxied, error: null };
   } catch (e) {
     await router.push({ name: 'specializations' });
-    return { error: parseError(e), data: null };
+    return { error: errorParser(e), data: null };
   }
 });
 
-export const specializationCreate = request(async ({ data, api }) => {
+export const specializationCreate = request(async ({ data, api, errorParser }) => {
   try {
     const res = await api.post('specializations', data, {
       isFormdata: true,
     });
     return { data: res, error: null };
   } catch (e) {
-    return { error: parseError(e), data: null };
+    return { error: errorParser(e), data: null };
   }
 });
 
-export const specializationUpdate = request<any, { id: number, data: any }>(async ({ data, api }) => {
+export const specializationUpdate = request<any, { id: number, data: any }>(async ({ data, api, errorParser }) => {
   try {
     const res = await api.post(`specializations/${data.id}/update`, data, {
       isFormdata: true,
     });
     return { data: res, error: null };
   } catch (e) {
-    return { error: parseError(e), data: null };
+    return { error: errorParser(e), data: null };
   }
 });

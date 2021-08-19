@@ -81,6 +81,7 @@ const ruCustom: CustomTranslationSchema = {
     form: {
       example_label: 'Пример',
       layout_text: 'Делайте со структурой что хотите!',
+      custom_layout: 'Это полностью кастомный блок!',
       phone_label: 'Пример текстового поля с маской и валидацией',
       textarea_label: 'Пример расширяемого текстового поля',
       textarea_placeholder: 'Здесь мог быть ваш текст',

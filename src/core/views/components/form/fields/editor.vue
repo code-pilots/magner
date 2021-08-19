@@ -6,9 +6,9 @@
 import {
   defineComponent, onMounted, PropType, ref, watchEffect,
 } from 'vue';
-import { useTranslate } from 'core/utils/translate';
+import { useTranslate } from 'core/utils';
 import type { EditorField } from 'core/types/form/fields/editor';
-import setupEditor from 'core/utils/editor';
+import setupEditor from 'core/utils/form/editor';
 
 export default defineComponent({
   name: 'FormEditor',

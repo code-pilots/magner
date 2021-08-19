@@ -1,6 +1,6 @@
 import type { RequestCallback } from 'core/types/utils';
 import type { GenericForm } from 'core/types/form';
-import type { TranslateData } from 'core/utils/translate';
+import type { TranslateData } from 'core/utils/core/translate';
 import type { RouteLocationRaw } from 'vue-router';
 
 export interface CardTab {

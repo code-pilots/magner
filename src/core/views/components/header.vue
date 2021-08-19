@@ -15,7 +15,7 @@
         <el-dropdown size="small" trigger="hover">
           <template #default>
             <el-button size="mini" circle>
-              <svg-icon name="globe" />
+              <svg-icon name="globe" is-core />
             </el-button>
           </template>
 
@@ -35,7 +35,7 @@
         <el-dropdown size="small" trigger="hover">
           <template #default>
             <el-button size="mini" circle>
-              <svg-icon name="user" />
+              <svg-icon name="user" is-core />
             </el-button>
           </template>
 
@@ -52,7 +52,7 @@
           class="header_right_burger"
           @click="toggleOpen"
         >
-          <svg-icon name="menu" />
+          <svg-icon name="menu" is-core />
         </el-button>
       </div>
     </nav>
@@ -64,15 +64,10 @@ import 'styles/components/header.css';
 import { defineComponent, PropType, ref } from 'vue';
 import useStore from 'core/controllers/store/store';
 import { useRouter } from 'vue-router';
-import { TranslateData, useTranslate } from 'core/utils/translate';
-import { SupportedLanguages } from 'configs/translation';
-import SvgIcon from './icon.vue';
+import { TranslateData, useTranslate } from 'core/utils/core/translate';
 
 export default defineComponent({
   name: 'Header',
-  components: {
-    SvgIcon,
-  },
   props: {
     title: {
       type: [String, Object] as PropType<TranslateData>,
@@ -90,8 +85,8 @@ export default defineComponent({
     const router = useRouter();
 
     const open = ref<boolean>(props.sidebar);
-    const projectName = store.state.project.name;
-    const allLanguages = store.state.allLanguages;
+    const projectName = store.state.project.manifest.name;
+    const allLanguages = store.state.project.languages;
 
     const toggleOpen = () => {
       const newVal = !open.value;
@@ -101,10 +96,10 @@ export default defineComponent({
 
     const logout = () => {
       store.dispatch('logout');
-      router.push({ name: store.state.globalRoutes.homeNoAuthName });
+      router.push({ name: store.state.project.routes.global.homeNoAuthName });
     };
 
-    const changeLang = (lang: SupportedLanguages) => {
+    const changeLang = (lang: string) => {
       store.dispatch('changeLanguage', lang);
       locale.value = lang;
     };

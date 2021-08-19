@@ -15,6 +15,7 @@
       "app/*": ["src/app/*"],
       "core/*": ["src/core/*"],
       "configs/*": ["src/configs/*"],
+      "assets/*": ["src/assets/*"],
       "styles/*": ["src/core/assets/styles/*"]
     }
   },

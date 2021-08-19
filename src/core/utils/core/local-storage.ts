@@ -1,4 +1,4 @@
-import envs from '../../envs';
+import envs from '../../../envs';
 
 type SupportedLSKeys = 'token'|'sidebarCollapsed'|'filters'|'language';
 
