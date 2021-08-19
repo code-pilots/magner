@@ -11,10 +11,11 @@
     <template v-if="field.label" #label>
       {{ customT(field.label) }}
       <el-tooltip v-if="field.hint">
-        <SvgIcon
+        <svg-icon
           name="question"
           size="sm"
           class="generic-form_item_help"
+          is-core
         />
         <template #content>
           <span v-html="customT(field.hint)" />
@@ -126,7 +127,7 @@
         class="remove-more"
         @click="changeCollectionItems(i)"
       >
-        <SvgIcon name="x" size="sm" />
+        <svg-icon name="x" size="sm" />
       </el-button>
 
       <div class="flex-grow" />
@@ -139,7 +140,7 @@
         plain
         @click="changeCollectionItems('new')"
       >
-        <SvgIcon name="plus" size="sm" />
+        <svg-icon name="plus" size="sm" is-core />
         {{ t('core.card.add_more') }}
       </el-button>
     </div>
@@ -154,7 +155,6 @@ import type { GenericComponent } from 'core/types/form';
 import type { GenericFormLayout } from 'core/types/form/layout';
 import useMobile from 'core/utils/is-mobile';
 import { useTranslate } from 'core/utils/translate';
-import SvgIcon from 'core/views/components/icon.vue';
 import FormInput from 'core/views/components/form/fields/form-input.vue';
 import FormSelect from 'core/views/components/form/fields/select.vue';
 import Dropzone from 'core/views/components/form/fields/dropzone.vue';
@@ -180,7 +180,6 @@ export default defineComponent({
     FormLayoutBlock,
     FormSwitch,
     FormCheckbox,
-    SvgIcon,
     FormRadio,
     Dropzone,
     FormSelect,

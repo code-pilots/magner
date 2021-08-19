@@ -9,7 +9,7 @@
   >
     <suspense>
       <template #default>
-        <SvgImporter :name="name" />
+        <SvgImporter :name="name" :is-core="isCore" />
       </template>
       <template #fallback>
         <svg />
@@ -40,6 +40,10 @@ export default defineComponent({
     rotate: {
       type: String as PropType<'top' | 'right' | 'bottom' | 'left'>,
       default: 'top',
+    },
+    isCore: {
+      type: Boolean,
+      default: false,
     },
   },
 });

@@ -15,7 +15,7 @@
         <el-dropdown size="small" trigger="hover">
           <template #default>
             <el-button size="mini" circle>
-              <svg-icon name="globe" />
+              <svg-icon name="globe" is-core />
             </el-button>
           </template>
 
@@ -35,7 +35,7 @@
         <el-dropdown size="small" trigger="hover">
           <template #default>
             <el-button size="mini" circle>
-              <svg-icon name="user" />
+              <svg-icon name="user" is-core />
             </el-button>
           </template>
 
@@ -52,7 +52,7 @@
           class="header_right_burger"
           @click="toggleOpen"
         >
-          <svg-icon name="menu" />
+          <svg-icon name="menu" is-core />
         </el-button>
       </div>
     </nav>
@@ -66,13 +66,9 @@ import useStore from 'core/controllers/store/store';
 import { useRouter } from 'vue-router';
 import { TranslateData, useTranslate } from 'core/utils/translate';
 import { SupportedLanguages } from 'configs/translation';
-import SvgIcon from './icon.vue';
 
 export default defineComponent({
   name: 'Header',
-  components: {
-    SvgIcon,
-  },
   props: {
     title: {
       type: [String, Object] as PropType<TranslateData>,

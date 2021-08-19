@@ -52,7 +52,7 @@
     </el-scrollbar>
 
     <el-button class="sidebar_toggle" @click="toggleCollapse">
-      <svg-icon name="chevrons" :rotate="isCollapsed ? 'right' : 'left'" />
+      <svg-icon name="chevrons" :rotate="isCollapsed ? 'right' : 'left'" is-core />
       {{ isCollapsed ? '' : t('core.sidebar.collapse') }}
     </el-button>
   </nav>
@@ -66,11 +66,9 @@ import { useRouter } from 'vue-router';
 import { CustomRoute } from 'core/types/configs';
 import useStore from 'core/controllers/store/store';
 import useMobile from 'core/utils/is-mobile';
-import SvgIcon from './icon.vue';
 
 export default defineComponent({
   name: 'Sidebar',
-  components: { SvgIcon },
   props: {
     routing: {
       type: Array as PropType<CustomRoute[]>,
