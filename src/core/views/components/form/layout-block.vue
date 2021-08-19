@@ -2,7 +2,7 @@
   <template v-if="block.type === 'custom'">
     <component
       :is="block.component"
-      v-bind="block.props"
+      :layout="block.props"
     />
   </template>
 
