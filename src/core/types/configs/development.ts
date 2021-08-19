@@ -1,4 +1,4 @@
-import type { ProxyFunc } from 'core/types/utils';
+import type { ProxyFunc, RequestCallback } from 'core/types/utils';
 
 type DataBody = Record<string, any>;
 export type DataToUrlHelper = ProxyFunc<DataBody, string>;
@@ -9,6 +9,13 @@ export interface ApiError {
   message: string,
 }
 export type ErrorParser = (err: any) => ApiError;
+
+interface ProfileRequestResponse {
+  role: string | null,
+  token: string,
+  user: any,
+}
+export type ProfileRequest = RequestCallback<ProfileRequestResponse>;
 
 export interface UrlParsers {
   /** Proxy function from the request data to URL needed in GET requests */
@@ -29,4 +36,7 @@ export interface DevelopmentConfig {
   /** Function that parses all errors caught while doing HTTP request to the server.
    * Return message string as global error or fields object to show error of some error field */
   errorParser: ErrorParser,
+
+  /** Request to be used each time user enters the app to check for token validity and quickly authorize them */
+  profileRequest: ProfileRequest,
 }

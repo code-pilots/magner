@@ -46,7 +46,7 @@ const consultationTypesTable = tablePageController({
       items: 25,
       page: 1,
     },
-    fields: [],
+    layout: [],
   },
 });
 

@@ -1,13 +1,12 @@
-import type { PresetRoute } from 'core/types/configs';
-import profileRequest from 'app/requests/profile';
 import globalValues from 'core/global';
+import { requestWrapper } from 'core/utils/request';
 
 /**
  * Navigation guard that checks if you can enter a protected route.
  * Gets your authorization token, sends it to the backend (if not verified)
  * and lets you proceed further.
  */
-const checkAuth = async (route: Required<PresetRoute>) => {
+const checkAuth = async (roles: string[] | null) => {
   const store = globalValues.store;
   if (globalValues.development.noBackendMode) {
     return true;
@@ -15,16 +14,16 @@ const checkAuth = async (route: Required<PresetRoute>) => {
 
   if (store.state.token === 'null') await store.dispatch('changeToken', null);
 
-  const roles = route.route.meta?.roles;
   const globalRoutes = globalValues.routes.global;
+  const profileRequest = globalValues.development.profileRequest;
 
   if (roles) {
     if (store.state.user) {
-      return store.state.role && roles.includes(store.state.role);
+      return !!(store.state.role && roles.includes(store.state.role));
     }
 
     if (store.state.token) {
-      const user = await profileRequest();
+      const user = await requestWrapper(null, profileRequest);
       const role = user.data?.role;
 
       if (user.data) {
@@ -46,7 +45,7 @@ const checkAuth = async (route: Required<PresetRoute>) => {
   }
 
   if (store.state.token) {
-    const user = await profileRequest();
+    const user = await requestWrapper(null, profileRequest);
     if (user.data) {
       await store.dispatch('changeUser', user.data);
       return { name: globalRoutes.homeHasAuthName };

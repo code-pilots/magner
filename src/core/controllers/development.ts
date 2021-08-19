@@ -1,5 +1,5 @@
 import type {
-  DevelopmentConfig, UrlParsers, ErrorParser,
+  DevelopmentConfig, UrlParsers, ErrorParser, ProfileRequest,
 } from 'core/types/configs';
 
 export type DevelopmentController = () => DevelopmentConfig;
@@ -8,3 +8,4 @@ export const developmentController = (config: DevelopmentConfig): DevelopmentCon
 
 export const urlParsersController = (config: UrlParsers): UrlParsers => config;
 export const errorParserController = (parser: ErrorParser): ErrorParser => parser;
+export const profileRequestController = (request: ProfileRequest): ProfileRequest => request;

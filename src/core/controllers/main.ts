@@ -21,7 +21,7 @@ export const mainController = (project: ProjectConfig) => {
   globalValues.store = store[0];
 
   globalValues.manifest = project.manifest();
-  globalValues.development = project.development;
+  globalValues.development = project.development();
 
   const i18n = project.i18n();
   globalValues.t = i18n.i18n.global.t;
