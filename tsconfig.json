@@ -19,7 +19,12 @@
       "styles/*": ["src/core/assets/styles/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue",
-    "tests/**/*.ts"
-  ]
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue", "tests/**/*.ts"],
+  "ts-node": {
+    "transpileOnly": true,
+    "moduleTypes": {
+      "./src/**/**": "cjs"
+    },
+    "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue"]
+  }
 }

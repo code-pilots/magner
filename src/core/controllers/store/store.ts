@@ -37,11 +37,11 @@ export const store = createStore<State>({
       project: {} as GlobalValues,
 
       language: '',
-      token: lstorage.read('token') || null,
+      token: (typeof window !== 'undefined' && lstorage.read('token')) || null,
       user: null,
       role: null,
 
-      sidebarCollapsed: lstorage.read('sidebarCollapsed') || false,
+      sidebarCollapsed: (typeof window !== 'undefined' && lstorage.read('sidebarCollapsed')) || false,
     };
   },
 

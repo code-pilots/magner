@@ -3,7 +3,7 @@
   "description": "Admin panel that can be used for literally any project",
   "version": "0.1.0",
   "engines": {
-    "node": ">=12"
+    "node": ">=14"
   },
   "scripts": {
     "dev": "vite",
@@ -14,7 +14,8 @@
     "test:unit": "jest src --silent",
     "test:e2e": "start-server-and-test dev http-get://localhost:3000 test:e2e-run",
     "test:e2e-run": "cypress run --headless",
-    "test:e2e-open": "cypress open -b chrome"
+    "test:e2e-open": "cypress open -b chrome",
+    "analyze": "ts-node -r tsconfig-paths/register ./src/server.ts"
   },
   "dependencies": {
     "@editorjs/editorjs": "^2.22.2",
@@ -37,7 +38,7 @@
     "@vue/eslint-config-typescript": "^7.0.0",
     "@vue/test-utils": "^2.0.0-rc.4",
     "autoprefixer": "^10.2.5",
-    "cypress": "^7.3.0",
+    "cypress": "^8.3.0",
     "eslint": "^7.23.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-cypress": "^2.11.2",
@@ -51,6 +52,8 @@
     "start-server-and-test": "^1.12.1",
     "svgo": "^2.3.0",
     "ts-jest": "^26.5.4",
+    "ts-node": "^10.2.1",
+    "tsconfig-paths": "^3.10.1",
     "typescript": "^4.2.3",
     "vite": "^2.3.3",
     "vite-plugin-pwa": "^0.7.3",

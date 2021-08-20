@@ -2,6 +2,7 @@ import { createApp } from 'vue';
 import ElementPlus from 'element-plus';
 import type { ProjectConfig } from 'core/types/configs';
 import globalValues from 'core/global';
+import analyzers from 'core/analyzers';
 
 import App from 'core/views/app.vue';
 import SvgIcon from 'core/views/components/icon.vue';

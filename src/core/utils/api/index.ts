@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import globalValues from 'core/global';
-import ApiError from './api-error';
 import envs from '../../../envs';
+import ApiError from './api-error';
 
 interface RequestConfig extends RequestInit {
   isFormdata?: boolean

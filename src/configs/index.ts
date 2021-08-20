@@ -6,6 +6,8 @@ import i18n from 'configs/translation';
 import development from 'configs/development';
 
 export default projectController({
+  analyze: 'routes',
+
   manifest,
 
   routing,
