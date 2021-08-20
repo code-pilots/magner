@@ -2,7 +2,7 @@ import { createApp } from 'vue';
 import ElementPlus from 'element-plus';
 import type { ProjectConfig } from 'core/types/configs';
 import globalValues from 'core/global';
-import analyzers from 'core/analyzers';
+import { storeController } from 'core/controllers/store';
 
 import App from 'core/views/app.vue';
 import SvgIcon from 'core/views/components/icon.vue';
@@ -18,7 +18,7 @@ import 'styles/ui.css';
 import 'styles/typography.css';
 
 export const mainController = (project: ProjectConfig) => {
-  const store = project.store();
+  const store = storeController()();
   globalValues.store = store[0];
 
   globalValues.manifest = project.manifest();

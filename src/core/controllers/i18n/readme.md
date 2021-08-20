@@ -1,10 +1,10 @@
 # Translation
 
 Translation around the app is powered by *vue-i18n-next* library. For your convenience, all the translation
-schemas are typed and will provide you will all needed autocompletion for the fast work.
+schemas are typed and will provide you will with all needed autocompletion for the fast work.
 
 You can add translation to any text field in the config files. To do so, you need to import the `translate`
-function. It accepts all parameters as the `t` function from *vue-i18n-next* does. Read about them here:
+function. It accepts all parameters as the `t` function from *vue-i18n-next*. Read about them here:
 [https://vue-i18n.intlify.dev/guide/essentials/syntax.html](https://vue-i18n.intlify.dev/guide/essentials/syntax.html).
 
 ```ts
@@ -18,18 +18,44 @@ const formConfig = formController({
 });
 ```
 
-In here, `patient.submit_button` is a translation string which is defined in the TranslationSchema. You can
-fill it in the `src/configs/translation/en.ts`. English translation is used firstly, because its type defines
-TranslationSchema and then validates all others connected languages. Go to the `ru.ts` to understand this concept – 
-Russian language is linked to the English, so, if you didn't fill the predefined (in English) field, it will
-prompt an error.
+In here, `patient.submit_button` is a translation string which is defined in the `TranslationSchema`. Check how it's
+defined in the `src/configs/translation/en.ts`:
 
-In custom components, you need to define what to translate by yourself. Example:
+```ts
+const enCustom = {
+  patient: {
+    submit_button: 'Submit',
+  },
+};
+
+export type CustomTranslationSchema = typeof enCustom;
+export default enCustom;
+```
+
+You can see that, in the end of the Schema, its type is exported. It is done for other translations. Here is the
+example with Russian:
+
+```ts
+import type { CustomTranslationSchema } from './en';
+
+const ruCustom: CustomTranslationSchema = {
+  patient: {
+    submit_button: 'Сохранить',
+  },
+}
+```
+
+Since we used the English Schema is connected with Russian language, it will have the full power over TypeScript
+checks. So you will never miss the changed Schema.
+
+## Translation in custom views
+
+In custom components, you need to define what to translate by yourself. Use prepared Vue hook for it:
 
 ```html
 <template>
   <div>
-    {{ customT('hello') }}
+    {{ customT('hello', { msg: 'WORLD' }) }}
   </div>
 </template>
 
@@ -49,4 +75,5 @@ In custom components, you need to define what to translate by yourself. Example:
 </script>
 ```
 
-`customT` function accept string (doesn't modify it) and the return value from the `translate` function.
+`customT` function accept string and second param (read about it [in i18n docs](https://vue-i18n.intlify.dev/guide/essentials/syntax.html)) 
+and returns the value from the `translate` function.

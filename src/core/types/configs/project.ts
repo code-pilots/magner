@@ -2,7 +2,6 @@ import type {
   DevelopmentController,
   ManifestController,
   RouterController,
-  StoreController,
   TranslationController,
 } from 'core/controllers';
 import type { SupportedAnalyzers } from 'core/analyzers';
@@ -13,9 +12,7 @@ export interface ProjectConfig {
   analyze?: SupportedAnalyzers,
 
   manifest: ManifestController,
-
   routing: RouterController,
-  store: StoreController,
   i18n: TranslationController,
 
   development: DevelopmentController,

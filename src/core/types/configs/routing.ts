@@ -10,7 +10,9 @@ import type { TranslateData } from 'core/utils/core/translate';
 
 /** Global routing configuration that defines special needs in routing like programmatic navigation */
 export interface GlobalRouting {
+  /** Name of the route to which should we redirect unauthenticated user from protected route */
   homeNoAuthName: string,
+  /** Name of the route to which should we redirect authenticated user from unprotected route */
   homeHasAuthName: string,
 }
 

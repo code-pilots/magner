@@ -1,14 +1,67 @@
-# Router
+# Router controller
 
-We provide you with the router controller that transforms the specially made configuration structure
-to acceptable by the Vue router settings.
+Router controller is a wrapper around usual vue router configuration. It is meant to be
+flexible by providing you with different presets such as 'cards', 'tables' etc.
 
-There are different types of routes. Here are they:
+## Roles
+
+You can restrict the access tp some routes for different types of authenticated users. To do so, you need to firstly
+set up the ROLE enum like so:
+
+```ts
+export enum ROLE {
+  SUPER_ADMIN = 'ROLE_SUPER_ADMIN',
+  ADMIN = 'ROLE_ADMINISTRATOR',
+  DOCTOR = 'ROLE_DOCTOR',
+}
+```
+
+Every value in the enum is the role string coming from the backend when the profile request is initiated. It
+means that you have to know what type of roles does backend support. In our case, there are three types:
+* SUPER_ADMIN – User with all possible privileges 
+* ADMIN – Administrator, has write access to limited set of entities
+* DOCTOR – User with limited write and read privileges to entities related to this particular user. 
+
+You should set up how the role is taken from the backend request in [the development project config](../development/readme.md) 
+Profile section. Make sure to read and understand mentioned topic.
+
+To assign the roles to a route, use the roles array:
+
+```ts
+route = {
+  roles: [ROLE.ADMIN, ROLE.SUPER_ADMIN],
+  ...
+}
+```
+
+In the example, user role will be checked every time he/she enters the app. If the authentication is not passed
+or the role is not applicable for a specific route, user will be redirected.
+
+## Controller
+
+After roles configuration, apply the controller itself (notice the ROLE enum passed as the controller's generic):
+
+```ts
+const router = routerController<ROLE>({
+  /** Properties used inside the core for redirecting */
+  global: {
+    /** Name of the route to which should we redirect unauthenticated user from protected route */
+    homeNoAuthName: 'login',
+    /** Name of the route to which should we redirect authenticated user from unprotected route */
+    homeHasAuthName: 'dashboard',
+  },
+
+  routes: []
+});
+```
+
+Now it's time to configure the routes:
 
 ## Custom route
 
 ```ts
 route = {
+  /** Vue-router properties are encapsulated into the 'route' prop */
   route: {
     /** Required name property as a unique route identifier  */
     name: 'dashboard',
@@ -23,7 +76,7 @@ route = {
   },
 
   /** Name displayed in the sidebar menu and in the header when active */
-  title: 'Главная',
+  title: 'Home',
   
   /** An array of role Enums. If 'roles' === null, no authorization needed */
   roles: [ROLE.DOCTOR, ROLE.ADMIN, ROLE.SUPER_ADMIN],
@@ -55,7 +108,8 @@ For now, there are only several presets:
 * **table** – used for page with data table, pagination and filtering
 * **card** – Create, Update and Delete the entity data
 
-You add a preset like so:
+Add a preset like so:
+
 ```ts
 route = {
   preset: 'login',
@@ -74,7 +128,7 @@ route = {
 
   /** Sidebar settings */
   visible: true,
-  title: 'Пациенты',
+  title: 'Patients',
   icon: 'users',
 
   route: {
@@ -95,7 +149,7 @@ Groups are used in the sidebar to add the visual nesting of routes. Simply write
 group = {
   group: true,
   name: 'dicts',
-  title: 'Справочники',
+  title: 'Dictionaries',
   icon: 'grid',
   routes: [
     { ...route1 },
@@ -103,26 +157,3 @@ group = {
   ]
 }
 ```
-
-## Roles
-
-You can restrict the access of some routes to different types of authenticated users. To do so, you need to firstly
-set up the ROLES enum and then add the role to a user when he/she passes the authorization.
-
-1) Go to `src/configs/roles.ts` and add properties to the enum
-2) In the `src/app/requests/login.ts`, after the requests to the backend, dispatch an action 'changeRole' to the store
-3) Create a request (it's `src/app/requests/profile.ts` now) to the backend. It must return the type:
-
-```ts
-interface Profile {
-  role: ROLE | null,
-  token: string,
-  user: User,
-}
-```
-
-It will be used every time used enters the website to check if he/she is authorized. And then it redirects to the
-proper route specified in the `routerConfig.global` configuration.
-
-After Roles are all set up, you can add them to the routing configuration, in the `roles` property as an array of
-what roles are allowed. If `null` is passed, no authorization is needed at all.

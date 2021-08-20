@@ -1,9 +1,9 @@
-interface ManifestIcon {
-  src: string,
-  sizes: string,
-  type: string,
-}
+# Manifest controller
 
+Manifest is a simple JSON file that you could see when creating a PWA application.
+Here are the typings for it:
+
+```ts
 export interface ManifestConfig {
   name: string,
   short_name: string,
@@ -15,3 +15,6 @@ export interface ManifestConfig {
   icons: ManifestIcon[],
   [key: string]: any,
 }
+```
+
+Read more about [the manifest here](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json)
