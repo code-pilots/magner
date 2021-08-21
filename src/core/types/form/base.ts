@@ -7,7 +7,6 @@ import type { DialogForm } from 'core/types/form/dialog-forms';
 export type SupportedComponentTypes =
   'button'
   | 'input'
-  | 'divider'
   | 'textarea'
   | 'checkbox'
   | 'radio'

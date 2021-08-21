@@ -54,7 +54,6 @@ To understand more about them, follow the provided links below:
 To understand different core functionality, follow other README links:
 * [Requests](./src/core/utils/api/readme.md)
 * [Generic Forms](./src/core/views/components/form/readme.md)
-* []
 
 ## Problems and troubleshooting
 

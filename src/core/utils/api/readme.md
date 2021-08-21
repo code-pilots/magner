@@ -4,12 +4,14 @@ When you work on the configuration of different pages, you have to add the reque
 those properties require you to pass the `RequestCallback` type. It is defined as:
 
 ```ts
-type RequestCallback<RESULT = any, DATA = any> = (info: {
+export type RequestCallback<RESULT = any, DATA = any> = (info: {
   data: DATA,
   api: ApiType,
   store: StoreType,
   router: Router,
-}) => Promise<BaseResponse<RESULT>>
+  errorParser: ErrorParser,
+  urlParsers: UrlParsers,
+}) => Promise<BaseResponse<RESULT>>;
 ```
 
 And is used in request files as:
@@ -38,10 +40,35 @@ export default citiesRequest;
 Therefore, this `request` util function is a helper for you to write better and easier requests.
 Use the argument of the function by taking the `api` helper, `store` and `router` object out there.
 
-Whatever data is passed from the view (which uses the configuration with your request) to the request
-is kept in the `data`. You can proxy it to any other object and send the request with the `api`.
-It encapsulates the auth token, sets all needed headers and works with possible errors, so you are
-left only to work with the response data.
+Usually, these requests are initiated from the core views, and they pass the `data` as an argument.
+It can be form data (`Record<string,any>`) or any other object important to your logic.
 
 Notice that `request` requires the object of form `{ error: null, data: any }` to be returned if there's no error,
-and `{ error: any, data: any }` if there's an error.
+and `{ error: any, data: any }` if there's an error. But request doesn't parse the error. Instead, it allows
+using defined [in "development" controller](../../controllers/development/readme.md) `errorParser` function:
+
+```ts
+export const citiesCreate = request(async ({ data, api, errorParser }) => {
+  try {
+    const res = await api.post('cities', data);
+    return { data: res, error: null };
+  } catch (e) {
+    return { error: errorParser(e), data: null };
+  }
+});
+```
+
+And one more important argument coming from [the "development" controller](../../controllers/development/readme.md) is
+`urlParsers`. It creates the query string for the GET request to the backend:
+
+```ts
+const patientsRequest: TableRequest<Patient> = request(async ({ data, api, urlParsers }) => {
+  try {
+    const query = urlParsers.dataToUrl(data);
+    const res: Response = await api.get(`patients${query}`);
+    return { error: null, data: proxied };
+  } catch (e) {
+    return { error: null, data: { rows: [], pagination: null, total: 0 } };
+  }
+});
+```
