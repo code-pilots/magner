@@ -52,6 +52,12 @@ export interface UrlParsers {
 }
 
 export interface DevelopmentConfig {
+  /** Constants that should be hidden */
+  envs: {
+    /** Base URL of any backend endpoints */
+    API_URL: string,
+  },
+
   /** Used for creating the admin panel during first stages of development if you still don't have a backend.
    * It disables the roles feature and helps logging in.<br>
    * But it still requires request functions to be written which you can simple make empty (return void). */

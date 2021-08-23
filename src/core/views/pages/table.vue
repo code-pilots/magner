@@ -99,7 +99,6 @@ import useDialogForm from 'core/utils/form/use-dialog-form';
 import useStore from 'core/controllers/store/store';
 import { layoutToFields } from 'core/utils/form/form';
 import filterUrlDataComparison from 'core/utils/form/filter-url-data-comparison';
-import lstorage from 'core/utils/core/local-storage';
 import DataTable from 'core/views/components/table.vue';
 import Dynamic from '../components/dynamic.vue';
 import GenericForm from '../components/form/form.vue';
@@ -152,7 +151,7 @@ export default defineComponent({
 
     // Depending on URL query existence and configuration, load initial data from URL or LocalStorage
     const initialData = props.config.filters.saveToLocalStorage && !Object.keys(route.query).length
-      ? lstorage.deepRead('filters', route.name as string)
+      ? store.state.project.lstorage.deepRead('filters', route.name as string)
       : store.state.project.development.urlParsers.urlToData(route.query);
     filterUrlDataComparison(requestData, initialData);
 
@@ -184,7 +183,7 @@ export default defineComponent({
 
     watchEffect(() => {
       if (props.config.filters.saveToLocalStorage) {
-        lstorage.deepPut('filters', route.name as string, { filters: requestData.filters });
+        store.state.project.lstorage.deepPut('filters', route.name as string, { filters: requestData.filters });
       }
     });
 

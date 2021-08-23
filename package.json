@@ -1,13 +1,23 @@
 {
-  "name": "universal-admin",
+  "name": "magner",
   "description": "Admin panel that can be used for literally any project",
   "version": "0.1.0",
+  "files": ["dist"],
+  "main": "./dist/magner.es.js",
+  "module": "./dist/magner.es.js",
+  "types": "./src/core/index.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/magner.es.js"
+    }
+  },
   "engines": {
     "node": ">=14"
   },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "lib": "vite build --config vite.lib.ts",
     "start": "vite preview",
     "serve": "vite build && vite preview",
     "lint": "eslint --fix src",

@@ -1,6 +1,5 @@
 /* eslint-disable no-undef */
 import globalValues from 'core/global';
-import envs from '../../../envs';
 import ApiError from './api-error';
 
 interface RequestConfig extends RequestInit {
@@ -14,7 +13,7 @@ interface RequestConfig extends RequestInit {
  * @param config – additional fetch configuration.
  */
 export const http = async <T>(path: string, config: RequestConfig): Promise<T> => {
-  if (!envs.API_URL) {
+  if (!globalValues.development.envs.API_URL) {
     throw new Error('Please, set the API_URL in the "envs.ts" file! It is required for any API calls.');
   }
 
@@ -23,7 +22,7 @@ export const http = async <T>(path: string, config: RequestConfig): Promise<T> =
   if (globalValues.store?.state?.token) headers.Authorization = `Bearer ${globalValues.store.state.token}`;
 
   try {
-    const req = new Request(envs.API_URL + path, {
+    const req = new Request(globalValues.development.envs.API_URL + path, {
       ...config,
       headers,
     });

@@ -1,8 +1,8 @@
 import { manifestController } from 'core/controllers';
 
 const manifest = manifestController({
-  name: 'Universal Admin Panel',
-  short_name: 'universal-admin',
+  name: 'Magner',
+  short_name: 'magner',
   display: 'standalone',
   background_color: '#6c6ee5',
   theme_color: '#fff',
