@@ -38,7 +38,7 @@ const urlParsers = urlParsersController({
 });
 ```
 
-There are two functions which do opposite work: `dataToUrl` accepts any [form data](../../views/components/form/readme.md)
+There are two functions which do opposite work: `dataToUrl` accepts any [form data](../form.md)
 and returns query string that will be passed to the GET request for some data from backend.
 
 `urlToData` takes the query object and proxies it to the form data. Query string, in this case, is parsed by
@@ -58,7 +58,7 @@ const errorParser = errorParserController((err) => ({
 ```
 
 `errorParser` should return the object with `message` property explaining the error and the `fields`
-property. It is an object where key is the name of a form field (check [generic forms explanation](../../views/components/form/readme.md)) 
+property. It is an object where key is the name of a form field (check [generic forms explanation](../form.md)) 
 and value is a string explaining the error in the field.
 
 ## profileRequest
@@ -98,7 +98,7 @@ const profileRequest = profileRequestController(async ({ api }) => {
 });
 ```
 
-Function must return the object of restricted type wrapped in `RequestCallback` (read about it [in "requests"](../../utils/api/readme.md)):
+Function must return the object of restricted type wrapped in `RequestCallback` (read about it [in "requests"](../requests.md)):
 
 ```ts
 interface ProfileRequestResponse {
@@ -109,7 +109,7 @@ interface ProfileRequestResponse {
 ```
 
 After all, the `used` is saved in the store, `token` is kept in local storage and `role` is used to check any route change.
-How roles affect the routing [is explained here](../router/readme.md).
+How roles affect the routing [is explained here](routing.md).
 
 ## Validators
 

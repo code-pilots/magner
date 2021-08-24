@@ -9,3 +9,5 @@ cypress
 coverage
 .secrets
 .vercel
+.temp
+.cache
