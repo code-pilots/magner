@@ -7,11 +7,11 @@
   ],
   "main": "./dist/magner.es.js",
   "module": "./dist/magner.es.js",
-  "types": "./dist/src/core/index.d.ts",
   "exports": {
     ".": "./dist/magner.es.js",
     "./style": "./dist/style.css"
   },
+  "types": "./dist/src/core/index.d.ts",
   "engines": {
     "node": ">=14"
   },

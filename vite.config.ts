@@ -3,9 +3,7 @@ import path from 'path';
 import vue from '@vitejs/plugin-vue';
 import { defineConfig } from 'vite';
 // import { VitePWA } from 'vite-plugin-pwa';
-
-// @ts-ignore
-import transformSvg from './src/transformSvg.js';
+import { transformSvg } from './src/core/utils/transform-svg';
 
 export default defineConfig({
   plugins: [
