@@ -22,7 +22,7 @@ means that you have to know what type of roles does backend support. In our case
 * ADMIN – Administrator, has write access to limited set of entities
 * DOCTOR – User with limited write and read privileges to entities related to this particular user. 
 
-You should set up how the role is taken from the backend request in [the development project config](../development/readme.md) 
+You should set up how the role is taken from the backend request in [the development project config](development.md) 
 Profile section. Make sure to read and understand mentioned topic.
 
 To assign the roles to a route, use the roles array:
