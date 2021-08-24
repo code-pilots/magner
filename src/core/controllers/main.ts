@@ -16,12 +16,15 @@ import 'styles/normalize.css';
 import 'styles/breakpoints.css';
 import 'styles/ui.css';
 import 'styles/typography.css';
+import lstorageController from 'core/utils/core/local-storage';
 
 export const mainController = (project: ProjectConfig) => {
+  globalValues.manifest = project.manifest();
+  globalValues.lstorage = lstorageController(`magner-${globalValues.manifest.short_name}`);
+
   const store = storeController()();
   globalValues.store = store[0];
 
-  globalValues.manifest = project.manifest();
   globalValues.development = project.development();
 
   const i18n = project.i18n();

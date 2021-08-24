@@ -3,7 +3,4 @@ import globalValues from 'core/global';
 
 export type ManifestController = () => ManifestConfig;
 
-export const manifestController = (config: ManifestConfig): ManifestController => () => {
-  globalValues.store.dispatch('changeProject', config);
-  return config;
-};
+export const manifestController = (config: ManifestConfig): ManifestController => () => config;

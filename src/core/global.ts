@@ -3,6 +3,7 @@ import type { StoreType } from 'core/controllers/store/store';
 import type { I18n } from 'vue-i18n';
 import type { Language } from 'element-plus/lib/locale';
 import type { DevelopmentConfig, ManifestConfig, RoutingConfig } from 'core/types/configs';
+import type { LStorage } from 'core/utils/core/local-storage';
 
 export interface GlobalValues {
   manifest: ManifestConfig,
@@ -15,6 +16,8 @@ export interface GlobalValues {
   t: I18n['global']['t'],
   locales: Record<string, Language>,
   languages: Record<string, string>,
+
+  lstorage: LStorage,
 }
 
 const globalValues = {} as GlobalValues;

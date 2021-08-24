@@ -5,4 +5,4 @@ import {
 export type StoreConfig = [StoreType, InjectionKeyType];
 export type StoreController = () => StoreConfig;
 
-export const storeController = (): StoreController => () => [store, injectionKey];
+export const storeController = (): StoreController => () => [store(), injectionKey];

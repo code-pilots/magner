@@ -2,17 +2,35 @@
 import path from 'path';
 import vue from '@vitejs/plugin-vue';
 import { defineConfig } from 'vite';
-// import { VitePWA } from 'vite-plugin-pwa';
+import dts from 'vite-plugin-dts';
 import { transformSvg } from './src/core/utils/transform-svg';
 
 export default defineConfig({
   plugins: [
     vue(),
     transformSvg(),
-    // VitePWA({
-    //   workbox: {},
-    // }),
+    dts(),
   ],
+  build: {
+    lib: {
+      entry: path.resolve(__dirname, './src/core/index.ts'),
+      formats: ['es'],
+      name: 'magner',
+      fileName: 'magner',
+    },
+    rollupOptions: {
+      external: [
+        'vue', 'vue-router', 'vue-i18n', 'vuex', 'maska', 'element-plus',
+        'editorjs-table', '@editorjs/editorjs', '@editorjs/header', '@editorjs/list',
+      ],
+      output: {
+        globals: {
+          vue: 'Vue',
+        },
+      },
+    },
+    chunkSizeWarningLimit: 1024,
+  },
   resolve: {
     alias: {
       app: path.resolve(__dirname, 'src', 'app'),
@@ -21,11 +39,5 @@ export default defineConfig({
       assets: path.resolve(__dirname, 'src', 'assets'),
       styles: path.resolve(__dirname, 'src', 'core', 'assets', 'styles'),
     },
-  },
-  server: {
-    port: parseInt(process.env.PORT || '8080', 10),
-  },
-  build: {
-    chunkSizeWarningLimit: 1024,
   },
 });

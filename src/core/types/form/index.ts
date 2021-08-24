@@ -57,3 +57,18 @@ export interface GenericForm {
   /** If 'true', shows the debug window with form fields on top right corner of the form */
   debug?: boolean,
 }
+
+export {
+  InputField,
+  TextareaField,
+  ButtonField,
+  CheckboxField,
+  RadioField,
+  SwitchField,
+  SelectField,
+  DropzoneField,
+  DateTimeField,
+  EditorField,
+  CollectionField,
+  CustomField,
+};
