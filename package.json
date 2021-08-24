@@ -7,7 +7,7 @@
   ],
   "main": "./dist/magner.es.js",
   "module": "./dist/magner.es.js",
-  "types": "./src/core/index.ts",
+  "types": "./dist/src/core/index.d.ts",
   "exports": {
     ".": "./dist/magner.es.js",
     "./style": "./dist/style.css"
@@ -67,6 +67,7 @@
     "tsconfig-paths": "^3.10.1",
     "typescript": "^4.2.3",
     "vite": "^2.3.3",
+    "vite-plugin-dts": "^0.7.0",
     "vite-plugin-pwa": "^0.7.3",
     "vite-plugin-vue-svg": "^0.1.0",
     "vue-jest": "^5.0.0-alpha.7"

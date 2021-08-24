@@ -2,6 +2,7 @@
 import path from 'path';
 import vue from '@vitejs/plugin-vue';
 import { defineConfig } from 'vite';
+import dts from 'vite-plugin-dts';
 
 // @ts-ignore
 import transformSvg from './src/transformSvg.js';
@@ -10,6 +11,7 @@ export default defineConfig({
   plugins: [
     vue(),
     transformSvg(),
+    dts(),
   ],
   build: {
     lib: {
