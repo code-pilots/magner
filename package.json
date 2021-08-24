@@ -2,14 +2,15 @@
   "name": "magner",
   "description": "Admin panel that can be used for literally any project",
   "version": "0.1.0",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "main": "./dist/magner.es.js",
   "module": "./dist/magner.es.js",
   "types": "./src/core/index.ts",
   "exports": {
-    ".": {
-      "import": "./dist/magner.es.js"
-    }
+    ".": "./dist/magner.es.js",
+    "./style": "./dist/style.css"
   },
   "engines": {
     "node": ">=14"

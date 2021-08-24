@@ -1,4 +1,4 @@
-const enLocale = {
+export const enLocale = {
   core: {
     header: {
       logout: 'Log out',
@@ -35,5 +35,3 @@ const enLocale = {
 };
 
 export type TranslationSchema = typeof enLocale;
-
-export default enLocale;

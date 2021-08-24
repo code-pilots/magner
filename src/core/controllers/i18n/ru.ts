@@ -1,6 +1,6 @@
-import type { TranslationSchema } from 'core/controllers/i18n/en';
+import type { TranslationSchema } from './en';
 
-const ruLocale: TranslationSchema = {
+export const ruLocale: TranslationSchema = {
   core: {
     header: {
       logout: 'Выйти',
@@ -35,5 +35,3 @@ const ruLocale: TranslationSchema = {
     },
   },
 };
-
-export default ruLocale;

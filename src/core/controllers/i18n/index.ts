@@ -1,8 +1,8 @@
 import { createI18n, I18n } from 'vue-i18n';
-import type { TranslationConfig } from 'core/types/configs/translation';
-import enLocale, { TranslationSchema } from 'core/controllers/i18n/en';
-import ruLocale from 'core/controllers/i18n/ru';
-import globalValues from 'core/global';
+import type { TranslationConfig } from '../../types/configs/translation';
+import { enLocale } from './en';
+import { ruLocale } from './ru';
+import globalValues from '../../global';
 
 export type TranslationController = () => {
   i18n: I18n,
@@ -47,7 +47,3 @@ export const translationController = <SUPPORTED_LANGUAGES extends string>(
       config,
     };
   };
-
-export {
-  TranslationSchema,
-};
