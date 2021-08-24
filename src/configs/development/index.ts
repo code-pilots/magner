@@ -1,4 +1,4 @@
-import { developmentController } from 'core/controllers';
+import { developmentController } from 'core/index';
 import urlParsers from 'configs/development/get-request';
 import errorParser from 'configs/development/parse-error';
 import profileRequest from 'configs/development/profile';
@@ -9,7 +9,8 @@ const development = developmentController({
   envs: {
     API_URL: envs.API_URL,
   },
-  noBackendMode: false,
+  noBackendMode: true,
+
   urlParsers,
   errorParser,
   profileRequest,

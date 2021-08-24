@@ -1,10 +1,8 @@
-import { cardPageController } from 'core/controllers';
+import { cardPageController, InputField } from 'core/index';
 import {
   bigtestCreate, bigtestGet, bigtestUpdate,
 } from 'app/requests/big-test';
 import { translate } from 'core/utils';
-import type { InputField } from 'core/types/form/fields/input';
-import type { ColumnFields } from 'core/types/form/layout';
 import CustomLayout from 'app/components/custom-layout.vue';
 
 const inputField: InputField = {
@@ -17,25 +15,25 @@ const inputField: InputField = {
   },
 };
 
-const bigCol: ColumnFields = {
+const bigCol: any = {
   type: 'column',
   props: { span: 12, xs: 24 },
   fields: [inputField],
 };
 
-const mdCol: ColumnFields = {
+const mdCol: any = {
   type: 'column',
   props: { span: 6, xs: 24 },
   fields: [inputField],
 };
 
-const smallCol: ColumnFields = {
+const smallCol: any = {
   type: 'column',
   props: { span: 3, xs: 24 },
   fields: [inputField],
 };
 
-const smallestCol: ColumnFields = {
+const smallestCol: any = {
   type: 'column',
   props: { span: 2, xs: 24 },
   fields: [inputField],

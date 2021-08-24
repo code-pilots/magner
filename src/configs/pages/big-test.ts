@@ -1,12 +1,8 @@
-import { cardPageController } from 'core/controllers';
+import { translate, cardPageController } from 'core/index';
 import {
   bigtestCreate, bigtestDelete, bigtestGet, bigtestUpdate,
 } from 'app/requests/big-test';
 import type { SelectField } from 'core/types/form/fields/select';
-import type { CustomField } from 'core/types/form/fields/custom';
-import { citiesCreate, citiesGet } from 'app/requests/citites';
-import { translate, requestWrapper } from 'core/utils';
-import DialogOpener from 'app/components/dialog-opener.vue';
 import { ButtonField } from 'core/types/form/fields/button';
 
 const RadioOptions = [
@@ -96,23 +92,6 @@ export default cardPageController({
             xs: 24,
           },
           fields: [
-            {
-              type: 'select',
-              name: 'city',
-              label: translate('form_test.form.city_label'),
-              props: {
-                filterable: true,
-                remote: true,
-                remoteMethod: citiesGet,
-                valueKey: 'id',
-                labelKey: 'name',
-                placeholder: translate('form_test.form.city_placeholder'),
-                loadingText: translate('form_test.form.city_loading_text'),
-                noDataText: translate('form_test.form.city_no_data_text'),
-              },
-              options: [],
-            },
-
             {
               type: 'select',
               name: 'country',
@@ -465,75 +444,11 @@ export default cardPageController({
             },
           ],
         },
-
-        /** Custom field that interacts with dialog forms */
-        {
-          type: 'column',
-          props: {
-            span: 12,
-            xs: 24,
-          },
-          fields: [
-            {
-              type: 'custom',
-              name: 'dialogger',
-              component: () => DialogOpener,
-              props: {
-                city: 'Open dialog menu',
-              },
-              changeAction: ({ getDialogForm, data }) => {
-                const dialog = getDialogForm('suspect');
-                if (dialog && data?.type === 'open-suspect') {
-                  dialog.open = true;
-                }
-              },
-            },
-          ],
-        },
       ],
     },
 
     /** Dialog form that creates an entity 'city' and passes it to the custom component */
     dialogForms: [
-      {
-        name: 'suspect',
-        title: translate('form_test.form.dialog.title'),
-        open: false,
-        submit: {
-          text: translate('form_test.submit_text'),
-        },
-        layout: [
-          {
-            type: 'input',
-            name: 'name',
-            label: translate('form_test.form.dialog.city_label'),
-            props: {
-              type: 'text',
-              placeholder: translate('form_test.form.dialog.city_placeholder'),
-            },
-          },
-          {
-            type: 'input',
-            name: 'timezone',
-            label: translate('form_test.form.dialog.timezone'),
-            props: {
-              type: 'text',
-              placeholder: translate('form_test.form.dialog.timezone_placeholder'),
-            },
-          },
-        ],
-        submitAction: async (data, { form, getField, getDialogForm }) => {
-          const res = await requestWrapper(data, citiesCreate);
-
-          const custom = getField<CustomField>('dialogger');
-          const dialog = getDialogForm('suspect');
-          if (custom && dialog) {
-            custom.props = { city: res };
-            dialog.open = false;
-          }
-        },
-      },
-
       {
         name: 'editor',
         title: translate('form_test.form.editor.dialog_text'),
