@@ -1,5 +1,27 @@
-import { request } from 'core/index';
+import { profileRequestController } from 'core/index';
 
-const loginRequest = request<true>(async () => ({ error: null, data: true }));
+interface LoginResponse {
+  result: {
+    success: true,
+  },
+  token: string,
+}
+
+const loginRequest = profileRequestController(async ({ api, data }) => {
+  try {
+    const res = await api.post<{}, LoginResponse>('auth/login', data);
+
+    return {
+      error: null,
+      data: {
+        token: res.token,
+        user: {},
+        role: '',
+      },
+    };
+  } catch (e) {
+    return { error: 'Error', data: null };
+  }
+});
 
 export default loginRequest;

@@ -31,7 +31,7 @@ import {
   ref,
   PropType, reactive, computed,
 } from 'vue';
-import type { LoginConfig } from 'core/types/configs';
+import type { LoginConfig, ProfileRequestResponse } from 'core/types/configs';
 import { useRouter } from 'vue-router';
 import useStore from 'core/controllers/store/store';
 import { useTranslate, requestWrapper } from 'core/utils';
@@ -78,7 +78,7 @@ export default defineComponent({
       }
 
       loading.value = true;
-      const res = await requestWrapper(data, props.config.request);
+      const res = await requestWrapper<ProfileRequestResponse>(data, props.config.request);
       loading.value = false;
 
       if (res.error && typeof res.error === 'object') {
@@ -86,7 +86,10 @@ export default defineComponent({
         error.value = res.error.message;
       } else if (res.error) {
         error.value = res.error;
-      } else {
+      } else if (res.data) {
+        await store.dispatch('changeToken', res.data.token);
+        await store.dispatch('changeUser', res.data.user);
+        await store.dispatch('changeRole', res.data.role);
         await router.push({ name: store.state.project.routes.global.homeHasAuthName });
       }
     };

@@ -11,7 +11,7 @@ export interface ApiError {
 }
 export type ErrorParser = (err: any) => ApiError;
 
-interface ProfileRequestResponse {
+export interface ProfileRequestResponse {
   role: string | null,
   token: string,
   user: any,

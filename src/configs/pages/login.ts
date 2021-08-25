@@ -28,7 +28,7 @@ const loginPageConfig = loginPageController({
         name: 'password',
         required: false,
         validation: {
-          type: 'password',
+          type: 'empty',
           trigger: 'blur',
         },
         props: {

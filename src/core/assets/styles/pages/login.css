@@ -8,5 +8,9 @@
       margin-bottom: 20px;
       text-align: center;
     }
+
+    & .generic-form_error {
+      margin-bottom: 8px;
+    }
   }
 }

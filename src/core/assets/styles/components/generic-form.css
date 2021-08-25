@@ -207,6 +207,7 @@
         bottom: 0;
         right: 0;
         max-height: 30px;
+        min-width: 150px;
         max-width: 300px;
         height: auto;
         background: rgba(0,0,0,0.9);
@@ -239,7 +240,8 @@
             position: absolute;
             bottom: 0;
             top: 0;
-            width: 100%;
+            right: 0;
+            left: 0;
             height: 30px;
             background: #191919;
             padding: 8px 10px;
