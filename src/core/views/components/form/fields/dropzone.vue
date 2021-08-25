@@ -33,9 +33,11 @@
       </div>
     </div>
 
-    <div
+    <transition-group
       v-else
       ref="draggerEl"
+      tag="div"
+      name="field-group"
       class="el-upload-dragger images"
       :class="{'is-dragover': dragOver}"
       @click.self="select"
@@ -45,10 +47,15 @@
           <DropzoneImage
             :model-value="image"
             :src-key="field.props.srcKey"
+            :draggable="field.props.sortable"
+            :loading="false"
+            @dragstart="handleInnerDragStart(i)"
+            @dragover="handleInnerDragOver(i)"
+            @drop="handleInnerDrop(i)"
           />
         </template>
       </suspense>
-    </div>
+    </transition-group>
 
     <slot :files="files" :dragOver="dragOver" :select="select" />
   </div>
@@ -87,6 +94,7 @@ export default defineComponent({
     const { t } = useI18n();
     const values = ref<ValueType>(props.modelValue);
     const dragOver = ref<boolean>(false);
+    const innerDrag = ref<number>(0);
     const inputEl = ref<HTMLInputElement>();
     const wrapperEl = ref<HTMLDivElement>();
     const draggerEl = ref<HTMLDivElement>();
@@ -131,9 +139,7 @@ export default defineComponent({
       },
     });
 
-    const select = () => {
-      inputEl.value?.click();
-    };
+    const select = () => inputEl.value?.click();
 
     const toggleDragOver = (val: boolean) => {
       if (props.field.props.noDrop || props.field.props.disabled) return;
@@ -227,6 +233,7 @@ export default defineComponent({
     };
 
     const handleDragEnter = (event: Event) => {
+      if (innerDrag.value) return;
       toggleDragOver(true);
       commonHandler(event);
     };
@@ -247,6 +254,27 @@ export default defineComponent({
       else upload([]);
     };
 
+    const handleInnerDragStart = (index: number) => {
+      innerDrag.value = index + 1;
+    };
+
+    const handleInnerDragOver = (index: number) => {
+      if (index !== innerDrag.value - 1) {
+        const vals = values.value as (File | string)[];
+
+        // Swap elements
+        const tempEl = vals?.[innerDrag.value - 1];
+        vals[innerDrag.value - 1] = vals[index];
+        vals[index] = tempEl;
+        values.value = [...vals];
+        innerDrag.value = index + 1;
+      }
+    };
+
+    const handleInnerDrop = () => {
+      innerDrag.value = 0;
+    };
+
     const inputChange = ({ target }: {target: HTMLInputElement}) => {
       if (target.files && !props.field.props.disabled) upload(Array.from(target.files));
     };
@@ -254,6 +282,7 @@ export default defineComponent({
     return {
       t,
       values,
+      innerDrag,
       dragOver,
       files,
       inputEl,
@@ -264,6 +293,9 @@ export default defineComponent({
       toggleDragOver,
       handleDragEnter,
       handleDragLeave,
+      handleInnerDragStart,
+      handleInnerDragOver,
+      handleInnerDrop,
       handleDrop,
       inputChange,
       commonHandler,

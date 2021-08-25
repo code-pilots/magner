@@ -1,11 +1,23 @@
 <template>
-  <div v-if="src" class="el-upload-dragger_image">
+  <div
+    v-if="src"
+    v-loading="loading"
+    class="el-upload-dragger_image"
+    :class="{loading}"
+    :draggable="draggable"
+    @dragstart="emitDrag('dragstart', $event)"
+    @dragend="emitDrag('dragend', $event)"
+    @dragover="emitDrag('dragover', $event)"
+    @drop="emitDrag('drop', $event)"
+  >
     <el-image :src="src" />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
+import {
+  defineComponent, PropType, ref, watchEffect,
+} from 'vue';
 
 export default defineComponent({
   name: 'DropzoneImage',
@@ -20,8 +32,21 @@ export default defineComponent({
       type: String,
       default: 'src',
     },
+
+    draggable: {
+      type: Boolean,
+      default: true,
+    },
+
+    loading: {
+      type: Boolean,
+      default: false,
+    },
   },
-  async setup (props) {
+  async setup (props, context) {
+    const src = ref<string|null>(null);
+    const isFile = ref<boolean>(false);
+
     const readAsDataURL = (file: File | string): Promise<string|null> => new Promise((resolve) => {
       if (typeof file === 'string') {
         resolve(file);
@@ -37,10 +62,20 @@ export default defineComponent({
       }
     });
 
-    const src = await readAsDataURL(props.modelValue);
+    watchEffect(async () => {
+      src.value = await readAsDataURL(props.modelValue);
+    });
+
+    src.value = await readAsDataURL(props.modelValue);
+
+    const emitDrag = (name: string, event: DragEvent) => {
+      context.emit(name, event);
+    };
 
     return {
       src,
+      isFile,
+      emitDrag,
     };
   },
 });

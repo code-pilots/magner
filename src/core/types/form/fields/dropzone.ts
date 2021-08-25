@@ -42,8 +42,11 @@ export interface DropzoneProps extends BaseProps {
   /** Allowed formats for the input */
   formats?: string[]|null,
 
-  /** Disable drag-and-drop. Upload is still accessible by click */
+  /** Disable dropzone's drag-and-drop. Upload is still accessible by click */
   noDrop?: boolean,
+
+  /** Sort images or files inside the dropzone with Drag-and-Drop. Default is true */
+  sortable?: boolean,
 
   disabled?: boolean,
 

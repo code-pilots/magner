@@ -74,7 +74,7 @@
     />
 
     <DateTime
-      v-else-if="field.type === 'datetime'"
+      v-else-if="false && field.type === 'datetime'"
       v-model="val"
       :field="field"
       @update:modelValue="updVal"
@@ -217,6 +217,7 @@ export default defineComponent({
     });
 
     const updVal = (newValue: any) => {
+      console.log(newValue);
       context.emit('update:modelValue', newValue);
     };
 
