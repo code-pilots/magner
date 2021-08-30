@@ -18,3 +18,8 @@ property in the config and do "Go to definition" in your IDE: CMD+Click in Webst
 
 As a last resort, you can open an issue (or discussion) in the repo or contact [the maintainer](https://t.me/vanishmax) 
 with your problem or proposal.
+
+## Copyright
+
+Licensed by the terms of [the MIT license](./LICENSE). 
+Copyright © [Code Pilots](https://code-pilots.com/). 2021
