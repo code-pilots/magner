@@ -12,19 +12,32 @@
     "types": ["vite/client", "@types/jest", "cypress"],
     "baseUrl": ".",
     "paths": {
-      "app/*": ["src/app/*"],
-      "core/*": ["src/core/*"],
-      "configs/*": ["src/configs/*"],
-      "assets/*": ["src/assets/*"],
-      "styles/*": ["src/core/assets/styles/*"]
+      "lib/*": ["lib/*"],
+      "styles/*": ["playground/assets/styles/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue", "tests/**/*.ts"],
+  "include": [
+    "playground/**/*.ts",
+    "playground/**/*.d.ts",
+    "playground/**/*.vue",
+    "lib/**/*.ts",
+    "lib/**/*.d.ts",
+    "lib/**/*.vue",
+    "tests/**/*.ts"
+  ],
   "ts-node": {
     "transpileOnly": true,
     "moduleTypes": {
-      "./src/**/**": "cjs"
+      "./playground/**/**": "cjs",
+      "./lib/**/**": "cjs",
     },
-    "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue"]
+    "include": [
+      "playground/**/*.ts",
+      "playground/**/*.d.ts",
+      "playground/**/*.vue",
+      "lib/**/*.ts",
+      "lib/**/*.d.ts",
+      "lib/**/*.vue"
+    ]
   }
 }

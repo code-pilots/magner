@@ -2,24 +2,17 @@
 import path from 'path';
 import vue from '@vitejs/plugin-vue';
 import { defineConfig } from 'vite';
-// import { VitePWA } from 'vite-plugin-pwa';
-import { transformSvg } from './src/core/utils/transform-svg';
+import { transformSvg } from './lib/utils/transform-svg';
 
 export default defineConfig({
   plugins: [
     vue(),
     transformSvg(),
-    // VitePWA({
-    //   workbox: {},
-    // }),
   ],
   resolve: {
     alias: {
-      app: path.resolve(__dirname, 'src', 'app'),
-      core: path.resolve(__dirname, 'src', 'core'),
-      configs: path.resolve(__dirname, 'src', 'configs'),
-      assets: path.resolve(__dirname, 'src', 'assets'),
-      styles: path.resolve(__dirname, 'src', 'core', 'assets', 'styles'),
+      lib: path.resolve(__dirname, 'lib'),
+      styles: path.resolve(__dirname, 'playground', 'assets', 'styles'),
     },
   },
   server: {

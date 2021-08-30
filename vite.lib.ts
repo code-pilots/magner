@@ -3,7 +3,7 @@ import path from 'path';
 import vue from '@vitejs/plugin-vue';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
-import { transformSvg } from './src/core/utils/transform-svg';
+import { transformSvg } from './lib/utils/transform-svg';
 
 export default defineConfig({
   plugins: [
@@ -13,7 +13,7 @@ export default defineConfig({
   ],
   build: {
     lib: {
-      entry: path.resolve(__dirname, './src/core/index.ts'),
+      entry: path.resolve(__dirname, './lib/index.ts'),
       formats: ['es'],
       name: 'magner',
       fileName: 'magner',
@@ -33,11 +33,8 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      app: path.resolve(__dirname, 'src', 'app'),
-      core: path.resolve(__dirname, 'src', 'core'),
-      configs: path.resolve(__dirname, 'src', 'configs'),
-      assets: path.resolve(__dirname, 'src', 'assets'),
-      styles: path.resolve(__dirname, 'src', 'core', 'assets', 'styles'),
+      lib: path.resolve(__dirname, 'lib'),
+      styles: path.resolve(__dirname, 'playground', 'assets', 'styles'),
     },
   },
 });
