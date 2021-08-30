@@ -60,7 +60,7 @@ export default cardPageController({
           props: {
             title: translate('form_test.form.custom_layout'),
           },
-          component: CustomLayout,
+          component: () => CustomLayout,
         },
 
         {

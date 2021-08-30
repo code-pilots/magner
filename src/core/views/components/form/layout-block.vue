@@ -1,7 +1,7 @@
 <template>
   <template v-if="block.type === 'custom'">
     <component
-      :is="block.component"
+      :is="shallowComponent"
       :layout="block.props"
     />
   </template>
@@ -56,7 +56,7 @@
 
 <script lang="ts">
 import {
-  defineComponent, PropType,
+  defineComponent, PropType, shallowRef,
 } from 'vue';
 import type { GenericFormLayout, FormLayoutColumn, FormLayoutRow } from 'core/types/form/layout';
 import { useTranslate } from 'core/utils';
@@ -70,8 +70,9 @@ export default defineComponent({
       required: true,
     },
   },
-  setup () {
+  setup (props) {
     const { customT } = useTranslate();
+    const shallowComponent = shallowRef(props.block.type === 'custom' ? props.block.component?.() : null);
 
     const getProps = (block: FormLayoutRow | FormLayoutColumn) => {
       if (block.type === 'row') {
@@ -89,6 +90,7 @@ export default defineComponent({
     return {
       customT,
       getProps,
+      shallowComponent,
     };
   },
 });

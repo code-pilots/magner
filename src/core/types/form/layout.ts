@@ -108,7 +108,7 @@ export interface FormLayoutCustom extends FormLayoutBase {
   type: 'custom',
   layout?: never,
   fields?: never,
-  component: RouteComponent | (() => Promise<RouteComponent>),
+  component: () => (RouteComponent | (() => Promise<RouteComponent>)),
   props: Record<string, any>,
 }
 

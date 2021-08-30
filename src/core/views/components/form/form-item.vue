@@ -74,7 +74,7 @@
     />
 
     <DateTime
-      v-else-if="false && field.type === 'datetime'"
+      v-else-if="field.type === 'datetime'"
       v-model="val"
       :field="field"
       @update:modelValue="updVal"

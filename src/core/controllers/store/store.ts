@@ -1,7 +1,6 @@
 import { InjectionKey } from 'vue';
 import { createStore, useStore as baseUseStore, Store } from 'vuex';
 import globalValues, { GlobalValues } from 'core/global';
-import { locale as elLocale } from 'element-plus';
 
 interface State {
   project: GlobalValues,
@@ -92,9 +91,6 @@ export const store = () => createStore<State>({
 
     changeLanguage (context, value: string) {
       context.commit('setLanguage', value);
-      if (context.state.project.locales?.[value]) {
-        elLocale(context.state.project.locales[value]);
-      }
     },
 
     changeToken (context, value: string) {

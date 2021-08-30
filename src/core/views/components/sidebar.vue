@@ -8,7 +8,7 @@
         @select="navigate"
       >
         <template v-for="route in routing">
-          <el-submenu
+          <el-sub-menu
             v-if="route.group && (!route.roles || route.roles.includes(role))"
             :key="route.name"
             :index="route.name"
@@ -32,7 +32,7 @@
                 </template>
               </el-menu-item>
             </template>
-          </el-submenu>
+          </el-sub-menu>
 
           <el-menu-item
             v-else-if="(!route.roles || route.roles.includes(role)) && route.visible"

@@ -64,6 +64,40 @@ const router = routerController<ROLE>({
     },
 
     {
+      group: true,
+      name: 'dicts',
+      title: translate('pages.dictionaries'),
+      icon: 'grid',
+      routes: [
+        {
+          preset: 'table',
+          config: patientsConfig,
+          roles: null,
+          visible: true,
+          title: translate('pages.patients'),
+          icon: 'users',
+          route: {
+            name: 'patients',
+            path: '/patients',
+          },
+        },
+
+        {
+          preset: 'card',
+          title: translate('pages.form_test'),
+          icon: 'key',
+          visible: true,
+          roles: null,
+          config: bigtestConfig,
+          route: {
+            path: '/big-test',
+            name: 'bigtest',
+          },
+        },
+      ],
+    },
+
+    {
       preset: 'card',
       title: translate('pages.form_layout'),
       icon: 'layout',

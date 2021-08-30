@@ -14,12 +14,12 @@ async function compileSvg (source: string, id: string) {
 async function optimizeSvg (content: Buffer, path: string) {
   const { data } = await optimize(content, {
     path,
-    plugins: extendDefaultPlugins([
+    plugins: [
       {
         name: 'removeViewBox',
         active: false,
       },
-    ]),
+    ],
   });
   return data;
 }

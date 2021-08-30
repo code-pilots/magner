@@ -2,11 +2,6 @@ import { filtersFormController } from 'core/controllers';
 import { translate } from 'core/utils';
 
 const patientsFilters = filtersFormController({
-  linkToCreateNew: {
-    label: translate('patients.filters.create_new'),
-    routeName: 'patient',
-  },
-
   fieldsShowAmount: 1,
 
   saveToLocalStorage: true,
