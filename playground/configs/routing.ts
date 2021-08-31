@@ -51,37 +51,11 @@ const router = routerController<ROLE>({
     },
 
     {
-      preset: 'card',
-      title: translate('pages.form_test'),
-      icon: 'key',
-      visible: true,
-      roles: null,
-      config: bigtestConfig,
-      route: {
-        path: '/big-test',
-        name: 'bigtest',
-      },
-    },
-
-    {
       group: true,
-      name: 'dicts',
-      title: translate('pages.dictionaries'),
+      name: 'nested',
+      title: translate('pages.nested'),
       icon: 'grid',
       routes: [
-        {
-          preset: 'table',
-          config: patientsConfig,
-          roles: null,
-          visible: true,
-          title: translate('pages.patients'),
-          icon: 'users',
-          route: {
-            name: 'patients',
-            path: '/patients',
-          },
-        },
-
         {
           preset: 'card',
           title: translate('pages.form_test'),
@@ -94,20 +68,20 @@ const router = routerController<ROLE>({
             name: 'bigtest',
           },
         },
-      ],
-    },
 
-    {
-      preset: 'card',
-      title: translate('pages.form_layout'),
-      icon: 'layout',
-      visible: true,
-      roles: null,
-      config: formLayoutConfig,
-      route: {
-        path: '/form-layout',
-        name: 'form-layout',
-      },
+        {
+          preset: 'card',
+          title: translate('pages.form_layout'),
+          icon: 'layout',
+          visible: true,
+          roles: null,
+          config: formLayoutConfig,
+          route: {
+            path: '/form-layout',
+            name: 'form-layout',
+          },
+        },
+      ],
     },
 
     {

@@ -47,6 +47,7 @@
         </el-dropdown>
 
         <el-button
+          v-if="isMobile"
           size="mini"
           circle
           class="header_right_burger"
@@ -65,6 +66,7 @@ import { defineComponent, PropType, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import useStore from '../../controllers/store/store';
 import { TranslateData, useTranslate } from '../../utils/core/translate';
+import { useMobile } from '../../utils/core/is-mobile';
 
 export default defineComponent({
   name: 'Header',
@@ -83,6 +85,7 @@ export default defineComponent({
     const { customT, t, locale } = useTranslate();
     const store = useStore();
     const router = useRouter();
+    const isMobile = useMobile();
 
     const open = ref<boolean>(props.sidebar);
     const projectName = store.state.project.manifest.name;
@@ -107,6 +110,7 @@ export default defineComponent({
     return {
       t,
       customT,
+      isMobile,
       open,
       projectName,
       allLanguages,

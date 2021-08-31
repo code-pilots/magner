@@ -4,31 +4,15 @@ Admin panel that can be used for literally any project.
 
 It supports authentication, role management, entity tables, entities creation and edition. Easily configurable with JSON highly-typed controllers. Describes proper backend integration.
 
+![](../public/screen.png)
+
 ## Installation
 
 ```bash
-npm ci
+npm install magner
 ```
 
-And then use different commands for runs:
-```dash
-# For development
-npm run dev
-
-# For production build and start
-npm run build
-npm start
-```
-
-## File structure
-
-Basically, this admin panel requires you to follow the structure of the project.
-The `src` directory consists of:
-* `envs.ts` – File collects all environmental variables. You should provide at least 2 required variables for the project. To configure them, add `.env` or `.env.production` to the root of the app
-* `main.ts` - Initial project setup. It collects important configuration files and initiates Magner setup. This is the best place to add your project-dependent styles
-* `core` – Directory with useful controllers, types, views. Just like a library of tools that you'll need.
-* `configs` – Directory collects JSON configurations for the projects. Use controllers for better Developer Experience (DX).
-* `app` – Add your own logic there: requests, views, styles
+Proceed to [the configuration](/configuration/) of your project.
 
 ## Problems and troubleshooting
 
