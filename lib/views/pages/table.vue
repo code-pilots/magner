@@ -71,7 +71,7 @@
           <el-pagination
             v-model:currentPage="response.pagination.currentPage"
             :page-sizes="[10, 25, 50, 100]"
-            :page-size="parseInt(requestData.pagination.items) || 10"
+            :page-size="parseInt(requestData.pagination.items) ?? 10"
             :total="response.pagination.totalItems"
             :pager-count="7"
             :small="isMobile"
@@ -125,10 +125,10 @@ export default defineComponent({
     const drawerComponent = useDialogForm();
 
     const topFilters = computed(() => layoutToFields(props.config.filters.layout)
-      .slice(0, props.config.filters.fieldsShowAmount || undefined));
+      .slice(0, props.config.filters.fieldsShowAmount ?? undefined));
 
     const drawerOpen = ref(false);
-    const formRef = ref<GenericForm>();
+    const formRef = ref<typeof GenericForm>();
 
     const hasFilters = computed(() => !!(topFilters.value.length || props.config.filters.linkToCreateNew));
     const tableHeight = computed(() => {

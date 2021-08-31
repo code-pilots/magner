@@ -37,7 +37,8 @@ export const translationController = <SUPPORTED_LANGUAGES extends string>(
 
     const i18n = createI18n({
       legacy: false,
-      locale: (typeof window !== 'undefined' && globalValues.lstorage.read('language')) || config.mainLanguage,
+      locale: (typeof window !== 'undefined'
+        && globalValues.lstorage.read('language') as SUPPORTED_LANGUAGES) || config.mainLanguage,
       fallbackLocale: config.fallbackLanguage,
       messages,
     });

@@ -49,7 +49,7 @@ export interface TableFiltersData {
 
 export interface TableFiltersResponse<ROW = any> {
   rows: ROW[],
-  pagination: PaginationType | null,
+  pagination?: PaginationType | null,
 }
 
 export type TableRequest<ROW = any> = RequestCallback<TableFiltersResponse<ROW>, TableFiltersData>;

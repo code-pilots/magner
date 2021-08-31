@@ -1,7 +1,7 @@
+import type { RouteLocationRaw } from 'vue-router';
 import type { RequestCallback } from '../../utils';
 import type { GenericForm } from '../../form';
 import type { TranslateData } from '../../../utils/core/translate';
-import type { RouteLocationRaw } from 'vue-router';
 
 export interface CardTab {
   active?: boolean,
@@ -9,7 +9,7 @@ export interface CardTab {
 
   /** In the tab, you can specify a function which takes a backend response from the page's 'getRequest'
    * and returns the vue-router acceptable link */
-  link: ((response: any) => RouteLocationRaw) | RouteLocationRaw,
+  link: ((response: unknown) => RouteLocationRaw) | RouteLocationRaw,
 }
 
 export interface CardConfig {

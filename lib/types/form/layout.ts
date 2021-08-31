@@ -1,7 +1,7 @@
 /* eslint-disable no-use-before-define */
 
-import type { GenericComponent } from './index';
 import type { RouteComponent } from 'vue-router';
+import type { GenericComponent } from './index';
 import type { TranslateData } from '../../utils/core/translate';
 
 interface FormLayoutBase {

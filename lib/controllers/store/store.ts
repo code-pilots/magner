@@ -6,9 +6,9 @@ interface State {
   project: GlobalValues,
 
   language: string,
-  token: string|null,
-  user: any|null,
-  role: string|null,
+  token: string | null,
+  user: unknown | null,
+  role: string | null,
 
   sidebarCollapsed: boolean,
 }
@@ -35,11 +35,12 @@ export const store = () => createStore<State>({
       project: {} as GlobalValues,
 
       language: '',
-      token: (typeof window !== 'undefined' && globalValues.lstorage.read('token')) || null,
+      token: (typeof window !== 'undefined' && globalValues.lstorage.read('token') as string) || null,
       user: null,
       role: null,
 
-      sidebarCollapsed: (typeof window !== 'undefined' && globalValues.lstorage.read('sidebarCollapsed')) || false,
+      sidebarCollapsed: (typeof window !== 'undefined'
+        && globalValues.lstorage.read('sidebarCollapsed') as boolean) || false,
     };
   },
 
@@ -66,7 +67,7 @@ export const store = () => createStore<State>({
       }
     },
 
-    setUser (state, value: any) {
+    setUser (state, value: unknown) {
       state.user = value;
     },
 
@@ -96,7 +97,7 @@ export const store = () => createStore<State>({
     changeToken (context, value: string) {
       context.commit('setToken', value);
     },
-    changeUser (context, value: any) {
+    changeUser (context, value: unknown) {
       context.commit('setUser', value);
     },
     changeRole (context, value: string | null) {

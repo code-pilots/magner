@@ -24,9 +24,9 @@
 import {
   defineComponent, PropType, ref, watchEffect, onMounted,
 } from 'vue';
+import { create as Maska } from 'maska';
 import { useTranslate } from '../../../../utils';
 import type { InputField } from '../../../../types/form/fields/input';
-import { create as Maska } from 'maska';
 import debounceOnInput from '../../../../utils/form/input-debounce';
 
 export default defineComponent({

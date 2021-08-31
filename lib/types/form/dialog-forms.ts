@@ -23,7 +23,7 @@ export interface DialogForm {
   layout: FormLayout,
 
   /** Form submit button */
-  submit: ButtonProps | null,
+  submit?: ButtonProps,
 
   /** Call this action on form submit. Has 'data' property as an argument with the field-value object */
   submitAction?: DialogFormInteractions,

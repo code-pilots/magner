@@ -43,7 +43,7 @@ export default class SimpleImage implements BlockTool {
 
     input.placeholder = this.config.placeholder || '';
     input.addEventListener('paste', (event) => {
-      this._createImage(event.clipboardData?.getData('text') || '');
+      this._createImage(event.clipboardData?.getData('text') ?? '');
     });
 
     this.wrapper.appendChild(input);
@@ -58,7 +58,7 @@ export default class SimpleImage implements BlockTool {
     image.src = url;
     caption.classList.add('cdx-input');
     caption.contentEditable = 'true';
-    caption.innerHTML = captionText || '';
+    caption.innerHTML = captionText ?? '';
 
     if (this.wrapper) {
       this.wrapper.innerHTML = '';
@@ -73,7 +73,7 @@ export default class SimpleImage implements BlockTool {
 
     return Object.assign(this.data, {
       url: image.src,
-      caption: caption.innerHTML || '',
+      caption: caption.innerHTML ?? '',
     });
   }
 
@@ -128,7 +128,7 @@ export default class SimpleImage implements BlockTool {
         const reader = new FileReader(); // eslint-disable-line no-case-declarations
 
         reader.onload = (loadEvent) => {
-          this._createImage(loadEvent.target?.result as string || '');
+          this._createImage(loadEvent.target?.result as string ?? '');
         };
 
         reader.readAsDataURL(event.detail.file);

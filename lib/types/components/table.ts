@@ -26,7 +26,7 @@ export interface TableColumn {
   showOverflowTooltip?: boolean,
 
   /** Makes column cells links */
-  columnLink?: (row: any) => RouteLocationRaw,
+  columnLink?: (row: unknown) => RouteLocationRaw,
 
   /** Alignment of the content in the cell */
   align?: 'left'|'center'|'right',
@@ -39,10 +39,10 @@ export interface TableColumn {
   labelClassName?: string,
 
   /** A function that formats the content of the column's cells */
-  formatter?: (cellValue: any, row: any, column: any, index: number) => any,
+  formatter?: (cellValue: unknown, row: unknown, column: unknown, index: number) => any,
 
   /** A function that creates a Vue template function for the header cell of a column */
-  renderHeader?: (data: { column: any, $index: number }) => void,
+  renderHeader?: (data: { column: unknown, $index: number }) => void,
 }
 
 export interface Table {
@@ -52,5 +52,5 @@ export interface Table {
   emptyText?: TranslateData,
 
   /** If present, table row becomes a link (doesn't work on columns with 'columnLink' property) */
-  rowLink?: (row: any) => RouteLocationRaw,
+  rowLink?: (row: unknown) => RouteLocationRaw,
 }

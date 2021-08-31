@@ -1,5 +1,5 @@
-import globalValues from '../../global';
 import { useI18n } from 'vue-i18n';
+import globalValues from '../../global';
 
 type TArgs = Parameters<typeof globalValues.t>
 

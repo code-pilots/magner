@@ -22,7 +22,6 @@ export type BaseResponse<T = any> = ErrorResponse | DataResponse<T>;
 export type RequestCallback<RESULT = any, DATA = any> = (info: {
   data: DATA,
   api: ApiType,
-  store: StoreType,
   router: Router,
   errorParser: ErrorParser,
   urlParsers: UrlParsers,

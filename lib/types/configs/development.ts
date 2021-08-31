@@ -9,12 +9,12 @@ export interface ApiError {
   fields: Record<string, string>,
   message: string,
 }
-export type ErrorParser = (err: any) => ApiError;
+export type ErrorParser = (err: unknown) => ApiError;
 
 export interface ProfileRequestResponse {
   role: string | null,
   token: string,
-  user: any,
+  user: unknown,
 }
 export type ProfileRequest = RequestCallback<ProfileRequestResponse>;
 
@@ -58,16 +58,20 @@ export interface DevelopmentConfig {
     API_URL: string,
   },
 
-  /** Used for creating the admin panel during first stages of development if you still don't have a backend.
+  /**
+   * Used for creating the admin panel during first stages of development if you still don't have a backend.
    * It disables the roles feature and helps logging in.<br>
-   * But it still requires request functions to be written which you can simple make empty (return void). */
+   * But it still requires request functions to be written which you can simple make empty (return void).
+   */
   noBackendMode?: boolean,
 
   /** Functions that transform a key-value object to the URI string and vice versa */
   urlParsers: UrlParsers,
 
-  /** Function that parses all errors caught while doing HTTP request to the server.
-   * Return message string as global error or fields object to show error of some error field */
+  /**
+   * Function that parses all errors caught while doing HTTP request to the server.
+   * Return message string as global error or fields object to show error of some error field
+   */
   errorParser: ErrorParser,
 
   /** Request to be used each time user enters the app to check for token validity and quickly authorize them */

@@ -20,9 +20,9 @@ const lstorageController = (key: string) => {
   };
 
   return {
-    read: (field: SupportedLSKeys): any => getLsObject()[field],
+    read: (field: SupportedLSKeys): unknown => getLsObject()[field],
 
-    put: (field: SupportedLSKeys, value: any) => {
+    put: (field: SupportedLSKeys, value: unknown) => {
       const ls = getLsObject();
       ls[field] = value;
       localStorage.setItem(key, JSON.stringify(ls));
@@ -34,9 +34,9 @@ const lstorageController = (key: string) => {
       localStorage.setItem(key, JSON.stringify(ls));
     },
 
-    deepRead: (field: SupportedLSKeys, nestedField: string): any => getLsObject()[field]?.[nestedField],
+    deepRead: (field: SupportedLSKeys, nestedField: string): unknown => getLsObject()[field]?.[nestedField],
 
-    deepPut: (field: SupportedLSKeys, nestedField: string, value: any) => {
+    deepPut: (field: SupportedLSKeys, nestedField: string, value: unknown) => {
       const ls = getLsObject();
       if (ls[field]) ls[field] = { ...ls[field], [nestedField]: value };
       else ls[field] = { [nestedField]: value };

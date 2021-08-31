@@ -33,7 +33,7 @@ export type GenericComponent =
   | CustomField;
 
 export interface GenericForm {
-  submit: ButtonProps | null,
+  submit?: ButtonProps,
 
   layout: FormLayout,
 

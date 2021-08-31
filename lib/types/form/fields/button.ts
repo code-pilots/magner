@@ -29,5 +29,5 @@ export interface ButtonField extends BaseField {
 
   /** This value will be dynamically prompted to the form values any time it is changed
    * (by whatever component from the 'changeAction') */
-  value?: any,
+  value?: unknown,
 }

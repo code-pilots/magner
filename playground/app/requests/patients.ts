@@ -41,7 +41,7 @@ const patientsRequest: TableRequest<Patient> = request(async ({ data, api, urlPa
     return { error: null, data: proxied };
   } catch (e) {
     console.error(e);
-    return { error: null, data: { rows: [], pagination: null, total: 0 } };
+    return { error: null, data: { rows: [], total: 0, pagination: null } };
   }
 });
 

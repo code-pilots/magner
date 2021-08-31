@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import globalValues from '../../global';
-import ApiError from './api-error';
+import { ApiError } from './api-error';
 
 interface RequestConfig extends RequestInit {
   isFormdata?: boolean
@@ -30,20 +30,21 @@ export const http = async <T>(path: string, config: RequestConfig): Promise<T> =
     const data = await response.json().catch(() => ({}));
 
     if (!response.ok) {
-      throw new ApiError({ status: response?.status || 500, data });
+      throw new ApiError({ status: response?.status ?? 500, data });
     }
 
     return data;
-  } catch (e) {
+  } catch (e: unknown) {
     if (e instanceof ApiError) {
       throw e;
     } else {
       console.error(e);
-      throw new Error(e.message);
+      throw new Error((e as Error).message);
     }
   }
 };
 
+/** Creates FormData object out of request's data if 'config.isFormdata' flag is passed */
 const prepareBody = (body: any, config?: RequestConfig) => {
   if (!config?.isFormdata) {
     return JSON.stringify(body);

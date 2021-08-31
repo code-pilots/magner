@@ -63,6 +63,6 @@ export const fieldsToModels = (
 ): Record<string, DataTypeInitials> => fields
   .reduce((accum, currentValue) => {
     accum[currentValue.name] = initialData?.[currentValue.name]
-      || dataTypeToInitial(currentValue.dataType || 'string');
+      ?? dataTypeToInitial(currentValue.dataType || 'string');
     return accum;
   }, {} as Record<string, DataTypeInitials>);

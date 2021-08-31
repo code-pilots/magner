@@ -1,8 +1,8 @@
-import type { BaseProps, BaseField } from '../base';
 import type { RouteComponent } from 'vue-router';
+import type { BaseProps, BaseField } from '../base';
 
 export interface CustomProps extends BaseProps {
-  [key: string]: any,
+  [key: string]: unknown,
 }
 
 export interface CustomField extends BaseField {

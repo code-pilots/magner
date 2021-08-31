@@ -65,10 +65,10 @@
 import {
   computed, defineComponent, PropType, ref,
 } from 'vue';
+import { useI18n } from 'vue-i18n';
 import type { DropzoneField, DropzoneError } from '../../../../types/form/fields/dropzone';
 import DropzoneImage from './dropzone-image.vue';
 import { requestWrapper } from '../../../../utils';
-import { useI18n } from 'vue-i18n';
 
 type ValueType = File | string | (File | string)[] | null;
 

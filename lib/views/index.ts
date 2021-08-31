@@ -1,50 +1,25 @@
-import MagnerCardPage from './pages/card.vue';
-import MagnerLoginPage from './pages/login.vue';
-import MagnerTablePage from './pages/table.vue';
+export { default as MagnerCardPage } from './pages/card.vue';
+export { default as MagnerLoginPage } from './pages/login.vue';
+export { default as MagnerTablePage } from './pages/table.vue';
 
-import MagnerMainLayout from './layouts/main.vue';
+export { default as MagnerMainLayout } from './layouts/main.vue';
 
-import MagnerDynamic from './components/dynamic.vue';
-import MagnerIcon from './components/icon.vue';
-import MagnerHeader from './components/header.vue';
-import MagnerSidebar from './components/sidebar.vue';
-import MagnerTable from './components/table.vue';
+export { default as MagnerDynamic } from './components/dynamic.vue';
+export { default as MagnerIcon } from './components/icon.vue';
+export { default as MagnerHeader } from './components/header.vue';
+export { default as MagnerSidebar } from './components/sidebar.vue';
+export { default as MagnerTable } from './components/table.vue';
 
-import MagnerForm from './components/form/form.vue';
-import MagnerFormItem from './components/form/form-item.vue';
-import MagnerFormButton from './components/form/fields/button.vue';
-import MagnerFormInput from './components/form/fields/form-input.vue';
-import MagnerFormTextarea from './components/form/fields/textarea.vue';
-import MagnerFormEditor from './components/form/fields/editor.vue';
-import MagnerFormCheckbox from './components/form/fields/checkbox.vue';
-import MagnerFormRadio from './components/form/fields/radio.vue';
-import MagnerFormSwitch from './components/form/fields/switch.vue';
-import MagnerFormSelect from './components/form/fields/select.vue';
-import MagnerFormDateTime from './components/form/fields/datetime.vue';
-import MagnerFormDropzone from './components/form/fields/dropzone.vue';
+export { default as MagnerForm } from './components/form/form.vue';
+export { default as MagnerFormItem } from './components/form/form-item.vue';
 
-export {
-  MagnerCardPage,
-  MagnerLoginPage,
-  MagnerTablePage,
-
-  MagnerMainLayout,
-
-  MagnerDynamic,
-  MagnerIcon,
-  MagnerHeader,
-  MagnerSidebar,
-  MagnerTable,
-  MagnerForm,
-  MagnerFormItem,
-  MagnerFormButton,
-  MagnerFormInput,
-  MagnerFormTextarea,
-  MagnerFormEditor,
-  MagnerFormCheckbox,
-  MagnerFormRadio,
-  MagnerFormSwitch,
-  MagnerFormSelect,
-  MagnerFormDateTime,
-  MagnerFormDropzone,
-};
+export { default as MagnerFormButton } from './components/form/fields/button.vue';
+export { default as MagnerFormInput } from './components/form/fields/form-input.vue';
+export { default as MagnerFormTextarea } from './components/form/fields/textarea.vue';
+export { default as MagnerFormEditor } from './components/form/fields/editor.vue';
+export { default as MagnerFormCheckbox } from './components/form/fields/checkbox.vue';
+export { default as MagnerFormRadio } from './components/form/fields/radio.vue';
+export { default as MagnerFormSwitch } from './components/form/fields/switch.vue';
+export { default as MagnerFormSelect } from './components/form/fields/select.vue';
+export { default as MagnerFormDateTime } from './components/form/fields/datetime.vue';
+export { default as MagnerFormDropzone } from './components/form/fields/dropzone.vue';
