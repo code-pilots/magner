@@ -34,7 +34,7 @@
     "@editorjs/editorjs": "^2.22.2",
     "@editorjs/header": "^2.6.1",
     "@editorjs/list": "^1.6.2",
-    "editorjs-table": "github:VanishMax/editorjs-table",
+    "editorjs-table-readonly": "^1.1.0",
     "element-plus": "^1.1.0-beta.7",
     "maska": "^1.4.5",
     "vue": "^3.2.6",

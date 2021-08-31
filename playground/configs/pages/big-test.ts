@@ -38,6 +38,13 @@ export default cardPageController({
                 multiple: true,
               },
             },
+            {
+              type: 'editor',
+              name: 'editor',
+              props: {
+                id: 'editor-holder',
+              },
+            },
           ],
         },
       ],
