@@ -6,6 +6,8 @@ It supports authentication, role management, entity tables, entities creation an
 
 **Read more about Magner in [the docs](./docs/readme.md)**
 
+![](./public/screen.png)
+
 ## Problems and troubleshooting
 
 > What is this feature for? How should I use this property in the config? 
