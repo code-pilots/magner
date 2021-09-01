@@ -24,6 +24,12 @@ module.exports = {
     '@typescript-eslint',
     'cypress',
   ],
+  ignorePatterns: [
+    'dist/**',
+    'public/**',
+    'docs/**',
+    'node_modules/**',
+  ],
   overrides: [
     {
       files: ['*.vue'],

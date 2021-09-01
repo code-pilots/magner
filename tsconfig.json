@@ -29,7 +29,7 @@
     "transpileOnly": true,
     "moduleTypes": {
       "./playground/**/**": "cjs",
-      "./lib/**/**": "cjs",
+      "./lib/**/**": "cjs"
     },
     "include": [
       "playground/**/*.ts",
