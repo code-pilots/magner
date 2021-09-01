@@ -3,7 +3,7 @@ import type { DefaultThemeOptions } from '@vuepress/theme-default';
 import { sidebar } from './configs';
 
 export default defineUserConfig<DefaultThemeOptions>({
-  base: '/',
+  base: '/magner/',
   lang: 'en',
   title: 'Magner',
   description: 'Universal Admin panel that is magnetic to any backend',
@@ -12,7 +12,9 @@ export default defineUserConfig<DefaultThemeOptions>({
   bundlerConfig: {},
 
   themeConfig: {
-    logo: 'https://vuejs.org/images/logo.png',
+    logo: '/cp.jpeg',
+    repo: 'code-pilots/magner',
+    docsDir: 'docs',
     locales: {
       '/': {
         sidebar: sidebar.en,
