@@ -1,7 +1,7 @@
 import { useI18n } from 'vue-i18n';
-import globalValues from '../../global';
+import type { GlobalValues } from '../../global';
 
-type TArgs = Parameters<typeof globalValues.t>
+type TArgs = Parameters<GlobalValues['t']>
 
 /**
  * Use this function in the configs and other non-reactive .ts files to get complete typings of i18n.
@@ -12,7 +12,7 @@ export const translate = (key: TArgs[0], params?: TArgs[1]) => ({
   params: params || null,
 });
 
-export type TranslateData = string | ReturnType<typeof translate>;
+export type TranslateData = string | { key: TArgs[0], params: TArgs[1] | null };
 
 /**
  * Function applies reactive i18n to the translate data. Use it in the Vue component's setup

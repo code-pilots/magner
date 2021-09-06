@@ -22,7 +22,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import { RequestCallback } from '../../types/utils';
+import { RequestCallback } from '../../types/utils/api';
 import RequestHandler from './request-handler.vue';
 
 export default defineComponent({

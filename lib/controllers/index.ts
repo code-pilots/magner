@@ -1,15 +1,34 @@
 import type { ProjectController } from './project';
 import { mainController } from './main';
 
-export * from './main';
-export * from './project';
-export * from './manifest';
-export * from './router';
-export * from './i18n';
-export * from './development';
-export * from './pages';
+export { projectController } from './project';
+export { manifestController } from './manifest';
+export { routerController } from './router';
+export { translationController } from './i18n';
 
-export const initMagner = (project: ProjectController) => {
+export {
+  developmentController,
+  profileRequestController,
+  validationController,
+  urlParsersController,
+  errorParserController,
+} from './development';
+
+export {
+  tablePageController,
+  tableController,
+  filtersFormController,
+  formController,
+  cardPageController,
+  loginPageController,
+} from './pages';
+
+const initMagner = (project: ProjectController) => {
   const proj = project();
   mainController(proj);
+};
+
+export {
+  mainController,
+  initMagner,
 };

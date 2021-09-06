@@ -1,4 +1,4 @@
-import type { ProxyFunc, RequestCallback } from '../utils';
+import type { ProxyFunc, RequestCallback } from '../utils/api';
 import { SupportedDataTypes } from '../../utils/form/form';
 
 type DataBody = Record<string, any>;

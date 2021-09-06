@@ -1,5 +1,5 @@
 import type { RouteLocationRaw } from 'vue-router';
-import type { RequestCallback } from '../../utils';
+import type { RequestCallback } from '../../utils/api';
 import type { GenericForm } from '../../form';
 import type { TranslateData } from '../../../utils/core/translate';
 

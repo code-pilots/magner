@@ -1,14 +1,3 @@
-import type { TableConfig, FiltersForm, PaginationType } from './table';
-import type { CardConfig, CardTab } from './card';
-import type { LoginConfig } from './login';
-
-export {
-  TableConfig,
-  PaginationType,
-  FiltersForm,
-
-  CardConfig,
-  CardTab,
-
-  LoginConfig,
-};
+export type { TableConfig, FiltersForm, PaginationType } from './table';
+export type { CardConfig, CardTab } from './card';
+export type { LoginConfig } from './login';

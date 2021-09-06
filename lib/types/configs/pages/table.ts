@@ -1,4 +1,4 @@
-import type { RequestCallback } from '../../utils';
+import type { RequestCallback } from '../../utils/api';
 import type { GenericForm } from '../../form';
 import type { Table } from '../../components/table';
 import type { TranslateData } from '../../../utils/core/translate';

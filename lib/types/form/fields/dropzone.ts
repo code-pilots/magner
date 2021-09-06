@@ -1,5 +1,5 @@
 import type { BaseField, BaseProps } from '../base';
-import type { RequestCallback } from '../../utils';
+import type { RequestCallback } from '../../utils/api';
 
 export type DropzoneUploadReturn = string | number | File | Record<string, any>;
 
