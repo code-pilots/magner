@@ -47,20 +47,20 @@ export interface TableFiltersData {
   pagination: PaginationType,
 }
 
-export interface TableFiltersResponse<ROW = any> {
+export interface TableFiltersResponse<ROW = unknown> {
   rows: ROW[],
   pagination?: PaginationType | null,
 }
 
-export type TableRequest<ROW = any> = (cb: RequestCallback<TableFiltersResponse<ROW>, TableFiltersData>)
-  => RequestCallback<TableFiltersResponse<ROW>, TableFiltersData>;
+export type TableRequestCallback<ROW = unknown> = RequestCallback<TableFiltersResponse<ROW>, TableFiltersData>;
+export type TableRequest = <ROW = unknown>(cb: TableRequestCallback<ROW>) => TableRequestCallback<ROW>;
 
 export interface TableConfig {
   /** Page title */
   title: TranslateData,
 
   /** Data request. Must return the data array in the field 'rows' and a pagination object */
-  request: TableRequest,
+  request: TableRequestCallback,
 
   /** Filters configuration */
   filters: FiltersForm,
