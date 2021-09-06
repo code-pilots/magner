@@ -33,7 +33,7 @@ export const en: SidebarConfig = {
 
   '/api/': [
     {
-      text: 'API',
+      text: '',
       children: [
         '/api/readme.md',
       ],

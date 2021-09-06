@@ -1,6 +1,4 @@
 export type {
-  ProxyFunc,
-  BaseResponse,
   RequestFunc,
   RequestWrapper,
   RequestCallback,

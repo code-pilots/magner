@@ -23,12 +23,7 @@ export {
   loginPageController,
 } from './pages';
 
-const initMagner = (project: ProjectController) => {
+export const initMagner = (project: ProjectController) => {
   const proj = project();
   mainController(proj);
-};
-
-export {
-  mainController,
-  initMagner,
 };
