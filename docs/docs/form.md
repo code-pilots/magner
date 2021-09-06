@@ -167,7 +167,7 @@ export interface BaseField {
 
 When you are configuring such field, make sure to add the `name` the same way it's defined in your backend (for easiness).
 
-Read about field validations in [the "development" controller validation section](configuration/development.md).
+Read about field validations in [the "development" controller validation section](../configuration/development.md).
 
 ## Change action
 

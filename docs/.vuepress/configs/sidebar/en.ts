@@ -3,11 +3,11 @@ import type { SidebarConfig } from '@vuepress/theme-default';
 export const en: SidebarConfig = {
   '/': [
     {
-      text: 'Documentation',
+      text: 'Introduction',
       children: [
         '/readme.md',
-        '/form.md',
-        '/requests.md',
+        '/get-started.md',
+        '/contributors.md',
       ],
     },
 
@@ -19,6 +19,23 @@ export const en: SidebarConfig = {
         '/configuration/routing.md',
         '/configuration/development.md',
         '/configuration/i18n.md',
+      ],
+    },
+
+    {
+      text: 'Utilities',
+      children: [
+        '/docs/form.md',
+        '/docs/requests.md',
+      ],
+    },
+  ],
+
+  '/api/': [
+    {
+      text: 'API',
+      children: [
+        '/api/readme.md',
       ],
     },
   ],

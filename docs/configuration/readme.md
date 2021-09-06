@@ -14,11 +14,11 @@ export default projectController({
 
 In here, each object key is another controller. It is categorized in a way that each key is responsible for its own important logic in the app.
 To understand more about them, follow the provided links below:
-* [Manifest](/configuration/manifest.md) – Set of the project descriptors like name and icons. Also used in PWA mode
-* [Routing](/configuration/routing.md) – Controller that wraps the Vue-router allowing more flexibility with different presets
-* [i18n](/configuration/i18n.md) – Internationalization controller. Configures project languages and their translations
-* [Development](/configuration/development.md) – Development controller. Sets up important functions for interactions with the backend
+* [Manifest](./manifest.md) – Set of the project descriptors like name and icons. Also used in PWA mode
+* [Routing](./routing.md) – Controller that wraps the Vue-router allowing more flexibility with different presets
+* [i18n](./i18n.md) – Internationalization controller. Configures project languages and their translations
+* [Development](./development.md) – Development controller. Sets up important functions for interactions with the backend
 
 To understand different core functionality, follow other README links:
-* [Requests](/requests.md)
-* [Generic Forms](/form.md)
+* [Requests](../docs/requests.md)
+* [Generic Forms](../docs/form.md)

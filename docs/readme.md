@@ -12,7 +12,7 @@ It supports authentication, role management, entity tables, entities creation an
 npm install magner
 ```
 
-Proceed to [the configuration](/configuration/) of your project.
+Proceed to [the configuration](./configuration/) of your project.
 
 ## Problems and troubleshooting
 

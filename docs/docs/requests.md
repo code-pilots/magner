@@ -45,7 +45,7 @@ It can be form data (`Record<string,any>`) or any other object important to your
 
 Notice that `request` requires the object of form `{ error: null, data: any }` to be returned if there's no error,
 and `{ error: any, data: any }` if there's an error. But request doesn't parse the error. Instead, it allows
-using defined [in "development" controller](configuration/development.md) `errorParser` function:
+using defined [in "development" controller](../configuration/development.md) `errorParser` function:
 
 ```ts
 export const citiesCreate = request(async ({ data, api, errorParser }) => {
@@ -58,7 +58,7 @@ export const citiesCreate = request(async ({ data, api, errorParser }) => {
 });
 ```
 
-And one more important argument coming from [the "development" controller](configuration/development.md) is
+And one more important argument coming from [the "development" controller](../configuration/development.md) is
 `urlParsers`. It creates the query string for the GET request to the backend:
 
 ```ts

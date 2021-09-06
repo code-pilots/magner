@@ -1,6 +1,6 @@
 import { defineUserConfig } from '@vuepress/cli';
 import type { DefaultThemeOptions } from '@vuepress/theme-default';
-import { sidebar } from './configs';
+import { sidebar, navbar } from './configs';
 
 export default defineUserConfig<DefaultThemeOptions>({
   base: '/magner/',
@@ -17,6 +17,7 @@ export default defineUserConfig<DefaultThemeOptions>({
     docsDir: 'docs',
     locales: {
       '/': {
+        navbar: navbar.en,
         sidebar: sidebar.en,
         editLinkText: 'Edit this page on GitHub',
       },
