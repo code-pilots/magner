@@ -1,5 +1,4 @@
 import type { Router } from 'vue-router';
-import type { StoreType } from '../controllers/store/store';
 import type { ApiError, ErrorParser, UrlParsers } from './configs';
 import type { ApiType } from '../utils/api';
 

@@ -9,7 +9,7 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "lib": ["esnext", "dom"],
-    "types": ["vite/client", "@types/jest", "cypress"],
+    "types": ["vite/client", "@types/jest"],
     "baseUrl": ".",
     "paths": {
       "lib/*": ["lib/*"],
@@ -22,8 +22,7 @@
     "playground/**/*.vue",
     "lib/**/*.ts",
     "lib/**/*.d.ts",
-    "lib/**/*.vue",
-    "tests/**/*.ts"
+    "lib/**/*.vue"
   ],
   "ts-node": {
     "transpileOnly": true,

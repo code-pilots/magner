@@ -4,24 +4,4 @@
   & h1, & p {
     text-align: center;
   }
-
-  & img {
-    display: block;
-    margin: 12px auto 0;
-    border-radius: 6px;
-  }
-
-  & .link {
-    display: block;
-    width: 300px;
-    margin: 12px auto 0;
-
-    @media (--breakpoint-small) {
-      width: 90%;
-    }
-
-    & .el-button {
-      width: 100%;
-    }
-  }
 }

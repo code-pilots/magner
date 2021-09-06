@@ -9,7 +9,9 @@ export default defineConfig({
   plugins: [
     vue(),
     transformSvg(),
-    dts(),
+    dts({
+      include: 'lib/',
+    }),
   ],
   build: {
     lib: {
@@ -34,7 +36,6 @@ export default defineConfig({
   resolve: {
     alias: {
       lib: path.resolve(__dirname, 'lib'),
-      styles: path.resolve(__dirname, 'playground', 'assets', 'styles'),
     },
   },
 });

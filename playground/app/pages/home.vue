@@ -1,14 +1,6 @@
 <template>
   <section class="home-page">
     <h1>{{ t('home.hello') }}</h1>
-
-    <p>{{ t('home.custom') }}</p>
-
-    <img src="/cat.gif" alt="funny cat">
-
-    <router-link :to="{ name: 'patients' }" class="link">
-      <el-button type="primary">{{ t('home.explore') }}</el-button>
-    </router-link>
   </section>
 </template>
 

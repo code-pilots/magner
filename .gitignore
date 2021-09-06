@@ -4,7 +4,6 @@
 .vscode
 dist
 node_modules
-cypress
 .env
 coverage
 .secrets

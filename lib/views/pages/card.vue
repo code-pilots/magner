@@ -1,7 +1,7 @@
 <template>
   <Dynamic :request="config.getRequest" :data="cardId" :disabled="isNew">
     <template #default="{response, loading}">
-      <section v-loading="loading" class="card-page">
+      <section v-loading="loading" class="card-page" :class="pageName">
         <div v-if="config.title || config.tabs" class="card-page_header">
           <h1 class="card-page_header_title">
             {{ customT(config.title) }}
@@ -158,6 +158,7 @@ export default defineComponent({
       deleteLoading,
       error,
       fieldErrors,
+      pageName: `page-${route.name}`,
       save,
       deleteEntity,
     };

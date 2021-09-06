@@ -52,7 +52,8 @@ export interface TableFiltersResponse<ROW = any> {
   pagination?: PaginationType | null,
 }
 
-export type TableRequest<ROW = any> = RequestCallback<TableFiltersResponse<ROW>, TableFiltersData>;
+export type TableRequest<ROW = any> = (cb: RequestCallback<TableFiltersResponse<ROW>, TableFiltersData>)
+  => RequestCallback<TableFiltersResponse<ROW>, TableFiltersData>;
 
 export interface TableConfig {
   /** Page title */

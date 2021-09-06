@@ -127,7 +127,7 @@
         class="remove-more"
         @click="changeCollectionItems(i)"
       >
-        <svg-icon name="x" size="sm" />
+        <svg-icon name="x" size="sm" is-core />
       </el-button>
 
       <div class="flex-grow" />

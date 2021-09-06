@@ -7,7 +7,7 @@ export * from './manifest';
 export * from './router';
 export * from './i18n';
 export * from './development';
-export * from './components';
+export * from './pages';
 
 export const initMagner = (project: ProjectController) => {
   const proj = project();

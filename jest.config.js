@@ -13,5 +13,4 @@ module.exports = {
     '\\.(css|less)$': 'identity-obj-proxy',
     '^.+/(.*\\.svg)$': 'jest-transform-stub',
   },
-  modulePathIgnorePatterns: ['tests'],
 };
