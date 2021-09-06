@@ -19,7 +19,7 @@ If you need to dive deeper than the documentation, check the TypeScript interfac
 property in the config and do "Go to definition" in your IDE: CMD+Click in Webstorm, Ctrl+Click in VS Code.
 
 As a last resort, you can open an issue (or discussion) in the repo or contact [the maintainer](https://t.me/vanishmax) 
-with your problem or proposal.
+with your problem or proposal. For contributions, follow the [Contributing instructions](./CONTRIBUTING.md).
 
 ## Copyright
 
