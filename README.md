@@ -1,8 +1,8 @@
 # Magner
 
-Admin panel that can be used for literally any project. 
-
-It supports authentication, role management, entity tables, entities creation and editing. Easily configurable with JSON strongly typed controllers. Describes proper backend integration.
+Universal admin panel magnetic to any backend. Supports authentication, role management, 
+entities view, creation, edition and deletion. I18n, infinitely nested layout and custom 
+components – use packed tools to make the best admin dashboards in an hour!
 
 **Read more about Magner in [the docs](https://code-pilots.github.io/magner/)**
 

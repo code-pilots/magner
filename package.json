@@ -1,6 +1,6 @@
 {
   "name": "magner",
-  "description": "Admin panel that can be used for literally any project",
+  "description": "Universal admin panel magnetic to any backend",
   "version": "0.1.0",
   "files": [
     "dist"
@@ -71,5 +71,25 @@
     "vue3-jest": "^27.0.0-alpha.2",
     "vuepress": "^2.0.0-beta.25",
     "vuepress-vite": "^2.0.0-beta.25"
+  },
+  "keywords": [
+    "magner",
+    "admin",
+    "admin panel",
+    "admin dashboard",
+    "universal admin",
+    "vue",
+    "javascript",
+    "typescript",
+    "element-ui"
+  ],
+  "author": "Code Pilots (https://code-pilots.com/)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/code-pilots/magner.git"
+  },
+  "bugs": {
+    "url": "https://github.com/code-pilots/magner/issues"
   }
 }
