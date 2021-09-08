@@ -187,6 +187,8 @@ Something about that
 
 ### `TranslateData`
 
+### `TranslateError`
+
 ### `RequestFunc`
 
 ### `RequestWrapper`
