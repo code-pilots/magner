@@ -7,7 +7,7 @@ type SetupFunc = (
   fields: GenericComponent[],
   skipValidation: boolean | SupportedValidators[],
   form: Record<string, any>
-) => Record<string, ValidationField>;
+) => Record<string, ValidationField[]>;
 
 /**
  * The function goes through all the form fields and collects the 'validation' property, transforms it
@@ -17,25 +17,28 @@ const setupValidators: SetupFunc = (layout, skipValidation, form) => {
   const fields = layoutToFields(layout);
 
   return fields.reduce((accum, field) => {
-    if (!field.validation
-      || skipValidation === true
-      || (Array.isArray(skipValidation) && skipValidation.includes(field.validation.type))
-    ) {
+    if (!field.validation || !skipValidation || skipValidation === true) return accum;
+
+    // Make validation to be an array and filter it from skipped validation types
+    const validations = (Array.isArray(field.validation) ? field.validation : [field.validation])
+      .filter((validation) => !skipValidation.includes(validation.type));
+
+    if (!validations.length) {
       return accum;
     }
 
-    accum[field.name] = {
+    accum[field.name] = validations.map((validation) => ({
       type: field.dataType || 'string',
-      validator: (rule, value, callback) => globalValues.development.validation[field.validation!.type]({
+      trigger: validation.trigger,
+      validator: (rule, value, callback) => globalValues.development.validation[validation.type]({
         rule,
         value,
         form,
       }, callback),
-      trigger: field.validation.trigger,
-    };
+    }));
 
     return accum;
-  }, {} as Record<string, ValidationField>);
+  }, {} as Record<string, ValidationField[]>);
 };
 
 export default setupValidators;

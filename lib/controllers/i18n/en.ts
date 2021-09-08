@@ -3,9 +3,11 @@ export const enLocale = {
     header: {
       logout: 'Log out',
     },
+
     sidebar: {
       collapse: 'Collapse',
     },
+
     card: {
       remove: 'Remove',
       success_creation: 'Created successfully!',
@@ -16,6 +18,7 @@ export const enLocale = {
       cancel_button_text: 'Cancel',
       add_more: 'Add more',
     },
+
     form: {
       clear: 'Clear',
       dropzone: {
@@ -26,10 +29,17 @@ export const enLocale = {
         max_files: 'Maximal files amount is {max}',
       },
     },
+
     table: {
       filters: 'Filters',
       more_filters: 'All filters',
       filters_applied: 'Filters applied',
+    },
+
+    validation: {
+      empty: 'This field cannot be empty',
+      email: 'Wrong email format',
+      password: 'Password cannot be shorter than 6 symbols',
     },
   },
 };

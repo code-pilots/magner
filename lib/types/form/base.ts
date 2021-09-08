@@ -57,7 +57,7 @@ export interface BaseField {
   props: BaseProps,
 
   /** How and when to validate the field */
-  validation?: BaseValidation,
+  validation?: BaseValidation | BaseValidation[],
 
   /** Needed to setup initial values for the fields. Default is 'string' that returns and empty string '' */
   dataType?: SupportedDataTypes,

@@ -7,12 +7,12 @@ import {
 
 export default cardPageController({
   title: translate('form_test.title'),
+
   getRequest: bigtestGet,
   createRequest: bigtestCreate,
   updateRequest: bigtestUpdate,
   deleteRequest: bigtestDelete,
-
-  confirmDelete: true,
+  alwaysCreate: true,
 
   form: {
     debug: true,
@@ -21,22 +21,28 @@ export default cardPageController({
     },
     layout: {
       type: 'row',
-      props: {
-        justify: 'space-between',
-        gutter: 12,
-      },
-      layout: [
+      props: {},
+      fields: [
         {
-          type: 'row',
-          props: {},
-          fields: [
+          type: 'input',
+          name: 'inp',
+          label: 'Hello',
+          props: {
+            type: 'text',
+            placeholder: 'Try validation',
+          },
+          validation: [
             {
-              type: 'dropzone',
-              name: 'photo',
-              label: translate('form_test.form.dropzone_label'),
-              props: {
-                multiple: true,
-              },
+              trigger: 'blur',
+              type: 'empty',
+            },
+            {
+              trigger: 'change',
+              type: 'email',
+            },
+            {
+              trigger: 'blur',
+              type: 'email',
             },
           ],
         },

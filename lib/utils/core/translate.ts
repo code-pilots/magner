@@ -1,5 +1,6 @@
 import { useI18n } from 'vue-i18n';
 import type { GlobalValues } from '../../global';
+import globalValues from '../../global';
 
 type TArgs = Parameters<GlobalValues['t']>
 
@@ -12,7 +13,20 @@ export const translate = (key: TArgs[0], params?: TArgs[1]) => ({
   params: params || null,
 });
 
+/** Use a string for single-language apps or a 'translate' function with translation key */
 export type TranslateData = string | { key: TArgs[0], params: TArgs[1] | null };
+
+export const customT = (data: TranslateData, t: (arg_1: TArgs[0], arg_2?: TArgs[1]) => string): string => {
+  if (!data) return '';
+
+  if (typeof data === 'string') {
+    return data;
+  }
+
+  return data.params
+    ? t(data.key, data.params)
+    : t(data.key);
+};
 
 /**
  * Function applies reactive i18n to the translate data. Use it in the Vue component's setup
@@ -28,16 +42,18 @@ export const useTranslate = () => {
     d,
     n,
     locale,
-    customT: (data: TranslateData): string => {
-      if (!data) return '';
-
-      if (typeof data === 'string') {
-        return data;
-      }
-
-      return data.params
-        ? t(data.key, data.params)
-        : t(data.key);
-    },
+    customT: (data: TranslateData): string => customT(data, t),
   };
 };
+
+/** An error supporting translations */
+export class TranslateError extends Error {
+  name: string;
+
+  constructor (name: TranslateData) {
+    super();
+
+    Object.setPrototypeOf(this, new.target.prototype);
+    this.name = customT(name, globalValues.t);
+  }
+}

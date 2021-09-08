@@ -5,9 +5,11 @@ export const ruLocale: TranslationSchema = {
     header: {
       logout: 'Выйти',
     },
+
     sidebar: {
       collapse: 'Свернуть',
     },
+
     card: {
       remove: 'Удалить',
       success_creation: 'Создание прошло успешно!',
@@ -18,6 +20,7 @@ export const ruLocale: TranslationSchema = {
       cancel_button_text: 'Отмена',
       add_more: 'Добавить',
     },
+
     form: {
       clear: 'Очистить',
       dropzone: {
@@ -28,10 +31,17 @@ export const ruLocale: TranslationSchema = {
         max_files: 'Mаксимальное количество загружаемых файлов: {max}',
       },
     },
+
     table: {
       filters: 'Фильтры',
       more_filters: 'Больше фильтров',
       filters_applied: 'Применено фильтров',
+    },
+
+    validation: {
+      empty: 'Поле не может быть пустым',
+      email: 'Неверный формат емейл',
+      password: 'Пароль не может быть короче 6 символов',
     },
   },
 };

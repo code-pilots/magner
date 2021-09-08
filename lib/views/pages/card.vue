@@ -28,7 +28,7 @@
           :loading="createLoading"
           :error="error"
           :field-errors="fieldErrors"
-          :skip-validation="!isNew ? ['empty'] : false"
+          :skip-validation="!isNew ? ['empty'] : []"
           :return-initial-difference="!isNew"
           class="card-page_form"
           @submit="save"
@@ -84,7 +84,7 @@ export default defineComponent({
     const { customT, t } = useTranslate();
     const route = useRoute();
     const cardId = computed(() => route.params.id);
-    const isNew = computed<boolean>(() => cardId.value === 'new');
+    const isNew = computed<boolean>(() => cardId.value === 'new' || !!props.config.alwaysCreate);
 
     const createLoading = ref<boolean>(false);
     const deleteLoading = ref<boolean>(false);
@@ -158,7 +158,7 @@ export default defineComponent({
       deleteLoading,
       error,
       fieldErrors,
-      pageName: `page-${route.name}`,
+      pageName: `page-${route.name as string}`,
       save,
       deleteEntity,
     };
