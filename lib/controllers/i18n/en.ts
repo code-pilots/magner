@@ -21,6 +21,10 @@ export const enLocale = {
 
     form: {
       clear: 'Clear',
+      submit: 'Submit',
+      remove: 'Remove',
+      cancel: 'Cancel',
+
       dropzone: {
         drag_here: 'Drag file here or',
         click_upload: 'click for upload',

@@ -23,6 +23,10 @@ export const ruLocale: TranslationSchema = {
 
     form: {
       clear: 'Очистить',
+      submit: 'Подтвердить',
+      remove: 'Удалить',
+      cancel: 'Отменить',
+
       dropzone: {
         drag_here: 'Перетащите файлы сюда или',
         click_upload: 'нажмите для загрузки',
