@@ -25,25 +25,15 @@
         <GenericForm
           :initial-data="response"
           :config="config.form"
-          :loading="createLoading"
           :error="error"
           :field-errors="fieldErrors"
           :skip-validation="!isNew ? ['empty'] : []"
           :return-initial-difference="!isNew"
+          :skip-actions="[isNew || !config.deleteRequest ? ['remove'] : []]"
           class="card-page_form"
           @submit="save"
+          @remove="deleteEntity"
         >
-          <template #actions-before>
-            <el-button
-              v-if="!isNew && !!config.deleteRequest"
-              type="danger"
-              :loading="deleteLoading"
-              @click="deleteEntity"
-            >
-              {{ t('core.card.remove') }}
-            </el-button>
-          </template>
-
           <template v-if="config.form.dialogForms && config.form.dialogForms.length" #dialogs="formData">
             <DialogForm
               v-for="dialogForm in config.form.dialogForms"
@@ -64,9 +54,11 @@ import {
   computed, defineComponent, PropType, ref,
 } from 'vue';
 import { useRoute } from 'vue-router';
-import { ElMessageBox, ElMessage } from 'element-plus';
-import { useTranslate, requestWrapper } from '../../utils';
+import { useTranslate } from '../../utils/core/translate';
+import { requestWrapper } from '../../utils/core/request';
+import { magnerConfirm, magnerMessage } from '../../utils/core/messages';
 import type { CardConfig } from '../../types/configs';
+import type { FormAction } from '../../types/form/actions';
 import Dynamic from '../components/dynamic.vue';
 import GenericForm from '../components/form/form.vue';
 import DialogForm from '../components/form/dialog-form.vue';
@@ -86,18 +78,17 @@ export default defineComponent({
     const cardId = computed(() => route.params.id);
     const isNew = computed<boolean>(() => cardId.value === 'new' || !!props.config.alwaysCreate);
 
-    const createLoading = ref<boolean>(false);
-    const deleteLoading = ref<boolean>(false);
     const error = ref('');
     const fieldErrors = ref<Record<string, string>>({});
 
     const save = async (data: Record<string, any>) => {
-      createLoading.value = true;
+      const submitButton = (props.config.form.actions || []).find((action) => action.action === 'submit');
+      if (submitButton) submitButton.loading = true;
       error.value = '';
       fieldErrors.value = {};
 
       const res = await requestWrapper(data, props.config.createRequest);
-      createLoading.value = false;
+      if (submitButton) submitButton.loading = false;
 
       if (res.error) {
         if (typeof res.error === 'string') {
@@ -109,14 +100,16 @@ export default defineComponent({
         return;
       }
 
-      ElMessage({
+      magnerMessage({
         type: 'success',
         message: t('core.card.success_creation'),
       });
     };
 
     const confirmDelete = (): Promise<boolean> => new Promise((resolve) => {
-      ElMessageBox.confirm(t('core.card.removal_confirm', { msg: props.config.title }), t('core.card.attention'), {
+      magnerConfirm({
+        message: t('core.card.removal_confirm', { msg: customT(props.config.title) }),
+        title: t('core.card.attention'),
         confirmButtonText: t('core.card.confirm_button_text'),
         cancelButtonText: t('core.card.cancel_button_text'),
         type: 'warning',
@@ -127,12 +120,13 @@ export default defineComponent({
       });
     });
 
-    const deleteEntity = async () => {
+    const deleteEntity = async (action: FormAction) => {
       if (!props.config.deleteRequest) return;
       if (props.config.confirmDelete && !(await confirmDelete())) return;
 
-      deleteLoading.value = true;
+      action.loading = true;
       const res = await requestWrapper(cardId.value, props.config.deleteRequest);
+      action.loading = false;
 
       if (res.error) {
         if (typeof res.error === 'string') {
@@ -142,8 +136,7 @@ export default defineComponent({
         }
       }
 
-      deleteLoading.value = false;
-      ElMessage({
+      magnerMessage({
         type: 'success',
         message: t('core.card.success_removal'),
       });
@@ -154,8 +147,6 @@ export default defineComponent({
       t,
       cardId,
       isNew,
-      createLoading,
-      deleteLoading,
       error,
       fieldErrors,
       pageName: `page-${route.name as string}`,

@@ -13,12 +13,26 @@ export default cardPageController({
   updateRequest: bigtestUpdate,
   deleteRequest: bigtestDelete,
   alwaysCreate: true,
+  confirmDelete: true,
 
   form: {
     debug: true,
-    submit: {
-      text: translate('form_test.submit_text'),
-    },
+    actions: [
+      {
+        action: 'cancel',
+      },
+      {
+        action: 'submit',
+        type: 'primary',
+      },
+      {
+        action: 'remove',
+        type: 'danger',
+      },
+      {
+        action: 'clear',
+      },
+    ],
     layout: {
       type: 'row',
       props: {},
