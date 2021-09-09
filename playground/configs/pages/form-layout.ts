@@ -45,9 +45,7 @@ export default cardPageController({
   updateRequest: bigtestUpdate,
 
   form: {
-    submit: {
-      text: translate('form_test.submit_text'),
-    },
+    actions: [{ action: 'submit' }],
     layout: {
       type: 'row',
       props: {

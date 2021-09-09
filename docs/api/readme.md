@@ -131,7 +131,20 @@ Something about that
 
 ### `useTranslate`
 
+### `TranslateError`
+
 ### `useMobile`
+
+### `magnerAlert`
+
+### `magnerNotify`
+
+### `magnerPrompt`
+
+### `magnerConfirm`
+
+### `magnerMessage`
+
 
 ## Types
 
@@ -186,8 +199,6 @@ Something about that
 
 
 ### `TranslateData`
-
-### `TranslateError`
 
 ### `RequestFunc`
 
