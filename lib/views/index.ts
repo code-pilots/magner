@@ -11,6 +11,7 @@ export { default as MagnerSidebar } from './components/sidebar.vue';
 export { default as MagnerTable } from './components/table.vue';
 
 export { default as MagnerForm } from './components/form/form.vue';
+export { default as MagnerCardForm } from './components/form/card-form.vue';
 export { default as MagnerFormItem } from './components/form/form-item.vue';
 
 export { default as MagnerFormButton } from './components/form/fields/button.vue';

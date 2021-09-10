@@ -93,6 +93,8 @@ Something about that
 
 ### `MagnerForm`
 
+### `MagnerCardForm`
+
 ### `MagnerFormItem`
 
 ### `MagnerFormButton`

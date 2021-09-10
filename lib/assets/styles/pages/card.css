@@ -1,5 +1,5 @@
 .card-page {
-    &_header, &_form {
+    &_header {
         width: 100%;
         margin: 0 auto;
         padding: 12px 24px;
@@ -45,14 +45,6 @@
         &_title {
             margin-bottom: 12px;
             text-align: left;
-        }
-    }
-
-    &_form {
-        & .el-button {
-            width: 100%;
-            margin-left: 0;
-            margin-bottom: 12px;
         }
     }
 }

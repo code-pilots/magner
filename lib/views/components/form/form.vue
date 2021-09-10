@@ -58,11 +58,8 @@
 <script lang="ts">
 import '../../../assets/styles/components/generic-form.css';
 import {
-  defineComponent,
-  reactive,
-  ref,
-  PropType,
-  watchEffect, computed,
+  defineComponent, reactive, ref, PropType,
+  watchEffect, computed, nextTick,
 } from 'vue';
 import { useRouter } from 'vue-router';
 import type { GenericForm } from '../../../types/form';
@@ -195,6 +192,7 @@ export default defineComponent({
     const doActions = async (action: FormAction) => {
       if (action.action === 'clear') {
         Object.assign(form, fieldsToModels(allFields.value));
+        errors.value = {};
         return;
       }
 
