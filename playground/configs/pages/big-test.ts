@@ -15,6 +15,19 @@ export default cardPageController({
   alwaysCreate: true,
   confirmDelete: true,
 
+  tabs: [
+    {
+      label: 'Hey',
+      active: true,
+      link: '/',
+    },
+    {
+      label: 'Lol',
+      active: false,
+      link: '/',
+    },
+  ],
+
   form: {
     debug: true,
     actions: [
