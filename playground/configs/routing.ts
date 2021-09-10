@@ -3,6 +3,7 @@ import patientsConfig from './pages/patients/patients';
 import loginPageConfig from './pages/login';
 import bigtestConfig from './pages/big-test';
 import formLayoutConfig from './pages/form-layout';
+import PatientsIcon from '../assets/icons/users.svg';
 
 // eslint-disable-next-line no-shadow
 export enum ROLE {
@@ -28,7 +29,7 @@ const router = routerController<ROLE>({
       config: {},
       visible: true,
       title: translate('pages.home'),
-      icon: 'home',
+      icon: () => import('../assets/icons/home.svg'),
     },
 
     {
@@ -43,7 +44,7 @@ const router = routerController<ROLE>({
       roles: null,
       visible: true,
       title: translate('pages.patients'),
-      icon: 'users',
+      icon: () => PatientsIcon,
       route: {
         name: 'patients',
         path: '/patients',
@@ -54,12 +55,12 @@ const router = routerController<ROLE>({
       group: true,
       name: 'nested',
       title: translate('pages.nested'),
-      icon: 'grid',
+      icon: () => import('../assets/icons/grid.svg'),
       routes: [
         {
           preset: 'card',
           title: translate('pages.form_test'),
-          icon: 'key',
+          icon: () => import('../assets/icons/key.svg'),
           visible: true,
           roles: null,
           config: bigtestConfig,
@@ -72,7 +73,7 @@ const router = routerController<ROLE>({
         {
           preset: 'card',
           title: translate('pages.form_layout'),
-          icon: 'layout',
+          icon: () => import('../assets/icons/layout.svg'),
           visible: true,
           roles: null,
           config: formLayoutConfig,

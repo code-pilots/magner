@@ -15,7 +15,7 @@
         <el-dropdown size="small" trigger="hover">
           <template #default>
             <el-button size="mini" circle>
-              <svg-icon name="globe" is-core />
+              <svg-icon core="globe" />
             </el-button>
           </template>
 
@@ -35,7 +35,7 @@
         <el-dropdown size="small" trigger="hover">
           <template #default>
             <el-button size="mini" circle>
-              <svg-icon name="user" is-core />
+              <svg-icon core="user" />
             </el-button>
           </template>
 
@@ -53,7 +53,7 @@
           class="header_right_burger"
           @click="toggleOpen"
         >
-          <svg-icon name="menu" is-core />
+          <svg-icon core="menu" />
         </el-button>
       </div>
     </nav>

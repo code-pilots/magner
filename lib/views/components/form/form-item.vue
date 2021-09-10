@@ -12,10 +12,9 @@
       {{ customT(field.label) }}
       <el-tooltip v-if="field.hint">
         <svg-icon
-          name="question"
           size="sm"
           class="generic-form_item_help"
-          is-core
+          core="question"
         />
         <template #content>
           <span v-html="customT(field.hint)" />
@@ -127,7 +126,7 @@
         class="remove-more"
         @click="changeCollectionItems(i)"
       >
-        <svg-icon name="x" size="sm" is-core />
+        <svg-icon size="sm" core="x" />
       </el-button>
 
       <div class="flex-grow" />
@@ -140,7 +139,7 @@
         plain
         @click="changeCollectionItems('new')"
       >
-        <svg-icon name="plus" size="sm" is-core />
+        <svg-icon size="sm" core="plus" />
         {{ t('core.card.add_more') }}
       </el-button>
     </div>

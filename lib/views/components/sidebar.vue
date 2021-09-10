@@ -14,7 +14,7 @@
             :index="route.name"
           >
             <template #title>
-              <svg-icon :name="route.icon" class="el-icon-margin-right" />
+              <svg-icon :icon="route.icon" class="el-icon-margin-right" />
               <span>{{ customT(route.title) }}</span>
             </template>
             <template v-for="nested in route.routes">
@@ -24,7 +24,7 @@
                 :index="nested.route.name"
                 class="sidebar_menu_item"
               >
-                <svg-icon :name="nested.icon" class="el-icon-no-icon-just-kiddin" />
+                <svg-icon :icon="nested.icon" class="el-icon-no-icon-just-kiddin" />
                 <template #title>
                   <span class="sidebar_menu_item_title">
                     {{ customT(nested.title) }}
@@ -40,7 +40,7 @@
             :index="route.route.name"
             class="sidebar_menu_item"
           >
-            <svg-icon :name="route.icon" class="el-icon-no-icon-just-kiddin" />
+            <svg-icon :icon="route.icon" class="el-icon-no-icon-just-kiddin" />
             <template #title>
               <span class="sidebar_menu_item_title">
                 {{ customT(route.title) }}
@@ -52,7 +52,7 @@
     </el-scrollbar>
 
     <el-button class="sidebar_toggle" @click="toggleCollapse">
-      <svg-icon name="chevrons" :rotate="isCollapsed ? 'right' : 'left'" is-core />
+      <svg-icon :rotate="isCollapsed ? 'right' : 'left'" core="chevrons" />
       {{ isCollapsed ? '' : t('core.sidebar.collapse') }}
     </el-button>
   </nav>

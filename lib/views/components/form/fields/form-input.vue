@@ -14,7 +14,7 @@
   >
     <template v-if="field.props.icon" #prefix>
       <div class="generic-form_icon">
-        <svg-icon :name="field.props.icon" size="sm" />
+        <svg-icon :icon="field.props.icon" size="sm" />
       </div>
     </template>
   </el-input>

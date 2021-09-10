@@ -5,8 +5,11 @@ export interface InputProps extends BaseProps {
   type: 'text'|'number'|'email'|'password'|'tel'|string,
   placeholder?: TranslateData,
 
-  /** Icon name from the 'app/assets/icons' folder */
-  icon?: string,
+  /**
+   * Icon as a Vue component.
+   * Used as `() => SomeIcon` or  `() => import('../smt.svg'))`
+   */
+  icon?: InputProps,
 
   /** An amount of milliseconds (put 400 for the best UX) of the delay for the 'update:modelValue' event of
    * the FormInput component to shoot after user typing finishes */
