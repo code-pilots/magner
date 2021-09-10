@@ -3,6 +3,7 @@ const setupEditor = async (data: {
   placeholder: string,
   autofocus?: boolean,
   data?: any,
+  readOnly?: boolean,
   onReady?: () => void,
   onChange: () => void,
 }) => {

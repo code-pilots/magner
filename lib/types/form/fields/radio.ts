@@ -7,6 +7,8 @@ export interface RadioProps extends BaseProps {
 
   /** Border and background color when button is active */
   fill?: string,
+
+  disabled?: boolean,
 }
 
 export interface RadioOption extends Record<string, any> {

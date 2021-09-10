@@ -2,7 +2,7 @@
   <div
     ref="wrapperEl"
     class="el-upload el-upload--text"
-    :class="{'dragover': dragOver}"
+    :class="{'dragover': dragOver && !field.props.disabled, disabled: field.props.disabled }"
     tabindex="0"
     @click.self="select"
     @dragenter="handleDragEnter"
@@ -62,6 +62,7 @@
 </template>
 
 <script lang="ts">
+import '../../../../assets/styles/components/dropzone.css';
 import {
   computed, defineComponent, PropType, ref,
 } from 'vue';
@@ -139,7 +140,10 @@ export default defineComponent({
       },
     });
 
-    const select = () => inputEl.value?.click();
+    const select = () => {
+      if (props.field.props.disabled) return;
+      inputEl.value?.click();
+    };
 
     const toggleDragOver = (val: boolean) => {
       if (props.field.props.noDrop || props.field.props.disabled) return;
@@ -154,6 +158,8 @@ export default defineComponent({
     };
 
     const commonHandler = (event: Event) => {
+      if (props.field.props.disabled) return;
+
       event.preventDefault();
       context.emit(event.type as DragEvents, event);
     };

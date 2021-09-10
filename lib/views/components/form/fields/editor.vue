@@ -1,8 +1,13 @@
 <template>
-  <div :id="field.props.id" />
+  <div
+    :id="field.props.id"
+    class="form-editor"
+    :class="{disabled: field.props.disabled}"
+  />
 </template>
 
 <script lang="ts">
+import '../../../../assets/styles/components/editor.css';
 import {
   defineComponent, onMounted, PropType, ref, watchEffect,
 } from 'vue';
@@ -41,6 +46,7 @@ export default defineComponent({
         holder: props.field.props.id,
         placeholder: customT(props.field.props.placeholder),
         data: {},
+        readOnly: props.field.props.disabled,
         onChange: (editor) => {
           editor.saver?.save?.().then((outputData) => {
             changeVal(JSON.stringify(outputData));

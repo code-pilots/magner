@@ -11,6 +11,8 @@ export interface CheckboxProps extends BaseProps {
 
   /** Border and background color when button is active */
   fill?: string,
+
+  disabled?: boolean,
 }
 
 export interface CheckboxOption extends Record<string, any> {

@@ -3,6 +3,7 @@
     :model-value="val"
     :text-color="field.props.activeTextColor"
     :fill="field.props.fill"
+    :disabled="field.props.disabled"
     @change="changeVal"
   >
     <template v-if="field.radioButtons">

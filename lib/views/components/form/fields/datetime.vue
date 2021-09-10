@@ -5,6 +5,7 @@
     :placeholder="customT(field.props.placeholder)"
     :start-placeholder="customT(field.props.startPlaceholder)"
     :end-placeholder="customT(field.props.endPlaceholder)"
+    :disabled="field.props.disabled"
     @update:modelValue="changeVal"
   />
 </template>
