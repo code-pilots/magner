@@ -16,7 +16,6 @@ export interface SwitchProps extends BaseProps {
   width?: number,
 
   loading?: boolean,
-  disabled?: boolean,
 
   /** The hook that is used when the switch state is changing. If 'false' is returned, no state change happens */
   beforeChange?: (newVal: boolean) => boolean | Promise<boolean>,

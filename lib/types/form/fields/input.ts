@@ -1,5 +1,6 @@
 import type { BaseField, BaseProps } from '../base';
 import type { TranslateData } from '../../../utils/core/translate';
+import type { IconImport } from '../../utils/useful';
 
 export interface InputProps extends BaseProps {
   type: 'text'|'number'|'email'|'password'|'tel'|string,
@@ -9,7 +10,7 @@ export interface InputProps extends BaseProps {
    * Icon as a Vue component.
    * Used as `() => SomeIcon` or  `() => import('../smt.svg'))`
    */
-  icon?: InputProps,
+  icon?: IconImport,
 
   /** An amount of milliseconds (put 400 for the best UX) of the delay for the 'update:modelValue' event of
    * the FormInput component to shoot after user typing finishes */
@@ -39,7 +40,6 @@ export interface InputProps extends BaseProps {
   /** Whether to show clear button */
   clearable?: boolean,
 
-  disabled?: boolean,
   autofocus?: boolean,
 }
 

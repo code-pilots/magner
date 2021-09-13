@@ -20,6 +20,8 @@ export type SupportedComponentTypes =
 
 export interface BaseProps {
   class?: string,
+
+  disabled?: boolean,
 }
 
 export interface BaseValidation {

@@ -2,6 +2,7 @@
   <el-button
     :type="field.props.type || 'primary'"
     :native-type="field.props.nativeType || 'button'"
+    :disabled="field.props.disabled"
     @click="handleOpen"
   >
     {{ customT(field.props.text) }}

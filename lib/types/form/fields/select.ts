@@ -52,8 +52,6 @@ export interface OptionComponent extends Record<string, any> {
 
   /** Unique value of the Option. Can be omitted if 'valueKey' is chosen in SelectComponent */
   value?: string|number|boolean|Record<string, any>,
-
-  disabled?: boolean,
 }
 
 export interface SelectField extends BaseField {

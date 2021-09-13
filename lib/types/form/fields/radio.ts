@@ -17,8 +17,6 @@ export interface RadioOption extends Record<string, any> {
 
   /** Unique value of the Option. This value will be returned by form when submitted */
   value?: string|number|boolean|Record<string, any>,
-
-  disabled?: boolean,
 }
 
 export interface RadioField extends BaseField {

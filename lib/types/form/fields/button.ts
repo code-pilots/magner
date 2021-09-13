@@ -10,8 +10,6 @@ export interface ButtonProps extends BaseProps {
   /** Button content */
   text: TranslateData,
 
-  disabled?: boolean,
-
   /** Default is 'primary' */
   type?: ButtonType,
 

@@ -48,8 +48,6 @@ export interface DropzoneProps extends BaseProps {
   /** Sort images or files inside the dropzone with Drag-and-Drop. Default is true */
   sortable?: boolean,
 
-  disabled?: boolean,
-
   inputAtts?: {
     id: string,
     name: string,
