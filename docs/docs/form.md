@@ -234,6 +234,29 @@ export interface FormInteractionsData {
 }
 ```
 
+## Disabled checks
+
+You can add dynamic checks for the form field `disabled` state checks depending on form values and user role.
+This is how it's done:
+
+```ts
+import { mixedCheck } from 'magner';
+
+const ButtonField = {
+  type: 'button',
+  name: 'btn',
+  props: {
+    disabled: mixedCheck(({ state, role }) => {
+      if (role !== 'ADMIN') return false;
+      if (state.someCheck) return false;
+      return true;
+    }),
+  },
+};
+```
+
+In here, **role** is a `string` and **state** is an object where keys are field names with its corresponding values.
+
 ## Dialog forms
 
 This is a kind of form inside a form. It is opened by request of another field from `changeAction` 

@@ -137,6 +137,10 @@ Something about that
 
 ### `useMobile`
 
+### `mixedCheck`
+
+### `useChecks`
+
 ### `magnerAlert`
 
 ### `magnerNotify`
@@ -208,3 +212,4 @@ Something about that
 
 ### `RequestCallback`
 
+### `MixedChecker`
