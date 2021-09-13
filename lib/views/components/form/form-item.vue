@@ -104,7 +104,7 @@
     </template>
   </el-form-item>
 
-  <template v-else>
+  <div v-else class="form-collection">
     <template v-for="(itm, i) in collectionItems" :key="i">
       <template v-for="(layout, j) in field.layout" :key="i.toString() + j">
         <FormLayoutBlock :block="layout" :class="$attrs.class">
@@ -143,18 +143,18 @@
         {{ t('core.card.add_more') }}
       </el-button>
     </div>
-  </template>
+  </div>
 </template>
 
 <script lang="ts">
 import {
-  shallowRef, defineComponent, PropType, ref, watchEffect, reactive,
+  shallowRef, defineComponent, PropType, ref, watchEffect, reactive, computed,
 } from 'vue';
 import type { GenericComponent } from '../../../types/form';
 import type { GenericFormLayout } from '../../../types/form/layout';
 import { collectFieldsFromLayout, fieldsToModels } from '../../../utils/form/form';
 import { useTranslate, useMobile } from '../../../utils';
-import FormInput from './fields/form-input.vue';
+import FormInput from './fields/input.vue';
 import FormSelect from './fields/select.vue';
 import Dropzone from './fields/dropzone.vue';
 import FormRadio from './fields/radio.vue';

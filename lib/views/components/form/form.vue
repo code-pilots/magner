@@ -59,7 +59,7 @@
 import '../../../assets/styles/components/generic-form.css';
 import {
   defineComponent, reactive, ref, PropType,
-  watchEffect, computed, nextTick,
+  watchEffect, computed,
 } from 'vue';
 import { useRouter } from 'vue-router';
 import type { GenericForm } from '../../../types/form';
@@ -72,6 +72,7 @@ import setupValidators from '../../../utils/form/setup-validators';
 import FormItem from './form-item.vue';
 import FormLayout from './layout.vue';
 import FormActions from './form-actions.vue';
+import useStore from '../../../controllers/store/store';
 
 interface FormValidator extends HTMLFormElement {
   validate: Function,
@@ -124,6 +125,7 @@ export default defineComponent({
     const { customT, t } = useTranslate();
     const isMobile = useMobile();
     const router = useRouter();
+    const store = useStore();
 
     const reactiveConfig = reactive(props.config);
     const allFields = computed(() => layoutToFields(reactiveConfig.layout));
@@ -133,6 +135,20 @@ export default defineComponent({
     const globalError = ref<string>(props.error); // Error of the whole form
     const errors = ref<Record<string, string>>(props.fieldErrors); // Field errors record
     const formEl = ref<HTMLFormElement>();
+
+    /**
+     * `disabled` accepts `mixedChecks` function that returns a boolean depending on the
+     * state of the form and the user role. Here, we bind those values to the function that will
+     * be executed in the FormItem.
+     */
+    allFields.value.forEach((field) => {
+      if (typeof field.props.disabled === 'function') {
+        field.props.disabled = field.props.disabled.bind(null, {
+          state: form,
+          role: store.state.role,
+        });
+      }
+    });
 
     const submit = () => {
       (formEl.value as FormValidator).validate(async (valid: boolean) => {

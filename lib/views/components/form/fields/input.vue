@@ -8,7 +8,7 @@
     :minlength="field.props.minLength"
     :show-word-limit="field.props.showLetterLimit"
     :clearable="field.props.clearable"
-    :disabled="field.props.disabled"
+    :disabled="disabled"
     :autofocus="field.props.autofocus"
     @input="changeVal"
   >
@@ -25,7 +25,7 @@ import {
   defineComponent, PropType, ref, watchEffect, onMounted,
 } from 'vue';
 import { create as Maska } from 'maska';
-import { useTranslate } from '../../../../utils';
+import { useTranslate, useChecks } from '../../../../utils';
 import type { InputField } from '../../../../types/form/fields/input';
 import debounceOnInput from '../../../../utils/form/input-debounce';
 
@@ -44,6 +44,7 @@ export default defineComponent({
   emits: ['update:modelValue'],
   setup (props, context) {
     const { customT } = useTranslate();
+    const { disabled } = useChecks(props.field);
 
     const val = ref<number|string>(props.modelValue);
     const input = ref<HTMLInputElement>();
@@ -54,7 +55,7 @@ export default defineComponent({
 
     let mask;
 
-    const changeVal = debounceOnInput(props.field.props.inputDelay, val, (newVal: string|number) => {
+    const changeVal = debounceOnInput(props.field.props.inputDelay || 0, val, (newVal: string|number) => {
       context.emit('update:modelValue', newVal);
     });
 
@@ -68,6 +69,7 @@ export default defineComponent({
     return {
       customT,
       val,
+      disabled,
       input,
       changeVal,
     };

@@ -1,8 +1,9 @@
-import type { SupportedValidators } from '../configs/development';
 import type { SupportedDataTypes } from '../../utils/form/form';
-import type { GenericComponent, GenericForm } from './index';
 import type { TranslateData } from '../../utils/core/translate';
+import type { MixedChecker } from '../../utils/core/mixed-check';
+import type { SupportedValidators } from '../configs/development';
 import type { DialogForm } from './dialog-forms';
+import type { GenericComponent, GenericForm } from './index';
 
 export type SupportedComponentTypes =
   'button'
@@ -21,7 +22,7 @@ export type SupportedComponentTypes =
 export interface BaseProps {
   class?: string,
 
-  disabled?: boolean,
+  disabled?: boolean | { value: boolean } | MixedChecker,
 }
 
 export interface BaseValidation {

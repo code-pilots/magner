@@ -104,6 +104,10 @@
     }
   }
 
+  & .form-collection {
+    display: contents;
+  }
+
   &_collection {
     width: 100%;
   }

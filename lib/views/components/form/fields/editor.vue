@@ -2,7 +2,7 @@
   <div
     :id="field.props.id"
     class="form-editor"
-    :class="{disabled: field.props.disabled}"
+    :class="{disabled}"
   />
 </template>
 
@@ -11,7 +11,7 @@ import '../../../../assets/styles/components/editor.css';
 import {
   defineComponent, onMounted, PropType, ref, watchEffect,
 } from 'vue';
-import { useTranslate } from '../../../../utils';
+import { useTranslate, useChecks } from '../../../../utils';
 import type { EditorField } from '../../../../types/form/fields/editor';
 import setupEditor from '../../../../utils/form/editor';
 
@@ -30,6 +30,7 @@ export default defineComponent({
   emits: ['update:modelValue'],
   setup (props, context) {
     const { customT } = useTranslate();
+    const { disabled } = useChecks(props.field);
 
     const val = ref<string>(props.modelValue);
     watchEffect(() => {
@@ -46,7 +47,7 @@ export default defineComponent({
         holder: props.field.props.id,
         placeholder: customT(props.field.props.placeholder),
         data: {},
-        readOnly: props.field.props.disabled,
+        readOnly: disabled.value,
         onChange: (editor) => {
           editor.saver?.save?.().then((outputData) => {
             changeVal(JSON.stringify(outputData));
@@ -57,6 +58,7 @@ export default defineComponent({
 
     return {
       val,
+      disabled,
       customT,
       changeVal,
     };

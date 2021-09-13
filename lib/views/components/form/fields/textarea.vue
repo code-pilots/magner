@@ -9,7 +9,7 @@
     :minlength="field.props.minLength"
     :show-word-limit="field.props.showLetterLimit"
     :clearable="field.props.clearable"
-    :disabled="field.props.disabled"
+    :disabled="disabled"
     :resize="field.props.resize"
     :autofocus="field.props.autofocus"
     @input="changeVal"
@@ -20,7 +20,7 @@
 import {
   defineComponent, PropType, ref, watchEffect,
 } from 'vue';
-import { useTranslate } from '../../../../utils';
+import { useChecks, useTranslate } from '../../../../utils';
 import debounceOnInput from '../../../../utils/form/input-debounce';
 import { TextareaField } from '../../../../types/form/fields/textarea';
 
@@ -39,6 +39,7 @@ export default defineComponent({
   emits: ['update:modelValue'],
   setup (props, context) {
     const { customT } = useTranslate();
+    const { disabled } = useChecks(props.field);
 
     const val = ref<number|string>(props.modelValue);
     watchEffect(() => {
@@ -50,6 +51,7 @@ export default defineComponent({
     });
 
     return {
+      disabled,
       customT,
       val,
       changeVal,

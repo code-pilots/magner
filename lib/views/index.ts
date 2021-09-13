@@ -15,7 +15,7 @@ export { default as MagnerCardForm } from './components/form/card-form.vue';
 export { default as MagnerFormItem } from './components/form/form-item.vue';
 
 export { default as MagnerFormButton } from './components/form/fields/button.vue';
-export { default as MagnerFormInput } from './components/form/fields/form-input.vue';
+export { default as MagnerFormInput } from './components/form/fields/input.vue';
 export { default as MagnerFormTextarea } from './components/form/fields/textarea.vue';
 export { default as MagnerFormEditor } from './components/form/fields/editor.vue';
 export { default as MagnerFormCheckbox } from './components/form/fields/checkbox.vue';

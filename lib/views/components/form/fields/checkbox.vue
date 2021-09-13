@@ -5,7 +5,7 @@
     :max="field.props.max"
     :text-color="field.props.activeTextColor"
     :fill="field.props.fill"
-    :disabled="field.props.disabled"
+    :disabled="disabled"
     @change="changeVal"
   >
     <template v-if="field.checkboxButtons">
@@ -37,7 +37,7 @@ import {
   defineComponent, PropType, ref, watchEffect,
 } from 'vue';
 import type { CheckboxField } from '../../../../types/form/fields/checkbox';
-import { useTranslate } from '../../../../utils';
+import { useTranslate, useChecks } from '../../../../utils';
 
 export default defineComponent({
   name: 'FormCheckbox',
@@ -55,6 +55,7 @@ export default defineComponent({
   setup (props, context) {
     const { customT } = useTranslate();
     const val = ref<any[]>(props.modelValue);
+    const { disabled } = useChecks(props.field);
 
     watchEffect(() => {
       val.value = props.modelValue;
@@ -67,6 +68,7 @@ export default defineComponent({
 
     return {
       val,
+      disabled,
       customT,
       changeVal,
     };

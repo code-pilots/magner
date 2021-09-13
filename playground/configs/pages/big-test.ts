@@ -1,5 +1,5 @@
 import {
-  translate, cardPageController,
+  translate, cardPageController, mixedCheck,
 } from 'lib/index';
 import {
   bigtestCreate, bigtestDelete, bigtestGet, bigtestUpdate,
@@ -86,7 +86,6 @@ export default cardPageController({
                 trigger: 'blur',
               },
               props: {
-                disabled: true,
                 type: 'tel',
                 placeholder: '+7-915-820-14-02',
                 mask: {
@@ -99,8 +98,9 @@ export default cardPageController({
               type: 'textarea',
               name: 'textarea',
               label: 'Textarea',
+              hint: 'Edit the \'phone\' field to access this textarea',
               props: {
-                disabled: true,
+                disabled: mixedCheck(({ state }) => !(state.phone)),
                 placeholder: 'Text',
                 autosize: { minRows: 3, maxRows: 5 },
                 maxLength: 1024,
@@ -139,7 +139,7 @@ export default cardPageController({
               props: {
                 placeholder: 'Russia',
                 clearable: true,
-                disabled: true,
+                // disabled: true,
               },
             },
           ],
