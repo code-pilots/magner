@@ -1,0 +1,84 @@
+.el-upload {
+  width: 100%;
+
+  & .el-upload-dragger {
+    width: 100%;
+    height: auto;
+    min-height: 180px;
+
+    & .el-upload--text {
+      line-height: 1.2em;
+    }
+
+    &.images {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 16px;
+
+      @media (--breakpoint-small) {
+        padding: 10px;
+      }
+    }
+
+    &_image {
+      position: relative;
+      max-height: 200px;
+      background-color: rgba(0,0,0,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &[draggable="true"]:not(.loading) {
+        cursor: move;
+      }
+
+      &.loading {
+        width: 150px;
+        height: 200px;
+        background-color: rgba(0,0,0,0.05);
+
+        & .el-loading-mask {
+          background-color: unset;
+        }
+
+        & img {
+          transform: scale(1.5);
+          filter: blur(3px);
+        }
+      }
+
+      & .el-image {
+        width: auto;
+        height: auto;
+        max-height: 200px;
+        max-width: 200px;
+        border-radius: 4px;
+
+        @media (--breakpoint-small) {
+          max-width: 100%;
+        }
+      }
+    }
+  }
+
+  &.dragover * {
+    pointer-events: none;
+  }
+
+  &.disabled {
+    &:focus {
+      border-color: transparent;
+      & .el-upload-dragger {
+        border-color: var(--el-disabled-border-base);
+      }
+    }
+
+    & .el-upload-dragger {
+      background-color: var(--el-disabled-fill-base);
+      border-color: var(--el-disabled-border-base);
+      color: var(--el-disabled-color-base);
+      cursor: not-allowed;
+    }
+  }
+}

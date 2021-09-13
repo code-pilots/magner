@@ -1,5 +1,5 @@
 .card-page {
-    &_header, &_form {
+    &_header {
         width: 100%;
         margin: 0 auto;
         padding: 12px 24px;
@@ -10,16 +10,18 @@
         }
 
         .el-tabs {
-            &__header {
-                border-bottom: none !important;
+            & .el-tabs__header {
+                border-bottom: none;
             }
 
             &--card > .el-tabs__header .el-tabs__item {
-                border-bottom: 1px solid #E4E7ED !important;
+                border-bottom: 1px solid #E4E7ED;
+                &.is-active {
+                  border-bottom-color: #E4E7ED;
+                }
             }
 
-            &__item {
-                padding: 0 !important;
+            & .el-tabs__item {
                 & a, & span {
                     display: inline-block;
                     height: 100%;
@@ -45,14 +47,6 @@
         &_title {
             margin-bottom: 12px;
             text-align: left;
-        }
-    }
-
-    &_form {
-        & .el-button {
-            width: 100%;
-            margin-left: 0;
-            margin-bottom: 12px;
         }
     }
 }

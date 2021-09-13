@@ -35,29 +35,15 @@
       class="generic-form_error"
     />
 
-    <div class="generic-form_actions">
-      <slot name="actions-before" />
-      <el-button
-        v-if="config.clearable"
-        :size="config.size"
-        native-type="button"
-        :class="['generic-form_clear', 'width-full']"
-        @click="clearForm"
-      >
-        {{ t('core.form.clear') }}
-      </el-button>
-      <el-button
-        v-if="(config.submitEvent === 'submit' || !config.submitEvent) && config.submit"
-        :loading="loading"
-        :size="config.size"
-        :native-type="config.submit.nativeType || 'submit'"
-        :type="config.submit.type || 'primary'"
-        :class="['generic-form_submit', 'width-full', config.submit.class || '']"
-      >
-        {{ customT(config.submit.text) }}
-      </el-button>
-      <slot name="actions-after" />
-    </div>
+    <FormActions
+      :actions="reactiveConfig.actions"
+      :size="reactiveConfig.size"
+      :skip-actions="(config.submitEvent && config.submitEvent === 'input') ? ['submit'] : []"
+      @action="doActions"
+    >
+      <template #actions-before><slot name="actions-before" /></template>
+      <template #actions-after><slot name="actions-after" /></template>
+    </FormActions>
 
     <slot name="dialogs" v-bind="formData" />
 
@@ -72,13 +58,12 @@
 <script lang="ts">
 import '../../../assets/styles/components/generic-form.css';
 import {
-  defineComponent,
-  reactive,
-  ref,
-  PropType,
+  defineComponent, reactive, ref, PropType,
   watchEffect, computed,
 } from 'vue';
+import { useRouter } from 'vue-router';
 import type { GenericForm } from '../../../types/form';
+import type { FormAction } from '../../../types/form/actions';
 import type { FormInteractionsData } from '../../../types/form/base';
 import type { SupportedValidators } from '../../../types/configs';
 import { DataTypeInitials, fieldsToModels, layoutToFields } from '../../../utils/form/form';
@@ -86,6 +71,8 @@ import { useMobile, useTranslate } from '../../../utils';
 import setupValidators from '../../../utils/form/setup-validators';
 import FormItem from './form-item.vue';
 import FormLayout from './layout.vue';
+import FormActions from './form-actions.vue';
+import useStore from '../../../controllers/store/store';
 
 interface FormValidator extends HTMLFormElement {
   validate: Function,
@@ -93,7 +80,7 @@ interface FormValidator extends HTMLFormElement {
 
 export default defineComponent({
   name: 'GenericForm',
-  components: { FormLayout, FormItem },
+  components: { FormActions, FormLayout, FormItem },
   props: {
     config: {
       type: Object as PropType<GenericForm>,
@@ -112,10 +99,6 @@ export default defineComponent({
       default: false,
     },
 
-    loading: {
-      type: Boolean,
-      default: false,
-    },
     error: {
       type: String,
       default: '',
@@ -130,11 +113,19 @@ export default defineComponent({
       type: [Boolean, Array] as PropType<boolean | SupportedValidators[]>,
       default: false,
     },
+
+    /** Skip action buttons to be displayed. 'true' skips all, array of strings skips specific ones */
+    skipActions: {
+      type: [Array, Boolean] as PropType<FormAction['action'][] | boolean>,
+      default: () => ([]),
+    },
   },
-  emits: ['submit'],
+  emits: ['submit', 'remove'],
   setup (props, context) {
     const { customT, t } = useTranslate();
     const isMobile = useMobile();
+    const router = useRouter();
+    const store = useStore();
 
     const reactiveConfig = reactive(props.config);
     const allFields = computed(() => layoutToFields(reactiveConfig.layout));
@@ -144,6 +135,20 @@ export default defineComponent({
     const globalError = ref<string>(props.error); // Error of the whole form
     const errors = ref<Record<string, string>>(props.fieldErrors); // Field errors record
     const formEl = ref<HTMLFormElement>();
+
+    /**
+     * `disabled` accepts `mixedChecks` function that returns a boolean depending on the
+     * state of the form and the user role. Here, we bind those values to the function that will
+     * be executed in the FormItem.
+     */
+    allFields.value.forEach((field) => {
+      if (typeof field.props.disabled === 'function') {
+        field.props.disabled = field.props.disabled.bind(null, {
+          state: form,
+          role: store.state.role,
+        });
+      }
+    });
 
     const submit = () => {
       (formEl.value as FormValidator).validate(async (valid: boolean) => {
@@ -200,9 +205,26 @@ export default defineComponent({
       errors.value[field] = err;
     };
 
-    const clearForm = () => {
-      Object.assign(form, fieldsToModels(allFields.value));
-      submit();
+    const doActions = async (action: FormAction) => {
+      if (action.action === 'clear') {
+        Object.assign(form, fieldsToModels(allFields.value));
+        errors.value = {};
+        return;
+      }
+
+      if (action.action === 'submit') {
+        submit();
+        return;
+      }
+
+      if (action.action === 'cancel') {
+        await router.go(-1);
+        await router.push('/');
+        return;
+      }
+
+      // In case of 'remove' - send events back
+      context.emit(action.action, action);
     };
 
     watchEffect(() => {
@@ -238,8 +260,8 @@ export default defineComponent({
       submit,
       setFieldError,
       controlOnInput,
-      clearForm,
       customAction,
+      doActions,
     };
   },
 });

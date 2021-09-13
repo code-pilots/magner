@@ -1,7 +1,7 @@
 <template>
   <i
     :class="[
-      'icon-' + name,
+      (core || name) ? 'icon-' + core || name : '',
       'size-' + size,
       'rotate-' + rotate,
     ]"
@@ -9,7 +9,7 @@
   >
     <suspense>
       <template #default>
-        <SvgImporter :name="name" :is-core="isCore" />
+        <SvgImporter :icon="icon" :core="core" />
       </template>
       <template #fallback>
         <svg />
@@ -21,6 +21,7 @@
 <script lang="ts">
 import '../../assets/styles/components/icons.css';
 import { defineComponent, PropType } from 'vue';
+import type { IconImport } from '../../types/utils/useful';
 import SvgImporter from './svg-importer.vue';
 
 export default defineComponent({
@@ -29,9 +30,13 @@ export default defineComponent({
     SvgImporter,
   },
   props: {
+    icon: {
+      type: [Function] as PropType<IconImport>,
+      default: null,
+    },
     name: {
       type: String,
-      default: null,
+      default: '',
     },
     size: {
       type: String as PropType<'sm' | 'md' | 'lg'>,
@@ -41,9 +46,9 @@ export default defineComponent({
       type: String as PropType<'top' | 'right' | 'bottom' | 'left'>,
       default: 'top',
     },
-    isCore: {
-      type: Boolean,
-      default: false,
+    core: {
+      type: String,
+      default: null,
     },
   },
 });

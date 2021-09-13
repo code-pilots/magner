@@ -39,7 +39,6 @@ export interface DateTimeProps extends BaseProps {
 
   /** Whether to show clear button */
   clearable?: boolean,
-  disabled?: boolean,
 }
 
 export interface DateTimeField extends BaseField {

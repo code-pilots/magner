@@ -13,6 +13,7 @@ import type { CustomField } from './fields/custom';
 
 import type { FormLayout } from './layout';
 import type { DialogForm } from './dialog-forms';
+import type { FormAction } from './actions';
 
 /**
  * The type of a field used in the forms. Defined by its required 'type' which
@@ -33,7 +34,19 @@ export type GenericComponent =
   | CustomField;
 
 export interface GenericForm {
-  submit?: ButtonProps,
+  /**
+   * Reacting to which event the form will trigger 'submit' event.
+   * Case 'submit' - only on Submit button or Enter key press
+   * Case 'input' – on any child component's change event
+   * */
+  submitEvent?: 'submit'|'input',
+
+  /**
+   * An array (preserving the order of buttons) of buttons performing different actions with the form.
+   * Supports button-like configs with one additional property `action`. Possible values are:<br>
+   * `action`: `'submit'` | `'cancel'` | `'remove'` | `'clear'`,
+   */
+  actions?: FormAction[],
 
   layout: FormLayout,
 
@@ -43,16 +56,6 @@ export interface GenericForm {
   dialogForms?: DialogForm[],
 
   size?: 'medium'|'small'|'mini',
-
-  /** Can the form be cleared? Displays a proper button */
-  clearable?: boolean,
-
-  /**
-   * Reacting to which event the form will trigger 'submit' event.
-   * Case 'submit' - only on Submit button or Enter key press
-   * Case 'input' – on any child component's change event
-   * */
-  submitEvent?: 'submit'|'input',
 
   /** If 'true', shows the debug window with form fields on top right corner of the form */
   debug?: boolean,

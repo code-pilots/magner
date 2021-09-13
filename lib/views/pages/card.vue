@@ -6,11 +6,11 @@
           <h1 class="card-page_header_title">
             {{ customT(config.title) }}
           </h1>
-          <el-tabs v-if="config.tabs" type="card">
+          <el-tabs v-if="tabs.tabs.length" :model-value="tabs.activeIndex" type="card">
             <el-tab-pane
-              v-for="(tab, i) in config.tabs"
-              :key="i"
-              :name="i.toString()"
+              v-for="tab in tabs.tabs"
+              :key="tab.index"
+              :name="tab.index"
             >
               <template #label>
                 <router-link v-if="!tab.active" :to="typeof tab.link === 'function' ? tab.link(response) : tab.link">
@@ -22,37 +22,12 @@
           </el-tabs>
         </div>
 
-        <GenericForm
+        <CardForm
+          :config="config"
+          :is-new="isNew"
+          :entity-id="cardId"
           :initial-data="response"
-          :config="config.form"
-          :loading="createLoading"
-          :error="error"
-          :field-errors="fieldErrors"
-          :skip-validation="!isNew ? ['empty'] : []"
-          :return-initial-difference="!isNew"
-          class="card-page_form"
-          @submit="save"
-        >
-          <template #actions-before>
-            <el-button
-              v-if="!isNew && !!config.deleteRequest"
-              type="danger"
-              :loading="deleteLoading"
-              @click="deleteEntity"
-            >
-              {{ t('core.card.remove') }}
-            </el-button>
-          </template>
-
-          <template v-if="config.form.dialogForms && config.form.dialogForms.length" #dialogs="formData">
-            <DialogForm
-              v-for="dialogForm in config.form.dialogForms"
-              :key="dialogForm.name"
-              :config="dialogForm"
-              :form-data="formData"
-            />
-          </template>
-        </GenericForm>
+        />
       </section>
     </template>
   </Dynamic>
@@ -61,19 +36,17 @@
 <script lang="ts">
 import '../../assets/styles/pages/card.css';
 import {
-  computed, defineComponent, PropType, ref,
+  computed, defineComponent, PropType,
 } from 'vue';
 import { useRoute } from 'vue-router';
-import { ElMessageBox, ElMessage } from 'element-plus';
-import { useTranslate, requestWrapper } from '../../utils';
+import { useTranslate } from '../../utils/core/translate';
 import type { CardConfig } from '../../types/configs';
 import Dynamic from '../components/dynamic.vue';
-import GenericForm from '../components/form/form.vue';
-import DialogForm from '../components/form/dialog-form.vue';
+import CardForm from '../components/form/card-form.vue';
 
 export default defineComponent({
   name: 'CardPage',
-  components: { DialogForm, Dynamic, GenericForm },
+  components: { CardForm, Dynamic },
   props: {
     config: {
       type: Object as PropType<CardConfig>,
@@ -86,81 +59,18 @@ export default defineComponent({
     const cardId = computed(() => route.params.id);
     const isNew = computed<boolean>(() => cardId.value === 'new' || !!props.config.alwaysCreate);
 
-    const createLoading = ref<boolean>(false);
-    const deleteLoading = ref<boolean>(false);
-    const error = ref('');
-    const fieldErrors = ref<Record<string, string>>({});
-
-    const save = async (data: Record<string, any>) => {
-      createLoading.value = true;
-      error.value = '';
-      fieldErrors.value = {};
-
-      const res = await requestWrapper(data, props.config.createRequest);
-      createLoading.value = false;
-
-      if (res.error) {
-        if (typeof res.error === 'string') {
-          error.value = res.error;
-        } else {
-          error.value = res.error.message;
-          fieldErrors.value = res.error.fields;
-        }
-        return;
-      }
-
-      ElMessage({
-        type: 'success',
-        message: t('core.card.success_creation'),
-      });
-    };
-
-    const confirmDelete = (): Promise<boolean> => new Promise((resolve) => {
-      ElMessageBox.confirm(t('core.card.removal_confirm', { msg: props.config.title }), t('core.card.attention'), {
-        confirmButtonText: t('core.card.confirm_button_text'),
-        cancelButtonText: t('core.card.cancel_button_text'),
-        type: 'warning',
-      }).then(() => {
-        resolve(true);
-      }).catch(() => {
-        resolve(false);
-      });
-    });
-
-    const deleteEntity = async () => {
-      if (!props.config.deleteRequest) return;
-      if (props.config.confirmDelete && !(await confirmDelete())) return;
-
-      deleteLoading.value = true;
-      const res = await requestWrapper(cardId.value, props.config.deleteRequest);
-
-      if (res.error) {
-        if (typeof res.error === 'string') {
-          error.value = res.error;
-        } else {
-          error.value = res.error.message;
-        }
-      }
-
-      deleteLoading.value = false;
-      ElMessage({
-        type: 'success',
-        message: t('core.card.success_removal'),
-      });
-    };
+    const tabs = computed(() => ({
+      tabs: props.config.tabs?.map((tab, index) => ({ ...tab, index: index.toString() })) || [],
+      activeIndex: props.config.tabs?.findIndex((tab) => tab.active)?.toString() || -1,
+    }));
 
     return {
       customT,
       t,
       cardId,
       isNew,
-      createLoading,
-      deleteLoading,
-      error,
-      fieldErrors,
       pageName: `page-${route.name as string}`,
-      save,
-      deleteEntity,
+      tabs,
     };
   },
 });

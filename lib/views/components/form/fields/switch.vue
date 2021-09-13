@@ -5,7 +5,7 @@
     :active-color="field.props.activeColor"
     :inactive-text="customT(field.props.inactiveLabel)"
     :active-text="customT(field.props.activeLabel)"
-    :disabled="field.props.disabled"
+    :disabled="disabled"
     :width="field.props.width"
     :loading="loading"
     :before-change="beforeChangeHook"
@@ -18,7 +18,7 @@ import {
   defineComponent, PropType, ref, watchEffect,
 } from 'vue';
 import type { SwitchField } from '../../../../types/form/fields/switch';
-import { useTranslate } from '../../../../utils';
+import { useTranslate, useChecks } from '../../../../utils';
 
 export default defineComponent({
   name: 'FormSwitch',
@@ -35,6 +35,7 @@ export default defineComponent({
   emits: ['update:modelValue'],
   setup (props, context) {
     const { customT } = useTranslate();
+    const { disabled } = useChecks(props.field);
 
     const val = ref<number|string|boolean>(props.modelValue);
     const loading = ref<boolean>(!!props.field.props.loading);
@@ -62,6 +63,7 @@ export default defineComponent({
     return {
       val,
       loading,
+      disabled,
       customT,
       changeVal,
       beforeChangeHook,

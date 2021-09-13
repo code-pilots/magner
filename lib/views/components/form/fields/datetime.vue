@@ -5,6 +5,7 @@
     :placeholder="customT(field.props.placeholder)"
     :start-placeholder="customT(field.props.startPlaceholder)"
     :end-placeholder="customT(field.props.endPlaceholder)"
+    :disabled="disabled"
     @update:modelValue="changeVal"
   />
 </template>
@@ -13,7 +14,7 @@
 import {
   defineComponent, PropType, ref, watchEffect,
 } from 'vue';
-import { useTranslate } from '../../../../utils';
+import { useTranslate, useChecks } from '../../../../utils';
 import { DateTimeField } from '../../../../types/form/fields/datetime';
 
 export default defineComponent({
@@ -31,6 +32,7 @@ export default defineComponent({
   emits: ['update:modelValue'],
   setup (props, context) {
     const { customT } = useTranslate();
+    const { disabled } = useChecks(props.field);
 
     const val = ref(props.modelValue);
     watchEffect(() => {
@@ -44,6 +46,7 @@ export default defineComponent({
 
     return {
       val,
+      disabled,
       customT,
       changeVal,
     };

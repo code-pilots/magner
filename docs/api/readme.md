@@ -93,6 +93,8 @@ Something about that
 
 ### `MagnerForm`
 
+### `MagnerCardForm`
+
 ### `MagnerFormItem`
 
 ### `MagnerFormButton`
@@ -131,7 +133,24 @@ Something about that
 
 ### `useTranslate`
 
+### `TranslateError`
+
 ### `useMobile`
+
+### `mixedCheck`
+
+### `useChecks`
+
+### `magnerAlert`
+
+### `magnerNotify`
+
+### `magnerPrompt`
+
+### `magnerConfirm`
+
+### `magnerMessage`
+
 
 ## Types
 
@@ -193,3 +212,4 @@ Something about that
 
 ### `RequestCallback`
 
+### `MixedChecker`

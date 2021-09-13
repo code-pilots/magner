@@ -15,6 +15,12 @@ export interface ButtonProps extends BaseProps {
 
   /** submit is default for forms, button otherwise */
   nativeType?: ButtonNativeType,
+
+  /** Displays button with the half-transparent background fill (not a bright button) */
+  plain?: boolean,
+
+  /** Whether the button has round borders */
+  round?: boolean,
 }
 
 /** Button, if used in the form, does not return any value by itself and acts as a custom component.

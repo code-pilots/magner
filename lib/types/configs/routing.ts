@@ -7,6 +7,7 @@ import type { LoginConfig } from './pages/login';
 import type { TableConfig } from './pages/table';
 import type { CardConfig } from './pages/card';
 import type { TranslateData } from '../../utils/core/translate';
+import type { IconImport } from '../utils/useful';
 
 /** Global routing configuration that defines special needs in routing like programmatic navigation */
 export interface GlobalRouting {
@@ -55,7 +56,7 @@ export interface BaseRoute<ROLE extends string = string> {
 
   visible?: boolean,
   title?: TranslateData,
-  icon?: string,
+  icon?: IconImport,
 }
 
 export type SupportedRoutePresets = 'login'|'table'|'card'|'empty';
@@ -136,7 +137,7 @@ export interface GroupRoute<ROLE extends string = string> {
   group: true,
   name: string,
   title: TranslateData,
-  icon: string,
+  icon: IconImport,
   roles?: string[] | null,
   routes: CustomRoute<ROLE>[],
 }

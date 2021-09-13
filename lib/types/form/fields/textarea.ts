@@ -25,7 +25,6 @@ export interface TextareaProps extends BaseProps {
   /** Whether to show clear button */
   clearable?: boolean,
 
-  disabled?: boolean,
   autofocus?: boolean,
 }
 

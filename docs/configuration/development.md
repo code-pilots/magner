@@ -113,7 +113,7 @@ How roles affect the routing [is explained here](routing.md).
 
 ## Validators
 
-Validators is an object that extends the pre-defined validators from the core of Magner.
+Validator is an object that extends the pre-defined validators from the core of Magner.
 
 To understand, let's see how validation is used over any field in any form:
 
@@ -121,10 +121,13 @@ To understand, let's see how validation is used over any field in any form:
 const phoneField = {
   type: 'input',
   name: 'phone',
-  validation: {
+  validation: [{
     type: 'phone',
     trigger: 'blur',
-  },
+  }, {
+    type: 'empty',
+    trigger: 'blur'
+  }],
   props: {
     type: 'tel',
     placeholder: '+7-000-000-00-00',
@@ -136,7 +139,8 @@ const phoneField = {
 ```
 
 Therefore, `validation` property is used always in the same way: it specifies on which event it will fire (possible
-are `blur` or `change`), and which type of validator to run.
+are `blur` or `change`), and which type of validator to run. You can pass an array of validations to apply several
+checks on a field.
 
 The list of pre-defined validators is very limited:
 * `empty` - Special function. Works as a 'required' field and is disabled when editing the entity form (to allow PATCH method)
@@ -146,14 +150,15 @@ The list of pre-defined validators is very limited:
 Validation can be easily customized. Just define the controller:
 
 ```ts
-import { validationController } from 'core/controllers';
+import { validationController, TranslateError, translate } from 'magner';
 
 const validation = validationController({
   passwordConfirm: ({ value, form }, callback) => {
     if (value && form.password !== value) {
-      callback(new Error('Passwords do not match!'));
+      callback(new TranslateError('Passwords do not match!'));
     } else if (!value) {
-      callback(new Error('Type password confirmation'));
+      // Returns translation into the currently selected language (check i18n configuration)
+      callback(new TranslateError(translate('validations.password')));
     } else {
       callback();
     }

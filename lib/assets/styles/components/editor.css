@@ -1,0 +1,21 @@
+.form-editor {
+  & .codex-editor__redactor {
+    padding-bottom: 12px !important;
+    margin-right: 0 !important;
+  }
+
+  & .ce-toolbar__plus {
+    left: -40px !important;
+  }
+
+  & .ce-toolbar__actions {
+    right: -40px !important;
+  }
+
+  &.disabled {
+    background-color: var(--el-disabled-fill-base);
+    border-color: var(--el-disabled-border-base);
+    color: var(--el-disabled-color-base);
+    cursor: not-allowed;
+  }
+}

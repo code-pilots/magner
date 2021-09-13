@@ -2,6 +2,7 @@
   <el-button
     :type="field.props.type || 'primary'"
     :native-type="field.props.nativeType || 'button'"
+    :disabled="disabled"
     @click="handleOpen"
   >
     {{ customT(field.props.text) }}
@@ -11,7 +12,7 @@
 <script lang="ts">
 import { defineComponent, PropType, watchEffect } from 'vue';
 import type { ButtonField } from '../../../../types/form/fields/button';
-import { useTranslate } from '../../../../utils';
+import { useTranslate, useChecks } from '../../../../utils';
 
 export default defineComponent({
   name: 'FormButton',
@@ -24,6 +25,7 @@ export default defineComponent({
   emits: ['action', 'update:modelValue'],
   setup (props, context) {
     const { customT } = useTranslate();
+    const { disabled } = useChecks(props.field);
 
     const handleOpen = () => {
       context.emit('action', { type: props.field.clickActionType || '' });
@@ -34,6 +36,7 @@ export default defineComponent({
     });
 
     return {
+      disabled,
       customT,
       handleOpen,
     };

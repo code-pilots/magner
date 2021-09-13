@@ -3,6 +3,7 @@
     :model-value="val"
     :text-color="field.props.activeTextColor"
     :fill="field.props.fill"
+    :disabled="disabled"
     @change="changeVal"
   >
     <template v-if="field.radioButtons">
@@ -33,7 +34,7 @@
 import {
   defineComponent, PropType, ref, watchEffect,
 } from 'vue';
-import { useTranslate } from '../../../../utils';
+import { useTranslate, useChecks } from '../../../../utils';
 import type { RadioField } from '../../../../types/form/fields/radio';
 
 export default defineComponent({
@@ -52,6 +53,7 @@ export default defineComponent({
   setup (props, context) {
     const { customT } = useTranslate();
     const val = ref<number|string>(props.modelValue);
+    const { disabled } = useChecks(props.field);
 
     watchEffect(() => {
       val.value = props.modelValue;
@@ -64,6 +66,7 @@ export default defineComponent({
 
     return {
       val,
+      disabled,
       customT,
       changeVal,
     };

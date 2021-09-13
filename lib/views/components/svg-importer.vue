@@ -1,36 +1,39 @@
 <template>
-  <component :is="icon" v-if="icon" />
+  <component :is="node" v-if="node" />
 </template>
 
 <script lang="ts">
-import { defineComponent, shallowRef } from 'vue';
+import {
+  Component, defineComponent, markRaw, PropType,
+} from 'vue';
+import type { IconImport } from '../../types/utils/useful';
 
 export default defineComponent({
   name: 'SvgImporter',
   props: {
-    name: {
+    icon: {
+      type: [Function] as PropType<IconImport>,
+      default: null,
+    },
+    core: {
       type: String,
       default: null,
     },
-    isCore: {
-      type: Boolean,
-      default: false,
-    },
   },
   async setup (props) {
-    const icon = shallowRef(null);
+    let node: Component;
 
     try {
-      const component = props.isCore
-        ? await (() => import(`../../assets/icons/${props.name}.svg`))()
-        : await (() => import(`../../../playground/assets/icons/${props.name}.svg`))();
-      icon.value = component.default;
+      const component = props.core
+        ? await (() => import(`../../assets/icons/${props.core}.svg`))()
+        : await props.icon();
+      node = component?.default || component;
     } catch (e) {
-      throw new Error(`Couldn't find the SVG file with name "${props.name}" in directory "icons"`);
+      throw new Error('Couldn\'t load the icon!');
     }
 
     return {
-      icon,
+      node: markRaw(node || null),
     };
   },
 });

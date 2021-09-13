@@ -4,7 +4,7 @@
     :loading="loading"
     :value-key="field.props.valueKey || 'value'"
     :placeholder="customT(field.props.placeholder || '')"
-    :disabled="field.props.disabled || false"
+    :disabled="disabled || false"
     :clearable="field.props.clearable || false"
     :multiple="field.props.multiple || false"
     :collapse-tags="field.props.collapseTags || false"
@@ -37,7 +37,7 @@ import {
   watchEffect,
 } from 'vue';
 import type { SelectField } from '../../../../types/form/fields/select';
-import { useTranslate, requestWrapper } from '../../../../utils';
+import { useTranslate, requestWrapper, useChecks } from '../../../../utils';
 
 export default defineComponent({
   name: 'FormSelect',
@@ -54,6 +54,7 @@ export default defineComponent({
   emits: ['update:modelValue'],
   setup (props, context) {
     const { customT } = useTranslate();
+    const { disabled } = useChecks(props.field);
 
     const val = ref<number|string>(props.modelValue);
     const allOptions = ref<Record<string, any>[]>(props.field.options || []);
@@ -82,6 +83,7 @@ export default defineComponent({
 
     return {
       val,
+      disabled,
       loading,
       allOptions,
       customT,

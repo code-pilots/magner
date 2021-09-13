@@ -11,6 +11,8 @@ export interface CheckboxProps extends BaseProps {
 
   /** Border and background color when button is active */
   fill?: string,
+
+  disabled?: boolean,
 }
 
 export interface CheckboxOption extends Record<string, any> {
@@ -19,8 +21,6 @@ export interface CheckboxOption extends Record<string, any> {
 
   /** Unique value of the Option. This value will be returned by form when submitted */
   value?: string|number|boolean|Record<string, any>,
-
-  disabled?: boolean,
 }
 
 export interface CheckboxField extends BaseField {

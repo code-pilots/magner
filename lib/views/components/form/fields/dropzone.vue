@@ -2,7 +2,7 @@
   <div
     ref="wrapperEl"
     class="el-upload el-upload--text"
-    :class="{'dragover': dragOver}"
+    :class="{'dragover': dragOver && !disabled, disabled }"
     tabindex="0"
     @click.self="select"
     @dragenter="handleDragEnter"
@@ -15,7 +15,7 @@
       type="file"
       style="display: none"
       :multiple="field.props.multiple || false"
-      :disabled="field.props.disabled || false"
+      :disabled="disabled || false"
       v-bind="field.props.inputAtts || {}"
       @change="inputChange"
     >
@@ -62,13 +62,14 @@
 </template>
 
 <script lang="ts">
+import '../../../../assets/styles/components/dropzone.css';
 import {
   computed, defineComponent, PropType, ref,
 } from 'vue';
 import { useI18n } from 'vue-i18n';
 import type { DropzoneField, DropzoneError } from '../../../../types/form/fields/dropzone';
 import DropzoneImage from './dropzone-image.vue';
-import { requestWrapper } from '../../../../utils';
+import { requestWrapper, useChecks } from '../../../../utils';
 
 type ValueType = File | string | (File | string)[] | null;
 
@@ -98,6 +99,7 @@ export default defineComponent({
     const inputEl = ref<HTMLInputElement>();
     const wrapperEl = ref<HTMLDivElement>();
     const draggerEl = ref<HTMLDivElement>();
+    const { disabled } = useChecks(props.field);
 
     /** TODO: This still works incorrectly for valueKey and srcKey if they are different! */
     const uploadToBackend = async (newVal: (File|string)[]) => {
@@ -139,10 +141,13 @@ export default defineComponent({
       },
     });
 
-    const select = () => inputEl.value?.click();
+    const select = () => {
+      if (disabled.value) return;
+      inputEl.value?.click();
+    };
 
     const toggleDragOver = (val: boolean) => {
-      if (props.field.props.noDrop || props.field.props.disabled) return;
+      if (props.field.props.noDrop || disabled.value) return;
       dragOver.value = val;
     };
 
@@ -154,6 +159,8 @@ export default defineComponent({
     };
 
     const commonHandler = (event: Event) => {
+      if (disabled.value) return;
+
       event.preventDefault();
       context.emit(event.type as DragEvents, event);
     };
@@ -249,7 +256,7 @@ export default defineComponent({
       toggleDragOver(false);
       commonHandler(event);
 
-      if (props.field.props.noDrop || props.field.props.disabled) return;
+      if (props.field.props.noDrop || disabled.value) return;
       if (event.dataTransfer) upload(Array.from(event.dataTransfer.files));
       else upload([]);
     };
@@ -276,12 +283,13 @@ export default defineComponent({
     };
 
     const inputChange = ({ target }: {target: HTMLInputElement}) => {
-      if (target.files && !props.field.props.disabled) upload(Array.from(target.files));
+      if (target.files && !disabled.value) upload(Array.from(target.files));
     };
 
     return {
       t,
       values,
+      disabled,
       innerDrag,
       dragOver,
       files,

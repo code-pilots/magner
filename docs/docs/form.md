@@ -12,9 +12,13 @@ To understand the form configuration, let's have a look at how it's defined:
 
 ```ts
 export interface GenericForm {
-  /** How to display the submit button */
-  submit: ButtonProps | null,
-
+  /**
+   * An array (preserving the order of buttons) of buttons performing different actions with the form.
+   * Supports button-like configs with one additional property `action`. Possible values are:<br>
+   * `action`: `'submit'` | `'cancel'` | `'remove'` | `'clear'`,
+   */
+  actions?: FormAction[],
+  
   layout: FormLayout,
 
   /** Nested forms in form of dialog windows */
@@ -22,9 +26,6 @@ export interface GenericForm {
 
   /** Element-ui size of the inputs inside the form */
   size?: 'medium'|'small'|'mini',
-
-  /** Can the form be cleared? Displays a proper button */
-  clearable?: boolean,
 
   /**
    * Reacting to which event the form will trigger 'submit' event.
@@ -46,7 +47,25 @@ Nested layout looks like this:
 
 ```ts
 const form = {
-  submit: { text: translate('form_test.submit_text') },
+  /** An array of buttons. Each type describes its own logic */
+  actions: [
+    {
+      action: 'cancel',
+    },
+    {
+      action: 'submit',
+      type: 'primary',
+      text: translate('form_test.submit_text')
+    },
+    {
+      action: 'remove',
+      type: 'danger',
+    },
+    {
+      action: 'clear',
+    },
+  ],
+  
   layout: {
     type: 'row',
     /** Row props are everything that could be passed to the Element-ui's row: https://element-plus.org/#/en-US/component/layout#row-attributes */
@@ -214,6 +233,29 @@ export interface FormInteractionsData {
   data?: any,
 }
 ```
+
+## Disabled checks
+
+You can add dynamic checks for the form field `disabled` state checks depending on form values and user role.
+This is how it's done:
+
+```ts
+import { mixedCheck } from 'magner';
+
+const ButtonField = {
+  type: 'button',
+  name: 'btn',
+  props: {
+    disabled: mixedCheck(({ state, role }) => {
+      if (role !== 'ADMIN') return false;
+      if (state.someCheck) return false;
+      return true;
+    }),
+  },
+};
+```
+
+In here, **role** is a `string` and **state** is an object where keys are field names with its corresponding values.
 
 ## Dialog forms
 
