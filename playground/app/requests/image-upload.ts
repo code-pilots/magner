@@ -17,9 +17,9 @@ const imageUploadRequest = request<DropzoneUploadReturn>(async ({ data, api }) =
       isFormdata: true,
     });
 
-    return { error: null, data: res.result.image };
+    return { data: res.result.image };
   } catch (e) {
-    return { error: 'Error', data: null };
+    return { error: 'Error' };
   }
 });
 

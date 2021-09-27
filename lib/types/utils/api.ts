@@ -8,11 +8,11 @@ export type ProxyFunc<ARGUMENT = any, PROXY = any> = (data: ARGUMENT) => PROXY;
 
 interface ErrorResponse {
   error: string | ApiError,
-  data: null,
+  data?: never,
 }
 
 interface DataResponse<T = any> {
-  error: null,
+  error?: never,
   data: T,
 }
 

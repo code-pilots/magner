@@ -12,7 +12,6 @@ const loginRequest = profileRequestController(async ({ api, data }) => {
     const res = await api.post<{}, LoginResponse>('auth/login', data);
 
     return {
-      error: null,
       data: {
         token: res.token,
         user: {},
@@ -20,7 +19,7 @@ const loginRequest = profileRequestController(async ({ api, data }) => {
       },
     };
   } catch (e) {
-    return { error: 'Error', data: null };
+    return { error: 'Error' };
   }
 });
 
