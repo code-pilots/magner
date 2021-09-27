@@ -1,1 +1,0 @@
-const e={key:"v-10f8750c",path:"/docs/requests.html",title:"Requests",lang:"en",frontmatter:{},excerpt:"",headers:[],filePathRelative:"docs/requests.md",git:{updatedTime:1631541852e3,contributors:[{name:"Максим Корсунов",email:"mkorsunov@code-pilots.ru",commits:1}]}};export{e as data};

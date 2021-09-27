@@ -1,1 +1,0 @@
-const t={key:"v-20e7df08",path:"/contributors.html",title:"Contributors",lang:"en",frontmatter:{},excerpt:"",headers:[{level:2,title:"Project setup",slug:"project-setup",children:[]}],filePathRelative:"contributors.md",git:{updatedTime:1631541852e3,contributors:[{name:"Максим Корсунов",email:"mkorsunov@code-pilots.ru",commits:1}]}};export{t as data};

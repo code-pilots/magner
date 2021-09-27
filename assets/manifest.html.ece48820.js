@@ -1,1 +1,0 @@
-const t={key:"v-e991b7d0",path:"/configuration/manifest.html",title:"Manifest controller",lang:"en",frontmatter:{},excerpt:"",headers:[],filePathRelative:"configuration/manifest.md",git:{updatedTime:1631541852e3,contributors:[{name:"Максим Корсунов",email:"mkorsunov@code-pilots.ru",commits:1}]}};export{t as data};

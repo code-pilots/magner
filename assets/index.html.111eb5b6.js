@@ -1,1 +1,0 @@
-const t={key:"v-2bc0f532",path:"/configuration/",title:"Entry point",lang:"en",frontmatter:{},excerpt:"",headers:[],filePathRelative:"configuration/readme.md",git:{updatedTime:1631541852e3,contributors:[{name:"Максим Корсунов",email:"mkorsunov@code-pilots.ru",commits:1}]}};export{t as data};
