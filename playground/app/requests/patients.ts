@@ -1,6 +1,6 @@
-import { request, PaginationType, TableRequest } from 'lib/index';
+import { PaginationType, tableRequest } from 'lib/index';
 
-interface Patient {
+export interface Patient {
   id: number,
   fullName: string,
   receptionDate: string,
@@ -24,7 +24,7 @@ interface Response {
   },
 }
 
-const patientsRequest: TableRequest<Patient> = request(async ({ data, api, urlParsers }) => {
+const patientsRequest = tableRequest(async ({ data, api, urlParsers }) => {
   try {
     const query = urlParsers.dataToUrl({
       ...data.pagination,
@@ -38,10 +38,10 @@ const patientsRequest: TableRequest<Patient> = request(async ({ data, api, urlPa
       pagination: res.result.table.pagination,
     };
 
-    return { error: null, data: proxied };
+    return { data: proxied };
   } catch (e) {
     console.error(e);
-    return { error: null, data: { rows: [], total: 0, pagination: null } };
+    return { data: { rows: [], total: 0, pagination: null } };
   }
 });
 

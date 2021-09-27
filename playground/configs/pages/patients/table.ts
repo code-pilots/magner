@@ -1,6 +1,7 @@
 import { tableController, translate } from 'lib/index';
+import type { Patient } from '../../../app/requests/patients';
 
-const patientsTable = tableController({
+const patientsTable = tableController<Patient>({
   emptyText: translate('patients.table.not_found'),
   rowLink: (row) => ({ name: 'patient', params: { id: row.id } }),
   columns: [

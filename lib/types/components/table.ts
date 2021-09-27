@@ -1,9 +1,14 @@
 import type { RouteLocationRaw } from 'vue-router';
 import type { TranslateData } from '../../utils/core/translate';
 
-export interface TableColumn {
+interface RenderHeaderType<COLUMN> {
+  column: COLUMN,
+  $index: number,
+}
+
+export interface TableColumn<ENTITY = Record<string, unknown>> {
   /** Property name of the field in the row data for specific column */
-  prop: string,
+  prop: keyof ENTITY,
 
   /** Label to display in the header cell */
   label?: TranslateData,
@@ -26,7 +31,7 @@ export interface TableColumn {
   showOverflowTooltip?: boolean,
 
   /** Makes column cells links */
-  columnLink?: (row: unknown) => RouteLocationRaw,
+  columnLink?: (row: ENTITY) => RouteLocationRaw,
 
   /** Alignment of the content in the cell */
   align?: 'left'|'center'|'right',
@@ -39,18 +44,18 @@ export interface TableColumn {
   labelClassName?: string,
 
   /** A function that formats the content of the column's cells */
-  formatter?: (cellValue: unknown, row: unknown, column: unknown, index: number) => any,
+  formatter?: (cellValue: ENTITY[this['prop']], row: ENTITY, column: this, index: number) => any,
 
   /** A function that creates a Vue template function for the header cell of a column */
-  renderHeader?: (data: { column: unknown, $index: number }) => void,
+  renderHeader?: (data: RenderHeaderType<this>) => void,
 }
 
-export interface Table {
-  columns: TableColumn[],
+export interface Table<ENTITY = Record<string, unknown>> {
+  columns: TableColumn<ENTITY>[],
 
   /** Text to display in the table when no data is available */
   emptyText?: TranslateData,
 
   /** If present, table row becomes a link (doesn't work on columns with 'columnLink' property) */
-  rowLink?: (row: unknown) => RouteLocationRaw,
+  rowLink?: (row: ENTITY) => RouteLocationRaw,
 }

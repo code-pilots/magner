@@ -55,7 +55,7 @@ export interface TableFiltersResponse<ROW = unknown> {
 export type TableRequestCallback<ROW = unknown> = RequestCallback<TableFiltersResponse<ROW>, TableFiltersData>;
 export type TableRequest = <ROW = unknown>(cb: TableRequestCallback<ROW>) => TableRequestCallback<ROW>;
 
-export interface TableConfig {
+export interface TableConfig<ENTITY = Record<string, unknown>> {
   /** Page title */
   title: TranslateData,
 
@@ -66,5 +66,5 @@ export interface TableConfig {
   filters: FiltersForm,
 
   /** Table configuration */
-  table: Table,
+  table: Table<ENTITY>,
 }
