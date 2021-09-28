@@ -16,8 +16,8 @@ const isGroup = (route: RouteOrGroup): route is GroupRoute => !!route.group;
  * The function receives routes configuration, parses them
  * and outputs the format that is acceptable by vue router.
  */
-const makeRoutes = (routes: RoutingConfig['routes']): RouteRecordRaw[] => routes
-  .map((route) => {
+const makeRoutes = (routes: RoutingConfig['routes']): RouteRecordRaw[] => {
+  const allRoutes = routes.map((route) => {
     if (isGroup(route)) {
       return makeRoutes(route.routes);
     }
@@ -74,7 +74,9 @@ const makeRoutes = (routes: RoutingConfig['routes']): RouteRecordRaw[] => routes
     }
 
     return finalRoute;
-  })
-  .flat();
+  }).flat();
+
+  return allRoutes;
+};
 
 export default makeRoutes;

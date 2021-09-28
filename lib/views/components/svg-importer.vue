@@ -26,7 +26,7 @@ export default defineComponent({
     try {
       const component = props.core
         ? await (() => import(`../../assets/icons/${props.core}.svg`))()
-        : await props.icon();
+        : await props.icon?.() || null;
       node = component?.default || component;
     } catch (e) {
       throw new Error('Couldn\'t load the icon!');

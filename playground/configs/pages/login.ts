@@ -5,7 +5,10 @@ const loginPageConfig = loginPageController({
   title: translate('login.title'),
   request: loginRequest,
   form: {
-    actions: [{ action: 'submit' }],
+    actions: [{
+      action: 'submit',
+      type: 'primary',
+    }],
     layout: [
       {
         type: 'input',
@@ -18,7 +21,7 @@ const loginPageConfig = loginPageController({
         props: {
           type: 'text',
           placeholder: translate('login.fields.email_placeholder'),
-          icon: 'mail',
+          icon: () => import('../../assets/icons/mail.svg'),
         },
       },
       {
@@ -32,7 +35,7 @@ const loginPageConfig = loginPageController({
         props: {
           type: 'password',
           placeholder: translate('login.fields.password_placeholder'),
-          icon: 'lock',
+          icon: () => import('../../assets/icons/lock.svg'),
         },
       },
     ],

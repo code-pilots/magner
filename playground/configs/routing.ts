@@ -12,7 +12,7 @@ export enum ROLE {
 
 const router = routerController<ROLE>({
   global: {
-    homeNoAuthName: '',
+    homeNoAuthName: 'login',
     homeHasAuthName: 'dashboard',
   },
 
@@ -86,14 +86,8 @@ const router = routerController<ROLE>({
     },
 
     {
-      route: {
-        name: 'error',
-        path: '/:pathMatch(.*)*',
-        component: () => import('../app/pages/error.vue'),
-      },
+      preset: '404',
       roles: null,
-      config: {},
-      visible: false,
     },
   ],
 });

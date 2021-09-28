@@ -9,6 +9,7 @@ import type {
   PresetTableRoute,
   RequiredPreset,
   SupportedRoutePresets,
+  PresetErrorRoute,
 } from '../../types/configs';
 
 const loginPreset: RequiredPreset<PresetLoginRoute> = {
@@ -19,7 +20,7 @@ const loginPreset: RequiredPreset<PresetLoginRoute> = {
   config: {} as LoginConfig,
 
   visible: false,
-  icon: '',
+  icon: null,
   title: 'Вход',
 
   route: {
@@ -38,7 +39,7 @@ const tablePreset: RequiredPreset<PresetTableRoute> = {
   config: {} as TableConfig,
 
   visible: true,
-  icon: 'grid',
+  icon: null,
   title: 'Таблица',
 
   route: {
@@ -57,7 +58,7 @@ const cardPreset: RequiredPreset<PresetCardRoute> = {
   config: {} as CardConfig,
 
   visible: false,
-  icon: '',
+  icon: null,
   title: 'Карточка',
 
   route: {
@@ -65,6 +66,24 @@ const cardPreset: RequiredPreset<PresetCardRoute> = {
     path: '/card/:id',
     component: () => import('../../views/pages/card.vue'),
     props: {},
+  },
+};
+
+const errorPreset: RequiredPreset<PresetErrorRoute> = {
+  group: false,
+  preset: '404',
+  layout: null,
+  roles: null,
+  config: {},
+
+  visible: true,
+  icon: null,
+  title: '',
+
+  route: {
+    name: 'error',
+    path: '/:pathMatch(.*)*',
+    component: () => import('../../views/pages/404.vue'),
   },
 };
 
@@ -76,7 +95,7 @@ const emptyPreset: RequiredPreset<PresetEmptyRoute> = {
   config: {},
 
   visible: true,
-  icon: '',
+  icon: null,
   title: '',
 
   route: {
@@ -89,6 +108,7 @@ const allPresets: Record<SupportedRoutePresets, PresetRoute> = {
   login: loginPreset,
   empty: emptyPreset,
   table: tablePreset,
+  404: errorPreset,
   card: cardPreset,
 };
 

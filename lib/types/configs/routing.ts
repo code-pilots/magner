@@ -59,7 +59,7 @@ export interface BaseRoute<ROLE extends string = string> {
   icon?: IconImport,
 }
 
-export type SupportedRoutePresets = 'login'|'table'|'card'|'empty';
+export type SupportedRoutePresets = 'login'|'table'|'card'|'404'|'empty';
 
 export interface PresetRoute<ROLE extends string = string> extends BaseRoute<ROLE> {
   preset: SupportedRoutePresets,
@@ -72,8 +72,8 @@ export interface PresetLoginRoute<ROLE extends string = string> extends PresetRo
   config?: LoginConfig,
   layout?: null,
   route?: {
-    name: 'login',
-    path: '/login',
+    name: 'login' | string,
+    path: '/login' | string,
     component?: RouteComponent | (() => Promise<RouteComponent>),
     props?: {
       config?: LoginConfig,
@@ -109,9 +109,22 @@ export interface PresetCardRoute<ROLE extends string = string> extends PresetRou
   },
 }
 
+export interface PresetErrorRoute<ROLE extends string = string> extends PresetRoute<ROLE> {
+  preset: '404',
+  layout?: null,
+  route?: {
+    name: 'error',
+    path: '/:pathMatch(.*)*',
+    component?: RouteComponent | (() => Promise<RouteComponent>),
+    props?: {
+      config?: {},
+    },
+  }
+}
+
 export interface PresetEmptyRoute<ROLE extends string = string> extends PresetRoute<ROLE> {
   preset: 'empty',
-  layout?: null,
+  layout?: 'main'| 'empty' | null,
   route?: {
     name: '',
     path: '',
@@ -131,7 +144,8 @@ export type CustomRoute<ROLE extends string = string> =
   | SimpleRoute<ROLE>
   | PresetLoginRoute<ROLE>
   | PresetTableRoute<ROLE>
-  | PresetCardRoute<ROLE>;
+  | PresetCardRoute<ROLE>
+  | PresetErrorRoute<ROLE>;
 
 export interface GroupRoute<ROLE extends string = string> {
   group: true,
