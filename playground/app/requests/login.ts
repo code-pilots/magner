@@ -7,7 +7,7 @@ interface LoginResponse {
   token: string,
 }
 
-const loginRequest = profileRequestController(async ({ api, data }) => {
+const loginRequest = profileRequestController(async ({ api, data, errorParser }) => {
   try {
     const res = await api.post<{}, LoginResponse>('auth/login', data);
 
@@ -19,7 +19,7 @@ const loginRequest = profileRequestController(async ({ api, data }) => {
       },
     };
   } catch (e) {
-    return { error: 'Error' };
+    return { error: errorParser(e as any) || { message: 'Something wrong happened', fields: {} } };
   }
 });
 

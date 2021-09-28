@@ -5,11 +5,14 @@ const patientsFilters = filtersFormController({
 
   saveToLocalStorage: true,
 
-  submit: {
-    type: 'primary',
-    nativeType: 'submit',
-    text: translate('patients.filters.submit'),
-  },
+  actions: [
+    {
+      action: 'submit',
+      type: 'primary',
+      text: translate('patients.filters.submit'),
+    },
+  ],
+
   submitEvent: 'input',
 
   pagination: {

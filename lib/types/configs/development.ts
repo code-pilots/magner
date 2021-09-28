@@ -5,11 +5,17 @@ type DataBody = Record<string, any>;
 export type DataToUrlHelper = ProxyFunc<DataBody, string>;
 export type UrlToDataHelper = ProxyFunc<DataBody, DataBody>;
 
+export interface ApiErrorData<DataType = Record<string, unknown>> {
+  name: string,
+  status: number,
+  data: DataType,
+}
+
 export interface ApiError {
   fields: Record<string, string>,
   message: string,
 }
-export type ErrorParser = (err: unknown) => ApiError;
+export type ErrorParser<ERR = Record<string, unknown>> = (err: ApiErrorData<ERR>) => ApiError;
 
 export interface ProfileRequestResponse {
   role: string | null,
