@@ -6,7 +6,6 @@
     <el-col :xs="22" :sm="12" :lg="8">
       <GenericForm
         :config="config.form"
-        :loading="loading"
         :error="error"
         :field-errors="fieldErrors"
         :initial-data="initialData"
@@ -52,7 +51,6 @@ export default defineComponent({
     const router = useRouter();
     const store = useStore();
 
-    const loading = ref<boolean>(false);
     const error = ref('');
     const fieldErrors = ref<Record<string, string>>({});
 
@@ -65,21 +63,23 @@ export default defineComponent({
     }, {} as Record<string, string>));
 
     const login = async (data: Record<string, any>) => {
+      const submitButton = (props.config.form.actions || []).find((action) => action.action === 'submit');
+
       error.value = '';
       fieldErrors.value = {};
 
       if (noBackend.value) {
-        loading.value = true;
+        if (submitButton) submitButton.loading = true;
         setTimeout(() => {
-          loading.value = false;
+          if (submitButton) submitButton.loading = false;
           router.push({ name: store.state.project.routes.global.homeHasAuthName });
         }, 500);
         return;
       }
 
-      loading.value = true;
+      if (submitButton) submitButton.loading = true;
       const res = await requestWrapper<ProfileRequestResponse>(data, props.config.request);
-      loading.value = false;
+      if (submitButton) submitButton.loading = false;
 
       if (res.error && typeof res.error === 'object') {
         fieldErrors.value = res.error.fields;
@@ -95,7 +95,6 @@ export default defineComponent({
     };
 
     return {
-      loading,
       error,
       fieldErrors,
       noBackend,
