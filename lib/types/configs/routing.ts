@@ -1,15 +1,18 @@
-import {
-  _RouteRecordBase,
-  RouteComponent,
-  RouteRecordRedirectOption,
-} from 'vue-router';
-import type { LoginConfig } from './pages/login';
-import type { TableConfig } from './pages/table';
-import type { CardConfig } from './pages/card';
-import type { TranslateData } from '../../utils/core/translate';
-import type { IconImport } from '../utils/useful';
+import type { RouteComponent, _RouteRecordBase } from 'vue-router';
+import type { IconImport } from 'lib/types/utils/useful';
+import type { TranslateData } from 'lib/utils/core/translate';
+import type { PresetRoute } from './routing-presets';
 
-/** Global routing configuration that defines special needs in routing like programmatic navigation */
+export type SupportedLayouts = 'main' | 'empty';
+export type RouteTypes = 'custom' | 'preset' | 'group';
+
+/** Restricts access to the route. Possible cases:
+ * `false` or `undefined` – no auth checking is performed before entering the route.
+ * `true` – allows entering the route to authenticated users
+ * `string[]` – allows access to the authenticated users with roles listed in the array
+ */
+export type RouteAccessRestriction = string[] | boolean;
+
 export interface GlobalRouting {
   /** Name of the route to which should we redirect unauthenticated user from protected route */
   homeNoAuthName: string,
@@ -17,150 +20,69 @@ export interface GlobalRouting {
   homeHasAuthName: string,
 }
 
-/**
- * Redefine Vue Router types to accept 'component' as a string
- * and extend their 'meta' field. Will be used by controllers mostly
- */
-
-declare module 'vue-router' {
-  interface RouteMeta {
-    roles?: string[] | null,
-  }
-}
-
-type _RouteRecordProps = Record<string, any>;
-interface RouteRecordSingleViewOverride extends _RouteRecordBase {
+export interface Route extends _RouteRecordBase {
+  path: string,
   name: string,
-  component?: RouteComponent | (() => Promise<RouteComponent>),
-  components?: never,
-  props?: _RouteRecordProps,
-}
 
-interface RouteRecordRedirectOverride extends _RouteRecordBase {
-  redirect: RouteRecordRedirectOption;
-  component?: never;
-  components?: never;
-  props?: _RouteRecordProps,
-}
+  props?: Record<string, unknown>,
 
-export type Route = RouteRecordSingleViewOverride | RouteRecordRedirectOverride;
-
-/**
- * Define custom routes to be used in configuration
- */
-export interface BaseRoute<ROLE extends string = string> {
-  group?: false,
-  layout?: 'main' | 'empty' | null | RouteComponent | (() => Promise<RouteComponent>),
-  config?: Record<string, any>,
-  roles: ROLE[] | null,
-
-  visible?: boolean,
+  /** Display title in the sidebar and a page */
   title?: TranslateData,
+
+  /** Who can access the route */
+  roles?: RouteAccessRestriction,
+
+  /** Sidebar icon */
   icon?: IconImport,
+
+  /** Whether to display in the sidebar or not */
+  visible?: boolean,
+
+  /**
+   * Layout of the page. Supports several types:
+   * * empty – blank page
+   * * main – header, sidebar included
+   */
+  // TODO: change 'layout' to the object with Layout configuration (just like presets)
+  layout?: SupportedLayouts | RouteComponent | (() => Promise<RouteComponent>),
+
+  /** Load Vue component to display as a page */
+  component?: RouteComponent | (() => Promise<RouteComponent>),
 }
 
-export type SupportedRoutePresets = 'login'|'table'|'card'|'404'|'empty';
-
-export interface PresetRoute<ROLE extends string = string> extends BaseRoute<ROLE> {
-  preset: SupportedRoutePresets,
-  config?: Record<string, any>,
-  route?: Route,
+export interface RouteBase {
+  type: RouteTypes,
 }
 
-export interface PresetLoginRoute<ROLE extends string = string> extends PresetRoute<ROLE> {
-  preset: 'login',
-  config?: LoginConfig,
-  layout?: null,
-  route?: {
-    name: 'login' | string,
-    path: '/login' | string,
-    component?: RouteComponent | (() => Promise<RouteComponent>),
-    props?: {
-      config?: LoginConfig,
-    },
-  },
-}
-
-export interface PresetTableRoute<ROLE extends string = string> extends PresetRoute<ROLE> {
-  preset: 'table',
-  config?: TableConfig,
-  layout?: 'main'| 'empty' | null,
-  route: {
-    name: string,
-    path: string,
-    component?: RouteComponent | (() => Promise<RouteComponent>),
-    props?: {
-      config?: TableConfig,
-    },
-  },
-}
-
-export interface PresetCardRoute<ROLE extends string = string> extends PresetRoute<ROLE> {
-  preset: 'card',
-  config?: CardConfig,
-  layout?: 'main'| 'empty' | null,
-  route: {
-    name: string,
-    path: string,
-    component?: RouteComponent | (() => Promise<RouteComponent>),
-    props?: {
-      config?: CardConfig,
-    },
-  },
-}
-
-export interface PresetErrorRoute<ROLE extends string = string> extends PresetRoute<ROLE> {
-  preset: '404',
-  layout?: null,
-  route?: {
-    name: 'error',
-    path: '/:pathMatch(.*)*',
-    component?: RouteComponent | (() => Promise<RouteComponent>),
-    props?: {
-      config?: {},
-    },
-  }
-}
-
-export interface PresetEmptyRoute<ROLE extends string = string> extends PresetRoute<ROLE> {
-  preset: 'empty',
-  layout?: 'main'| 'empty' | null,
-  route?: {
-    name: '',
-    path: '',
-    component?: RouteComponent | (() => Promise<RouteComponent>),
-  }
-}
-
-export type RequiredPreset<T extends PresetRoute> = Required<T>;
-
-export interface SimpleRoute<ROLE extends string = string> extends BaseRoute<ROLE> {
-  preset?: never,
+export interface CustomRoute extends RouteBase {
+  type: 'custom',
   route: Route,
-  config: Record<string, any>,
 }
 
-export type CustomRoute<ROLE extends string = string> =
-  | SimpleRoute<ROLE>
-  | PresetLoginRoute<ROLE>
-  | PresetTableRoute<ROLE>
-  | PresetCardRoute<ROLE>
-  | PresetErrorRoute<ROLE>;
-
-export interface GroupRoute<ROLE extends string = string> {
-  group: true,
+export interface RouteGroup extends RouteBase {
+  type: 'group',
   name: string,
   title: TranslateData,
-  icon: IconImport,
-  roles?: string[] | null,
-  routes: CustomRoute<ROLE>[],
+  routes: FinalRoute[], // eslint-disable-line no-use-before-define
+  icon?: IconImport,
+  roles?: RouteAccessRestriction,
 }
 
-export type RouteOrGroup<ROLE extends string = string> =
-  | CustomRoute<ROLE>
-  | GroupRoute<ROLE>;
+/** Magner route, a wrapper around the Vue route */
+export type FinalRoute =
+  | CustomRoute
+  | PresetRoute
+  | RouteGroup;
 
-export interface RoutingConfig<ROLE extends string = string> {
-  routes: RouteOrGroup<ROLE>[],
+/** Magner routing configuration */
+export interface Routing {
+  /** Array of Magner routes. It could be one of 3 types:
+   * * 'custom' – custom route with your own Vue template
+   * * 'preset' – route with configuration, defining the page. Could be 'login', 'table', 'card' etc.
+   * * 'group – an array of routes. Influences only the sidebar menu creating nested levels of navigation
+   */
+  routes: FinalRoute[],
+
+  /** Global routing configuration that defines special needs in routing like programmatic navigation */
   global: GlobalRouting,
 }

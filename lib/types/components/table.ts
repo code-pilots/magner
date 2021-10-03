@@ -6,7 +6,7 @@ interface RenderHeaderType<COLUMN> {
   $index: number,
 }
 
-export interface TableColumn<ENTITY = Record<string, unknown>> {
+export interface TableColumn<ENTITY extends {}> {
   /** Property name of the field in the row data for specific column */
   prop: keyof ENTITY,
 
@@ -50,7 +50,7 @@ export interface TableColumn<ENTITY = Record<string, unknown>> {
   renderHeader?: (data: RenderHeaderType<this>) => void,
 }
 
-export interface Table<ENTITY = Record<string, unknown>> {
+export interface Table<ENTITY extends {} = {}> {
   columns: TableColumn<ENTITY>[],
 
   /** Text to display in the table when no data is available */

@@ -9,7 +9,7 @@
       >
         <template v-for="route in routing">
           <el-sub-menu
-            v-if="route.group && (!route.roles || route.roles.includes(role))"
+            v-if="route.type === 'group' && isVisible(route)"
             :key="route.name"
             :index="route.name"
           >
@@ -19,15 +19,15 @@
             </template>
             <template v-for="nested in route.routes">
               <el-menu-item
-                v-if="(!nested.roles || nested.roles.includes(role)) && nested.visible"
+                v-if="isVisible(nested)"
                 :key="nested.route.name"
                 :index="nested.route.name"
                 class="sidebar_menu_item"
               >
-                <svg-icon :icon="nested.icon" class="el-icon-no-icon-just-kiddin" />
+                <svg-icon :icon="nested.route.icon" class="el-icon-no-icon-just-kiddin" />
                 <template #title>
                   <span class="sidebar_menu_item_title">
-                    {{ customT(nested.title) }}
+                    {{ customT(nested.route.title) }}
                   </span>
                 </template>
               </el-menu-item>
@@ -35,15 +35,15 @@
           </el-sub-menu>
 
           <el-menu-item
-            v-else-if="(!route.roles || route.roles.includes(role)) && route.visible"
+            v-else-if="isVisible(route)"
             :key="route.route.name"
             :index="route.route.name"
             class="sidebar_menu_item"
           >
-            <svg-icon :icon="route.icon" class="el-icon-no-icon-just-kiddin" />
+            <svg-icon :icon="route.route.icon" class="el-icon-no-icon-just-kiddin" />
             <template #title>
               <span class="sidebar_menu_item_title">
-                {{ customT(route.title) }}
+                {{ customT(route.route.title) }}
               </span>
             </template>
           </el-menu-item>
@@ -62,19 +62,19 @@
 import '../../assets/styles/components/sidebar.css';
 import { computed, defineComponent, PropType } from 'vue';
 import { useRouter } from 'vue-router';
-import { useTranslate, useMobile } from '../../utils';
-import { CustomRoute } from '../../types/configs';
-import useStore from '../../controllers/store/store';
+import type { FinalRoute } from 'lib/types/configs/routing';
+import { useTranslate, useMobile } from 'lib/utils';
+import useStore from 'lib/controllers/store/store';
 
 export default defineComponent({
   name: 'Sidebar',
   props: {
     routing: {
-      type: Array as PropType<CustomRoute[]>,
+      type: Array as PropType<FinalRoute[]>,
       required: true,
     },
     activeRoute: {
-      type: Object as PropType<CustomRoute|null>,
+      type: Object as PropType<FinalRoute|null>,
       default: null,
     },
   },
@@ -85,7 +85,20 @@ export default defineComponent({
     const store = useStore();
 
     const isCollapsed = computed<boolean>(() => store.state.sidebarCollapsed);
+    const noBackend = computed<boolean>(() => store.state.project.development.noBackendMode);
     const role = computed<string>(() => store.state.role);
+    const token = computed<string>(() => store.state.token);
+
+    const isVisible = (route: FinalRoute): boolean => {
+      if (route.type === 'group') {
+        return !route.roles || route.roles.includes(role.value);
+      }
+
+      if (!route.route.visible) return false;
+      if (noBackend.value || !route.route.roles) return true;
+      if (route.route.roles === true && token.value) return true;
+      return (route.route.roles as string[]).includes(role.value);
+    };
 
     const toggleCollapse = () => {
       store.dispatch('toggleSidebar');
@@ -100,6 +113,7 @@ export default defineComponent({
       isCollapsed,
       isMobile,
       role,
+      isVisible,
       customT,
       toggleCollapse,
       navigate,

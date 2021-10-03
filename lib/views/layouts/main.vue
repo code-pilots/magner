@@ -2,7 +2,7 @@
   <main :class="{'sidebar-collapsed': sidebarCollapsed}" class="main-layout">
     <Header
       v-model:sidebar="sidebarOpen"
-      :title="activeRoute ? activeRoute.title : ''"
+      :title="activeRoute ? activeRoute.type === 'group' ? activeRoute.title : activeRoute.route.title : ''"
     />
 
     <Sidebar
@@ -13,7 +13,9 @@
 
     <div class="main-layout_content">
       <section class="page">
-        <router-view :key="activeRoute && activeRoute.route.name" />
+        <router-view
+          :key="activeRoute ? activeRoute.type === 'group' ? activeRoute.name : activeRoute.route.path : ''"
+        />
       </section>
     </div>
   </main>
@@ -25,8 +27,8 @@ import {
   computed, defineComponent, ref,
 } from 'vue';
 import { useRoute } from 'vue-router';
-import type { RouteOrGroup } from '../../types/configs';
-import useStore from '../../controllers/store/store';
+import type { FinalRoute } from 'lib/types/configs/routing';
+import useStore from 'lib/controllers/store/store';
 import Header from '../components/header.vue';
 import Sidebar from '../components/sidebar.vue';
 
@@ -44,7 +46,8 @@ export default defineComponent({
     const sidebarCollapsed = computed<boolean>(() => store.state.sidebarCollapsed);
 
     const routes = store.state.project.routes.routes;
-    const activeRoute = computed<RouteOrGroup>(() => routes.find((item) => item.route?.name === route.name) || null);
+    // TODO: fix (cannot find nested routes)
+    const activeRoute = computed<FinalRoute>(() => routes.find((item) => item.route?.name === route.name) || null);
 
     return {
       sidebarCollapsed,
