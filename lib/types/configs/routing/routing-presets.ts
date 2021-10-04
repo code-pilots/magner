@@ -1,5 +1,5 @@
 import { CardConfig, LoginConfig, TableConfig } from 'lib/types';
-import { Route, RouteBase } from 'lib/types/configs/routing';
+import { Route, RouteBase } from 'lib/types/configs/routing/routing';
 
 export type SupportedRoutePresets = 'login'|'table'|'card'|'404';
 
@@ -19,9 +19,9 @@ export interface LoginPreset extends RoutePresetBase {
 /**
  * Table page route preset. Depending on the config, displays the table of data, filters and pagination
  */
-export interface TablePreset extends RoutePresetBase {
+export interface TablePreset<ENTITY extends {} = any> extends RoutePresetBase {
   preset: 'table',
-  config: TableConfig,
+  config: TableConfig<ENTITY>,
 }
 
 /**
@@ -40,7 +40,7 @@ export interface ErrorPreset extends RoutePresetBase {
   config: {},
 }
 
-export interface PresetRoute extends RouteBase {
+export interface RoutePreset extends RouteBase {
   type: 'preset',
   route: Route,
   preset:

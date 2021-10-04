@@ -1,7 +1,7 @@
 import type { RouteComponent, _RouteRecordBase } from 'vue-router';
 import type { IconImport } from 'lib/types/utils/useful';
 import type { TranslateData } from 'lib/utils/core/translate';
-import type { PresetRoute } from './routing-presets';
+import type { RoutePreset } from './routing-presets';
 
 export type SupportedLayouts = 'main' | 'empty';
 export type RouteTypes = 'custom' | 'preset' | 'group';
@@ -54,7 +54,7 @@ export interface RouteBase {
   type: RouteTypes,
 }
 
-export interface CustomRoute extends RouteBase {
+export interface RouteCustom extends RouteBase {
   type: 'custom',
   route: Route,
 }
@@ -70,12 +70,12 @@ export interface RouteGroup extends RouteBase {
 
 /** Magner route, a wrapper around the Vue route */
 export type FinalRoute =
-  | CustomRoute
-  | PresetRoute
+  | RouteCustom
+  | RoutePreset
   | RouteGroup;
 
 /** Magner routing configuration */
-export interface Routing {
+export interface RoutingConfig {
   /** Array of Magner routes. It could be one of 3 types:
    * * 'custom' – custom route with your own Vue template
    * * 'preset' – route with configuration, defining the page. Could be 'login', 'table', 'card' etc.

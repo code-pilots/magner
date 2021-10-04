@@ -62,7 +62,7 @@
 import '../../assets/styles/components/sidebar.css';
 import { computed, defineComponent, PropType } from 'vue';
 import { useRouter } from 'vue-router';
-import type { FinalRoute } from 'lib/types/configs/routing';
+import type { FinalRoute } from 'lib/types/configs/routing/routing';
 import { useTranslate, useMobile } from 'lib/utils';
 import useStore from 'lib/controllers/store/store';
 

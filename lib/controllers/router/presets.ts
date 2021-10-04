@@ -1,5 +1,5 @@
-import { Route } from 'lib/types/configs/routing';
-import { SupportedRoutePresets } from 'lib/types/configs/routing-presets';
+import { Route } from 'lib/types/configs/routing/routing';
+import { SupportedRoutePresets } from 'lib/types/configs/routing/routing-presets';
 
 const loginPreset: Route = {
   path: '/login',

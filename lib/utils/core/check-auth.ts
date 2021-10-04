@@ -1,4 +1,4 @@
-import type { RouteAccessRestriction } from 'lib/types/configs/routing';
+import type { RouteAccessRestriction } from 'lib/types/configs/routing/routing';
 import { requestWrapper } from 'lib/utils/core/request';
 import globalValues from 'lib/global';
 

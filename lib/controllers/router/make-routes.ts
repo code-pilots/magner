@@ -1,5 +1,5 @@
 import type { RouteRecordRaw } from 'vue-router';
-import type { FinalRoute, Route } from 'lib/types/configs/routing';
+import type { FinalRoute, Route } from 'lib/types/configs/routing/routing';
 import allPresets from './presets';
 import checkAuth from '../../utils/core/check-auth';
 

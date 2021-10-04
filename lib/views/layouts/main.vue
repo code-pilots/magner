@@ -27,7 +27,7 @@ import {
   computed, defineComponent, ref,
 } from 'vue';
 import { useRoute } from 'vue-router';
-import type { FinalRoute } from 'lib/types/configs/routing';
+import type { FinalRoute } from 'lib/types/configs/routing/routing';
 import useStore from 'lib/controllers/store/store';
 import Header from '../components/header.vue';
 import Sidebar from '../components/sidebar.vue';
