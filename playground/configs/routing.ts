@@ -18,76 +18,94 @@ const router = routerController<ROLE>({
 
   routes: [
     {
+      type: 'custom',
       route: {
-        name: 'dashboard',
         path: '/',
+        name: 'dashboard',
         component: () => import('../app/pages/home.vue'),
-        meta: {},
+        roles: [ROLE.SAMPLE],
+        layout: 'main',
+        visible: true,
+        title: translate('pages.home'),
+        icon: () => import('../assets/icons/home.svg'),
       },
-      roles: [ROLE.SAMPLE],
-      layout: 'main',
-      config: {},
-      visible: true,
-      title: translate('pages.home'),
-      icon: () => import('../assets/icons/home.svg'),
     },
 
     {
-      preset: 'login',
-      config: loginPageConfig,
-      roles: null,
-    },
-
-    {
-      preset: 'table',
-      config: patientsConfig,
-      roles: null,
-      visible: true,
-      title: translate('pages.patients'),
-      icon: () => PatientsIcon,
+      type: 'preset',
       route: {
-        name: 'patients',
-        path: '/patients',
+        path: '/login',
+        name: 'login',
+      },
+      preset: {
+        preset: 'login',
+        config: loginPageConfig,
       },
     },
 
     {
-      group: true,
+      type: 'preset',
+      route: {
+        path: '/patients',
+        name: 'patients',
+        visible: true,
+        title: translate('pages.patients'),
+        icon: () => PatientsIcon,
+      },
+      preset: {
+        preset: 'table',
+        config: patientsConfig,
+      },
+    },
+
+    {
+      type: 'group',
       name: 'nested',
       title: translate('pages.nested'),
       icon: () => import('../assets/icons/grid.svg'),
       routes: [
         {
-          preset: 'card',
-          title: translate('pages.form_test'),
-          icon: () => import('../assets/icons/key.svg'),
-          visible: true,
-          roles: null,
-          config: bigtestConfig,
+          type: 'preset',
           route: {
             path: '/big-test',
             name: 'bigtest',
+            title: translate('pages.form_test'),
+            icon: () => import('../assets/icons/key.svg'),
+            visible: true,
+          },
+          preset: {
+            preset: 'card',
+            config: bigtestConfig,
           },
         },
 
         {
-          preset: 'card',
-          title: translate('pages.form_layout'),
-          icon: () => import('../assets/icons/layout.svg'),
-          visible: true,
-          roles: null,
-          config: formLayoutConfig,
+          type: 'preset',
           route: {
             path: '/form-layout',
             name: 'form-layout',
+            title: translate('pages.form_layout'),
+            icon: () => import('../assets/icons/layout.svg'),
+            visible: true,
+          },
+          preset: {
+            preset: 'card',
+            config: formLayoutConfig,
           },
         },
       ],
     },
 
     {
-      preset: '404',
-      roles: null,
+      type: 'preset',
+      route: {
+        path: '/:pathMatch(.*)*',
+        name: 'error',
+      },
+      preset: {
+        preset: '404',
+        config: {},
+      },
     },
   ],
 });
