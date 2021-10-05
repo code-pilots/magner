@@ -40,9 +40,9 @@ export interface ErrorPreset extends RoutePresetBase {
   config: {},
 }
 
-export interface RoutePreset extends RouteBase {
+export interface RoutePreset<ROUTE extends Route = Route> extends RouteBase {
   type: 'preset',
-  route: Route,
+  route: ROUTE,
   preset:
     | LoginPreset
     | CardPreset

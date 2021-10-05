@@ -18,29 +18,10 @@ const router = routerController<ROLE>({
 
   routes: [
     {
-      type: 'custom',
-      route: {
-        path: '/',
-        name: 'dashboard',
-        component: () => import('../app/pages/home.vue'),
-        roles: [ROLE.SAMPLE],
-        layout: {
-          layout: 'main',
-          title: translate('pages.home'),
-          visible: true,
-          icon: () => import('../assets/icons/home.svg'),
-        },
-      },
-    },
-
-    {
       type: 'preset',
       route: {
         path: '/login',
         name: 'login',
-        layout: {
-          layout: 'empty',
-        },
       },
       preset: {
         preset: 'login',
@@ -49,65 +30,71 @@ const router = routerController<ROLE>({
     },
 
     {
-      type: 'preset',
-      route: {
-        path: '/patients',
-        name: 'patients',
-        layout: {
-          title: translate('pages.patients'),
-          layout: 'main',
-          visible: true,
-          icon: () => PatientsIcon,
-        },
-      },
-      preset: {
-        preset: 'table',
-        config: patientsConfig,
-      },
-    },
+      type: 'layout',
+      layout: {
+        layout: 'main',
+        name: 'main-layout',
+        path: '/',
+        routes: [
+          {
+            type: 'custom',
+            route: {
+              path: '/',
+              name: 'dashboard',
+              component: () => import('../app/pages/home.vue'),
+              roles: [ROLE.SAMPLE],
+              title: translate('pages.home'),
+              visible: true,
+              icon: () => import('../assets/icons/home.svg'),
+            },
+          },
 
-    {
-      type: 'group',
-      name: 'nested',
-      title: translate('pages.nested'),
-      icon: () => import('../assets/icons/grid.svg'),
-      routes: [
-        {
-          type: 'preset',
-          route: {
-            path: '/big-test',
-            name: 'bigtest',
-            layout: {
-              layout: 'main',
+          {
+            type: 'preset',
+            route: {
+              path: '/patients',
+              name: 'patients',
+              title: translate('pages.patients'),
+              visible: true,
+              icon: () => PatientsIcon,
+            },
+            preset: {
+              preset: 'table',
+              config: patientsConfig,
+            },
+          },
+
+          {
+            type: 'preset',
+            route: {
+              path: '/big-test',
+              name: 'bigtest',
               title: translate('pages.form_test'),
               icon: () => import('../assets/icons/key.svg'),
               visible: true,
             },
+            preset: {
+              preset: 'card',
+              config: bigtestConfig,
+            },
           },
-          preset: {
-            preset: 'card',
-            config: bigtestConfig,
-          },
-        },
 
-        {
-          type: 'preset',
-          route: {
-            path: '/form-layout',
-            name: 'form-layout',
-            layout: {
-              layout: 'main',
+          {
+            type: 'preset',
+            route: {
+              path: '/form-layout',
+              name: 'form-layout',
               title: translate('pages.form_layout'),
               icon: () => import('../assets/icons/layout.svg'),
               visible: true,
             },
+            preset: {
+              preset: 'card',
+              config: formLayoutConfig,
+            },
           },
-          preset: {
-            preset: 'card',
-            config: formLayoutConfig,
-          },
-        },
-      ],
+        ],
+      },
     },
 
     {
@@ -121,6 +108,14 @@ const router = routerController<ROLE>({
         config: {},
       },
     },
+
+    // TODO: implement group in the Main layout
+    // {
+    //   type: 'group',
+    //   name: 'nested',
+    //   title: translate('pages.nested'),
+    //   icon: () => import('../assets/icons/grid.svg'),
+    // },
   ],
 });
 

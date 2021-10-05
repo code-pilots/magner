@@ -8,9 +8,31 @@ import checkAuth from '../../utils/core/check-auth';
  * and outputs the format that is acceptable by vue router.
  */
 const makeRoutes = (routes: FinalRoute[]): Route[] => routes.map((route) => {
-  /** Use recursion to parse the group routes */
-  if (route.type === 'group') {
-    return makeRoutes(route.routes);
+  /** Use recursion to parse the nested routes of layout */
+  if (route.type === 'layout') {
+    const nestedRoutes = makeRoutes(route.layout.routes);
+
+    /** Transform layout into a nested route */
+    let layout: RouteComponent | (() => RouteComponent);
+    if (route.layout) {
+      if (typeof route.layout.layout === 'string') {
+        layout = () => import('../../views/layouts/main.vue');
+      } else {
+        layout = route.layout.layout;
+      }
+    } else {
+      layout = () => import('../../views/layouts/empty.vue');
+    }
+
+    return {
+      path: route.layout.path,
+      name: route.layout.name,
+      component: layout,
+      props: {
+        routes: nestedRoutes,
+      },
+      children: nestedRoutes as RouteRecordRaw[],
+    };
   }
 
   /** Create a 'finalRoute' object with default values for preset-ed routes */
@@ -44,24 +66,7 @@ const makeRoutes = (routes: FinalRoute[]): Route[] => routes.map((route) => {
   finalRoute.meta = { roles: finalRoute.roles };
   finalRoute.beforeEnter = checkAuth.bind(null, finalRoute.roles);
 
-  /** Transform layout into a nested route */
-  let layout: RouteComponent | (() => RouteComponent);
-  if (finalRoute.layout) {
-    if (typeof finalRoute.layout.layout === 'string') {
-      layout = () => import('../../views/layouts/main.vue');
-    } else {
-      layout = finalRoute.layout.layout;
-    }
-  } else {
-    layout = () => import('../../views/layouts/empty.vue');
-  }
-
-  return {
-    path: '/',
-    name: '',
-    component: layout,
-    children: [finalRoute] as RouteRecordRaw[],
-  };
+  return finalRoute;
 }).flat();
 
 export default makeRoutes;

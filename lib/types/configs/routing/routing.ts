@@ -1,10 +1,8 @@
 import type { RouteComponent, _RouteRecordBase } from 'vue-router';
-import type { IconImport } from 'lib/types/utils/useful';
-import type { TranslateData } from 'lib/utils/core/translate';
 import type { RoutePreset } from './routing-presets';
 import type { RouteLayout } from './layouts';
 
-export type RouteTypes = 'custom' | 'preset' | 'group';
+export type RouteTypes = 'custom' | 'preset' | 'layout';
 
 /** Restricts access to the route. Possible cases:
  * `false` or `undefined` – no auth checking is performed before entering the route.
@@ -29,16 +27,6 @@ export interface Route extends _RouteRecordBase {
   /** Who can access the route */
   roles?: RouteAccessRestriction,
 
-  /**
-   * Layout of the page. Supports several types:
-   * * empty – blank page
-   * * main – header, sidebar included
-   * * custom – you pass your own layout as a component with <router-view> inside of it
-   *
-   * Other keys of the 'layout' object are used inside those layouts
-   */
-  layout?: RouteLayout,
-
   /** Load Vue component to display as a page */
   component?: RouteComponent | (() => Promise<RouteComponent>),
 }
@@ -47,25 +35,18 @@ export interface RouteBase {
   type: RouteTypes,
 }
 
-export interface RouteCustom extends RouteBase {
+export interface RouteCustom<ROUTE extends Route = Route> extends RouteBase {
   type: 'custom',
-  route: Route,
-}
-
-export interface RouteGroup extends RouteBase {
-  type: 'group',
-  name: string,
-  title: TranslateData,
-  routes: FinalRoute[], // eslint-disable-line no-use-before-define
-  icon?: IconImport,
-  roles?: RouteAccessRestriction,
+  route: ROUTE,
 }
 
 /** Magner route, a wrapper around the Vue route */
-export type FinalRoute =
-  | RouteCustom
-  | RoutePreset
-  | RouteGroup;
+export type FinalRoute<ROUTE extends Route = Route> =
+  | RouteCustom<ROUTE>
+  | RoutePreset<ROUTE>
+  | RouteLayout;
+
+export type NoLayoutRoute<ROUTE extends Route = Route> = | RouteCustom<ROUTE> | RoutePreset<ROUTE>;
 
 /** Magner routing configuration */
 export interface RoutingConfig {
