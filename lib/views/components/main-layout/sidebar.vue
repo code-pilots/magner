@@ -59,7 +59,7 @@
 </template>
 
 <script lang="ts">
-import '../../assets/styles/components/sidebar.css';
+import '../../../assets/styles/components/sidebar.css';
 import { computed, defineComponent, PropType } from 'vue';
 import { useRouter } from 'vue-router';
 import type { FinalRoute } from 'lib/types/configs/routing/routing';

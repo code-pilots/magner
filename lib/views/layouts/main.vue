@@ -29,8 +29,8 @@ import {
 import { useRoute } from 'vue-router';
 import type { FinalRoute } from 'lib/types/configs/routing/routing';
 import useStore from 'lib/controllers/store/store';
-import Header from '../components/header.vue';
-import Sidebar from '../components/sidebar.vue';
+import Header from 'lib/views/components/main-layout/header.vue';
+import Sidebar from 'lib/views/components/main-layout/sidebar.vue';
 
 export default defineComponent({
   name: 'MainLayout',

@@ -1,4 +1,4 @@
-import type { RouteRecordRaw } from 'vue-router';
+import type { RouteComponent, RouteRecordRaw } from 'vue-router';
 import type { FinalRoute, Route } from 'lib/types/configs/routing/routing';
 import allPresets from './presets';
 import checkAuth from '../../utils/core/check-auth';
@@ -45,21 +45,23 @@ const makeRoutes = (routes: FinalRoute[]): Route[] => routes.map((route) => {
   finalRoute.beforeEnter = checkAuth.bind(null, finalRoute.roles);
 
   /** Transform layout into a nested route */
+  let layout: RouteComponent | (() => RouteComponent);
   if (finalRoute.layout) {
-    // TODO: add custom or dynamic layout
-    const layout = finalRoute.layout === 'main'
-      ? () => import('../../views/layouts/main.vue')
-      : () => import('../../views/layouts/empty.vue');
-
-    return {
-      path: '/',
-      name: '',
-      component: layout,
-      children: [finalRoute] as RouteRecordRaw[],
-    };
+    if (typeof finalRoute.layout.layout === 'string') {
+      layout = () => import('../../views/layouts/main.vue');
+    } else {
+      layout = finalRoute.layout.layout;
+    }
+  } else {
+    layout = () => import('../../views/layouts/empty.vue');
   }
 
-  return finalRoute;
+  return {
+    path: '/',
+    name: '',
+    component: layout,
+    children: [finalRoute] as RouteRecordRaw[],
+  };
 }).flat();
 
 export default makeRoutes;

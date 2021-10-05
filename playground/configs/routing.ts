@@ -24,10 +24,12 @@ const router = routerController<ROLE>({
         name: 'dashboard',
         component: () => import('../app/pages/home.vue'),
         roles: [ROLE.SAMPLE],
-        layout: 'main',
-        visible: true,
-        title: translate('pages.home'),
-        icon: () => import('../assets/icons/home.svg'),
+        layout: {
+          layout: 'main',
+          title: translate('pages.home'),
+          visible: true,
+          icon: () => import('../assets/icons/home.svg'),
+        },
       },
     },
 
@@ -36,6 +38,9 @@ const router = routerController<ROLE>({
       route: {
         path: '/login',
         name: 'login',
+        layout: {
+          layout: 'empty',
+        },
       },
       preset: {
         preset: 'login',
@@ -48,9 +53,12 @@ const router = routerController<ROLE>({
       route: {
         path: '/patients',
         name: 'patients',
-        visible: true,
-        title: translate('pages.patients'),
-        icon: () => PatientsIcon,
+        layout: {
+          title: translate('pages.patients'),
+          layout: 'main',
+          visible: true,
+          icon: () => PatientsIcon,
+        },
       },
       preset: {
         preset: 'table',
@@ -69,9 +77,12 @@ const router = routerController<ROLE>({
           route: {
             path: '/big-test',
             name: 'bigtest',
-            title: translate('pages.form_test'),
-            icon: () => import('../assets/icons/key.svg'),
-            visible: true,
+            layout: {
+              layout: 'main',
+              title: translate('pages.form_test'),
+              icon: () => import('../assets/icons/key.svg'),
+              visible: true,
+            },
           },
           preset: {
             preset: 'card',
@@ -84,9 +95,12 @@ const router = routerController<ROLE>({
           route: {
             path: '/form-layout',
             name: 'form-layout',
-            title: translate('pages.form_layout'),
-            icon: () => import('../assets/icons/layout.svg'),
-            visible: true,
+            layout: {
+              layout: 'main',
+              title: translate('pages.form_layout'),
+              icon: () => import('../assets/icons/layout.svg'),
+              visible: true,
+            },
           },
           preset: {
             preset: 'card',

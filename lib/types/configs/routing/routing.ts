@@ -2,8 +2,8 @@ import type { RouteComponent, _RouteRecordBase } from 'vue-router';
 import type { IconImport } from 'lib/types/utils/useful';
 import type { TranslateData } from 'lib/utils/core/translate';
 import type { RoutePreset } from './routing-presets';
+import type { RouteLayout } from './layouts';
 
-export type SupportedLayouts = 'main' | 'empty';
 export type RouteTypes = 'custom' | 'preset' | 'group';
 
 /** Restricts access to the route. Possible cases:
@@ -26,25 +26,18 @@ export interface Route extends _RouteRecordBase {
 
   props?: Record<string, unknown>,
 
-  /** Display title in the sidebar and a page */
-  title?: TranslateData,
-
   /** Who can access the route */
   roles?: RouteAccessRestriction,
-
-  /** Sidebar icon */
-  icon?: IconImport,
-
-  /** Whether to display in the sidebar or not */
-  visible?: boolean,
 
   /**
    * Layout of the page. Supports several types:
    * * empty – blank page
    * * main – header, sidebar included
+   * * custom – you pass your own layout as a component with <router-view> inside of it
+   *
+   * Other keys of the 'layout' object are used inside those layouts
    */
-  // TODO: change 'layout' to the object with Layout configuration (just like presets)
-  layout?: SupportedLayouts | RouteComponent | (() => Promise<RouteComponent>),
+  layout?: RouteLayout,
 
   /** Load Vue component to display as a page */
   component?: RouteComponent | (() => Promise<RouteComponent>),

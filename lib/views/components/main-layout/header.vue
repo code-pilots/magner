@@ -61,12 +61,12 @@
 </template>
 
 <script lang="ts">
-import '../../assets/styles/components/header.css';
+import '../../../assets/styles/components/header.css';
 import { defineComponent, PropType, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import useStore from '../../controllers/store/store';
-import { TranslateData, useTranslate } from '../../utils/core/translate';
-import { useMobile } from '../../utils/core/is-mobile';
+import useStore from '../../../controllers/store/store';
+import { TranslateData, useTranslate } from '../../../utils/core/translate';
+import { useMobile } from '../../../utils/core/is-mobile';
 
 export default defineComponent({
   name: 'Header',
