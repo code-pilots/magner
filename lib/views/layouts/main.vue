@@ -8,6 +8,7 @@
     <Sidebar
       :class="{open: sidebarOpen}"
       :routing="routes"
+      :groups="data.sidebarGroups"
       :active-route="activeRoute"
     />
 
@@ -25,8 +26,7 @@ import {
   computed, defineComponent, PropType, ref,
 } from 'vue';
 import { useRoute } from 'vue-router';
-import type { NoLayoutRoute } from 'lib/types/configs/routing/routing';
-import type { MainLayoutRoute } from 'lib/types/configs/routing/layouts';
+import type { MainLayoutProps, MainLayoutRoute } from 'lib/types/configs/routing/layouts';
 import useStore from 'lib/controllers/store/store';
 import Header from 'lib/views/components/main-layout/header.vue';
 import Sidebar from 'lib/views/components/main-layout/sidebar.vue';
@@ -41,6 +41,10 @@ export default defineComponent({
     routes: {
       type: Array as PropType<MainLayoutRoute[]>,
       default: () => ([]),
+    },
+    data: {
+      type: Object as PropType<MainLayoutProps>,
+      default: () => ({}),
     },
   },
   setup (props) {

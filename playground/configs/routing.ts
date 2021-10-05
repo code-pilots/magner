@@ -35,6 +35,16 @@ const router = routerController<ROLE>({
         layout: 'main',
         name: 'main-layout',
         path: '/',
+        props: {
+          sidebarGroups: [
+            {
+              name: 'technical',
+              title: translate('pages.nested'),
+              icon: () => import('../assets/icons/grid.svg'),
+              routes: ['bigtest', 'form-layout'],
+            },
+          ],
+        },
         routes: [
           {
             type: 'custom',
@@ -108,14 +118,6 @@ const router = routerController<ROLE>({
         config: {},
       },
     },
-
-    // TODO: implement group in the Main layout
-    // {
-    //   type: 'group',
-    //   name: 'nested',
-    //   title: translate('pages.nested'),
-    //   icon: () => import('../assets/icons/grid.svg'),
-    // },
   ],
 });
 

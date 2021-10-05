@@ -5,18 +5,20 @@ import type { RouteBase, Route, NoLayoutRoute } from 'lib/types/configs/routing/
 
 export type SupportedLayouts = 'main' | 'empty';
 
+interface LayoutProps {}
 export interface LayoutBase {
   layout: SupportedLayouts | RouteComponent | (() => Promise<RouteComponent>),
   name: string,
   path: string,
+  props: LayoutProps,
   routes: NoLayoutRoute[],
 }
 
 export interface EmptyLayoutRoute extends Route {}
-
 export interface EmptyLayout extends LayoutBase {
   layout: 'empty',
   routes: NoLayoutRoute<EmptyLayoutRoute>[],
+  props: {},
 }
 
 export interface MainLayoutRoute extends Route {
@@ -30,18 +32,43 @@ export interface MainLayoutRoute extends Route {
   icon?: IconImport,
 }
 
+export interface MainLayoutGroup<ROUTE = string> {
+  /** Unique name of the group */
+  name: string,
+
+  /** The names of routes to group together */
+  routes: ROUTE[],
+
+  /** Display group title in the sidebar */
+  title: TranslateData,
+
+  /** Sidebar icon of the group */
+  icon?: IconImport,
+}
+
+export interface MainLayoutProps extends LayoutProps {
+  sidebarGroups?: MainLayoutGroup[],
+}
+
+/** Main layout has a header and a sidebar with nested routes */
 export interface MainLayout extends LayoutBase {
   layout: 'main',
   routes: NoLayoutRoute<MainLayoutRoute>[],
+  props: MainLayoutProps,
 }
 
 export interface CustomLayoutRoute extends Route {
   [key: string | number]: unknown,
 }
 
+export interface CustomLayoutProps extends LayoutProps {
+  [key: string | number]: unknown,
+}
+
 export interface CustomLayout extends LayoutBase {
   layout: RouteComponent | (() => Promise<RouteComponent>),
   routes: NoLayoutRoute<CustomLayoutRoute>[],
+  props: CustomLayoutProps,
 }
 
 export type Layout =

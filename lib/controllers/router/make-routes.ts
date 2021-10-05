@@ -30,6 +30,7 @@ const makeRoutes = (routes: FinalRoute[]): Route[] => routes.map((route) => {
       component: layout,
       props: {
         routes: nestedRoutes,
+        data: route.layout.props,
       },
       children: nestedRoutes as RouteRecordRaw[],
     };
