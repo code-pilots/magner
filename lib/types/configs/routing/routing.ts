@@ -46,7 +46,7 @@ export type FinalRoute<ROUTE extends Route = Route> =
   | RoutePreset<ROUTE>
   | RouteLayout;
 
-export type NoLayoutRoute<ROUTE extends Route = Route> = | RouteCustom<ROUTE> | RoutePreset<ROUTE>;
+export type FinalNoLayoutRoute<ROUTE extends Route = Route> = | RouteCustom<ROUTE> | RoutePreset<ROUTE>;
 
 /** Magner routing configuration */
 export interface RoutingConfig {
