@@ -11,8 +11,8 @@
         </h2>
       </div>
 
-      <div v-if="Object.keys(allLanguages).length > 1" class="header_right">
-        <el-dropdown size="small" trigger="hover">
+      <div class="header_right">
+        <el-dropdown v-if="Object.keys(allLanguages).length > 1" size="small" trigger="hover">
           <template #default>
             <el-button size="mini" circle>
               <svg-icon core="globe" />
@@ -61,12 +61,12 @@
 </template>
 
 <script lang="ts">
-import '../../../assets/styles/components/header.css';
+import 'lib/assets/styles/components/header.css';
 import { defineComponent, PropType, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import useStore from '../../../controllers/store/store';
-import { TranslateData, useTranslate } from '../../../utils/core/translate';
-import { useMobile } from '../../../utils/core/is-mobile';
+import useStore from 'lib/controllers/store/store';
+import { TranslateData, useTranslate } from 'lib/utils/core/translate';
+import { useMobile } from 'lib/utils/core/is-mobile';
 
 export default defineComponent({
   name: 'Header',

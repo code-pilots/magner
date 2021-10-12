@@ -1,7 +1,7 @@
 import type { RouteLocationRaw } from 'vue-router';
-import type { RequestCallback } from '../../utils/api';
-import type { GenericForm } from '../../form';
-import type { TranslateData } from '../../../utils/core/translate';
+import type { RequestCallback } from 'lib/types/utils/api';
+import type { GenericForm } from 'lib/types/form';
+import type { TranslateData } from 'lib/utils/core/translate';
 
 export interface CardTab {
   active?: boolean,

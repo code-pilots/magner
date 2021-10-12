@@ -3,7 +3,7 @@
     ref="input"
     :model-value="val"
     :placeholder="customT(field.props.placeholder)"
-    :type="field.props.type"
+    :type="field.props.type || 'text'"
     :maxlength="field.props.maxLength"
     :minlength="field.props.minLength"
     :show-word-limit="field.props.showLetterLimit"

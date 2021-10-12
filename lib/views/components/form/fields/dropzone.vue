@@ -62,14 +62,14 @@
 </template>
 
 <script lang="ts">
-import '../../../../assets/styles/components/dropzone.css';
+import 'lib/assets/styles/components/dropzone.css';
 import {
   computed, defineComponent, PropType, ref,
 } from 'vue';
 import { useI18n } from 'vue-i18n';
-import type { DropzoneField, DropzoneError } from '../../../../types/form/fields/dropzone';
+import type { DropzoneField, DropzoneError } from 'lib/types/form/fields/dropzone';
+import { requestWrapper, useChecks } from 'lib/utils';
 import DropzoneImage from './dropzone-image.vue';
-import { requestWrapper, useChecks } from '../../../../utils';
 
 type ValueType = File | string | (File | string)[] | null;
 

@@ -59,7 +59,7 @@
 </template>
 
 <script lang="ts">
-import '../../../assets/styles/components/sidebar.css';
+import 'lib/assets/styles/components/sidebar.css';
 import { computed, defineComponent, PropType } from 'vue';
 import { useRouter } from 'vue-router';
 import type { MainLayoutProps, MainLayoutRoute, MainLayoutGroup } from 'lib/types/configs/routing/layouts';

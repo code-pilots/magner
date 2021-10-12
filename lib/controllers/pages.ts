@@ -1,8 +1,8 @@
 import type {
   CardConfig, LoginConfig, TableConfig, FiltersForm,
-} from '../types/configs';
-import type { GenericForm } from '../types/form';
-import type { Table } from '../types/components/table';
+} from 'lib/types/configs';
+import type { GenericForm } from 'lib/types/form';
+import type { Table } from 'lib/types/components/table';
 
 export const formController = (config: GenericForm): GenericForm => config;
 

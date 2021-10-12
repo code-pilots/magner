@@ -23,15 +23,15 @@
 </template>
 
 <script lang="ts">
-import '../../../assets/styles/components/card-form.css';
+import 'lib/assets/styles/components/card-form.css';
 import {
   defineComponent, PropType, ref,
 } from 'vue';
-import type { CardConfig } from '../../../types/configs';
-import type { FormAction } from '../../../types/form/actions';
-import { useTranslate } from '../../../utils/core/translate';
-import { requestWrapper } from '../../../utils/core/request';
-import { magnerConfirm, magnerMessage } from '../../../utils/core/messages';
+import type { CardConfig } from 'lib/types/configs';
+import type { FormAction } from 'lib/types/form/actions';
+import { useTranslate } from 'lib/utils/core/translate';
+import { requestWrapper } from 'lib/utils/core/request';
+import { magnerConfirm, magnerMessage } from 'lib/utils/core/messages';
 import GenericForm from './form.vue';
 import DialogForm from './dialog-form.vue';
 

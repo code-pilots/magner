@@ -1,7 +1,7 @@
 import type { Router } from 'vue-router';
-import type { ApiError, ErrorParser, UrlParsers } from '../configs';
-import type { ApiType } from '../../utils/api';
-import type { LStorage } from '../../utils/core/local-storage';
+import type { ApiError, ErrorParser, UrlParsers } from 'lib/types/configs/development';
+import type { ApiType } from 'lib/utils/api';
+import type { LStorage } from 'lib/utils/core/local-storage';
 
 /** A proxy that accepts anything and returns something different */
 export type ProxyFunc<ARGUMENT = any, PROXY = any> = (data: ARGUMENT) => PROXY;
@@ -23,7 +23,7 @@ export type RequestCallback<RESULT = any, DATA = any> = (info: {
   data: DATA,
   api: ApiType,
   router: Router,
-  errorParser: ErrorParser,
+  errorParser: ErrorParser<any>,
   urlParsers: UrlParsers,
   lstorage: LStorage,
 }) => Promise<BaseResponse<RESULT>>;

@@ -1,4 +1,4 @@
-import { ManifestConfig } from '../../types/configs';
+import { ManifestConfig } from 'lib/types/configs';
 
 export type ManifestController = () => ManifestConfig;
 

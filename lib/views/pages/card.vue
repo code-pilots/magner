@@ -34,13 +34,13 @@
 </template>
 
 <script lang="ts">
-import '../../assets/styles/pages/card.css';
+import 'lib/assets/styles/pages/card.css';
 import {
   computed, defineComponent, PropType,
 } from 'vue';
 import { useRoute } from 'vue-router';
-import { useTranslate } from '../../utils/core/translate';
-import type { CardConfig } from '../../types/configs';
+import { useTranslate } from 'lib/utils/core/translate';
+import type { CardConfig } from 'lib/types/configs';
 import Dynamic from '../components/dynamic.vue';
 import CardForm from '../components/form/card-form.vue';
 

@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts">
-import '../../assets/styles/layouts/main.css';
+import 'lib/assets/styles/layouts/main.css';
 import {
   computed, defineComponent, PropType, ref,
 } from 'vue';

@@ -9,7 +9,7 @@ const development = developmentController({
   envs: {
     API_URL: envs.API_URL,
   },
-  noBackendMode: true,
+  noBackendMode: false,
 
   urlParsers,
   errorParser,

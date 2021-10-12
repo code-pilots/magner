@@ -1,5 +1,5 @@
+import { SupportedDataTypes } from 'lib/utils/form/form';
 import type { ProxyFunc, RequestCallback } from '../utils/api';
-import { SupportedDataTypes } from '../../utils/form/form';
 
 type DataBody = Record<string, any>;
 export type DataToUrlHelper = ProxyFunc<DataBody, string>;
@@ -15,7 +15,7 @@ export interface ApiError {
   fields: Record<string, string>,
   message: string,
 }
-export type ErrorParser<ERR = Record<string, unknown>> = (err: ApiErrorData<ERR>) => ApiError;
+export type ErrorParser<ERR> = (err: ApiErrorData<ERR>) => ApiError;
 
 export interface ProfileRequestResponse {
   role: string | null,
@@ -78,7 +78,7 @@ export interface DevelopmentConfig {
    * Function that parses all errors caught while doing HTTP request to the server.
    * Return message string as global error or fields object to show error of some error field
    */
-  errorParser: ErrorParser,
+  errorParser: ErrorParser<any>,
 
   /** Request to be used each time user enters the app to check for token validity and quickly authorize them */
   profileRequest: ProfileRequest,

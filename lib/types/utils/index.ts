@@ -4,6 +4,6 @@ export type {
   RequestCallback,
 } from './api';
 
-export type { TranslateData } from '../../utils/core/translate';
+export type { TranslateData } from 'lib/utils/core/translate';
 
-export type { MixedChecker } from '../../utils/core/mixed-check';
+export type { MixedChecker } from 'lib/utils/core/mixed-check';

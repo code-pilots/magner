@@ -41,10 +41,10 @@
 </template>
 
 <script lang="ts">
-import '../../assets/styles/components/data-table.css';
+import 'lib/assets/styles/components/data-table.css';
 import { defineComponent, PropType } from 'vue';
-import type { Table, TableColumn } from '../../types/components/table';
-import { useTranslate } from '../../utils';
+import type { Table, TableColumn } from 'lib/types/components/table';
+import { useTranslate } from 'lib/utils/core/translate';
 
 export default defineComponent({
   name: 'DataTable',
