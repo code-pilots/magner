@@ -1,8 +1,8 @@
 /* eslint-disable no-use-before-define */
 
 import type { RouteComponent } from 'vue-router';
+import type { TranslateData } from 'lib/utils/core/translate';
 import type { GenericComponent } from './index';
-import type { TranslateData } from '../../utils/core/translate';
 
 interface FormLayoutBase {
   title?: TranslateData,
@@ -20,6 +20,12 @@ interface LayoutPropsBase {
    * • heading – h2 tag that visually separates the group from the form
    */
   titleType?: 'label' | 'heading',
+
+  /** Style object to be applied to the row or column */
+  styles?: Record<string, string>,
+
+  /** Style object to be applied to the row or column of mobile breakpoint */
+  mobileStyles?: Record<string, string>,
 }
 
 /** RowBase defines element-ui el-row's attributes:

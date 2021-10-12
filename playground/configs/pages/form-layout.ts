@@ -129,7 +129,7 @@ export default cardPageController({
         {
           type: 'row',
           props: {
-            justify: 'space-around',
+            justify: 'space-between',
           },
           layout: [
             {
