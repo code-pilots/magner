@@ -4,7 +4,7 @@ import {
   Router,
   RouteRecordRaw,
 } from 'vue-router';
-import type { RoutingConfig } from 'lib/types/configs/routing/routing';
+import type { RoutingConfig } from 'lib/types/configs/routing';
 import makeRoutes from './make-routes';
 
 export interface RoutingFinalConfig {

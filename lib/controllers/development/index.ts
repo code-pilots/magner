@@ -1,6 +1,6 @@
 import type {
   DevelopmentConfig, UrlParsers, ErrorParser, ProfileRequest,
-} from 'lib/types/configs';
+} from 'lib/types/configs/development';
 
 export type DevelopmentController = () => DevelopmentConfig;
 

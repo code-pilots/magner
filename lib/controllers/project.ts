@@ -1,4 +1,4 @@
-import type { ProjectConfig } from '../types/configs';
+import type { ProjectConfig } from 'lib/types/configs/project';
 
 export type ProjectController = () => ProjectConfig;
 

@@ -1,4 +1,4 @@
-import type { SupportedValidators, Validators } from '../../types/configs';
+import type { SupportedValidators, Validators } from 'lib/types/configs/development';
 import { validators } from './base';
 
 export type ValidationController = <CUSTOM_VALIDATION extends string>(custom: Validators<CUSTOM_VALIDATION>)

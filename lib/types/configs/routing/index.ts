@@ -1,4 +1,4 @@
-export {
+export type {
   RoutingConfig,
   FinalRoute,
   FinalNoLayoutRoute,
@@ -7,7 +7,7 @@ export {
   RouteCustom,
 } from './routing';
 
-export {
+export type {
   LayoutBase,
   Layout,
   MainLayout,
@@ -18,4 +18,4 @@ export {
   CustomLayoutRoute,
 } from './layouts';
 
-export { RoutePreset } from './routing-presets';
+export type { RoutePreset } from './routing-presets';

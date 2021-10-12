@@ -1,3 +1,3 @@
-export * from './configs/pages';
+export * from './configs';
 export * from './form';
 export * from './utils';

@@ -1,4 +1,4 @@
-import type { Validators } from 'lib/types/configs';
+import type { Validators } from 'lib/types/configs/development';
 import { translate, TranslateError } from 'lib/utils/core/translate';
 
 /** Supported validation transformations */

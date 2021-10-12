@@ -154,18 +154,31 @@ Something about that
 
 ## Types
 
-### `TableConfig`
+**Project configs**
 
-### `FiltersForm`
+### `ProjectConfig`
 
-### `PaginationType`
+### `ManifestConfig`
 
-### `CardConfig`
+### `TranslationConfig`
 
-### `CardTab`
+***
 
-### `LoginConfig`
+**Development configuration**
 
+### `DevelopmentConfig`
+
+### `UrlParsers`
+
+### `SupportedValidators`
+
+### `ValidationField`
+
+### `ValidatorWrapper`
+
+***
+
+**Routing configuration and types related to routing**
 
 ## `RoutingConfig`
 
@@ -181,6 +194,9 @@ Something about that
 
 ## `RoutePreset`
 
+***
+
+**Layouts**
 
 ## `Layout`
 
@@ -198,6 +214,25 @@ Something about that
 
 ## `CustomLayoutRoute`
 
+***
+
+**Page configurations (used in routes of type 'preset')**
+
+### `TableConfig`
+
+### `FiltersForm`
+
+### `PaginationType`
+
+### `CardConfig`
+
+### `CardTab`
+
+### `LoginConfig`
+
+***
+
+**Form types**
 
 ### `GenericForm`
 
@@ -210,6 +245,10 @@ Something about that
 ### `FormLayoutColumn`
 
 ### `FormLayoutRow`
+
+***
+
+**Fields**
 
 ### `ButtonField`
 
@@ -235,6 +274,9 @@ Something about that
 
 ### `CollectionField`
 
+***
+
+**Utils**
 
 ### `TranslateData`
 
@@ -243,5 +285,9 @@ Something about that
 ### `RequestWrapper`
 
 ### `RequestCallback`
+
+### `ApiErrorType`
+
+### `ApiErrorData`
 
 ### `MixedChecker`
