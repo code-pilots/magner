@@ -1,5 +1,5 @@
 import { routerController, translate } from 'lib/index';
-import patientsConfig from './pages/patients/patients';
+import postsConfig from './pages/posts/posts';
 import loginPageConfig from './pages/login';
 import bigtestConfig from './pages/big-test';
 import formLayoutConfig from './pages/form-layout';
@@ -62,15 +62,15 @@ const router = routerController<ROLE>({
           {
             type: 'preset',
             route: {
-              path: '/patients',
-              name: 'patients',
-              title: translate('pages.patients'),
+              path: '/posts',
+              name: 'posts',
+              title: translate('pages.posts'),
               visible: true,
               icon: () => PatientsIcon,
             },
             preset: {
               preset: 'table',
-              config: patientsConfig,
+              config: postsConfig,
             },
           },
 

@@ -41,10 +41,15 @@ export interface PaginationType {
   totalPages: number,
 }
 
+export interface FiltersPagination {
+  items: number,
+  page: number,
+}
+
 export interface TableFiltersData {
   filters: Record<string, any>,
   sort: Record<string, any>,
-  pagination: PaginationType,
+  pagination: FiltersPagination,
 }
 
 export interface TableFiltersResponse<ROW = unknown> {

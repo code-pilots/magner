@@ -1,6 +1,6 @@
 import { translate, filtersFormController } from 'lib/index';
 
-const patientsFilters = filtersFormController({
+const postsFilters = filtersFormController({
   fieldsShowAmount: 1,
 
   saveToLocalStorage: true,
@@ -80,4 +80,4 @@ const patientsFilters = filtersFormController({
   },
 });
 
-export default patientsFilters;
+export default postsFilters;

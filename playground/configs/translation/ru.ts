@@ -4,7 +4,7 @@ const ruCustom: CustomTranslationSchema = {
   pages: {
     home: 'Домашняя',
     patient: 'Пациент',
-    patients: 'Пациенты',
+    posts: 'Публикации',
     nested: 'Вложенность',
     form_test: 'Тест формы',
     form_layout: 'Пример разметки',

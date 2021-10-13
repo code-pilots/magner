@@ -2,7 +2,7 @@ const enCustom = {
   pages: {
     home: 'Home',
     patient: 'Patient',
-    patients: 'Patients',
+    posts: 'Posts',
     nested: 'Nested',
     form_test: 'Form test',
     form_layout: 'Layout example',
