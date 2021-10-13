@@ -18,7 +18,7 @@
 import {
   defineComponent, PropType,
 } from 'vue';
-import type { FormLayout } from '../../../types/form/layout';
+import type { FormLayout } from 'lib/types/form/layout';
 import FormLayoutBlock from './layout-block.vue';
 
 export default defineComponent({

@@ -12,8 +12,8 @@
     :default-first-option="field.props.defaultFirstOption || false"
     :filterable="field.props.filterable || false"
     :filter-method="field.props.filterMethod || null"
-    :remote="field.props.remote || false"
-    :remote-method="remoteMethod"
+    :remote="field.props.remote && field.props.filterable || false"
+    :remote-method="field.props.filterable ? remoteMethod : null"
     :loading-text="customT(field.props.loadingText || '')"
     :no-match-text="customT(field.props.noMatchText || '')"
     :no-data-text="customT(field.props.noDataText || '')"
@@ -35,9 +35,15 @@ import {
   PropType,
   ref,
   watchEffect,
+  watch,
+  onMounted,
 } from 'vue';
-import type { SelectField } from '../../../../types/form/fields/select';
-import { useTranslate, requestWrapper, useChecks } from '../../../../utils';
+import type { SelectField } from 'lib/types/form/fields/select';
+import { useTranslate } from 'lib/utils/core/translate';
+import { useChecks } from 'lib/utils/core/mixed-check';
+import { requestWrapper } from 'lib/utils/core/request';
+
+type SelectValue = number | string | (number|string)[];
 
 export default defineComponent({
   name: 'FormSelect',
@@ -47,7 +53,7 @@ export default defineComponent({
       required: true,
     },
     modelValue: {
-      type: [String, Number],
+      type: [String, Number, Array] as PropType<SelectValue>,
       default: '',
     },
   },
@@ -56,7 +62,7 @@ export default defineComponent({
     const { customT } = useTranslate();
     const { disabled } = useChecks(props.field);
 
-    const val = ref<number|string>(props.modelValue);
+    const val = ref<SelectValue>(props.modelValue);
     const allOptions = ref<Record<string, any>[]>(props.field.options || []);
     const loading = ref<boolean>(false);
 
@@ -74,11 +80,16 @@ export default defineComponent({
       loading.value = false;
     };
 
+    onMounted(() => {
+      remoteMethod('');
+    });
+
     watchEffect(() => {
       val.value = props.modelValue;
     });
-    watchEffect(() => {
-      allOptions.value = props.field.options;
+
+    watch(() => props.field.options, (newVal) => {
+      allOptions.value = newVal;
     });
 
     return {

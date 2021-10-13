@@ -14,7 +14,7 @@
         block.props.class,
         block.props.isPaper ? 'el-card is-always-shadow' : '',
       ]"
-      :style="isMobile ? block.props.styles : block.props.mobileStyles"
+      :style="isMobile ? block.props.mobileStyles : block.props.styles"
       v-bind="getProps(block).props"
     >
       <h2 v-if="block.title && block.props.titleType === 'heading'" class="custom-label">{{ customT(block.title) }}</h2>
@@ -42,7 +42,7 @@
         block.props.class,
         block.props.isPaper ? 'el-card is-always-shadow' : '',
       ]"
-      :style="isMobile ? block.props.styles : block.props.mobileStyles"
+      :style="isMobile ? block.props.mobileStyles : block.props.styles"
       v-bind="getProps(block).props"
     >
       <h2 v-if="block.title && block.props.titleType === 'heading'" class="custom-label">{{ customT(block.title) }}</h2>

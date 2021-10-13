@@ -46,6 +46,9 @@
 
   &_block-column {
     position: relative;
+    &.el-col-24 {
+      width: 100%;
+    }
   }
 
   &_actions {

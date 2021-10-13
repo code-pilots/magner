@@ -1,9 +1,19 @@
 import {
-  translate, cardPageController, mixedCheck,
+  translate, cardPageController, mixedCheck, request, SelectField,
 } from 'lib/index';
 import {
   bigtestCreate, bigtestDelete, bigtestGet, bigtestUpdate,
 } from '../../app/requests/big-test';
+
+interface Pet {
+  id: number,
+  name: string,
+}
+
+const getList = request<Pet[]>(async ({ api }) => {
+  const res = await api.get<Pet[]>('/pet/findByStatus?status=pending');
+  return { data: res || [] };
+});
 
 const RadioOptions = [
   {
@@ -66,7 +76,6 @@ export default cardPageController({
       type: 'row',
       props: {
         justify: 'space-between',
-        gutter: 12,
       },
       layout: [
         /** Text fields */
@@ -75,6 +84,7 @@ export default cardPageController({
           props: {
             span: 12,
             xs: 24,
+            styles: { 'padding-right': '12px' },
           },
           fields: [
             {
@@ -124,6 +134,20 @@ export default cardPageController({
           fields: [
             {
               type: 'select',
+              name: 'parentCategory',
+              label: 'Родительская категория',
+              options: [],
+              props: {
+                remote: true,
+                remoteMethod: getList,
+                valueKey: 'id',
+                labelKey: 'name',
+                clearable: true,
+              },
+            },
+
+            {
+              type: 'select',
               name: 'country',
               label: 'Country',
               options: [
@@ -136,6 +160,15 @@ export default cardPageController({
                   label: 'Not russia',
                 },
               ],
+              changeAction: ({ getField }) => {
+                const parentCategoryField = getField<SelectField>('parentCategory');
+                if (parentCategoryField) {
+                  parentCategoryField.options = [{
+                    id: 2,
+                    name: 'Hello',
+                  }];
+                }
+              },
               props: {
                 placeholder: 'Russia',
                 clearable: true,
