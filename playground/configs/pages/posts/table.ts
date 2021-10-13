@@ -13,6 +13,7 @@ const postsTable = tableController<Post>({
     {
       prop: 'image',
       label: 'Image',
+      view: 'image',
       width: 200,
     },
     {
@@ -28,7 +29,8 @@ const postsTable = tableController<Post>({
     {
       prop: 'tags',
       label: 'Tags',
-      width: 200,
+      view: 'tags',
+      width: 300,
     },
   ],
 });

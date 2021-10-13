@@ -1,5 +1,5 @@
 import type { RouteLocationRaw } from 'vue-router';
-import type { TranslateData } from '../../utils/core/translate';
+import type { TranslateData } from 'lib/utils/core/translate';
 
 interface RenderHeaderType<COLUMN> {
   column: COLUMN,
@@ -10,8 +10,19 @@ export interface TableColumn<ENTITY extends {}> {
   /** Property name of the field in the row data for specific column */
   prop: keyof ENTITY,
 
+  /** Using this key, the value displayed in the table will use `entity.[prop].[nestedKey]` content */
+  nestedKey?: keyof ENTITY[this['prop']],
+
   /** Label to display in the header cell */
   label?: TranslateData,
+
+  /**
+   * How to display the contents of the prop:
+   * * `text` – as a plain text that can be trimmed with `showOverflowTooltip` and formatted with `formatter`
+   * * `image` – can be an image URL or an array of URLs. Displayed in lazy-loaded squares with <el-image> component
+   * * `tags` – list of tags with <el-tag>
+   */
+  view?: 'text' | 'image' | 'tags',
 
   /** Column fixed width */
   width?: number|string,

@@ -3,7 +3,7 @@ import postsConfig from './pages/posts/posts';
 import loginPageConfig from './pages/login';
 import bigtestConfig from './pages/big-test';
 import formLayoutConfig from './pages/form-layout';
-import PatientsIcon from '../assets/icons/users.svg';
+import PostsIcon from '../assets/icons/file-text.svg';
 
 // eslint-disable-next-line no-shadow
 export enum ROLE {
@@ -66,7 +66,7 @@ const router = routerController<ROLE>({
               name: 'posts',
               title: translate('pages.posts'),
               visible: true,
-              icon: () => PatientsIcon,
+              icon: () => PostsIcon,
             },
             preset: {
               preset: 'table',
