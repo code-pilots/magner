@@ -4,6 +4,7 @@ const ruCustom: CustomTranslationSchema = {
   pages: {
     home: 'Домашняя',
     patient: 'Пациент',
+    post: 'Публикация',
     posts: 'Публикации',
     nested: 'Вложенность',
     form_test: 'Тест формы',
@@ -16,6 +17,21 @@ const ruCustom: CustomTranslationSchema = {
       email_placeholder: 'Е-мейл',
       password_placeholder: 'Пароль',
     },
+  },
+  post: {
+    form_title: 'Публикация',
+    submit: 'Сохранить',
+    remove: 'Удалить',
+    name_input: 'Название',
+    likes_input: 'Лайки',
+    dropzone_input: 'Обложка',
+    tags_input: 'Тэги',
+    owner_input: 'Автор',
+    tags_1: 'Горячее',
+    tags_2: 'Погода',
+    tags_3: 'Спорт',
+    tags_4: 'Политика',
+    tags_5: 'Что-то еще',
   },
   patients: {
     filters: {

@@ -1,5 +1,5 @@
 import { tablePageController, translate } from 'lib/index';
-import postsRequest from '../../../app/requests/posts';
+import { readPosts } from '../../../app/requests/posts';
 import postsFilters from './filters';
 import postsTable from './table';
 
@@ -9,7 +9,7 @@ import postsTable from './table';
  */
 export default tablePageController({
   title: translate('pages.posts'),
-  request: postsRequest,
+  request: readPosts,
   filters: postsFilters,
   table: postsTable,
 });

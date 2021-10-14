@@ -4,6 +4,7 @@ import loginPageConfig from './pages/login';
 import bigtestConfig from './pages/big-test';
 import formLayoutConfig from './pages/form-layout';
 import PostsIcon from '../assets/icons/file-text.svg';
+import postConfig from './pages/posts/post';
 
 // eslint-disable-next-line no-shadow
 export enum ROLE {
@@ -38,6 +39,12 @@ const router = routerController<ROLE>({
         props: {
           sidebarGroups: [
             {
+              name: 'posts',
+              title: translate('pages.posts'),
+              icon: () => PostsIcon,
+              routes: ['post', 'posts'],
+            },
+            {
               name: 'technical',
               title: translate('pages.nested'),
               icon: () => import('../assets/icons/grid.svg'),
@@ -62,11 +69,25 @@ const router = routerController<ROLE>({
           {
             type: 'preset',
             route: {
+              path: '/post/:id',
+              name: 'post',
+              title: translate('pages.post'),
+              visible: true,
+              link: { name: 'post', params: { id: 'new' } },
+            },
+            preset: {
+              preset: 'card',
+              config: postConfig,
+            },
+          },
+
+          {
+            type: 'preset',
+            route: {
               path: '/posts',
               name: 'posts',
               title: translate('pages.posts'),
               visible: true,
-              icon: () => PostsIcon,
             },
             preset: {
               preset: 'table',
