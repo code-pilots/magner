@@ -1,4 +1,4 @@
-import type { RouteComponent } from 'vue-router';
+import type { RouteComponent, RouteLocationRaw } from 'vue-router';
 import type { IconImport } from 'lib/types/utils/useful';
 import type { TranslateData } from 'lib/utils/core/translate';
 import type { RouteBase, Route, FinalNoLayoutRoute } from 'lib/types/configs/routing/routing';
@@ -36,6 +36,9 @@ export interface MainLayoutRoute extends Route {
 
   /** Sidebar icon */
   icon?: IconImport,
+
+  /** Use this link to override the 'path' route property in the sidebar */
+  link?: RouteLocationRaw,
 }
 
 /** Group property of the main layout props. Lists the route names to visually group them in the sidebar */

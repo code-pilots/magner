@@ -133,7 +133,8 @@ export default defineComponent({
     };
 
     const navigate = (route: string) => {
-      router.push({ name: route });
+      const routeTo = props.routing.find((item) => item.name === route);
+      router.push(routeTo?.link ? routeTo.link : { name: route });
     };
 
     return {

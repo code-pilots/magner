@@ -76,7 +76,7 @@ export default defineComponent({
 
       loading.value = true;
       const newOptions = await requestWrapper(search, props.field.props.remoteMethod);
-      allOptions.value = newOptions.data || [];
+      allOptions.value = newOptions.data?.rows || newOptions.data || [];
       loading.value = false;
     };
 
