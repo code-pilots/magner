@@ -1,5 +1,5 @@
-import type { GenericComponent } from '../../types/form';
-import type { FormLayout, GenericFormLayout } from '../../types/form/layout';
+import type { GenericComponent } from 'lib/types/form';
+import type { FormLayout, GenericFormLayout } from 'lib/types/form/layout';
 
 export type SupportedDataTypes = 'string'|'number'|'array'|'object'|'date'|'boolean';
 export type DataTypeInitials = '' | null | [] | {} | false;

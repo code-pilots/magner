@@ -75,7 +75,7 @@ const postConfig = cardPageController({
             {
               type: 'select',
               name: 'owner',
-              dataType: 'number',
+              dataType: 'string',
               label: translate('post.owner_input'),
               options: [],
               props: {
@@ -92,18 +92,18 @@ const postConfig = cardPageController({
           props: { span: 12, xs: 24 },
           fields: [
             {
-              type: 'dropzone',
-              name: 'image',
-              label: translate('post.dropzone_input'),
-              props: {},
-            },
-            {
               type: 'input',
               name: 'likes',
               label: translate('post.likes_input'),
               props: {
                 placeholder: '5',
               },
+            },
+            {
+              type: 'dropzone',
+              name: 'image',
+              label: translate('post.dropzone_input'),
+              props: {},
             },
           ],
         },
