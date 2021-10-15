@@ -1,10 +1,12 @@
-import type { RequestFunc, RequestWrapper } from '../../types/utils/api';
-import type { TableRequest } from '../../types/configs/pages/table';
+import type { CardRequestFunc, RequestFunc, RequestWrapper } from 'lib/types/utils/api';
+import type { TableRequest } from 'lib/types/configs/pages/table';
+import globalValues from 'lib/global';
 
 import api from '../api';
-import globalValues from '../../global';
 
 export const request: RequestFunc = (cb) => cb;
+
+export const cardRequest: CardRequestFunc = (cb) => cb;
 
 export const requestWrapper: RequestWrapper = (data, cb) => cb({
   data,

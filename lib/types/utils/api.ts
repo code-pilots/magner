@@ -31,5 +31,9 @@ export type RequestCallback<RESULT = any, DATA = any> = (info: {
 export type RequestFunc = <RESULT = any, DATA = any>(cb: RequestCallback<RESULT, DATA>) =>
   RequestCallback<RESULT, DATA>;
 
+export type CardRequestFunc = <RESULT = any, DATA = any>(
+  cb: RequestCallback<RESULT, { id: number|string, data: DATA }>
+) => RequestCallback<RESULT, { id: number|string, data: DATA }>;
+
 export type RequestWrapper = <RESULT = any, DATA = any>(data: DATA, cb: RequestCallback<RESULT>) =>
   Promise<BaseResponse<RESULT>>;

@@ -1,4 +1,6 @@
-import { PaginationType, request, tableRequest } from 'lib/index';
+import {
+  cardRequest, PaginationType, request, tableRequest,
+} from 'lib/index';
 
 export interface Post {
   id: string,
@@ -63,26 +65,25 @@ export const getPost = request<Post, number>(async ({ api, data, errorParser }) 
   }
 });
 
-export const createPost = request<Post, PostCreate>(async ({ api, data, errorParser }) => {
+export const createPost = cardRequest<Post, PostCreate>(async ({ api, data, errorParser }) => {
   try {
-    console.log(data);
-    const res = await api.post<PostCreate, Post>('/post/create', data);
+    const res = await api.post<PostCreate, Post>('/post/create', data.data);
     return { data: res };
   } catch (e) {
     return { error: errorParser(e as any) };
   }
 });
 
-export const updatePost = request<Post, { id: number, post: PostCreate}>(async ({ api, data, errorParser }) => {
+export const updatePost = cardRequest<Post, PostCreate>(async ({ api, data, errorParser }) => {
   try {
-    const res = await api.put<PostCreate, Post>(`/post/${data.id}`, data.post);
+    const res = await api.put<PostCreate, Post>(`/post/${data.id}`, data.data);
     return { data: res };
   } catch (e) {
     return { error: errorParser(e as any) };
   }
 });
 
-export const deletePost = request<Post, { id: number, post: PostCreate}>(async ({ api, data }) => {
+export const deletePost = cardRequest<Post, PostCreate>(async ({ api, data }) => {
   try {
     const res = await api.delete<{}, Post>(`/post/${data.id}`);
     return { data: res };
