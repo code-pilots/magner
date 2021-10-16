@@ -15,6 +15,11 @@ export default defineConfig({
       styles: path.resolve(__dirname, 'playground', 'assets', 'styles'),
     },
   },
+  define: {
+    __VUE_I18N_FULL_INSTALL__: false,
+    __VUE_I18N_LEGACY_API__: false,
+    __INTLIFY_PROD_DEVTOOLS__: false,
+  },
   server: {
     port: parseInt(process.env.PORT || '8080', 10),
   },

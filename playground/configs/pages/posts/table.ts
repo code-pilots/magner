@@ -2,7 +2,7 @@ import { tableController, translate } from 'lib/index';
 import type { Post } from '../../../app/requests/posts';
 
 const postsTable = tableController<Post>({
-  emptyText: translate('patients.table.not_found'),
+  emptyText: translate('posts.not_found'),
   rowLink: (row) => ({ name: 'post', params: { id: row.id } }),
   columns: [
     {

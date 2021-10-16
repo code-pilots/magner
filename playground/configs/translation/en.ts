@@ -17,6 +17,7 @@ const enCustom = {
     },
   },
   post: {
+    new_post: 'New post',
     form_title: 'Post',
     submit: 'Submit',
     remove: 'Delete',
@@ -31,26 +32,8 @@ const enCustom = {
     tags_4: 'Politics',
     tags_5: 'Something',
   },
-  patients: {
-    filters: {
-      create_new: 'Create',
-      submit: 'Submit',
-      fullname_placeholder: 'Full name',
-      sort_placeholder: 'Select example',
-      sort_alphabetical: 'By name in ascending order',
-      sort_alphabetical_reverse: 'By name in descending order',
-    },
-    table: {
-      not_found: 'No patients found',
-      id: 'ID',
-      fullname: 'Full name',
-      gender: 'Gender',
-      email: 'E-mail',
-      address: 'Address',
-      apartments: 'Apartments',
-      latitude: 'Latitude',
-      longitude: 'Longitude',
-    },
+  posts: {
+    not_found: 'No posts found',
   },
   form_test: {
     title: 'Form test',

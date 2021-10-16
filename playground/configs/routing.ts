@@ -71,7 +71,7 @@ const router = routerController<ROLE>({
             route: {
               path: '/post/:id',
               name: 'post',
-              title: translate('pages.post'),
+              title: translate('post.new_post'),
               visible: true,
               link: { name: 'post', params: { id: 'new' } },
             },

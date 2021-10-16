@@ -19,6 +19,7 @@ const ruCustom: CustomTranslationSchema = {
     },
   },
   post: {
+    new_post: 'Новая публикация',
     form_title: 'Публикация',
     submit: 'Сохранить',
     remove: 'Удалить',
@@ -33,26 +34,8 @@ const ruCustom: CustomTranslationSchema = {
     tags_4: 'Политика',
     tags_5: 'Что-то еще',
   },
-  patients: {
-    filters: {
-      create_new: 'Создать',
-      submit: 'Подтвердить',
-      fullname_placeholder: 'Полное имя',
-      sort_placeholder: 'Пример селекта',
-      sort_alphabetical: 'В алфавитном порядке по имени',
-      sort_alphabetical_reverse: 'В обратном алфавитном порядке по имени',
-    },
-    table: {
-      not_found: 'Пациенты не найдены',
-      id: 'ID',
-      fullname: 'Полное имя',
-      gender: 'Пол',
-      email: 'Е-мейл',
-      address: 'Адрес',
-      apartments: 'Квартира',
-      latitude: 'Широта',
-      longitude: 'Долгота',
-    },
+  posts: {
+    not_found: 'Публикации не найдены',
   },
   form_test: {
     title: 'Тест формы',
