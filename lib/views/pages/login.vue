@@ -31,7 +31,8 @@ import {
   PropType, reactive, computed,
 } from 'vue';
 import { useRouter } from 'vue-router';
-import type { LoginConfig, ProfileRequestResponse } from 'lib/types/configs';
+import type { LoginConfig } from 'lib/types/configs';
+import type { ProfileRequestResponse } from 'lib/types/configs/development';
 import useStore from 'lib/controllers/store/store';
 import { useTranslate } from 'lib/utils/core/translate';
 import { requestWrapper } from 'lib/utils/core/request';

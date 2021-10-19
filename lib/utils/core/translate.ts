@@ -1,4 +1,5 @@
 import { useI18n } from 'vue-i18n';
+import type { I18n } from 'vue-i18n';
 import type { GlobalValues } from 'lib/global';
 import globalValues from '../../global';
 
@@ -28,11 +29,19 @@ export const customT = (data: TranslateData, t: (arg_1: TArgs[0], arg_2?: TArgs[
     : t(data.key);
 };
 
+type UseTranslate = () => {
+  t: I18n['global']['t'],
+  d: I18n['global']['d'],
+  n: I18n['global']['n'],
+  locale: I18n['global']['locale'],
+  customT: (data: TranslateData) => string,
+};
+
 /**
  * Function applies reactive i18n to the translate data. Use it in the Vue component's setup
  * for the objects you've got from 'translate' function.
  */
-export const useTranslate = () => {
+export const useTranslate: UseTranslate = () => {
   const {
     t, d, n, locale,
   } = useI18n();
