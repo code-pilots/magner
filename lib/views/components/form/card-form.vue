@@ -70,7 +70,8 @@ export default defineComponent({
       error.value = '';
       fieldErrors.value = {};
 
-      const res = await requestWrapper(data, props.config.createRequest);
+      const reqData = { id: props.entityId, data };
+      const res = await requestWrapper(reqData, props.isNew ? props.config.createRequest : props.config.updateRequest);
       if (submitButton) submitButton.loading = false;
 
       if (res.error) {
@@ -108,7 +109,8 @@ export default defineComponent({
       if (props.config.confirmDelete && !(await confirmDelete())) return;
 
       action.loading = true;
-      const res = await requestWrapper(props.entityId, props.config.deleteRequest);
+      const reqData = { id: props.entityId, data: null };
+      const res = await requestWrapper(reqData, props.config.deleteRequest);
       action.loading = false;
 
       if (res.error) {

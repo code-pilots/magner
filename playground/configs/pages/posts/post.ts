@@ -4,6 +4,7 @@ import {
   createPost, deletePost, getPost, updatePost,
 } from '../../../app/requests/posts';
 import { readUsers } from '../../../app/requests/users';
+import imageUploadRequest from '../../../app/requests/image-upload';
 
 const postConfig = cardPageController({
   title: translate('post.form_title'),
@@ -103,7 +104,11 @@ const postConfig = cardPageController({
               type: 'dropzone',
               name: 'image',
               label: translate('post.dropzone_input'),
-              props: {},
+              props: {
+                saveToBackend: imageUploadRequest,
+                valueKey: 'id',
+                srcKey: 'photo',
+              },
             },
           ],
         },

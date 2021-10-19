@@ -1,26 +1,13 @@
 import { request } from 'lib/index';
 import type { DropzoneUploadReturn } from 'lib/types/form/fields/dropzone';
 
-type RequestBody = { image: File };
-type RequestResponse = {result: { image: { src: string, id: null }}};
-
-/**
- * A request that is initiated when, in the form with the field of type === 'dropzone'
- * the parameter 'saveToBackend' is passed and the file is chosen.
- *
- * The data in the argument set is a File.
- */
-const imageUploadRequest = request<DropzoneUploadReturn>(async ({ data, api }) => {
-  try {
-    const file: File = data;
-    const res = await api.post<RequestBody, RequestResponse>('images', { image: file }, {
-      isFormdata: true,
-    });
-
-    return { data: res.result.image };
-  } catch (e) {
-    return { error: 'Error' };
-  }
-});
+const imageUploadRequest = request<DropzoneUploadReturn>(async () => new Promise((resolve) => {
+  setTimeout(() => resolve({
+    data: {
+      id: 'https://picsum.photos/500',
+      photo: 'https://picsum.photos/500',
+    },
+  }), 1500);
+}));
 
 export default imageUploadRequest;
