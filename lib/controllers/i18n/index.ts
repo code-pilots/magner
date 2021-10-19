@@ -1,8 +1,8 @@
 import { createI18n, I18n } from 'vue-i18n';
-import type { TranslationConfig } from '../../types/configs/translation';
+import type { TranslationConfig } from 'lib/types/configs/translation';
+import globalValues from 'lib/global';
 import { enLocale } from './en';
 import { ruLocale } from './ru';
-import globalValues from '../../global';
 
 export type TranslationController = () => {
   i18n: I18n,

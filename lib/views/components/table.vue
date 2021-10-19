@@ -30,10 +30,10 @@
           :to="column.columnLink ? column.columnLink(table.row) : config.rowLink(table.row)"
           class="cell-content"
         >
-          {{ formatCell(column, table) }}
+          <TableCell :column-config="column" :table-data="table" />
         </router-link>
         <div v-else class="cell-content">
-          {{ formatCell(column, table) }}
+          <TableCell :column-config="column" :table-data="table" />
         </div>
       </template>
     </el-table-column>
@@ -41,13 +41,15 @@
 </template>
 
 <script lang="ts">
-import '../../assets/styles/components/data-table.css';
+import 'lib/assets/styles/components/data-table.css';
 import { defineComponent, PropType } from 'vue';
-import type { Table, TableColumn } from '../../types/components/table';
-import { useTranslate } from '../../utils';
+import type { Table, TableColumn } from 'lib/types/components/table';
+import { useTranslate } from 'lib/utils/core/translate';
+import TableCell from 'lib/views/components/table/cell.vue';
 
 export default defineComponent({
   name: 'DataTable',
+  components: { TableCell },
   props: {
     data: {
       type: Array,
@@ -70,18 +72,9 @@ export default defineComponent({
       context.emit('sort', e);
     };
 
-    const formatCell = (column: TableColumn, table: { row: any, column: any, $index: number }): any => {
-      const content = table.row[column.prop];
-      if (column.formatter) {
-        return column.formatter(content, table.row, table.column, table.$index);
-      }
-      return content;
-    };
-
     return {
       customT,
       sort,
-      formatCell,
     };
   },
 });

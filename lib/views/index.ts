@@ -6,8 +6,8 @@ export { default as MagnerMainLayout } from './layouts/main.vue';
 
 export { default as MagnerDynamic } from './components/dynamic.vue';
 export { default as MagnerIcon } from './components/icon.vue';
-export { default as MagnerHeader } from './components/header.vue';
-export { default as MagnerSidebar } from './components/sidebar.vue';
+export { default as MagnerHeader } from './components/main-layout/header.vue';
+export { default as MagnerSidebar } from './components/main-layout/sidebar.vue';
 export { default as MagnerTable } from './components/table.vue';
 
 export { default as MagnerForm } from './components/form/form.vue';

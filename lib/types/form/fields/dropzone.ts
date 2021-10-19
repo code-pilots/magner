@@ -1,5 +1,5 @@
+import type { RequestCallback } from 'lib/types/utils/api';
 import type { BaseField, BaseProps } from '../base';
-import type { RequestCallback } from '../../utils/api';
 
 export type DropzoneUploadReturn = string | number | File | Record<string, any>;
 
@@ -15,6 +15,26 @@ export interface DropzoneError {
   name?: string, // name of the file
 }
 
+export type DropzoneFileType = 'image' | 'video' | 'file';
+
+export interface DropzoneFileView {
+  type: DropzoneFileType,
+  src?: string,
+  caption?: string,
+}
+
+export interface DropzoneFile {
+  value: string | number | File,
+  file?: File | null,
+  size?: number,
+  loading?: boolean,
+  view: Promise<DropzoneFileView>,
+  key?: string | number,
+  upload?: Promise<DropzoneFile | null>,
+}
+
+export type DropzoneValue = string | Record<string, unknown> | string[] | Record<string, unknown>[];
+
 /** Dropzone component properties */
 export interface DropzoneProps extends BaseProps {
   /**
@@ -26,8 +46,10 @@ export interface DropzoneProps extends BaseProps {
 
   /** When initial value is passed, define what field is an actual value. Default: 'value' */
   valueKey?: string,
-  /** When initial value is passed, define what field is can represent the src attribute of image tag. Default: 'src' */
+  /** When initial value is passed, define what field can represent the link to the file. Default: 'src' */
   srcKey?: string,
+  /** When initial value is passed, define what field can represent label of the file. Default: 'caption' */
+  captionKey?: string,
 
   /**
    * Accept one or multiple files. Depending on this prop, the 'update:modelValue' event

@@ -56,19 +56,20 @@
 </template>
 
 <script lang="ts">
-import '../../../assets/styles/components/generic-form.css';
+import 'lib/assets/styles/components/generic-form.css';
 import {
   defineComponent, reactive, ref, PropType,
   watchEffect, computed,
 } from 'vue';
 import { useRouter } from 'vue-router';
-import type { GenericForm } from '../../../types/form';
-import type { FormAction } from '../../../types/form/actions';
-import type { FormInteractionsData } from '../../../types/form/base';
-import type { SupportedValidators } from '../../../types/configs';
-import { DataTypeInitials, fieldsToModels, layoutToFields } from '../../../utils/form/form';
-import { useMobile, useTranslate } from '../../../utils';
-import setupValidators from '../../../utils/form/setup-validators';
+import type { GenericForm } from 'lib/types/form';
+import type { FormAction } from 'lib/types/form/actions';
+import type { FormInteractionsData } from 'lib/types/form/base';
+import type { SupportedValidators } from 'lib/types/configs';
+import { DataTypeInitials, fieldsToModels, layoutToFields } from 'lib/utils/form/form';
+import { useTranslate } from 'lib/utils/core/translate';
+import { useMobile } from 'lib/utils/core/is-mobile';
+import setupValidators from 'lib/utils/form/setup-validators';
 import FormItem from './form-item.vue';
 import FormLayout from './layout.vue';
 import FormActions from './form-actions.vue';

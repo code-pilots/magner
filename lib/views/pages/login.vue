@@ -24,17 +24,18 @@
 </template>
 
 <script lang="ts">
-import '../../assets/styles/pages/login.css';
+import 'lib/assets/styles/pages/login.css';
 import {
   defineComponent,
   ref,
   PropType, reactive, computed,
 } from 'vue';
 import { useRouter } from 'vue-router';
-import type { LoginConfig, ProfileRequestResponse } from '../../types/configs';
-import useStore from '../../controllers/store/store';
-import { useTranslate, requestWrapper } from '../../utils';
-import { layoutToFields } from '../../utils/form/form';
+import type { LoginConfig, ProfileRequestResponse } from 'lib/types/configs';
+import useStore from 'lib/controllers/store/store';
+import { useTranslate } from 'lib/utils/core/translate';
+import { requestWrapper } from 'lib/utils/core/request';
+import { layoutToFields } from 'lib/utils/form/form';
 import GenericForm from '../components/form/form.vue';
 
 export default defineComponent({

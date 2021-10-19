@@ -23,15 +23,15 @@
 </template>
 
 <script lang="ts">
-import '../../../assets/styles/components/card-form.css';
+import 'lib/assets/styles/components/card-form.css';
 import {
   defineComponent, PropType, ref,
 } from 'vue';
-import type { CardConfig } from '../../../types/configs';
-import type { FormAction } from '../../../types/form/actions';
-import { useTranslate } from '../../../utils/core/translate';
-import { requestWrapper } from '../../../utils/core/request';
-import { magnerConfirm, magnerMessage } from '../../../utils/core/messages';
+import type { CardConfig } from 'lib/types/configs';
+import type { FormAction } from 'lib/types/form/actions';
+import { useTranslate } from 'lib/utils/core/translate';
+import { requestWrapper } from 'lib/utils/core/request';
+import { magnerConfirm, magnerMessage } from 'lib/utils/core/messages';
 import GenericForm from './form.vue';
 import DialogForm from './dialog-form.vue';
 
@@ -70,7 +70,8 @@ export default defineComponent({
       error.value = '';
       fieldErrors.value = {};
 
-      const res = await requestWrapper(data, props.config.createRequest);
+      const reqData = { id: props.entityId, data };
+      const res = await requestWrapper(reqData, props.isNew ? props.config.createRequest : props.config.updateRequest);
       if (submitButton) submitButton.loading = false;
 
       if (res.error) {
@@ -108,7 +109,8 @@ export default defineComponent({
       if (props.config.confirmDelete && !(await confirmDelete())) return;
 
       action.loading = true;
-      const res = await requestWrapper(props.entityId, props.config.deleteRequest);
+      const reqData = { id: props.entityId, data: null };
+      const res = await requestWrapper(reqData, props.config.deleteRequest);
       action.loading = false;
 
       if (res.error) {

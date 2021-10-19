@@ -1,22 +1,23 @@
 import { createApp } from 'vue';
 import ElementPlus from 'element-plus';
-import type { ProjectConfig } from '../types/configs';
-import globalValues from '../global';
-import { storeController } from './store';
+import type { ProjectConfig } from 'lib/types/configs';
+import globalValues from 'lib/global';
 
-import App from '../views/app.vue';
-import SvgIcon from '../views/components/icon.vue';
+import App from 'lib/views/app.vue';
+import SvgIcon from 'lib/views/components/icon.vue';
 
 /**
  * Import all global styles. Does not contain component-related styles
  * which are imported directly to those components.
  */
-import '../assets/styles/variables.css';
-import '../assets/styles/normalize.css';
-import '../assets/styles/breakpoints.css';
-import '../assets/styles/ui.css';
-import '../assets/styles/typography.css';
-import lstorageController from '../utils/core/local-storage';
+import 'lib/assets/styles/variables.css';
+import 'lib/assets/styles/normalize.css';
+import 'lib/assets/styles/breakpoints.css';
+import 'lib/assets/styles/ui.css';
+import 'lib/assets/styles/typography.css';
+
+import lstorageController from 'lib/utils/core/local-storage';
+import { storeController } from './store';
 
 export const mainController = (project: ProjectConfig) => {
   globalValues.manifest = project.manifest();

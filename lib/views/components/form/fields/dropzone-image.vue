@@ -1,8 +1,7 @@
 <template>
   <div
-    v-if="src"
     v-loading="loading"
-    class="el-upload-dragger_image"
+    class="el-upload_card"
     :class="{loading}"
     :draggable="draggable"
     @dragstart="emitDrag('dragstart', $event)"
@@ -10,71 +9,79 @@
     @dragover="emitDrag('dragover', $event)"
     @drop="emitDrag('drop', $event)"
   >
-    <el-image :src="src" />
+    <template v-if="view">
+      <el-image v-if="view.type === 'image'" :src="view.src" class="el-upload_media-image" />
+      <el-image v-else-if="view.type === 'video'" :src="view.src" class="el-upload_media-video" />
+      <div v-else class="el-upload_media-file">
+        <svg-icon core="file" size="initial" class="el-upload_media-file_icon" />
+        <div class="flex-grow" />
+        <span v-if="view.caption" class="el-upload_media-file_caption">{{ view.caption }}</span>
+        <span v-if="modelValue.size" class="el-upload_media-file_size">
+          {{ getMegabytes(modelValue.size) }} Mb
+        </span>
+      </div>
+    </template>
   </div>
 </template>
 
 <script lang="ts">
 import {
-  defineComponent, PropType, ref, watchEffect,
+  computed,
+  defineComponent, PropType, ref,
 } from 'vue';
+import type { DropzoneFile, DropzoneFileView } from 'lib/types/form/fields/dropzone';
+import SvgIcon from 'lib/views/components/icon.vue';
 
 export default defineComponent({
   name: 'DropzoneImage',
+  components: { SvgIcon },
   props: {
     modelValue: {
-      type: [String, Number, Object] as PropType<string|File>,
-      default: null,
-    },
-
-    /** When value passed as an object, this property helps to distinguish which key of an object has an image value */
-    srcKey: {
-      type: String,
-      default: 'src',
+      type: [Object] as PropType<DropzoneFile>,
+      required: true,
     },
 
     draggable: {
       type: Boolean,
       default: true,
     },
-
-    loading: {
-      type: Boolean,
-      default: false,
-    },
   },
+  emits: ['change', 'dragstart', 'dragend', 'dragover', 'drop'],
   async setup (props, context) {
-    const src = ref<string|null>(null);
-    const isFile = ref<boolean>(false);
+    const file = ref(props.modelValue);
+    const view = ref<DropzoneFileView | null>(null);
+    const loading = computed(() => file.value.loading);
+    const err = ref<boolean>(false);
 
-    const readAsDataURL = (file: File | string): Promise<string|null> => new Promise((resolve) => {
-      if (typeof file === 'string') {
-        resolve(file);
-      } else if (file instanceof File) {
-        // TODO: if element is not an image, still display it
-        if (file['type'].split('/')[0] !== 'image') resolve(null); // eslint-disable-line
+    props.modelValue.view.then((modelFile) => {
+      view.value = modelFile;
+    });
 
-        const fileReader = new FileReader();
-        fileReader.onload = () => resolve(fileReader.result as string);
-        fileReader.readAsDataURL(file);
+    props.modelValue.upload?.then((uploaded) => {
+      if (!uploaded) {
+        err.value = true;
       } else {
-        resolve(file[props.srcKey]);
+        file.value = uploaded;
+        context.emit('change', uploaded);
+
+        uploaded.view.then((newView) => {
+          view.value = newView;
+        });
       }
     });
 
-    watchEffect(async () => {
-      src.value = await readAsDataURL(props.modelValue);
-    });
+    const getMegabytes = (size: number) => Number(size / 1024 / 1024).toFixed(2);
 
-    src.value = await readAsDataURL(props.modelValue);
-
-    const emitDrag = (name: string, event: DragEvent) => {
+    const emitDrag = (name: 'dragstart'|'dragend'|'dragover'|'drop', event: DragEvent) => {
       context.emit(name, event);
     };
 
     return {
-      src,
-      isFile,
+      file,
+      view,
+      err,
+      loading,
+      getMegabytes,
       emitDrag,
     };
   },

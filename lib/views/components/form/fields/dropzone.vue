@@ -33,7 +33,26 @@
       </div>
     </div>
 
-    <transition-group
+    <div
+      v-else
+      ref="draggerEl"
+      class="el-upload-dragger images"
+      :class="{'is-dragover': dragOver}"
+      @click.self="select"
+    >
+      <DropzoneImage
+        v-for="(file, i) in files"
+        :key="file.key ? file.key : i + (file.value || '') + (file.size || '')"
+        :model-value="file"
+        :draggable="field.props.sortable"
+        @dragstart="handleInnerDragStart(i)"
+        @dragover="handleInnerDragOver(i)"
+        @drop="handleInnerDrop(i)"
+        @change="updFile($event, i)"
+      />
+    </div>
+
+    <!--<transition-group
       v-else
       ref="draggerEl"
       tag="div"
@@ -41,37 +60,24 @@
       class="el-upload-dragger images"
       :class="{'is-dragover': dragOver}"
       @click.self="select"
-    >
-      <suspense v-for="(image, i) in files" :key="i">
-        <template #default>
-          <DropzoneImage
-            :model-value="image"
-            :src-key="field.props.srcKey"
-            :draggable="field.props.sortable"
-            :loading="false"
-            @dragstart="handleInnerDragStart(i)"
-            @dragover="handleInnerDragOver(i)"
-            @drop="handleInnerDrop(i)"
-          />
-        </template>
-      </suspense>
-    </transition-group>
+    ></transition-group>-->
 
     <slot :files="files" :dragOver="dragOver" :select="select" />
   </div>
 </template>
 
 <script lang="ts">
-import '../../../../assets/styles/components/dropzone.css';
+import 'lib/assets/styles/components/dropzone.css';
 import {
-  computed, defineComponent, PropType, ref,
+  defineComponent, PropType, ref, nextTick,
 } from 'vue';
 import { useI18n } from 'vue-i18n';
-import type { DropzoneField, DropzoneError } from '../../../../types/form/fields/dropzone';
+import type {
+  DropzoneField, DropzoneError, DropzoneValue, DropzoneFile,
+} from 'lib/types/form/fields/dropzone';
+import { checkFileErrors, prepareValue, uploadValues } from 'lib/utils/form/dropzone';
+import { useChecks } from 'lib/utils';
 import DropzoneImage from './dropzone-image.vue';
-import { requestWrapper, useChecks } from '../../../../utils';
-
-type ValueType = File | string | (File | string)[] | null;
 
 type DragEvents = 'dragenter' | 'dragleave' | 'dragover' | 'drop';
 
@@ -81,7 +87,7 @@ export default defineComponent({
   props: {
     /** Value of the dropzone. Use it to model or clear the input */
     modelValue: {
-      type: [String, Array, Object] as PropType<ValueType>,
+      type: [String, Array, Object] as PropType<DropzoneValue | null>,
       default: null,
     },
 
@@ -93,7 +99,6 @@ export default defineComponent({
   emits: ['update:modelValue', 'errors', 'textErrors', 'dragenter', 'dragleave', 'dragover', 'drop'],
   setup (props, context) {
     const { t } = useI18n();
-    const values = ref<ValueType>(props.modelValue);
     const dragOver = ref<boolean>(false);
     const innerDrag = ref<number>(0);
     const inputEl = ref<HTMLInputElement>();
@@ -101,45 +106,14 @@ export default defineComponent({
     const draggerEl = ref<HTMLDivElement>();
     const { disabled } = useChecks(props.field);
 
-    /** TODO: This still works incorrectly for valueKey and srcKey if they are different! */
-    const uploadToBackend = async (newVal: (File|string)[]) => {
-      const uploadedFiles = await Promise.all(newVal.map(async (file) => {
-        if (!file) return null;
-        if (!props.field.props.saveToBackend) return file;
+    const files = ref(prepareValue(props.modelValue, props.field));
 
-        const res = await requestWrapper(file, props.field.props.saveToBackend);
-        if (res.error) return null;
-
-        // @ts-ignore
-        if (res.data && typeof res.data === 'object') return res.data[props.field.props.valueKey || 'value'];
-        if (props.field.props.valueKey && res.data) return res.data;
-        return res.data;
-      }));
-
-      return uploadedFiles.filter((file) => !!file);
+    const emitChange = () => {
+      nextTick(() => {
+        const values = files.value.map((file) => file?.value || file?.file || null).filter((file) => !!file);
+        context.emit('update:modelValue', !props.field.props.multiple ? values?.[0] || '' : values);
+      });
     };
-
-    const files = computed({
-      get (): (File | string)[] {
-        if (Array.isArray(values.value)) return values.value;
-        if (values.value) return [values.value];
-        return [];
-      },
-      async set (val: File | string | (File | string)[]) {
-        let value;
-        if (props.field.props.multiple) {
-          value = Array.isArray(val)
-            ? [...(files.value as File[]), ...(await uploadToBackend(val))]
-            : await uploadToBackend([val]);
-        } else {
-          // @ts-ignore
-          value = (await uploadToBackend([Array.isArray(val) ? val[0] || null : val]))?.[0] || null;
-        }
-
-        values.value = value;
-        context.emit('update:modelValue', value);
-      },
-    });
 
     const select = () => {
       if (disabled.value) return;
@@ -180,63 +154,25 @@ export default defineComponent({
       return errStr;
     };
 
-    const upload = async (newFiles: File[]|null) => {
+    const upload = async (newFiles: File[] | null) => {
       if (!newFiles) {
         files.value = [];
       } else {
-        const thisFiles = (files.value || []) as File[];
-        const errors: DropzoneError[] = [];
+        const thisFiles = files.value || [];
+        const checkResults = checkFileErrors(newFiles, props.field, thisFiles.length);
 
-        // Handle MaxAmountError and prevent all files from being uploaded if the
-        // given amount of files is more than allowed
-        if (props.field.props.multiple && props.field.props.maxAmount
-          && thisFiles.length + newFiles.length > props.field.props.maxAmount) {
-          errors.push({
-            type: 'MaxAmountError',
-            value: thisFiles.length + newFiles.length,
-            allowed: props.field.props.maxAmount,
-          });
-          context.emit('errors', errors);
-          context.emit('textErrors', getErrorTexts(errors));
-          return;
-        }
+        context.emit('errors', checkResults.errors);
+        context.emit('textErrors', getErrorTexts(checkResults.errors));
 
-        const passedFiles: File[] = [];
-        newFiles.forEach((file) => {
-          // Handle FormatsError - when single file is not in the list of allowed formats
-          const formats = props.field.props.formats || [];
-          if (formats && formats.length) {
-            const format = file.name.substring(file.name.lastIndexOf('.') + 1).toLowerCase();
-            if (formats.indexOf(format) === -1) {
-              errors.push({
-                type: 'FormatsError',
-                value: format,
-                name: file.name,
-                allowed: formats,
-              });
-              return;
-            }
-          }
-
-          // Handle MaxSizeError - when single file is too heavy
-          if (props.field.props.maxSize && file.size >= props.field.props.maxSize * 1024 * 1024) {
-            errors.push({
-              type: 'MaxSizeError',
-              value: file.size,
-              name: file.name,
-              allowed: props.field.props.maxSize,
-            });
-            return;
-          }
-
-          passedFiles.push(file);
-        });
-
-        context.emit('errors', errors);
-        context.emit('textErrors', getErrorTexts(errors));
-
-        files.value = passedFiles;
+        const newFilesUploaded = uploadValues(checkResults.passedFiles, props.field);
+        files.value = props.field.props.multiple ? [...files.value, ...newFilesUploaded] : newFilesUploaded;
+        emitChange();
       }
+    };
+
+    const updFile = (updatedFile: DropzoneFile, index: number) => {
+      files.value[index] = updatedFile;
+      emitChange();
     };
 
     const handleDragEnter = (event: Event) => {
@@ -267,13 +203,13 @@ export default defineComponent({
 
     const handleInnerDragOver = (index: number) => {
       if (index !== innerDrag.value - 1) {
-        const vals = values.value as (File | string)[];
+        const vals = files.value;
 
         // Swap elements
         const tempEl = vals?.[innerDrag.value - 1];
         vals[innerDrag.value - 1] = vals[index];
         vals[index] = tempEl;
-        values.value = [...vals];
+        files.value = [...vals];
         innerDrag.value = index + 1;
       }
     };
@@ -288,16 +224,16 @@ export default defineComponent({
 
     return {
       t,
-      values,
+      files,
       disabled,
       innerDrag,
       dragOver,
-      files,
       inputEl,
       wrapperEl,
       draggerEl,
       upload,
       select,
+      updFile,
       toggleDragOver,
       handleDragEnter,
       handleDragLeave,

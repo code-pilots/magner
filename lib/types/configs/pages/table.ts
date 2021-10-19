@@ -41,10 +41,15 @@ export interface PaginationType {
   totalPages: number,
 }
 
+export interface FiltersPagination {
+  items: number,
+  page: number,
+}
+
 export interface TableFiltersData {
   filters: Record<string, any>,
   sort: Record<string, any>,
-  pagination: PaginationType,
+  pagination: FiltersPagination,
 }
 
 export interface TableFiltersResponse<ROW = unknown> {
@@ -55,7 +60,7 @@ export interface TableFiltersResponse<ROW = unknown> {
 export type TableRequestCallback<ROW = unknown> = RequestCallback<TableFiltersResponse<ROW>, TableFiltersData>;
 export type TableRequest = <ROW = unknown>(cb: TableRequestCallback<ROW>) => TableRequestCallback<ROW>;
 
-export interface TableConfig<ENTITY = Record<string, unknown>> {
+export interface TableConfig<ENTITY extends {}> {
   /** Page title */
   title: TranslateData,
 

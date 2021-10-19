@@ -1,12 +1,13 @@
-import globalValues from '../../global';
-import { requestWrapper } from '../index';
+import type { RouteAccessRestriction } from 'lib/types/configs/routing/routing';
+import { requestWrapper } from 'lib/utils/core/request';
+import globalValues from 'lib/global';
 
 /**
  * Navigation guard that checks if you can enter a protected route.
  * Gets your authorization token, sends it to the backend (if not verified)
  * and lets you proceed further.
  */
-const checkAuth = async (roles: string[] | null) => {
+const checkAuth = async (roles?: RouteAccessRestriction) => {
   const store = globalValues.store;
   if (globalValues.development.noBackendMode) {
     return true;
@@ -19,7 +20,7 @@ const checkAuth = async (roles: string[] | null) => {
 
   if (roles) {
     if (store.state.user) {
-      return !!(store.state.role && roles.includes(store.state.role));
+      return !!(store.state.role && (roles === true || roles.includes(store.state.role)));
     }
 
     if (store.state.token) {
@@ -30,7 +31,7 @@ const checkAuth = async (roles: string[] | null) => {
         await store.dispatch('changeUser', user.data);
         await store.dispatch('changeRole', user.data.role);
 
-        if (role && roles.includes(role)) return true;
+        if (role && (roles === true || roles.includes(role))) return true;
         return { name: globalRoutes.homeHasAuthName };
       }
       await store.dispatch('changeToken', null);

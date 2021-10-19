@@ -87,18 +87,19 @@
 </template>
 
 <script lang="ts">
-import '../../assets/styles/pages/table.css';
+import 'lib/assets/styles/pages/table.css';
 import {
   computed,
   defineComponent, PropType, reactive, ref, watch, watchEffect,
 } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import type { TableConfig } from '../../types/configs';
-import { useMobile, useTranslate } from '../../utils';
-import useDialogForm from '../../utils/form/use-dialog-form';
-import useStore from '../../controllers/store/store';
-import { layoutToFields } from '../../utils/form/form';
-import filterUrlDataComparison from '../../utils/form/filter-url-data-comparison';
+import type { TableConfig } from 'lib/types/configs';
+import { useMobile } from 'lib/utils/core/is-mobile';
+import { useTranslate } from 'lib/utils/core/translate';
+import useDialogForm from 'lib/utils/form/use-dialog-form';
+import useStore from 'lib/controllers/store/store';
+import { layoutToFields } from 'lib/utils/form/form';
+import filterUrlDataComparison from 'lib/utils/form/filter-url-data-comparison';
 import DataTable from '../components/table.vue';
 import Dynamic from '../components/dynamic.vue';
 import GenericForm from '../components/form/form.vue';

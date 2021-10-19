@@ -1,6 +1,6 @@
 import { InjectionKey } from 'vue';
 import { createStore, useStore as baseUseStore, Store } from 'vuex';
-import globalValues, { GlobalValues } from '../../global';
+import globalValues, { GlobalValues } from 'lib/global';
 
 interface State {
   project: GlobalValues,

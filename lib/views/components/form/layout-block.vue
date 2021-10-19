@@ -14,6 +14,7 @@
         block.props.class,
         block.props.isPaper ? 'el-card is-always-shadow' : '',
       ]"
+      :style="isMobile ? block.props.mobileStyles : block.props.styles"
       v-bind="getProps(block).props"
     >
       <h2 v-if="block.title && block.props.titleType === 'heading'" class="custom-label">{{ customT(block.title) }}</h2>
@@ -41,6 +42,7 @@
         block.props.class,
         block.props.isPaper ? 'el-card is-always-shadow' : '',
       ]"
+      :style="isMobile ? block.props.mobileStyles : block.props.styles"
       v-bind="getProps(block).props"
     >
       <h2 v-if="block.title && block.props.titleType === 'heading'" class="custom-label">{{ customT(block.title) }}</h2>
@@ -58,8 +60,9 @@
 import {
   defineComponent, PropType, shallowRef,
 } from 'vue';
-import type { GenericFormLayout, FormLayoutColumn, FormLayoutRow } from '../../../types/form/layout';
-import { useTranslate } from '../../../utils';
+import type { GenericFormLayout, FormLayoutColumn, FormLayoutRow } from 'lib/types/form/layout';
+import { useTranslate } from 'lib/utils/core/translate';
+import { useMobile } from 'lib/utils/core/is-mobile';
 
 export default defineComponent({
   name: 'FormLayoutBlock',
@@ -72,6 +75,8 @@ export default defineComponent({
   },
   setup (props) {
     const { customT } = useTranslate();
+    const isMobile = useMobile();
+
     const shallowComponent = shallowRef(props.block.type === 'custom' ? props.block.component?.() : null);
 
     const getProps = (block: FormLayoutRow | FormLayoutColumn) => {
@@ -90,6 +95,7 @@ export default defineComponent({
     return {
       customT,
       getProps,
+      isMobile,
       shallowComponent,
     };
   },

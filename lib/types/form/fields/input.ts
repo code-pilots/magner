@@ -1,9 +1,11 @@
+import type { TranslateData } from 'lib/utils/core/translate';
+import type { IconImport } from 'lib/types/utils/useful';
 import type { BaseField, BaseProps } from '../base';
-import type { TranslateData } from '../../../utils/core/translate';
-import type { IconImport } from '../../utils/useful';
 
 export interface InputProps extends BaseProps {
-  type: 'text'|'number'|'email'|'password'|'tel'|string,
+  /** Native input type as an HTML attribute. Default it `text` */
+  type?: 'text'|'number'|'email'|'password'|'tel'|string,
+
   placeholder?: TranslateData,
 
   /**

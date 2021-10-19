@@ -8,27 +8,28 @@
     <Sidebar
       :class="{open: sidebarOpen}"
       :routing="routes"
+      :groups="data.sidebarGroups"
       :active-route="activeRoute"
     />
 
     <div class="main-layout_content">
       <section class="page">
-        <router-view :key="activeRoute && activeRoute.route.name" />
+        <router-view :key="activeRoute ? activeRoute.name : ''" />
       </section>
     </div>
   </main>
 </template>
 
 <script lang="ts">
-import '../../assets/styles/layouts/main.css';
+import 'lib/assets/styles/layouts/main.css';
 import {
-  computed, defineComponent, ref,
+  computed, defineComponent, PropType, ref,
 } from 'vue';
 import { useRoute } from 'vue-router';
-import type { RouteOrGroup } from '../../types/configs';
-import useStore from '../../controllers/store/store';
-import Header from '../components/header.vue';
-import Sidebar from '../components/sidebar.vue';
+import type { MainLayoutProps, MainLayoutRoute } from 'lib/types/configs/routing/layouts';
+import useStore from 'lib/controllers/store/store';
+import Header from 'lib/views/components/main-layout/header.vue';
+import Sidebar from 'lib/views/components/main-layout/sidebar.vue';
 
 export default defineComponent({
   name: 'MainLayout',
@@ -36,21 +37,30 @@ export default defineComponent({
     Sidebar,
     Header,
   },
-  setup () {
+  props: {
+    routes: {
+      type: Array as PropType<MainLayoutRoute[]>,
+      default: () => ([]),
+    },
+    data: {
+      type: Object as PropType<MainLayoutProps>,
+      default: () => ({}),
+    },
+  },
+  setup (props) {
     const route = useRoute();
     const store = useStore();
 
     const sidebarOpen = ref<boolean>(false);
     const sidebarCollapsed = computed<boolean>(() => store.state.sidebarCollapsed);
 
-    const routes = store.state.project.routes.routes;
-    const activeRoute = computed<RouteOrGroup>(() => routes.find((item) => item.route?.name === route.name) || null);
+    const activeRoute = computed<MainLayoutRoute | null>(() => props.routes
+      .find((item) => item.name === route.name) || null);
 
     return {
       sidebarCollapsed,
       sidebarOpen,
       activeRoute,
-      routes,
     };
   },
 });

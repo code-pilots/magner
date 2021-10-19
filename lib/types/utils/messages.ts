@@ -1,5 +1,5 @@
 import type { ElMessageBoxOptions } from 'element-plus';
-import type { TranslateData } from '../../utils/core/translate';
+import type { TranslateData } from 'lib/utils/core/translate';
 
 /**
  * Element-plus ElMessageBox. Check docs for props:

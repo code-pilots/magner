@@ -19,9 +19,9 @@
 </template>
 
 <script lang="ts">
-import '../../assets/styles/components/icons.css';
+import 'lib/assets/styles/components/icons.css';
 import { defineComponent, PropType } from 'vue';
-import type { IconImport } from '../../types/utils/useful';
+import type { IconImport } from 'lib/types/utils/useful';
 import SvgImporter from './svg-importer.vue';
 
 export default defineComponent({

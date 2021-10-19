@@ -1,5 +1,5 @@
-import type { Validators } from '../../types/configs';
-import { translate, TranslateError } from '../../utils/core/translate';
+import type { Validators } from 'lib/types/configs/development';
+import { translate, TranslateError } from 'lib/utils/core/translate';
 
 /** Supported validation transformations */
 export const validators: Validators<string> = {

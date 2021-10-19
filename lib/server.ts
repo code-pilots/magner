@@ -1,7 +1,7 @@
 import { createServer } from 'vite';
 import path from 'path';
+import type { ProjectConfig } from 'lib/types/configs/project';
 import analyzers from './analyzers';
-import type { ProjectConfig } from './types/configs';
 
 (async () => {
   const server = await createServer({

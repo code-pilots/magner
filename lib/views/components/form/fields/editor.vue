@@ -7,13 +7,13 @@
 </template>
 
 <script lang="ts">
-import '../../../../assets/styles/components/editor.css';
+import 'lib/assets/styles/components/editor.css';
 import {
   defineComponent, onMounted, PropType, ref, watchEffect,
 } from 'vue';
-import { useTranslate, useChecks } from '../../../../utils';
-import type { EditorField } from '../../../../types/form/fields/editor';
-import setupEditor from '../../../../utils/form/editor';
+import { useTranslate, useChecks } from 'lib/utils';
+import type { EditorField } from 'lib/types/form/fields/editor';
+import setupEditor from 'lib/utils/form/editor';
 
 export default defineComponent({
   name: 'FormEditor',

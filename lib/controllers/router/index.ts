@@ -1,5 +1,10 @@
-import { createRouter, createWebHistory, Router } from 'vue-router';
-import type { RoutingConfig } from '../../types/configs';
+import {
+  createRouter,
+  createWebHistory,
+  Router,
+  RouteRecordRaw,
+} from 'vue-router';
+import type { RoutingConfig } from 'lib/types/configs/routing';
 import makeRoutes from './make-routes';
 
 export interface RoutingFinalConfig {
@@ -13,7 +18,7 @@ export const routerController = <ROLE extends string>(config: RoutingConfig): Ro
 
   const router = createRouter({
     history: createWebHistory(),
-    routes,
+    routes: routes as RouteRecordRaw[],
   });
 
   return {

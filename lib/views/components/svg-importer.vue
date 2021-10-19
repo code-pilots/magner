@@ -33,7 +33,7 @@ export default defineComponent({
     }
 
     return {
-      node: markRaw(node || null),
+      node: node ? markRaw(node) : null,
     };
   },
 });

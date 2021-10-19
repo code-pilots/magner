@@ -1,8 +1,8 @@
 <template>
   <el-select
+    ref="selectEl"
     :model-value="val"
     :loading="loading"
-    :value-key="field.props.valueKey || 'value'"
     :placeholder="customT(field.props.placeholder || '')"
     :disabled="disabled || false"
     :clearable="field.props.clearable || false"
@@ -12,8 +12,8 @@
     :default-first-option="field.props.defaultFirstOption || false"
     :filterable="field.props.filterable || false"
     :filter-method="field.props.filterMethod || null"
-    :remote="field.props.remote || false"
-    :remote-method="remoteMethod"
+    :remote="field.props.remote && field.props.filterable || false"
+    :remote-method="field.props.filterable ? remoteMethod : null"
     :loading-text="customT(field.props.loadingText || '')"
     :no-match-text="customT(field.props.noMatchText || '')"
     :no-data-text="customT(field.props.noDataText || '')"
@@ -24,7 +24,7 @@
       :key="field.props.valueKey ? option[field.props.valueKey] : option.value"
       :value="field.props.valueKey ? option[field.props.valueKey] : option.value"
       :label="field.props.labelKey ? customT(option[field.props.labelKey]) : customT(option.label)"
-      :disabled="option.disabled"
+      :disabled="option.disabled || false"
     />
   </el-select>
 </template>
@@ -35,9 +35,16 @@ import {
   PropType,
   ref,
   watchEffect,
+  watch,
+  onMounted,
 } from 'vue';
-import type { SelectField } from '../../../../types/form/fields/select';
-import { useTranslate, requestWrapper, useChecks } from '../../../../utils';
+import type { ElSelect } from 'element-plus';
+import type { SelectField } from 'lib/types/form/fields/select';
+import { useTranslate } from 'lib/utils/core/translate';
+import { useChecks } from 'lib/utils/core/mixed-check';
+import { requestWrapper } from 'lib/utils/core/request';
+
+type SelectValue = number | string | Record<string, unknown> | (number|string|Record<string, unknown>)[];
 
 export default defineComponent({
   name: 'FormSelect',
@@ -47,7 +54,7 @@ export default defineComponent({
       required: true,
     },
     modelValue: {
-      type: [String, Number],
+      type: [String, Number, Array, Object] as PropType<SelectValue>,
       default: '',
     },
   },
@@ -56,9 +63,10 @@ export default defineComponent({
     const { customT } = useTranslate();
     const { disabled } = useChecks(props.field);
 
-    const val = ref<number|string>(props.modelValue);
-    const allOptions = ref<Record<string, any>[]>(props.field.options || []);
+    const val = ref<SelectValue>(props.modelValue);
+    const allOptions = ref<SelectField['options']>(props.field.options);
     const loading = ref<boolean>(false);
+    const selectEl = ref<typeof ElSelect>();
 
     const changeVal = (newVal: string|number) => {
       val.value = newVal;
@@ -70,15 +78,32 @@ export default defineComponent({
 
       loading.value = true;
       const newOptions = await requestWrapper(search, props.field.props.remoteMethod);
-      allOptions.value = newOptions.data || [];
+      allOptions.value = newOptions.data?.rows || newOptions.data || [];
       loading.value = false;
     };
+
+    onMounted(async () => {
+      await remoteMethod('');
+
+      if (typeof props.modelValue === 'object' && selectEl.value) {
+        if (Array.isArray(props.modelValue)) {
+          selectEl.value.selected = props.modelValue.map((opt) => ({
+            value: typeof opt === 'object' ? opt[props.field.props.valueKey || 'value'] || '' : opt || '',
+            currentLabel: typeof opt === 'object' ? opt[props.field.props.labelKey || 'label'] || '' : opt || '',
+            isDisabled: !!props.field.props.disabled,
+          }));
+        } else {
+          selectEl.value.selectedLabel = props.modelValue[props.field.props.labelKey || 'label'];
+        }
+      }
+    });
 
     watchEffect(() => {
       val.value = props.modelValue;
     });
-    watchEffect(() => {
-      allOptions.value = props.field.options;
+
+    watch(() => props.field.options, (newVal) => {
+      allOptions.value = newVal;
     });
 
     return {
@@ -86,6 +111,7 @@ export default defineComponent({
       disabled,
       loading,
       allOptions,
+      selectEl,
       customT,
       changeVal,
       remoteMethod,
