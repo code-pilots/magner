@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import globalValues from '../../global';
+import globalValues from 'lib/global';
 import { ApiError } from './api-error';
 
 interface RequestConfig extends RequestInit {
@@ -20,6 +20,7 @@ export const http = async <T>(path: string, config: RequestConfig): Promise<T> =
   const headers: HeadersInit = {};
   if (!config.isFormdata) headers['Content-Type'] = 'application/json';
   if (globalValues.store?.state?.token) headers.Authorization = `Bearer ${globalValues.store.state.token}`;
+  headers['app-id'] = '61668bed20b7c65aee083fd0';
 
   try {
     const req = new Request(globalValues.development.envs.API_URL + path, {
