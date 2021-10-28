@@ -35,7 +35,7 @@
     "@editorjs/header": "^2.6.1",
     "@editorjs/list": "^1.6.2",
     "editorjs-table-readonly": "^1.1.0",
-    "element-plus": "^1.1.0-beta.20",
+    "element-plus": "^1.1.0-beta.24",
     "maska": "^1.4.6",
     "vue": "^3.2.20",
     "vue-i18n": "9.2.0-beta.3",

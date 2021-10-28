@@ -6,7 +6,7 @@
     :required="!!field.required"
     :label-width="field.label ? (isMobile ? null : '100px') : '0'"
     :error="error"
-    :class="['generic-form_item', 'generic-form_item-' + field.type]"
+    :class="['generic-form_item', 'generic-form_item-' + field.type, 'input-' + field.name]"
   >
     <template v-if="field.label" #label>
       {{ customT(field.label) }}
