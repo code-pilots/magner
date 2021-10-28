@@ -56,7 +56,15 @@ export interface MainLayoutGroup<ROUTE = string> {
   icon?: IconImport,
 }
 
+/** Properties of the 'main' layout */
 export interface MainLayoutProps extends LayoutProps {
+  /** A wide icon to display as the project logo. Displayed when the sidebar is not collapsed */
+  headerIcon?: IconImport,
+  /** Project logo small icon. Displayed when the sidebar is collapsed */
+  headerCollapsedIcon?: IconImport,
+  /** Project title is written in the header **only** if `headerIcon` is not chosen */
+  headerTitle?: TranslateData,
+
   sidebarGroups?: MainLayoutGroup[],
 }
 

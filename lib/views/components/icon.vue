@@ -31,7 +31,7 @@ export default defineComponent({
   },
   props: {
     icon: {
-      type: [Function] as PropType<IconImport>,
+      type: Function as unknown as PropType<IconImport>,
       default: null,
     },
     name: {

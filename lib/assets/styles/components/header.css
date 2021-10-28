@@ -3,14 +3,13 @@
   justify-content: space-between;
   height: 50px;
   width: 100%;
-  background-color: #f2f2f2;
+  border-bottom: 1px solid #DFE2E8;
 
   &_logo {
     display: flex;
     align-items: center;
     width: 230px;
     padding-left: 24px;
-    border-right: solid 1px #e6e6e6;
     transition: width .3s;
 
     & h1 {

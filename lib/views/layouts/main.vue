@@ -2,7 +2,8 @@
   <main :class="{'sidebar-collapsed': sidebarCollapsed}" class="main-layout">
     <Header
       v-model:sidebar="sidebarOpen"
-      :title="activeRoute ? activeRoute.title : ''"
+      :collapsed="sidebarCollapsed"
+      :settings="data"
     />
 
     <Sidebar
