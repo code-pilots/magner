@@ -37,8 +37,8 @@ const router = routerController<ROLE>({
         name: 'main-layout',
         path: '/',
         props: {
-          // headerIcon: () => import('../assets/icons/brand-light.svg'),
-          // headerCollapsedIcon: () => import('../assets/icons/logo-light.svg'),
+          headerIcon: () => import('../assets/icons/brand-light.svg'),
+          headerCollapsedIcon: () => import('../assets/icons/logo-light.svg'),
           sidebarGroups: [
             {
               name: 'posts',

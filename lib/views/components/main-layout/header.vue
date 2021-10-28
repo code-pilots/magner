@@ -2,14 +2,14 @@
   <header class="header">
     <div class="header_logo">
       <template v-if="collapsed">
-        <svg-icon v-if="settings.headerCollapsedIcon" :icon="settings.headerCollapsedIcon" />
+        <svg-icon v-if="settings.headerCollapsedIcon" :icon="settings.headerCollapsedIcon" size="inherit" />
         <h1 v-else-if="settings.headerTitle">{{ settings.headerTitle.charAt(0) || '' }}</h1>
-        <svg-icon v-else core="logo-light" />
+        <svg-icon v-else core="logo-light" size="inherit" />
       </template>
       <template v-else>
-        <svg-icon v-if="settings.headerIcon" :icon="settings.headerIcon" />
+        <svg-icon v-if="settings.headerIcon" :icon="settings.headerIcon" size="inherit" />
         <h1 v-else-if="settings.headerTitle">{{ settings.headerTitle }}</h1>
-        <svg-icon v-else core="brand-light" />
+        <svg-icon v-else core="brand-light" size="inherit" />
       </template>
     </div>
 
@@ -25,7 +25,7 @@
         <el-dropdown v-if="Object.keys(allLanguages).length > 1" size="small" trigger="hover">
           <template #default>
             <el-button size="mini" circle>
-              <svg-icon core="globe" />
+              <svg-icon core="language" size="full" />
             </el-button>
           </template>
 
@@ -44,8 +44,8 @@
 
         <el-dropdown size="small" trigger="hover">
           <template #default>
-            <el-button size="mini" circle>
-              <svg-icon core="user" />
+            <el-button type="primary" size="mini" circle class="header_right_user">
+              <svg-icon core="user" size="full" />
             </el-button>
           </template>
 
