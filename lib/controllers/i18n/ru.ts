@@ -38,7 +38,7 @@ export const ruLocale: TranslationSchema = {
 
     table: {
       filters: 'Фильтры',
-      more_filters: 'Больше фильтров',
+      more_filters: 'Все фильтры',
       filters_applied: 'Применено фильтров',
     },
 

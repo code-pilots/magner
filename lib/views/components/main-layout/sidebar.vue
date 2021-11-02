@@ -12,11 +12,11 @@
             v-if="!route.routes && isVisible(route)"
             :key="route.name"
             :index="route.name"
-            class="sidebar_menu_item"
+            class="sidebar_item"
           >
             <svg-icon :icon="route.icon" class="el-icon-no-icon-just-kiddin" />
             <template #title>
-              <span class="sidebar_menu_item_title">
+              <span class="sidebar_item_title">
                 {{ customT(route.title) }}
               </span>
             </template>
@@ -26,21 +26,23 @@
             v-else-if="route.routes"
             :key="route.name"
             :index="route.name"
+            class="sidebar_submenu"
+            popper-class="popper-sidebar-submenu"
           >
             <template #title>
               <svg-icon :icon="route.icon" class="el-icon-margin-right" />
-              <span>{{ customT(route.title) }}</span>
+              <span class="sidebar_item_title">{{ customT(route.title) }}</span>
             </template>
             <template v-for="nested in route.routes">
               <el-menu-item
                 v-if="isVisible(nested)"
                 :key="nested.name"
                 :index="nested.name"
-                class="sidebar_menu_item"
+                class="sidebar_item"
               >
                 <svg-icon :icon="nested.icon" class="el-icon-no-icon-just-kiddin" />
                 <template #title>
-                  <span class="sidebar_menu_item_title">
+                  <span class="sidebar_item_title">
                     {{ customT(nested.title) }}
                   </span>
                 </template>

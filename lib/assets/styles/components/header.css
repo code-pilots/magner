@@ -41,6 +41,10 @@
     align-items: center;
     justify-content: space-between;
     padding: 0 8px;
+
+    @media (--breakpoint-small) {
+      justify-content: flex-end;
+    }
   }
 
   &_left, &_right {
@@ -73,10 +77,14 @@
       }
     }
 
-    &_user .icon {
-      width: 18px;
-      height: 18px;
-      & svg > * {
+    &_globe, &_user {
+      & .el-icon {
+        font-size: 18px;
+      }
+    }
+
+    &_user {
+      & .el-icon svg > * {
         stroke: white;
       }
     }

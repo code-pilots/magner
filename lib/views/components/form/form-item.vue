@@ -10,7 +10,7 @@
   >
     <template v-if="field.label" #label>
       {{ customT(field.label) }}
-      <el-tooltip v-if="field.hint">
+      <el-tooltip v-if="field.hint" :append-to-body="false" popper-class="generic-form_item_tooltip">
         <svg-icon
           size="sm"
           class="generic-form_item_help"

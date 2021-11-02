@@ -240,6 +240,7 @@ export default cardPageController({
         },
 
         /** Dates */
+        /*
         {
           type: 'row',
           title: 'Date Range Pickers',
@@ -260,7 +261,6 @@ export default cardPageController({
                   dataType: 'date',
                   label: 'Date picker',
                   props: {
-                    disabled: true,
                     type: 'date',
                     format: 'DD.MM.YYYY',
                     placeholder: '04.10.2001',
@@ -272,7 +272,6 @@ export default cardPageController({
                   dataType: 'array',
                   label: 'Date time range',
                   props: {
-                    disabled: true,
                     type: 'datetimerange',
                   },
                 },
@@ -280,6 +279,7 @@ export default cardPageController({
             },
           ],
         },
+        */
 
         /** Dropzone */
         {

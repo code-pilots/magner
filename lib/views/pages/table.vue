@@ -10,7 +10,11 @@
         @submit="filterItems"
       >
         <template #after>
-          <el-button type="primary" icon="el-icon-s-operation" @click="drawerOpen = true">
+          <el-button
+            type="primary"
+            :icon="filterIcon"
+            @click="drawerOpen = true"
+          >
             {{ t('core.table.more_filters') }}
           </el-button>
           <el-tag v-if="appliedFilters" closable @close="clearFilters">
@@ -90,10 +94,11 @@
 import 'lib/assets/styles/pages/table.css';
 import {
   computed,
-  defineComponent, PropType, reactive, ref, watch, watchEffect,
+  defineComponent, PropType, reactive, ref, shallowRef, watch, watchEffect,
 } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
 import type { TableConfig } from 'lib/types/configs';
+import FilterIcon from 'lib/assets/icons/filter.svg';
+import { useRoute, useRouter } from 'vue-router';
 import { useMobile } from 'lib/utils/core/is-mobile';
 import { useTranslate } from 'lib/utils/core/translate';
 import useDialogForm from 'lib/utils/form/use-dialog-form';
@@ -118,6 +123,8 @@ export default defineComponent({
     },
   },
   setup (props) {
+    const filterIcon = shallowRef(FilterIcon);
+
     const { t, customT } = useTranslate();
     const route = useRoute();
     const router = useRouter();
@@ -189,6 +196,7 @@ export default defineComponent({
     });
 
     return {
+      filterIcon,
       t,
       customT,
       requestData,

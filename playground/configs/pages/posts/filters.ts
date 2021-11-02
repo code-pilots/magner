@@ -15,7 +15,12 @@ const postsFilters = filtersFormController({
     page: 1,
   },
 
-  layout: [],
+  layout: [{
+    type: 'input',
+    name: 'fullName',
+    // label: 'Полное имя',
+    props: {},
+  }],
 });
 
 export default postsFilters;

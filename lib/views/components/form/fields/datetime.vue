@@ -14,8 +14,9 @@
 import {
   defineComponent, PropType, ref, watchEffect,
 } from 'vue';
-import { useTranslate, useChecks } from '../../../../utils';
-import { DateTimeField } from '../../../../types/form/fields/datetime';
+import type { DateTimeField } from 'lib/types';
+import { useTranslate } from 'lib/utils/core/translate';
+import { useChecks } from 'lib/utils/core/mixed-check';
 
 export default defineComponent({
   name: 'DateTime',

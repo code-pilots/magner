@@ -24,9 +24,7 @@
       <div class="header_right">
         <el-dropdown v-if="Object.keys(allLanguages).length > 1" size="small" trigger="hover">
           <template #default>
-            <el-button size="mini" circle class="header_right_globe">
-              <svg-icon core="globe" size="full" />
-            </el-button>
+            <el-button :icon="globeIcon" size="mini" circle class="header_right_globe" />
           </template>
 
           <template #dropdown>
@@ -44,9 +42,7 @@
 
         <el-dropdown size="small" trigger="hover">
           <template #default>
-            <el-button type="primary" size="mini" circle class="header_right_user">
-              <svg-icon core="user" size="full" />
-            </el-button>
+            <el-button :icon="userIcon" type="primary" size="mini" circle class="header_right_user" />
           </template>
 
           <template #dropdown>
@@ -72,7 +68,9 @@
 
 <script lang="ts">
 import 'lib/assets/styles/components/header.css';
-import { defineComponent, PropType, ref } from 'vue';
+import { defineComponent, PropType, ref, shallowRef } from 'vue';
+import GlobeIcon from 'lib/assets/icons/globe.svg';
+import UserIcon from 'lib/assets/icons/user.svg';
 import { useRouter } from 'vue-router';
 import useStore from 'lib/controllers/store/store';
 import { useTranslate } from 'lib/utils/core/translate';
@@ -97,6 +95,9 @@ export default defineComponent({
   },
   emits: ['update:sidebar'],
   setup (props, context) {
+    const globeIcon = shallowRef(GlobeIcon);
+    const userIcon = shallowRef(UserIcon);
+
     const { customT, t, locale } = useTranslate();
     const store = useStore();
     const router = useRouter();
@@ -123,6 +124,9 @@ export default defineComponent({
     };
 
     return {
+      userIcon,
+      globeIcon,
+
       t,
       customT,
       isMobile,

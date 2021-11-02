@@ -1,6 +1,6 @@
 <template>
   <el-row
-    class="login-page flex-center"
+    class="login-page"
     tag="section"
   >
     <el-col :xs="22" :sm="12" :lg="8">
@@ -14,6 +14,9 @@
         @submit="login"
       >
         <template #before>
+          <figure class="login-page_logo">
+            <img src="/brand-light.svg" alt="" />
+          </figure>
           <h1 class="login-page_form_title">
             {{ customT(config.title) }}
           </h1>

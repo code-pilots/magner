@@ -77,6 +77,14 @@
       }
     }
 
+    &_tooltip.el-popper, &_tooltip.el-popper.is-dark {
+      color: black;
+      background: #FFDB31;
+      & .el-popper__arrow:before {
+        background: #FFDB31;
+      }
+    }
+
     & .el-form-item__label {
       @media (--breakpoint-small) {
         line-height: 18px;
@@ -185,7 +193,7 @@
     width: 100%;
   }
 
-  & .el-form-item {
+  & .el-form-item, &.el-form--label-top .el-form-item {
     &__label {
       padding: 0;
       line-height: 30px;
