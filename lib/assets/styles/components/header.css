@@ -73,9 +73,19 @@
       }
     }
 
-    & .icon {
-      width: 20px;
-      height: 20px;
+    &_user .icon {
+      width: 18px;
+      height: 18px;
+      & svg > * {
+        stroke: white;
+      }
+    }
+
+    & .el-dropdown {
+      & > .el-button {
+        width: 36px;
+        height: 36px;
+      }
     }
 
     &_user.el-button {

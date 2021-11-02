@@ -113,7 +113,7 @@ export default defineComponent({
   },
   props: {
     config: {
-      type: Object as PropType<TableConfig>,
+      type: Object as PropType<TableConfig<any>>,
       required: true,
     },
   },
@@ -152,7 +152,7 @@ export default defineComponent({
 
     // Depending on URL query existence and configuration, load initial data from URL or LocalStorage
     const initialData = props.config.filters.saveToLocalStorage && !Object.keys(route.query).length
-      ? store.state.project.lstorage.deepRead('filters', route.name as string)
+      ? store.state.project.lstorage.deepRead('filters', route.name as string) as Record<string, any>
       : store.state.project.development.urlParsers.urlToData(route.query);
     filterUrlDataComparison(requestData, initialData);
 

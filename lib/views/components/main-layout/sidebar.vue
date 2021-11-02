@@ -52,8 +52,7 @@
     </el-scrollbar>
 
     <el-button class="sidebar_toggle" @click="toggleCollapse">
-      <svg-icon :rotate="isCollapsed ? 'right' : 'left'" core="chevrons" />
-      {{ isCollapsed ? '' : t('core.sidebar.collapse') }}
+      <svg-icon :rotate="isCollapsed ? 'right' : 'left'" core="chevrons" size="full" />
     </el-button>
   </nav>
 </template>

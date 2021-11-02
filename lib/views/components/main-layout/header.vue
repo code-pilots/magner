@@ -24,8 +24,8 @@
       <div class="header_right">
         <el-dropdown v-if="Object.keys(allLanguages).length > 1" size="small" trigger="hover">
           <template #default>
-            <el-button size="mini" circle>
-              <svg-icon core="language" size="full" />
+            <el-button size="mini" circle class="header_right_globe">
+              <svg-icon core="globe" size="full" />
             </el-button>
           </template>
 

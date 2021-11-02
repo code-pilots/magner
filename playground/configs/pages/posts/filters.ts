@@ -6,20 +6,13 @@ const postsFilters = filtersFormController({
   saveToLocalStorage: true,
 
   actions: [],
-
   submitEvent: 'input',
 
+  filtersData: {},
+  sort: {},
   pagination: {
     items: 100,
     page: 1,
-  },
-
-  filtersData: {
-    fullName: '',
-  },
-
-  sort: {
-    fullName: 'ASC',
   },
 
   layout: [],

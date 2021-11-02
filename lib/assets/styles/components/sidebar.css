@@ -1,67 +1,77 @@
 .sidebar {
-    position: fixed;
-    top: 50px;
-    bottom: 0;
-    left: 0;
-    width: 230px;
-    transition: width .3s;
-    background-color: white;
-    z-index: 10;
+  position: fixed;
+  top: 50px;
+  bottom: 0;
+  left: 0;
+  width: 230px;
+  transition: width .3s;
+  background-color: white;
+  z-index: 10;
 
-    &.collapsed {
-        width: 64px;
+  &.collapsed {
+    width: 64px;
+  }
+
+  &:not(.open) {
+    @media (--breakpoint-small) {
+      display: none;
     }
+  }
 
-    &:not(.open) {
-        @media (--breakpoint-small) {
-            display: none;
+  &_menu, & .el-scrollbar__view {
+    height: 100%;
+    border: none;
+  }
+
+  &_menu {
+    &_item {
+      &_title {
+        display: inline-block;
+        margin-top: 2px;
+        margin-left: 6px;
+      }
+
+      &.is-active {
+        background: #ECF5FF;
+
+        &:before {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 0;
+          height: 100%;
+          width: 2.7px;
+          background: #46A0FC;
         }
+      }
     }
 
-    &_menu, & .el-scrollbar__view {
-        height: 100%;
-        border: none;
+    & .el-icon-margin-right {
+      margin-right: 4px;
+    }
+  }
+
+  &_toggle.el-button {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 26px;
+    height: 26px;
+    min-width: 26px;
+    min-height: 26px;
+    padding: 4px;
+    background: #F4F4F5;
+    border-radius: 2px;
+    border: none;
+    transition: right .3s;
+
+    & .icon {
+      width: 10px;
+      height: 10px;
     }
 
-    &_menu {
-        &_item {
-            &_title {
-                display: inline-block;
-                margin-top: 2px;
-                margin-left: 6px;
-            }
-        }
-
-        & .el-icon-margin-right {
-            margin-right: 4px;
-        }
+    @media (--breakpoint-small) {
+      display: none;
     }
-
-    &_scroll {
-        padding-bottom: 40px;
-    }
-
-    &_toggle {
-        position: absolute;
-        bottom: 0;
-        height: 30px;
-        width: 100%;
-        border: none;
-        transition: width .3s;
-        border-top: solid 1px #e6e6e6;
-        border-radius: 0;
-
-        & > span {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            & .icon {
-                margin-right: 6px;
-            }
-        }
-
-        @media (--breakpoint-small) {
-            display: none;
-        }
-    }
+  }
 }

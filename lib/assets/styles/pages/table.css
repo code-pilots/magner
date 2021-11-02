@@ -1,125 +1,124 @@
 .table-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-height: 100%;
+
+  @media (--breakpoint-small) {
+    display: block;
+  }
+
+  &_top {
     display: flex;
-    flex-direction: column;
-    height: 100%;
-    max-height: 100%;
+    justify-content: space-between;
+    padding: 12px;
+    border-bottom: 1px solid #EBEEF5;
 
     @media (--breakpoint-small) {
-        display: block;
+      flex-direction: column;
     }
 
-    &_top {
-        display: flex;
-        justify-content: space-between;
-        padding: 12px;
-        border-bottom: 1px solid #EBEEF5;
-
-        @media (--breakpoint-small) {
-            flex-direction: column;
-        }
-
-        & .el-form-item {
-            margin-bottom: 0;
-        }
-
-        & .el-button {
-            width: auto;
-            @media (--breakpoint-small) {
-                width: 100%;
-            }
-        }
-
-        &_filters {
-            display: flex;
-            flex-wrap: nowrap;
-            align-items: center;
-            overflow-x: hidden;
-
-            @media (--breakpoint-small) {
-                flex-direction: column;
-                margin-bottom: 4px;
-            }
-
-            & .el-form-item {
-                max-width: 200px;
-                margin-right: 8px;
-                @media (--breakpoint-small) {
-                    width: 100%;
-                    max-width: 100%;
-                    margin-right: 0;
-                    margin-bottom: 4px;
-                }
-            }
-
-            & .el-tag {
-                margin-left: 8px;
-            }
-        }
+    & .el-form-item {
+      margin-bottom: 0;
     }
 
-    & .form_drawer {
-        padding: 8px 8px 56px;
-
-        & .generic-form {
-            display: block;
-            width: 100%;
-            height: 100%;
-            overflow-y: auto;
-        }
-
-        & .el-form-item {
-            width: 100%;
-            margin-bottom: 8px;
-        }
-
-        & .generic-form_submit {
-            position: absolute;
-            bottom: 8px;
-            left: 8px;
-            width: calc(100% - 16px);
-            height: 40px;
-        }
-    }
-
-    & .form_dialog {
-        & .el-dialog__body {
-            padding-top: 12px;
-        }
-
-        & .generic-form {
-            &_item {
-                margin-bottom: 8px;
-            }
-
-            &_submit {
-                width: 100%;
-            }
-        }
-    }
-
-    &_table {
+    & .el-button {
+      width: auto;
+      @media (--breakpoint-small) {
         width: 100%;
-        overflow-y: auto;
-        @media (--breakpoint-small) {
-            padding-bottom: 40px;
-        }
+      }
     }
 
-    &_pagination {
+    &_filters {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      overflow-x: hidden;
+
+      @media (--breakpoint-small) {
+        flex-direction: column;
+        margin-bottom: 4px;
+      }
+
+      & .el-form-item {
+        max-width: 200px;
+        margin-right: 8px;
+        @media (--breakpoint-small) {
+          width: 100%;
+          max-width: 100%;
+          margin-right: 0;
+          margin-bottom: 4px;
+        }
+      }
+
+      & .el-tag {
+        margin-left: 8px;
+      }
+    }
+  }
+
+  & .form_drawer {
+    padding: 8px 8px 56px;
+
+    & .generic-form {
+      display: block;
+      width: 100%;
+      height: 100%;
+      overflow-y: auto;
+    }
+
+    & .el-form-item {
+      width: 100%;
+      margin-bottom: 8px;
+    }
+
+    & .generic-form_submit {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      width: calc(100% - 16px);
+      height: 40px;
+    }
+  }
+
+  & .form_dialog {
+    & .el-dialog__body {
+      padding-top: 12px;
+    }
+
+    & .generic-form {
+      &_item {
+        margin-bottom: 8px;
+      }
+
+      &_submit {
         width: 100%;
-        height: 40px;
-        min-height: 40px;
-        background-color: white;
-        border-top: solid 1px #e6e6e6;
-
-        @media (--breakpoint-small) {
-            position: fixed;
-            bottom: 0;
-            z-index: 5;
-
-            .el-pagination__total, .el-pagination__sizes, .el-pagination__jump {
-                display: none !important;
-            }
-        }
+      }
     }
+  }
+
+  &_table {
+    width: 100%;
+    overflow-y: auto;
+    @media (--breakpoint-small) {
+      padding-bottom: 40px;
+    }
+  }
+
+  &_pagination {
+    width: 100%;
+    height: 40px;
+    min-height: 40px;
+    background: #FAFAFA;
+
+    @media (--breakpoint-small) {
+      position: fixed;
+      bottom: 0;
+      z-index: 5;
+
+      .el-pagination__total, .el-pagination__sizes, .el-pagination__jump {
+        display: none !important;
+      }
+    }
+  }
 }

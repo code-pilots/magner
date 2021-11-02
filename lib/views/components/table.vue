@@ -60,7 +60,7 @@ export default defineComponent({
       required: true,
     },
     tableHeight: {
-      type: String,
+      type: [String, Number],
       default: 'auto',
     },
   },
@@ -68,7 +68,7 @@ export default defineComponent({
   setup (props, context) {
     const { customT } = useTranslate();
 
-    const sort = (e) => {
+    const sort = (e: unknown) => {
       context.emit('sort', e);
     };
 
