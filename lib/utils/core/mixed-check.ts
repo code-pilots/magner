@@ -1,5 +1,5 @@
 import { computed } from 'vue';
-import type { GenericComponent } from '../../types/form';
+import type { GenericComponent } from 'lib/types/form/form';
 
 export type MixedChecker = (data: {
   role: string,

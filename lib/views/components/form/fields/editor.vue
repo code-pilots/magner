@@ -14,6 +14,7 @@ import {
 import { useTranslate, useChecks } from 'lib/utils';
 import type { EditorField } from 'lib/types/form/fields/editor';
 import setupEditor from 'lib/utils/form/editor';
+import { OutputData } from '@editorjs/editorjs';
 
 export default defineComponent({
   name: 'FormEditor',
@@ -43,11 +44,18 @@ export default defineComponent({
     };
 
     onMounted(() => {
+      let parsedData: OutputData;
+      try {
+        parsedData = JSON.parse(val.value);
+      } catch (_) {
+        parsedData = { blocks: [] };
+      }
+
       setupEditor({
         holder: props.field.props.id,
-        placeholder: customT(props.field.props.placeholder),
-        data: {},
-        readOnly: disabled.value,
+        placeholder: customT(props.field.props.placeholder || ''),
+        data: parsedData,
+        readOnly: disabled.value as boolean,
         onChange: (editor) => {
           editor.saver?.save?.().then((outputData) => {
             changeVal(JSON.stringify(outputData));

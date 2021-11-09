@@ -1,5 +1,5 @@
+import type { TranslateData } from 'lib/utils/core/translate';
 import type { BaseField, BaseProps } from '../base';
-import type { TranslateData } from '../../../utils/core/translate';
 
 export interface EditorProps extends BaseProps {
   id: string,

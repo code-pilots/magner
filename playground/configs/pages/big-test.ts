@@ -319,8 +319,7 @@ export default cardPageController({
               name: 'editor1',
               props: {
                 id: 'editor1',
-                placeholder: 'Start writing here',
-                disabled: true,
+                placeholder: 'Начните вводить текст',
               },
             },
           ],

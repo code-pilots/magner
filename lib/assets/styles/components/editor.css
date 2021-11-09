@@ -1,15 +1,7 @@
 .form-editor {
-  & .codex-editor__redactor {
-    padding-bottom: 12px !important;
-    margin-right: 0 !important;
-  }
-
-  & .ce-toolbar__plus {
-    left: -40px !important;
-  }
-
-  & .ce-toolbar__actions {
-    right: -40px !important;
+  min-height: 46px;
+  @media (--breakpoint-small) {
+    padding-bottom: 16px;
   }
 
   &.disabled {
@@ -17,5 +9,47 @@
     border-color: var(--el-disabled-border-base);
     color: var(--el-disabled-color-base);
     cursor: not-allowed;
+  }
+
+  .codex-editor {
+    &.codex-editor--empty {}
+
+    &__redactor {
+      padding-bottom: 12px !important;
+      margin-right: 0 !important;
+    }
+
+    &__loader {
+      height: 46px;
+    }
+
+    & .ce-toolbar {
+      @media (--breakpoint-md) {
+        display: block;
+      }
+
+      &__actions {
+        opacity: 1;
+      }
+
+      &__plus {
+        border: 1px solid #F4F4F5;
+        border-radius: 4px;
+        transform: translate3d(0, calc(16px - 50%), 0px);
+        left: -48px;
+      }
+
+      & .ce-toolbox {
+        right: -48px;
+      }
+    }
+
+    & .ce-block {
+      &.ce-block--focused {}
+
+      &:last-of-type .ce-block__content {
+        border-bottom: 1px solid #DFE2E8;
+      }
+    }
   }
 }
