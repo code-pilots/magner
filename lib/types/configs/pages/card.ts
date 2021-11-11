@@ -1,21 +1,10 @@
-import type { RouteLocationRaw } from 'vue-router';
 import type { RequestCallback } from 'lib/types/utils/api';
 import type { GenericForm } from 'lib/types/form';
-import type { TranslateData } from 'lib/utils/core/translate';
-
-export interface CardTab {
-  active?: boolean,
-  label: TranslateData,
-
-  /** In the tab, you can specify a function which takes a backend response from the page's 'getRequest'
-   * and returns the vue-router acceptable link */
-  link: ((response: unknown) => RouteLocationRaw) | RouteLocationRaw,
-}
+import type { PageHeader } from './shared';
 
 export interface CardConfig {
-  title: TranslateData,
-
-  tabs?: CardTab[],
+  /** Top header of a page. Consists of the page title and tabs */
+  header: PageHeader,
 
   /** CRUD requests for working with entity data */
   getRequest: RequestCallback,

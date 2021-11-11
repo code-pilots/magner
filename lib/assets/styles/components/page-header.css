@@ -1,0 +1,50 @@
+.magner-page-header {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+
+  width: 100%;
+  margin: 0 auto;
+  padding: 12px 24px;
+
+  @media (--breakpoint-small) {
+    width: 90%;
+    padding: 12px 0;
+  }
+
+  @media (--breakpoint-md) {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  &_title {
+    text-align: left;
+  }
+
+  & .el-tabs {
+    &__header {
+      margin-bottom: 0;
+      border-bottom: none;
+    }
+
+    &__item {
+      & a, & span {
+        display: inline-block;
+        height: 100%;
+        padding: 0 20px;
+        color: inherit;
+        text-decoration: inherit;
+      }
+    }
+
+    &--card > .el-tabs__header {
+      &, &.is-active {
+        border-bottom: none;
+      }
+
+      & .el-tabs__item, & .el-tabs__item.is-active {
+        border-bottom-color: #E4E7ED;
+      }
+    }
+  }
+}

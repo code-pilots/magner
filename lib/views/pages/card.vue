@@ -2,25 +2,7 @@
   <Dynamic :request="config.getRequest" :data="cardId" :disabled="isNew">
     <template #default="{response, loading}">
       <section v-loading="loading" class="card-page" :class="pageName">
-        <div v-if="config.title || config.tabs" class="card-page_header">
-          <h1 class="card-page_header_title">
-            {{ customT(config.title) }}
-          </h1>
-          <el-tabs v-if="tabs.tabs.length" :model-value="tabs.activeIndex" type="card">
-            <el-tab-pane
-              v-for="tab in tabs.tabs"
-              :key="tab.index"
-              :name="tab.index"
-            >
-              <template #label>
-                <router-link v-if="!tab.active" :to="typeof tab.link === 'function' ? tab.link(response) : tab.link">
-                  {{ customT(tab.label) }}
-                </router-link>
-                <span v-else>{{ customT(tab.label) }}</span>
-              </template>
-            </el-tab-pane>
-          </el-tabs>
-        </div>
+        <PageHeader :header="config.header" />
 
         <CardForm
           :config="config"
@@ -41,12 +23,13 @@ import {
 import { useRoute } from 'vue-router';
 import { useTranslate } from 'lib/utils/core/translate';
 import type { CardConfig } from 'lib/types/configs';
+import PageHeader from '../components/page-header.vue';
 import Dynamic from '../components/dynamic.vue';
 import CardForm from '../components/form/card-form.vue';
 
 export default defineComponent({
   name: 'CardPage',
-  components: { CardForm, Dynamic },
+  components: { PageHeader, CardForm, Dynamic },
   props: {
     config: {
       type: Object as PropType<CardConfig>,
@@ -59,18 +42,12 @@ export default defineComponent({
     const cardId = computed(() => route.params.id);
     const isNew = computed<boolean>(() => cardId.value === 'new' || !!props.config.alwaysCreate);
 
-    const tabs = computed(() => ({
-      tabs: props.config.tabs?.map((tab, index) => ({ ...tab, index: index.toString() })) || [],
-      activeIndex: props.config.tabs?.findIndex((tab) => tab.active)?.toString() || -1,
-    }));
-
     return {
       customT,
       t,
       cardId,
       isNew,
       pageName: `page-${route.name as string}`,
-      tabs,
     };
   },
 });

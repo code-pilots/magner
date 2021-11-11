@@ -39,7 +39,10 @@ const smallestCol: any = {
 };
 
 export default cardPageController({
-  title: translate('pages.form_layout'),
+  header: {
+    title: translate('pages.form_layout'),
+  },
+
   getRequest: bigtestGet,
   createRequest: bigtestCreate,
   updateRequest: bigtestUpdate,

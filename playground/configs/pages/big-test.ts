@@ -31,7 +31,22 @@ const RadioOptions = [
 ];
 
 export default cardPageController({
-  title: translate('form_test.title'),
+  header: {
+    title: translate('form_test.title'),
+
+    tabs: [
+      {
+        label: 'Hey',
+        active: true,
+        link: '/',
+      },
+      {
+        label: 'Lol',
+        active: false,
+        link: '/',
+      },
+    ],
+  },
 
   getRequest: bigtestGet,
   createRequest: bigtestCreate,
@@ -39,19 +54,6 @@ export default cardPageController({
   deleteRequest: bigtestDelete,
   alwaysCreate: true,
   confirmDelete: true,
-
-  tabs: [
-    {
-      label: 'Hey',
-      active: true,
-      link: '/',
-    },
-    {
-      label: 'Lol',
-      active: false,
-      link: '/',
-    },
-  ],
 
   form: {
     debug: true,

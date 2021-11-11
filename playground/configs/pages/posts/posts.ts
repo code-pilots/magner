@@ -8,7 +8,10 @@ import postsTable from './table';
  * Read more about table configuration in app/configs/table.ts
  */
 export default tablePageController({
-  title: translate('pages.posts'),
+  header: {
+    title: translate('pages.posts'),
+  },
+
   request: readPosts,
   filters: postsFilters,
   table: postsTable,

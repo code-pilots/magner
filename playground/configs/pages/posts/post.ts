@@ -7,7 +7,9 @@ import { readUsers } from '../../../app/requests/users';
 import imageUploadRequest from '../../../app/requests/image-upload';
 
 const postConfig = cardPageController({
-  title: translate('post.form_title'),
+  header: {
+    title: translate('post.form_title'),
+  },
 
   getRequest: getPost,
   createRequest: createPost,

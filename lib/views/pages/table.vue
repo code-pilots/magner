@@ -1,5 +1,7 @@
 <template>
   <section class="table-page">
+    <PageHeader :header="config.header" />
+
     <div v-if="hasFilters" class="table-page_top">
       <GenericForm
         ref="formRef"
@@ -105,6 +107,7 @@ import useDialogForm from 'lib/utils/form/use-dialog-form';
 import useStore from 'lib/controllers/store/store';
 import { layoutToFields } from 'lib/utils/form/form';
 import filterUrlDataComparison from 'lib/utils/form/filter-url-data-comparison';
+import PageHeader from '../components/page-header.vue';
 import DataTable from '../components/table.vue';
 import Dynamic from '../components/dynamic.vue';
 import GenericForm from '../components/form/form.vue';
@@ -112,6 +115,7 @@ import GenericForm from '../components/form/form.vue';
 export default defineComponent({
   name: 'TablePage',
   components: {
+    PageHeader,
     DataTable,
     GenericForm,
     Dynamic,
@@ -139,14 +143,17 @@ export default defineComponent({
     const formRef = ref<typeof GenericForm>();
 
     const hasFilters = computed(() => !!(topFilters.value.length || props.config.filters.linkToCreateNew));
+    const hasHeader = computed(() => !!(props.config.header.title
+      || (props.config.header.tabs && props.config.header.tabs.length)));
     const tableHeight = computed(() => {
-      const headerHeight = 50;
+      const navHeight = 50;
+      const headerHeight = hasHeader.value ? 72 : 0;
       const topHeight = hasFilters.value ? 64 : 0;
       const bottomHeight = 40;
 
       let height;
-      if (isMobile.value) height = headerHeight + bottomHeight;
-      else height = headerHeight + topHeight + bottomHeight;
+      if (isMobile.value) height = navHeight + headerHeight + bottomHeight;
+      else height = navHeight + headerHeight + topHeight + bottomHeight;
 
       return `calc(100vh - ${height + 1}px)`;
     });
