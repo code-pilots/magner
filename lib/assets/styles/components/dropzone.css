@@ -10,6 +10,11 @@
       line-height: 1.2em;
     }
 
+    & .icon-cloud {
+      margin-top: 30px;
+      width: 90px;
+    }
+
     &.images {
       display: flex;
       gap: 12px;

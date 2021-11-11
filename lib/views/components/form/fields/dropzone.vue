@@ -23,11 +23,11 @@
     <div
       v-if="!files.length"
       ref="draggerEl"
-      class="el-upload-dragger"
+      class="el-upload-dragger empty"
       :class="{'is-dragover': dragOver}"
       @click="select"
     >
-      <i class="el-icon-upload" />
+      <svg-icon core="cloud" size="full" />
       <div class="el-upload__text">
         {{ t('core.form.dropzone.drag_here') }} <em>{{ t('core.form.dropzone.click_upload') }}</em>
       </div>

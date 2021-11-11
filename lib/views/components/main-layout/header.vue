@@ -68,7 +68,9 @@
 
 <script lang="ts">
 import 'lib/assets/styles/components/header.css';
-import { defineComponent, PropType, ref, shallowRef } from 'vue';
+import {
+  defineComponent, PropType, ref, shallowRef,
+} from 'vue';
 import GlobeIcon from 'lib/assets/icons/globe.svg';
 import UserIcon from 'lib/assets/icons/user.svg';
 import { useRouter } from 'vue-router';

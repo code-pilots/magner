@@ -119,27 +119,26 @@
       </template>
       <el-button
         v-if="field.props.firstRemovable ? true : i !== 0"
+        :icon="xIcon"
         type="danger"
         plain
         circle
         size="small"
         class="remove-more"
         @click="changeCollectionItems(i)"
-      >
-        <svg-icon size="sm" core="x" />
-      </el-button>
+      />
 
       <div class="flex-grow" />
     </template>
 
     <div class="add-more">
       <el-button
+        :icon="plusIcon"
         type="primary"
         size="small"
         plain
         @click="changeCollectionItems('new')"
       >
-        <svg-icon size="sm" core="plus" />
         {{ t('core.card.add_more') }}
       </el-button>
     </div>
@@ -148,12 +147,15 @@
 
 <script lang="ts">
 import {
-  shallowRef, defineComponent, PropType, ref, watchEffect, reactive, computed,
+  shallowRef, defineComponent, PropType, ref, watchEffect, reactive,
 } from 'vue';
-import type { GenericComponent } from '../../../types/form';
-import type { GenericFormLayout } from '../../../types/form/layout';
-import { collectFieldsFromLayout, fieldsToModels } from '../../../utils/form/form';
-import { useTranslate, useMobile } from '../../../utils';
+import type { GenericComponent } from 'lib/types/form';
+import type { GenericFormLayout } from 'lib/types/form/layout';
+import { collectFieldsFromLayout, fieldsToModels } from 'lib/utils/form/form';
+import { useTranslate } from 'lib/utils/core/translate';
+import { useMobile } from 'lib/utils/core/is-mobile';
+import PlusIcon from 'lib/assets/icons/plus.svg';
+import XIcon from 'lib/assets/icons/x.svg';
 import FormInput from './fields/input.vue';
 import FormSelect from './fields/select.vue';
 import Dropzone from './fields/dropzone.vue';
@@ -203,6 +205,9 @@ export default defineComponent({
     const isMobile = useMobile();
     const customComponent = shallowRef(props.field.type === 'custom' ? props.field.component() : null);
 
+    const plusIcon = shallowRef(PlusIcon);
+    const xIcon = shallowRef(XIcon);
+
     const collectionLen = props.field.type === 'collection' && props.field.props.showFirst ? 1 : 0;
     const collectionFields = collectFieldsFromLayout(props.field.type === 'collection'
       ? (props.field.layout as unknown as GenericFormLayout)
@@ -249,6 +254,8 @@ export default defineComponent({
       collectionItems,
       t,
       customT,
+      plusIcon,
+      xIcon,
       updVal,
       setError,
       customAction,

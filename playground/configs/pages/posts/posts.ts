@@ -1,4 +1,4 @@
-import { tablePageController, translate } from 'lib/index';
+import { tablePageController } from 'lib/index';
 import { readPosts } from '../../../app/requests/posts';
 import postsFilters from './filters';
 import postsTable from './table';
@@ -8,10 +8,7 @@ import postsTable from './table';
  * Read more about table configuration in app/configs/table.ts
  */
 export default tablePageController({
-  header: {
-    title: translate('pages.posts'),
-  },
-
+  header: {},
   request: readPosts,
   filters: postsFilters,
   table: postsTable,

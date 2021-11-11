@@ -14,6 +14,7 @@
         <template #after>
           <el-button
             type="primary"
+            plain
             :icon="filterIcon"
             @click="drawerOpen = true"
           >
@@ -53,7 +54,7 @@
         :to="{name: config.filters.linkToCreateNew.routeName, params: { id: 'new' }}"
         class="table-page_top_create"
       >
-        <el-button native-type="button" type="primary">
+        <el-button :icon="plusIcon" native-type="button" type="primary">
           {{ customT(config.filters.linkToCreateNew.label) }}
         </el-button>
       </router-link>
@@ -107,6 +108,7 @@ import useDialogForm from 'lib/utils/form/use-dialog-form';
 import useStore from 'lib/controllers/store/store';
 import { layoutToFields } from 'lib/utils/form/form';
 import filterUrlDataComparison from 'lib/utils/form/filter-url-data-comparison';
+import PlusIcon from 'lib/assets/icons/plus.svg';
 import PageHeader from '../components/page-header.vue';
 import DataTable from '../components/table.vue';
 import Dynamic from '../components/dynamic.vue';
@@ -128,6 +130,7 @@ export default defineComponent({
   },
   setup (props) {
     const filterIcon = shallowRef(FilterIcon);
+    const plusIcon = shallowRef(PlusIcon);
 
     const { t, customT } = useTranslate();
     const route = useRoute();
@@ -215,6 +218,7 @@ export default defineComponent({
       hasFilters,
       tableHeight,
       topFilters,
+      plusIcon,
       filterItems,
       changeSort,
       clearFilters,
