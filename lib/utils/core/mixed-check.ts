@@ -13,7 +13,7 @@ type MixedCheckerOptional = (data?: {
 
 export const mixedCheck = (checker: MixedChecker): MixedChecker => checker;
 
-export const useChecks = (field: GenericComponent) => {
+export const useChecks = (field: GenericComponent, value?: unknown) => {
   const disabled = computed(() => (typeof field.props.disabled === 'function'
     ? (field.props.disabled as MixedCheckerOptional)()
     : field.props.disabled));
@@ -26,9 +26,14 @@ export const useChecks = (field: GenericComponent) => {
     ? (field.props.readOnly as MixedCheckerOptional)()
     : field.props.readOnly));
 
+  const readOnlyText = computed<string>(() => (
+    (readOnly.value && field.props.readOnlyFormatter) ? field.props.readOnlyFormatter?.(value || null) : ''
+  ));
+
   return {
     disabled,
     hidden,
     readOnly,
+    readOnlyText,
   };
 };

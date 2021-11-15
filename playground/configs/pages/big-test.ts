@@ -99,6 +99,7 @@ export default cardPageController({
               },
               props: {
                 readOnly: true,
+                readOnlyFormatter: (val) => `+${val}`,
                 type: 'tel',
                 placeholder: '+7-915-820-14-02',
                 mask: {
@@ -202,6 +203,7 @@ export default cardPageController({
                 {
                   type: 'radio',
                   name: 'radio',
+                  label: 'Your age?',
                   props: {
                     readOnly: true,
                   },
@@ -223,8 +225,10 @@ export default cardPageController({
                   type: 'checkbox',
                   name: 'checkbox',
                   dataType: 'array',
+                  label: 'Who is allowed?',
                   props: {
                     readOnly: true,
+                    readOnlyFormatter: (val) => (val as string[]).join(' and '),
                   },
                   options: RadioOptions,
                 },

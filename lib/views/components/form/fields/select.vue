@@ -1,32 +1,34 @@
 <template>
-  <el-select
-    ref="selectEl"
-    :model-value="val"
-    :loading="loading"
-    :placeholder="customT(field.props.placeholder || '')"
-    :disabled="disabled || false"
-    :clearable="field.props.clearable || false"
-    :multiple="field.props.multiple || false"
-    :collapse-tags="field.props.collapseTags || false"
-    :multiple-limit="field.props.multipleLimit || 0"
-    :default-first-option="field.props.defaultFirstOption || false"
-    :filterable="field.props.filterable || false"
-    :filter-method="field.props.filterMethod || null"
-    :remote="field.props.remote && field.props.filterable || false"
-    :remote-method="field.props.filterable ? remoteMethod : null"
-    :loading-text="customT(field.props.loadingText || '')"
-    :no-match-text="customT(field.props.noMatchText || '')"
-    :no-data-text="customT(field.props.noDataText || '')"
-    @change="changeVal"
-  >
-    <el-option
-      v-for="option in allOptions"
-      :key="field.props.valueKey ? option[field.props.valueKey] : option.value"
-      :value="field.props.valueKey ? option[field.props.valueKey] : option.value"
-      :label="field.props.labelKey ? customT(option[field.props.labelKey]) : customT(option.label)"
-      :disabled="option.disabled || false"
-    />
-  </el-select>
+  <ReadonlyWrap :field="field" :value="val" gray-block>
+    <el-select
+      ref="selectEl"
+      :model-value="val"
+      :loading="loading"
+      :placeholder="customT(field.props.placeholder || '')"
+      :disabled="disabled || false"
+      :clearable="field.props.clearable || false"
+      :multiple="field.props.multiple || false"
+      :collapse-tags="field.props.collapseTags || false"
+      :multiple-limit="field.props.multipleLimit || 0"
+      :default-first-option="field.props.defaultFirstOption || false"
+      :filterable="field.props.filterable || false"
+      :filter-method="field.props.filterMethod || null"
+      :remote="field.props.remote && field.props.filterable || false"
+      :remote-method="field.props.filterable ? remoteMethod : null"
+      :loading-text="customT(field.props.loadingText || '')"
+      :no-match-text="customT(field.props.noMatchText || '')"
+      :no-data-text="customT(field.props.noDataText || '')"
+      @change="changeVal"
+    >
+      <el-option
+        v-for="option in allOptions"
+        :key="field.props.valueKey ? option[field.props.valueKey] : option.value"
+        :value="field.props.valueKey ? option[field.props.valueKey] : option.value"
+        :label="field.props.labelKey ? customT(option[field.props.labelKey]) : customT(option.label)"
+        :disabled="option.disabled || false"
+      />
+    </el-select>
+  </ReadonlyWrap>
 </template>
 
 <script lang="ts">
@@ -43,11 +45,13 @@ import type { SelectField } from 'lib/types/form/fields/select';
 import { useTranslate } from 'lib/utils/core/translate';
 import { useChecks } from 'lib/utils/core/mixed-check';
 import { requestWrapper } from 'lib/utils/core/request';
+import ReadonlyWrap from '../readonly-wrap.vue';
 
 type SelectValue = number | string | Record<string, unknown> | (number|string|Record<string, unknown>)[];
 
 export default defineComponent({
   name: 'FormSelect',
+  components: { ReadonlyWrap },
   props: {
     field: {
       type: Object as PropType<SelectField>,

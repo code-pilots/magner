@@ -24,7 +24,12 @@ const editorData = JSON.stringify({
 
 export const bigtestGet = request(async () => ({
   data: {
-    phone: '+79203122255',
+    phone: '79203122255',
+    textarea: 'Hello, my dear friends. Today we are going to learn the basics of the spring theory. This is the one of the most interesting topic of the entire physics!',
+    country: 'India',
+    radio: 'Adult',
+    checkbox: ['all', 'child'],
+    datetime1: '2021-11-18 00:00:00',
     editor1: editorData,
   },
 }));

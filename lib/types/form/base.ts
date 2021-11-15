@@ -31,6 +31,9 @@ export interface BaseProps {
 
   /** If 'true', the field gets a design made for the better readability  */
   readOnly?: boolean | { value: boolean } | MixedChecker,
+
+  /** If `readOnly: true`, parse the value of the form field to display as a string */
+  readOnlyFormatter?: (val: unknown) => string,
 }
 
 export interface BaseValidation {

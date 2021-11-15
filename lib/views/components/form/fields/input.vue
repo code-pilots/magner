@@ -1,23 +1,25 @@
 <template>
-  <el-input
-    ref="input"
-    :model-value="val"
-    :placeholder="customT(field.props.placeholder)"
-    :type="field.props.type || 'text'"
-    :maxlength="field.props.maxLength"
-    :minlength="field.props.minLength"
-    :show-word-limit="field.props.showLetterLimit"
-    :clearable="field.props.clearable"
-    :disabled="disabled"
-    :autofocus="field.props.autofocus"
-    @input="changeVal"
-  >
-    <template v-if="field.props.icon" #prefix>
-      <div class="generic-form_icon">
-        <svg-icon :icon="field.props.icon" size="sm" />
-      </div>
-    </template>
-  </el-input>
+  <ReadonlyWrap :field="field" :value="val" gray-block>
+    <el-input
+      ref="input"
+      :model-value="val"
+      :placeholder="customT(field.props.placeholder)"
+      :type="field.props.type || 'text'"
+      :maxlength="field.props.maxLength"
+      :minlength="field.props.minLength"
+      :show-word-limit="field.props.showLetterLimit"
+      :clearable="field.props.clearable"
+      :disabled="disabled"
+      :autofocus="field.props.autofocus"
+      @input="changeVal"
+    >
+      <template v-if="field.props.icon" #prefix>
+        <div class="generic-form_icon">
+          <svg-icon :icon="field.props.icon" size="sm" />
+        </div>
+      </template>
+    </el-input>
+  </ReadonlyWrap>
 </template>
 
 <script lang="ts">
@@ -29,9 +31,11 @@ import { useTranslate } from 'lib/utils/core/translate';
 import { useChecks } from 'lib/utils/core/mixed-check';
 import debounceOnInput from 'lib/utils/form/input-debounce';
 import type { InputField } from 'lib/types/form/fields/input';
+import ReadonlyWrap from '../readonly-wrap.vue';
 
 export default defineComponent({
   name: 'FormInput',
+  components: { ReadonlyWrap },
   props: {
     field: {
       type: Object as PropType<InputField>,
@@ -44,11 +48,11 @@ export default defineComponent({
   },
   emits: ['update:modelValue'],
   setup (props, context) {
-    const { customT } = useTranslate();
-    const { disabled, readOnly } = useChecks(props.field);
-
     const val = ref<number|string>(props.modelValue);
     const input = ref<HTMLInputElement>();
+
+    const { customT } = useTranslate();
+    const { disabled } = useChecks(props.field);
 
     watchEffect(() => {
       val.value = props.modelValue;
@@ -61,7 +65,7 @@ export default defineComponent({
     });
 
     onMounted(() => {
-      const inpEl = (input.value as any).input as HTMLInputElement;
+      const inpEl = (input.value as any)?.input as HTMLInputElement;
       if (props.field.props.mask && inpEl) {
         mask = Maska(inpEl, props.field.props.mask);
       }
@@ -71,7 +75,6 @@ export default defineComponent({
       customT,
       val,
       disabled,
-      readOnly,
       input,
       changeVal,
     };
