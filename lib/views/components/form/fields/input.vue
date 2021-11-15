@@ -25,9 +25,10 @@ import {
   defineComponent, PropType, ref, watchEffect, onMounted,
 } from 'vue';
 import { create as Maska } from 'maska';
-import { useTranslate, useChecks } from '../../../../utils';
-import type { InputField } from '../../../../types/form/fields/input';
-import debounceOnInput from '../../../../utils/form/input-debounce';
+import { useTranslate } from 'lib/utils/core/translate';
+import { useChecks } from 'lib/utils/core/mixed-check';
+import debounceOnInput from 'lib/utils/form/input-debounce';
+import type { InputField } from 'lib/types/form/fields/input';
 
 export default defineComponent({
   name: 'FormInput',
@@ -44,7 +45,7 @@ export default defineComponent({
   emits: ['update:modelValue'],
   setup (props, context) {
     const { customT } = useTranslate();
-    const { disabled } = useChecks(props.field);
+    const { disabled, readOnly } = useChecks(props.field);
 
     const val = ref<number|string>(props.modelValue);
     const input = ref<HTMLInputElement>();
@@ -70,6 +71,7 @@ export default defineComponent({
       customT,
       val,
       disabled,
+      readOnly,
       input,
       changeVal,
     };

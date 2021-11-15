@@ -1,7 +1,14 @@
 <template>
   <el-date-picker
     :model-value="val"
-    v-bind="field.props"
+    :type="field.props.type"
+    :format="field.props.format"
+    :editable="field.props.editable"
+    :popper-class="field.props.popperClass"
+    :range-separator="field.props.rangeSeparator"
+    :default-value="field.props.defaultValue"
+    :default-time="field.props.defaultTime"
+    :unlink-panels="field.props.unlinkPanels"
     :placeholder="customT(field.props.placeholder)"
     :start-placeholder="customT(field.props.startPlaceholder)"
     :end-placeholder="customT(field.props.endPlaceholder)"

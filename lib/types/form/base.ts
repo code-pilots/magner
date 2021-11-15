@@ -1,6 +1,6 @@
-import type { SupportedDataTypes } from '../../utils/form/form';
-import type { TranslateData } from '../../utils/core/translate';
-import type { MixedChecker } from '../../utils/core/mixed-check';
+import type { SupportedDataTypes } from 'lib/utils/form/form';
+import type { TranslateData } from 'lib/utils/core/translate';
+import type { MixedChecker } from 'lib/utils/core/mixed-check';
 import type { SupportedValidators } from '../configs/development';
 import type { DialogForm } from './dialog-forms';
 import type { GenericComponent, GenericForm } from './index';
@@ -22,7 +22,15 @@ export type SupportedComponentTypes =
 export interface BaseProps {
   class?: string,
 
+  /** Whether the field is disabled. Accepts static boolean or the dynamic
+   * MixedChecker function with access to the user's role and form's state */
   disabled?: boolean | { value: boolean } | MixedChecker,
+
+  /** Hides the field from the form if 'true' */
+  hidden?: boolean | { value: boolean } | MixedChecker,
+
+  /** If 'true', the field gets a design made for the better readability  */
+  readOnly?: boolean | { value: boolean } | MixedChecker,
 }
 
 export interface BaseValidation {

@@ -18,13 +18,8 @@ export interface DateTimeProps extends BaseProps {
   /** Whether the input is editable. Default is 'true' */
   editable?: boolean,
 
-  /** Whether to pick time using arrow buttons */
-  timeArrowControl?: boolean,
-
-  /** */
+  /** Popper class name */
   popperClass?: string,
-  /** Set custom className for the calendar cell */
-  cellClassName?: (arg: Date) => string,
 
   /** Range separator. Default is '-' */
   rangeSeparator?: string,

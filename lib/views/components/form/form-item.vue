@@ -1,12 +1,15 @@
 <template>
   <el-form-item
-    v-if="field.type !== 'collection'"
+    v-if="!hidden && field.type !== 'collection'"
     :key="field.name"
     :prop="field.name"
     :required="!!field.required"
     :label-width="field.label ? (isMobile ? null : '100px') : '0'"
     :error="error"
-    :class="['generic-form_item', 'generic-form_item-' + field.type, 'input-' + field.name]"
+    :class="['generic-form_item', 'generic-form_item-' + field.type, 'input-' + field.name, {
+      'readonly': readOnly,
+      'disabled': disabled && !readOnly,
+    }]"
   >
     <template v-if="field.label" #label>
       {{ customT(field.label) }}
@@ -104,7 +107,7 @@
     </template>
   </el-form-item>
 
-  <div v-else class="form-collection">
+  <div v-else-if="!hidden" class="form-collection">
     <template v-for="(itm, i) in collectionItems" :key="i">
       <template v-for="(layout, j) in field.layout" :key="i.toString() + j">
         <FormLayoutBlock :block="layout" :class="$attrs.class">
@@ -154,6 +157,7 @@ import type { GenericFormLayout } from 'lib/types/form/layout';
 import { collectFieldsFromLayout, fieldsToModels } from 'lib/utils/form/form';
 import { useTranslate } from 'lib/utils/core/translate';
 import { useMobile } from 'lib/utils/core/is-mobile';
+import { useChecks } from 'lib/utils/core/mixed-check';
 import PlusIcon from 'lib/assets/icons/plus.svg';
 import XIcon from 'lib/assets/icons/x.svg';
 import FormInput from './fields/input.vue';
@@ -203,6 +207,7 @@ export default defineComponent({
   setup (props, context) {
     const { customT, t } = useTranslate();
     const isMobile = useMobile();
+    const { hidden, readOnly, disabled } = useChecks(props.field);
     const customComponent = shallowRef(props.field.type === 'custom' ? props.field.component() : null);
 
     const plusIcon = shallowRef(PlusIcon);
@@ -250,6 +255,9 @@ export default defineComponent({
     return {
       val,
       isMobile,
+      hidden,
+      readOnly,
+      disabled,
       customComponent,
       collectionItems,
       t,

@@ -1,5 +1,5 @@
 import {
-  translate, cardPageController, mixedCheck, request, SelectField,
+  translate, cardPageController, request, SelectField,
 } from 'lib/index';
 import {
   bigtestCreate, bigtestDelete, bigtestGet, bigtestUpdate,
@@ -52,7 +52,7 @@ export default cardPageController({
   createRequest: bigtestCreate,
   updateRequest: bigtestUpdate,
   deleteRequest: bigtestDelete,
-  alwaysCreate: true,
+  alwaysCreate: false,
   confirmDelete: true,
 
   form: {
@@ -98,6 +98,7 @@ export default cardPageController({
                 trigger: 'blur',
               },
               props: {
+                readOnly: true,
                 type: 'tel',
                 placeholder: '+7-915-820-14-02',
                 mask: {
@@ -112,7 +113,7 @@ export default cardPageController({
               label: 'Textarea',
               hint: 'Edit the \'phone\' field to access this textarea',
               props: {
-                disabled: mixedCheck(({ state }) => !(state.phone)),
+                readOnly: true,
                 placeholder: 'Text',
                 autosize: { minRows: 3, maxRows: 5 },
                 maxLength: 1024,
@@ -140,6 +141,7 @@ export default cardPageController({
               label: 'Родительская категория',
               options: [],
               props: {
+                readOnly: true,
                 remote: true,
                 remoteMethod: getList,
                 valueKey: 'id',
@@ -174,7 +176,7 @@ export default cardPageController({
               props: {
                 placeholder: 'Russia',
                 clearable: true,
-                // disabled: true,
+                readOnly: true,
               },
             },
           ],
@@ -201,7 +203,7 @@ export default cardPageController({
                   type: 'radio',
                   name: 'radio',
                   props: {
-                    disabled: true,
+                    readOnly: true,
                   },
                   options: RadioOptions,
                 },
@@ -222,7 +224,7 @@ export default cardPageController({
                   name: 'checkbox',
                   dataType: 'array',
                   props: {
-                    disabled: true,
+                    readOnly: true,
                   },
                   options: RadioOptions,
                 },
@@ -232,7 +234,7 @@ export default cardPageController({
                   name: 'isactive',
                   label: 'Switch',
                   props: {
-                    disabled: true,
+                    readOnly: true,
                     inactiveLabel: 'Inactive',
                   },
                 },
@@ -242,7 +244,6 @@ export default cardPageController({
         },
 
         /** Dates */
-        /*
         {
           type: 'row',
           title: 'Date Range Pickers',
@@ -263,6 +264,7 @@ export default cardPageController({
                   dataType: 'date',
                   label: 'Date picker',
                   props: {
+                    readOnly: true,
                     type: 'date',
                     format: 'DD.MM.YYYY',
                     placeholder: '04.10.2001',
@@ -281,7 +283,6 @@ export default cardPageController({
             },
           ],
         },
-        */
 
         /** Dropzone */
         {
@@ -293,7 +294,7 @@ export default cardPageController({
               name: 'photo',
               label: 'Dropzone',
               props: {
-                disabled: true,
+                readOnly: true,
               },
             },
           ],
@@ -320,6 +321,7 @@ export default cardPageController({
               type: 'editor',
               name: 'editor1',
               props: {
+                readOnly: true,
                 id: 'editor1',
                 placeholder: 'Начните вводить текст',
               },
@@ -340,6 +342,7 @@ export default cardPageController({
               name: 'people',
               dataType: 'array',
               props: {
+                readOnly: true,
                 class: 'collection-people',
                 showFirst: true,
                 firstRemovable: false,

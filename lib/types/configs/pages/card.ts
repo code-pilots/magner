@@ -12,7 +12,7 @@ export interface CardConfig {
   updateRequest: RequestCallback,
   deleteRequest?: RequestCallback, // If no function is passed here, then no 'Remove' button will be displayed
 
-  /** If true, card page will always leave the form initially empty and won't skipp required validations */
+  /** If true, card page will always leave the form initially empty and won't skip required validations */
   alwaysCreate?: boolean,
 
   /** Whether to open the confirm dialog ("Are you sure you want to delete 'The entity'?")

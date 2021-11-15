@@ -13,7 +13,7 @@ specifiers:
   '@vue/test-utils': ^2.0.0-rc.16
   autoprefixer: ^10.3.7
   editorjs-table-readonly: ^1.1.0
-  element-plus: ^1.2.0-beta.1
+  element-plus: ^1.2.0-beta.3
   eslint: ^7.32.0
   eslint-config-airbnb-base: ^14.2.1
   eslint-plugin-import: ^2.25.2
@@ -45,7 +45,7 @@ dependencies:
   '@editorjs/header': 2.6.1
   '@editorjs/list': 1.6.2
   editorjs-table-readonly: 1.1.0
-  element-plus: 1.2.0-beta.1_vue@3.2.20
+  element-plus: 1.2.0-beta.3_vue@3.2.20
   maska: 1.4.6
   vue: 3.2.20
   vue-i18n: 9.2.0-beta.3_vue@3.2.20
@@ -2858,8 +2858,8 @@ packages:
     resolution: {integrity: sha512-qG96atLFY0agKyEETiBFNhpRLSXGSXOBuhXWpbkYqrLKKASpRyRBUtfkn0ZjIf/yXfA7FA4nScVOMpXSHFlUCQ==}
     dev: true
 
-  /element-plus/1.2.0-beta.1_vue@3.2.20:
-    resolution: {integrity: sha512-TvO2NPoCcG0PDph2SHz3xZ+wnTNJvlKHfb1P6uJsYMUhUCWtSaWGXE1kPQVnyi/tWYlQJG05CT4iO3B4+uEj9w==}
+  /element-plus/1.2.0-beta.3_vue@3.2.20:
+    resolution: {integrity: sha512-vvUxR3uL2k9K+WCWz/98hq4uPQ6jvfGf0hfzWvao7pySJkNQq9DtRPC6/4/zUceA/J6Y2Yo3xSbR19JRCwurRw==}
     peerDependencies:
       vue: ^3.2.0
     dependencies:

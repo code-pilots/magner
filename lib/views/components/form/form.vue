@@ -138,7 +138,7 @@ export default defineComponent({
     const formEl = ref<HTMLFormElement>();
 
     /**
-     * `disabled` accepts `mixedChecks` function that returns a boolean depending on the
+     * `disabled`, `hidden`, `readOnly` accept `mixedChecks` function that returns a boolean depending on the
      * state of the form and the user role. Here, we bind those values to the function that will
      * be executed in the FormItem.
      */
@@ -146,7 +146,19 @@ export default defineComponent({
       if (typeof field.props.disabled === 'function') {
         field.props.disabled = field.props.disabled.bind(null, {
           state: form,
-          role: store.state.role,
+          role: store.state.role as string,
+        });
+      }
+      if (typeof field.props.hidden === 'function') {
+        field.props.hidden = field.props.hidden.bind(null, {
+          state: form,
+          role: store.state.role as string,
+        });
+      }
+      if (typeof field.props.readOnly === 'function') {
+        field.props.readOnly = field.props.readOnly.bind(null, {
+          state: form,
+          role: store.state.role as string,
         });
       }
     });
