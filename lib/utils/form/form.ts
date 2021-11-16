@@ -62,6 +62,16 @@ export const fieldsToModels = (
   fields: GenericComponent[], initialData?: Record<string, any>,
 ): Record<string, DataTypeInitials> => fields
   .reduce((accum, currentValue) => {
+    // In case of FormCollection, get all fields in the collection, and assign initial values
+    // for each form in the collection as an object
+    if (currentValue.type === 'collection') {
+      const collectionLen = initialData?.[currentValue.name]?.length ?? (currentValue.props.showFirst ? 1 : 0);
+      const collectionFields = collectFieldsFromLayout(currentValue.layout as unknown as GenericFormLayout);
+      accum[currentValue.name] = (new Array(collectionLen).fill(0))
+        .map((_, index) => fieldsToModels(collectionFields, (initialData?.[index] || {}) as Record<string, unknown>));
+      return accum;
+    }
+
     accum[currentValue.name] = initialData?.[currentValue.name]
       ?? dataTypeToInitial(currentValue.dataType || 'string');
     return accum;

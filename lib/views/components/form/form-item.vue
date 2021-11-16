@@ -108,7 +108,7 @@
   </el-form-item>
 
   <div v-else-if="!hidden" class="form-collection">
-    <template v-for="(itm, i) in collectionItems" :key="i">
+    <template v-for="(itm, i) in val" :key="i">
       <template v-for="(layout, j) in field.layout" :key="i.toString() + j">
         <FormLayoutBlock :block="layout" :class="$attrs.class">
           <template #item="nestedField">
@@ -121,8 +121,9 @@
         </FormLayoutBlock>
       </template>
       <el-button
-        v-if="field.props.firstRemovable ? true : i !== 0"
+        v-if="!readOnly && field.props.firstRemovable ? true : i !== 0"
         :icon="xIcon"
+        :disabled="disabled"
         type="danger"
         plain
         circle
@@ -134,9 +135,10 @@
       <div class="flex-grow" />
     </template>
 
-    <div class="add-more">
+    <div v-if="!readOnly" class="add-more">
       <el-button
         :icon="plusIcon"
+        :disabled="disabled"
         type="primary"
         size="small"
         plain
@@ -150,7 +152,7 @@
 
 <script lang="ts">
 import {
-  shallowRef, defineComponent, PropType, ref, watchEffect, reactive,
+  shallowRef, defineComponent, PropType, ref, watchEffect,
 } from 'vue';
 import type { GenericComponent } from 'lib/types/form';
 import type { GenericFormLayout } from 'lib/types/form/layout';
@@ -207,18 +209,14 @@ export default defineComponent({
   setup (props, context) {
     const { customT, t } = useTranslate();
     const isMobile = useMobile();
-    const { hidden, readOnly, disabled } = useChecks(props.field);
+    const { hidden, readOnly, disabled } = useChecks(props.field, props.modelValue);
     const customComponent = shallowRef(props.field.type === 'custom' ? props.field.component() : null);
 
     const plusIcon = shallowRef(PlusIcon);
     const xIcon = shallowRef(XIcon);
 
-    const collectionLen = props.field.type === 'collection' && props.field.props.showFirst ? 1 : 0;
     const collectionFields = collectFieldsFromLayout(props.field.type === 'collection'
-      ? (props.field.layout as unknown as GenericFormLayout)
-      : []);
-    const collectionItems = ref<CollectionItems>((new Array(collectionLen).fill(0))
-      .map(() => reactive(fieldsToModels(collectionFields))));
+      ? (props.field.layout as unknown as GenericFormLayout) : []);
 
     const val = ref<any>(props.modelValue);
     watchEffect(() => {
@@ -237,18 +235,17 @@ export default defineComponent({
       context.emit('action', e);
     };
 
+    /** Removes or adds the formCollection item into the FormCollection  */
     const changeCollectionItems = (num: number | 'new') => {
       if (num === 'new') {
-        collectionItems.value = [...collectionItems.value, reactive(fieldsToModels(collectionFields))];
+        val.value = [...val.value, fieldsToModels(collectionFields)];
       } else {
-        collectionItems.value = collectionItems.value.filter((_, i) => i !== num);
+        val.value = (val.value as CollectionItems).filter((_, i) => i !== num);
       }
-      val.value = [...collectionItems.value];
       context.emit('update:modelValue', val.value);
     };
 
     const changeCollectionItem = () => {
-      val.value = [...collectionItems.value];
       context.emit('update:modelValue', val.value);
     };
 
@@ -259,7 +256,6 @@ export default defineComponent({
       readOnly,
       disabled,
       customComponent,
-      collectionItems,
       t,
       customT,
       plusIcon,

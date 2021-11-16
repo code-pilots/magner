@@ -2,7 +2,7 @@
   <slot v-if="!readOnly" />
   <slot v-else name="readonly" v-bind="{text: readOnlyText}">
     <div :class="{'gray-block': grayBlock}" class="readonly-block">
-      {{ readOnlyText || value }}
+      {{ readOnlyText }}
     </div>
   </slot>
 </template>
@@ -20,8 +20,8 @@ export default defineComponent({
       required: true,
     },
     value: {
-      type: [Number, String, Object, Array],
-      required: true,
+      type: [String, Number, Object, Array, Boolean],
+      default: '',
     },
     grayBlock: {
       type: Boolean,

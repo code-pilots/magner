@@ -69,11 +69,11 @@ import type { SupportedValidators } from 'lib/types/configs';
 import { DataTypeInitials, fieldsToModels, layoutToFields } from 'lib/utils/form/form';
 import { useTranslate } from 'lib/utils/core/translate';
 import { useMobile } from 'lib/utils/core/is-mobile';
+import { updateFieldValues } from 'lib/utils/core/mixed-check';
 import setupValidators from 'lib/utils/form/setup-validators';
 import FormItem from './form-item.vue';
 import FormLayout from './layout.vue';
 import FormActions from './form-actions.vue';
-import useStore from '../../../controllers/store/store';
 
 interface FormValidator extends HTMLFormElement {
   validate: Function,
@@ -126,7 +126,6 @@ export default defineComponent({
     const { customT, t } = useTranslate();
     const isMobile = useMobile();
     const router = useRouter();
-    const store = useStore();
 
     const reactiveConfig = reactive(props.config);
     const allFields = computed(() => layoutToFields(reactiveConfig.layout));
@@ -137,30 +136,8 @@ export default defineComponent({
     const errors = ref<Record<string, string>>(props.fieldErrors); // Field errors record
     const formEl = ref<HTMLFormElement>();
 
-    /**
-     * `disabled`, `hidden`, `readOnly` accept `mixedChecks` function that returns a boolean depending on the
-     * state of the form and the user role. Here, we bind those values to the function that will
-     * be executed in the FormItem.
-     */
     allFields.value.forEach((field) => {
-      if (typeof field.props.disabled === 'function') {
-        field.props.disabled = field.props.disabled.bind(null, {
-          state: form,
-          role: store.state.role as string,
-        });
-      }
-      if (typeof field.props.hidden === 'function') {
-        field.props.hidden = field.props.hidden.bind(null, {
-          state: form,
-          role: store.state.role as string,
-        });
-      }
-      if (typeof field.props.readOnly === 'function') {
-        field.props.readOnly = field.props.readOnly.bind(null, {
-          state: form,
-          role: store.state.role as string,
-        });
-      }
+      updateFieldValues(field, form);
     });
 
     const submit = () => {
