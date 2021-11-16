@@ -297,7 +297,9 @@ export default cardPageController({
               type: 'dropzone',
               name: 'photo',
               label: 'Dropzone',
+              dataType: 'array',
               props: {
+                multiple: true,
                 readOnly: true,
               },
             },

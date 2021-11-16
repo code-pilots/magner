@@ -15,7 +15,7 @@
       <div v-else class="el-upload_media-file">
         <svg-icon core="file" size="initial" class="el-upload_media-file_icon" />
         <div class="flex-grow" />
-        <span v-if="view.caption" class="el-upload_media-file_caption">{{ view.caption }}</span>
+        <div v-if="view.caption" class="el-upload_media-file_caption">{{ view.caption }}</div>
         <span v-if="modelValue.size" class="el-upload_media-file_size">
           {{ getMegabytes(modelValue.size) }} Mb
         </span>

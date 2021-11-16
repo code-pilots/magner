@@ -24,13 +24,13 @@ export interface BaseProps {
 
   /** Whether the field is disabled. Accepts static boolean or the dynamic
    * MixedChecker function with access to the user's role and form's state */
-  disabled?: boolean | { value: boolean } | MixedChecker,
+  disabled?: boolean | MixedChecker,
 
   /** Hides the field from the form if 'true' */
-  hidden?: boolean | { value: boolean } | MixedChecker,
+  hidden?: boolean | MixedChecker,
 
   /** If 'true', the field gets a design made for the better readability  */
-  readOnly?: boolean | { value: boolean } | MixedChecker,
+  readOnly?: boolean | MixedChecker,
 
   /** If `readOnly: true`, parse the value of the form field to display as a string */
   readOnlyFormatter?: (val: unknown) => string,

@@ -31,7 +31,7 @@ export default defineComponent({
   emits: ['update:modelValue'],
   setup (props, context) {
     const { customT } = useTranslate();
-    const { disabled } = useChecks(props.field);
+    const { disabled, readOnly } = useChecks(props.field);
 
     const val = ref<string>(props.modelValue);
     watchEffect(() => {
@@ -55,7 +55,7 @@ export default defineComponent({
         holder: props.field.props.id,
         placeholder: customT(props.field.props.placeholder || ''),
         data: parsedData,
-        readOnly: disabled.value as boolean,
+        readOnly: readOnly.value || disabled.value,
         onChange: (editor) => {
           editor.saver?.save?.().then((outputData) => {
             changeVal(JSON.stringify(outputData));

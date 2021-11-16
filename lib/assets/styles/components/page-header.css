@@ -27,6 +27,10 @@
       border-bottom: none;
     }
 
+    &__nav {
+      z-index: 0;
+    }
+
     &__item {
       & a, & span {
         display: inline-block;

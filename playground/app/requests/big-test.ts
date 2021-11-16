@@ -31,6 +31,13 @@ export const bigtestGet = request(async () => ({
     checkbox: ['all', 'child'],
     datetime1: '2021-11-18 00:00:00',
     editor1: editorData,
+    photo: ['https://images.unsplash.com/photo-1637009753940-f1d9460a388e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=776&q=80.jpg', 'https://images.unsplash.com/photo-1637002058121-7f3fde498f16?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=774&q=80'],
+    people: [
+      {
+        firstname: 'Ivan',
+        lastname: 'Ivanov',
+      },
+    ],
   },
 }));
 
