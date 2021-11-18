@@ -91,14 +91,29 @@ export default cardPageController({
           fields: [
             {
               type: 'input',
+              name: 'email',
+              label: 'Email',
+              validation: {
+                type: 'email',
+                trigger: 'blur',
+              },
+              props: {
+                type: 'email',
+                placeholder: 'example@domain.com',
+              },
+            },
+
+            {
+              type: 'input',
               name: 'phone',
               label: 'Phone',
+              hint: 'Edit the email field to make this field readOnly',
               validation: {
                 type: 'phone',
                 trigger: 'blur',
               },
               props: {
-                readOnly: true,
+                readOnly: ({ state }) => !!state.email,
                 readOnlyFormatter: (val) => `+${val}`,
                 type: 'tel',
                 placeholder: '+7-915-820-14-02',
@@ -114,7 +129,6 @@ export default cardPageController({
               label: 'Textarea',
               hint: 'Edit the \'phone\' field to access this textarea',
               props: {
-                readOnly: true,
                 placeholder: 'Text',
                 autosize: { minRows: 3, maxRows: 5 },
                 maxLength: 1024,
@@ -142,7 +156,6 @@ export default cardPageController({
               label: 'Родительская категория',
               options: [],
               props: {
-                readOnly: true,
                 remote: true,
                 remoteMethod: getList,
                 valueKey: 'id',
@@ -204,9 +217,7 @@ export default cardPageController({
                   type: 'radio',
                   name: 'radio',
                   label: 'Your age?',
-                  props: {
-                    readOnly: true,
-                  },
+                  props: {},
                   options: RadioOptions,
                 },
               ],
@@ -221,6 +232,14 @@ export default cardPageController({
                 xs: 24,
               },
               fields: [
+                {
+                  type: 'checkbox',
+                  name: 'checkboxActive',
+                  dataType: 'array',
+                  label: 'Who is allowed?',
+                  props: {},
+                  options: RadioOptions,
+                },
                 {
                   type: 'checkbox',
                   name: 'checkbox',
@@ -238,7 +257,6 @@ export default cardPageController({
                   name: 'isactive',
                   label: 'Switch',
                   props: {
-                    readOnly: true,
                     inactiveLabel: 'Inactive',
                   },
                 },
@@ -300,7 +318,6 @@ export default cardPageController({
               dataType: 'array',
               props: {
                 multiple: true,
-                readOnly: true,
               },
             },
           ],
@@ -327,7 +344,6 @@ export default cardPageController({
               type: 'editor',
               name: 'editor1',
               props: {
-                readOnly: true,
                 id: 'editor1',
                 placeholder: 'Начните вводить текст',
               },
@@ -348,7 +364,6 @@ export default cardPageController({
               name: 'people',
               dataType: 'array',
               props: {
-                readOnly: true,
                 class: 'collection-people',
                 showFirst: true,
                 firstRemovable: false,
