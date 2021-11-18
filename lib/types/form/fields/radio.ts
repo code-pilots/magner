@@ -19,7 +19,7 @@ export interface RadioOption extends Record<string, any> {
   value?: string|number|boolean|Record<string, any>,
 }
 
-export interface RadioField extends BaseField {
+export interface RadioField<ENTITY extends {}> extends BaseField<ENTITY> {
   type: 'radio',
   props: RadioProps,
   options: RadioOption[],

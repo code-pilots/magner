@@ -40,7 +40,7 @@ export default defineComponent({
   components: { DialogForm, GenericForm },
   props: {
     config: {
-      type: Object as PropType<CardConfig>,
+      type: Object as PropType<CardConfig<any>>,
       required: true,
     },
     isNew: {

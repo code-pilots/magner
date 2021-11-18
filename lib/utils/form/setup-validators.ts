@@ -1,10 +1,10 @@
-import type { GenericComponent } from '../../types/form';
+import type { GenericComponent } from 'lib/types/form';
+import globalValues from 'lib/global';
 import type { SupportedValidators, ValidationField } from '../../types/configs';
 import { layoutToFields } from './form';
-import globalValues from '../../global';
 
 type SetupFunc = (
-  fields: GenericComponent[],
+  fields: GenericComponent<Record<string, any>>[],
   skipValidation: boolean | SupportedValidators[],
   form: Record<string, any>
 ) => Record<string, ValidationField[]>;

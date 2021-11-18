@@ -36,7 +36,7 @@ export interface DateTimeProps extends BaseProps {
   clearable?: boolean,
 }
 
-export interface DateTimeField extends BaseField {
+export interface DateTimeField<ENTITY extends {}> extends BaseField<ENTITY> {
   type: 'datetime',
   dataType: 'date' | 'array',
   props: DateTimeProps,

@@ -26,7 +26,7 @@ export default defineComponent({
   components: { FormLayoutBlock },
   props: {
     layout: {
-      type: [Object, Array] as PropType<FormLayout>,
+      type: [Object, Array] as PropType<FormLayout<any>>,
       required: true,
     },
   },

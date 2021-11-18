@@ -6,7 +6,7 @@ export interface EditorProps extends BaseProps {
   placeholder?: TranslateData,
 }
 
-export interface EditorField extends BaseField {
+export interface EditorField<ENTITY extends {}> extends BaseField<ENTITY> {
   type: 'editor',
   props: EditorProps,
 }

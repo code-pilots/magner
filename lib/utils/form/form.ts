@@ -28,8 +28,10 @@ export const dataTypeToInitial = (dataType: SupportedDataTypes): DataTypeInitial
 };
 
 /** Function extracts all fields from the nested layout recursively */
-export const collectFieldsFromLayout = (layout: GenericFormLayout | GenericFormLayout[]): GenericComponent[] => {
-  const fields: GenericComponent[] = [];
+export const collectFieldsFromLayout = (
+  layout: GenericFormLayout<any> | GenericFormLayout<any>[],
+): GenericComponent<any>[] => {
+  const fields: GenericComponent<any>[] = [];
 
   if (Array.isArray(layout)) {
     fields.push(...layout.map((singleLayout) => collectFieldsFromLayout(singleLayout)).flat());
@@ -43,8 +45,8 @@ export const collectFieldsFromLayout = (layout: GenericFormLayout | GenericFormL
 };
 
 /** Extract all generic components (fields) from layout */
-export const layoutToFields = (layout: FormLayout): GenericComponent[] => {
-  let fields: GenericComponent[];
+export const layoutToFields = (layout: FormLayout<any>): GenericComponent<Record<string, unknown>>[] => {
+  let fields: GenericComponent<any>[];
   if (Array.isArray(layout)) {
     fields = layout;
   } else {
@@ -59,14 +61,14 @@ export const layoutToFields = (layout: FormLayout): GenericComponent[] => {
  * This object is used when the form triggers the 'submit' event.
  */
 export const fieldsToModels = (
-  fields: GenericComponent[], initialData?: Record<string, any>,
+  fields: GenericComponent<Record<string, any>>[], initialData?: Record<string, any>,
 ): Record<string, DataTypeInitials> => fields
   .reduce((accum, currentValue) => {
     // In case of FormCollection, get all fields in the collection, and assign initial values
     // for each form in the collection as an object
     if (currentValue.type === 'collection') {
       const collectionLen = initialData?.[currentValue.name]?.length ?? (currentValue.props.showFirst ? 1 : 0);
-      const collectionFields = collectFieldsFromLayout(currentValue.layout as unknown as GenericFormLayout);
+      const collectionFields = collectFieldsFromLayout(currentValue.layout as unknown as GenericFormLayout<any>);
       accum[currentValue.name] = (new Array(collectionLen).fill(0))
         .map((_, index) => fieldsToModels(collectionFields, (initialData?.[index] || {}) as Record<string, unknown>));
       return accum;

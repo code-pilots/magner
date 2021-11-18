@@ -30,7 +30,24 @@ const RadioOptions = [
   },
 ];
 
-export default cardPageController({
+interface BigTestEntity {
+  email: string,
+  phone: string,
+  textarea: string,
+  parentCategory: string,
+  country: string,
+  radio: string,
+  checkbox: boolean,
+  checkboxActive: boolean,
+  isactive: boolean,
+  datetime1: string,
+  datetime7: string,
+  photo: string,
+  editor1: string,
+  people: {firstname: string, lastname: string}[],
+}
+
+export default cardPageController<BigTestEntity>({
   header: {
     title: translate('form_test.title'),
 
@@ -179,7 +196,7 @@ export default cardPageController({
                 },
               ],
               changeAction: ({ getField }) => {
-                const parentCategoryField = getField<SelectField>('parentCategory');
+                const parentCategoryField = getField<SelectField<BigTestEntity>>('parentCategory');
                 if (parentCategoryField) {
                   parentCategoryField.options = [{
                     id: 2,

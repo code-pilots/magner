@@ -1,12 +1,12 @@
 import { cardPageController } from 'lib/controllers';
 import { translate } from 'lib/utils';
 import {
-  createPost, deletePost, getPost, updatePost,
+  createPost, deletePost, getPost, Post, updatePost,
 } from '../../../app/requests/posts';
 import { readUsers } from '../../../app/requests/users';
 import imageUploadRequest from '../../../app/requests/image-upload';
 
-const postConfig = cardPageController({
+const postConfig = cardPageController<Post>({
   header: {
     title: translate('post.form_title'),
   },
@@ -50,7 +50,7 @@ const postConfig = cardPageController({
             },
             {
               type: 'select',
-              name: 'tags',
+              name: 'owner',
               dataType: 'array',
               label: translate('post.tags_input'),
               options: [{

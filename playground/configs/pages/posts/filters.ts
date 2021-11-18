@@ -1,6 +1,7 @@
 import { filtersFormController, translate } from 'lib/index';
+import { Post } from '../../../app/requests/posts';
 
-const postsFilters = filtersFormController({
+const postsFilters = filtersFormController<Post>({
   fieldsShowAmount: 1,
 
   linkToCreateNew: {
@@ -22,7 +23,7 @@ const postsFilters = filtersFormController({
 
   layout: [{
     type: 'input',
-    name: 'fullName',
+    name: 'text',
     props: {
       placeholder: translate('post.name_input'),
     },

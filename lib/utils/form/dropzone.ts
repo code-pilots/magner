@@ -52,7 +52,7 @@ export const getFileSrc = async (file: string | File): Promise<FileSrc> => {
 
 export const getFileView = async (
   value: string | File | Record<string, unknown>,
-  field: DropzoneField,
+  field: DropzoneField<any>,
 ): DropzoneFile['view'] => {
   const view = await getFileSrc(typeof value === 'object' && !(value instanceof Blob)
     ? value?.[field.props.srcKey || 'src'] as string || ''
@@ -70,7 +70,7 @@ export const getFileView = async (
   };
 };
 
-export const prepareValue = (modelVal: DropzoneValue | null, field: DropzoneField): DropzoneFile[] => {
+export const prepareValue = (modelVal: DropzoneValue | null, field: DropzoneField<any>): DropzoneFile[] => {
   if (!modelVal) return [];
 
   const vals = Array.isArray(modelVal) ? modelVal : [modelVal];
@@ -83,7 +83,7 @@ export const prepareValue = (modelVal: DropzoneValue | null, field: DropzoneFiel
   } as DropzoneFile));
 };
 
-export const uploadFile = async (file: File, field: DropzoneField, time?: number): Promise<DropzoneFile | null> => {
+export const uploadFile = async (file: File, field: DropzoneField<any>, time?: number): Promise<DropzoneFile | null> => {
   if (!field.props.saveToBackend) {
     return {
       file,
@@ -119,7 +119,7 @@ export const uploadFile = async (file: File, field: DropzoneField, time?: number
   };
 };
 
-export const uploadValues = (files: File[], field: DropzoneField): DropzoneFile[] => files.map((file) => {
+export const uploadValues = (files: File[], field: DropzoneField<any>): DropzoneFile[] => files.map((file) => {
   const time = Date.now();
   return {
     file,
@@ -137,7 +137,11 @@ interface CheckFileReturn {
   passedFiles: File[],
 }
 
-export const checkFileErrors = (newFiles: File[], field: DropzoneField, currentFileLength: number): CheckFileReturn => {
+export const checkFileErrors = (
+  newFiles: File[],
+  field: DropzoneField<any>,
+  currentFileLength: number,
+): CheckFileReturn => {
   const errors: DropzoneError[] = [];
 
   // Handle MaxAmountError and prevent all files from being uploaded if the

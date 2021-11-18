@@ -44,21 +44,22 @@ export interface BaseValidation {
   trigger: 'blur'|'change'|'input',
 }
 
-export interface FormInteractionsData {
+export interface FormInteractionsData<ENTITY extends {}> {
   form: Record<string, any>,
-  getField: <FIELD extends GenericComponent = GenericComponent>(name: string) => FIELD | undefined,
+  getField: <FIELD extends GenericComponent<ENTITY>
+    = GenericComponent<ENTITY>>(name: keyof ENTITY) => FIELD | undefined,
   getDialogForm: <FORM = DialogForm>(name: string) => DialogForm | undefined,
-  config: GenericForm,
+  config: GenericForm<ENTITY>,
   data?: unknown,
 }
-export type FieldInteractions = (arg_1: FormInteractionsData) => void
+export type FieldInteractions<ENTITY extends {}> = (arg_1: FormInteractionsData<ENTITY>) => void
 
-export interface BaseField {
+export interface BaseField<ENTITY extends {}> {
   /** Choose any supported type of the field */
   type: SupportedComponentTypes,
 
   /** Unique name identifier of the field. It is required to be the same one incoming or outcoming to the backend */
-  name: string,
+  name: keyof ENTITY,
 
   /** A label to be displayed next to the field component */
   label?: TranslateData,
@@ -87,5 +88,5 @@ export interface BaseField {
    * When the field value is changed, this action is triggered. Use it to change other fields
    * configuration. Can be used in cases like dynamic displaying/disabling of hidden fields etc.
    */
-  changeAction?: FieldInteractions,
+  changeAction?: FieldInteractions<ENTITY>,
 }

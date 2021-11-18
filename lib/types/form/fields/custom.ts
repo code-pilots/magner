@@ -5,7 +5,7 @@ export interface CustomProps extends BaseProps {
   [key: string]: unknown,
 }
 
-export interface CustomField extends BaseField {
+export interface CustomField<ENTITY extends {}> extends BaseField<ENTITY> {
   type: 'custom',
   component: () => RouteComponent,
   props: CustomProps,

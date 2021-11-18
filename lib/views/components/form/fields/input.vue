@@ -38,7 +38,7 @@ export default defineComponent({
   components: { ReadonlyWrap },
   props: {
     field: {
-      type: Object as PropType<InputField>,
+      type: Object as PropType<InputField<any>>,
       required: true,
     },
     modelValue: {

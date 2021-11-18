@@ -2,7 +2,7 @@ import type { RequestCallback } from 'lib/types/utils/api';
 import type { GenericForm } from 'lib/types/form';
 import type { PageHeader } from './shared';
 
-export interface CardConfig {
+export interface CardConfig<ENTITY extends {}> {
   /** Top header of a page. Consists of the page title and tabs */
   header: PageHeader,
 
@@ -19,5 +19,5 @@ export interface CardConfig {
    * when delete button is pressed */
   confirmDelete?: boolean,
 
-  form: GenericForm,
+  form: GenericForm<ENTITY>,
 }

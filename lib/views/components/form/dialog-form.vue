@@ -30,10 +30,10 @@ import {
   ref,
   PropType, watchEffect,
 } from 'vue';
-import type { DialogForm } from '../../../types/form/dialog-forms';
-import type { FormInteractionsData } from '../../../types/form/base';
-import { useMobile } from '../../../utils';
-import useDialogForm from '../../../utils/form/use-dialog-form';
+import type { DialogForm } from 'lib/types/form/dialog-forms';
+import type { FormInteractionsData } from 'lib/types/form/base';
+import { useMobile } from 'lib/utils/core/is-mobile';
+import useDialogForm from 'lib/utils/form/use-dialog-form';
 import GenericForm from './form.vue';
 
 export default defineComponent({
@@ -45,7 +45,7 @@ export default defineComponent({
       required: true,
     },
     formData: {
-      type: Object as PropType<FormInteractionsData>,
+      type: Object as PropType<FormInteractionsData<any>>,
       required: true,
     },
   },

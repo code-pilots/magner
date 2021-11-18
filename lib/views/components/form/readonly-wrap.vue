@@ -16,7 +16,7 @@ export default defineComponent({
   name: 'ReadonlyWrap',
   props: {
     field: {
-      type: Object as PropType<GenericComponent>,
+      type: Object as PropType<GenericComponent<any>>,
       required: true,
     },
     value: {

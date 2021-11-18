@@ -193,7 +193,7 @@ export default defineComponent({
   },
   props: {
     field: {
-      type: Object as PropType<GenericComponent>,
+      type: Object as PropType<GenericComponent<any>>,
       required: true,
     },
     error: {
@@ -216,7 +216,7 @@ export default defineComponent({
     const xIcon = shallowRef(XIcon);
 
     const collectionFields = collectFieldsFromLayout(props.field.type === 'collection'
-      ? (props.field.layout as unknown as GenericFormLayout) : []);
+      ? (props.field.layout as unknown as GenericFormLayout<any>) : []);
 
     const val = ref<any>(props.modelValue);
     watchEffect(() => {

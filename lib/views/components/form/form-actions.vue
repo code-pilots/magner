@@ -22,8 +22,8 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import type { FormAction } from '../../../types/form/actions';
-import { TranslateData, useTranslate } from '../../../utils/core/translate';
+import type { FormAction } from 'lib/types/form/actions';
+import { TranslateData, useTranslate } from 'lib/utils/core/translate';
 
 export default defineComponent({
   name: 'FormActions',

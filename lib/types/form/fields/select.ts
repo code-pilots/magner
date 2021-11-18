@@ -54,7 +54,7 @@ export interface OptionComponent extends Record<string, any> {
   value?: string|number|boolean|Record<string, any>,
 }
 
-export interface SelectField extends BaseField {
+export interface SelectField<ENTITY extends {}> extends BaseField<ENTITY> {
   type: 'select',
   props: SelectProps,
   options: OptionComponent[],
