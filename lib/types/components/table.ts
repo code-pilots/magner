@@ -69,4 +69,13 @@ export interface Table<ENTITY extends {} = {}> {
 
   /** If present, table row becomes a link (doesn't work on columns with 'columnLink' property) */
   rowLink?: (row: ENTITY) => RouteLocationRaw,
+
+  /** Add the select-row checkbox into the first column of a table */
+  rowSelectable?: {
+    /** The unique key in your row used to help identifying which row is selected */
+    rowIdKey: keyof ENTITY,
+
+    /** Action to perform when 'remove button' is done on selection */
+    removeAction: (rows: ENTITY[]) => void | Promise<void>,
+  },
 }

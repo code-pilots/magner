@@ -106,7 +106,7 @@ export default defineComponent({
     },
 
     field: {
-      type: Object as PropType<DropzoneField>,
+      type: Object as PropType<DropzoneField<any>>,
       required: true,
     },
   },

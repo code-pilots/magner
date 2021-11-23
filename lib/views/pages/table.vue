@@ -64,18 +64,28 @@
       <template #default="{response, loading}">
         <div v-loading="loading" class="table-page_table">
           <DataTable
+            ref="tableEl"
             :data="response.rows"
             :config="config.table"
             :table-height="tableHeight"
             @sort="changeSort"
+            @select="select"
           />
         </div>
 
         <div
           v-if="(response && response.pagination) && (requestData && requestData.pagination)"
-          class="table-page_pagination flex-center"
+          class="table-page_pagination"
+          :class="{'selection': !!selected.length}"
         >
+          <template v-if="selected.length">
+            <span>{{ selected.length }} {{ t('core.table.rows_selected') }}</span>
+            <div class="flex-grow" />
+            <el-button type="danger" size="mini" @click="removeRows">{{ t('core.table.remove') }}</el-button>
+          </template>
+
           <el-pagination
+            v-else
             v-model:currentPage="response.pagination.currentPage"
             :page-sizes="[10, 25, 50, 100]"
             :page-size="parseInt(requestData.pagination.items) ?? 10"
@@ -114,6 +124,8 @@ import DataTable from '../components/table.vue';
 import Dynamic from '../components/dynamic.vue';
 import GenericForm from '../components/form/form.vue';
 
+type RowData = Record<string, unknown>;
+
 export default defineComponent({
   name: 'TablePage',
   components: {
@@ -131,6 +143,7 @@ export default defineComponent({
   setup (props) {
     const filterIcon = shallowRef(FilterIcon);
     const plusIcon = shallowRef(PlusIcon);
+    const tableEl = ref(null);
 
     const { t, customT } = useTranslate();
     const route = useRoute();
@@ -167,6 +180,8 @@ export default defineComponent({
       sort: { ...(props.config.filters.sort || {}) },
     });
 
+    const selected = ref<RowData[]>([]);
+
     // Depending on URL query existence and configuration, load initial data from URL or LocalStorage
     const initialData = props.config.filters.saveToLocalStorage && !Object.keys(route.query).length
       ? store.state.project.lstorage.deepRead('filters', route.name as string) as Record<string, any>
@@ -194,6 +209,16 @@ export default defineComponent({
       };
     };
 
+    const select = (rows: RowData[]) => {
+      selected.value = rows;
+    };
+
+    const removeRows = async (rows: RowData[]) => {
+      await props.config.table.rowSelectable?.removeAction?.(rows);
+      selected.value = [];
+      (tableEl.value as any)?.tableEl?.clearSelection?.();
+    };
+
     watch(() => requestData, (val) => {
       const query = store.state.project.development.urlParsers.dataToUrl(val);
       router.push(route.path + query);
@@ -219,9 +244,13 @@ export default defineComponent({
       tableHeight,
       topFilters,
       plusIcon,
+      selected,
+      tableEl,
+      select,
       filterItems,
       changeSort,
       clearFilters,
+      removeRows,
     };
   },
 });

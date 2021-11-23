@@ -4,6 +4,9 @@ import type { Post } from '../../../app/requests/posts';
 const postsTable = tableController<Post>({
   emptyText: translate('posts.not_found'),
   rowLink: (row) => ({ name: 'post', params: { id: row.id } }),
+  rowSelectable: {
+    rowIdKey: 'id',
+  },
   columns: [
     {
       prop: 'id',
