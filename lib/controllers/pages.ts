@@ -10,7 +10,7 @@ export const filtersFormController = <ENTITY extends {}>(config: FiltersForm<ENT
 
 export const tableController = <ENTITY extends {}>(config: Table<ENTITY>): Table<ENTITY> => config;
 
-export const loginPageController = (config: LoginConfig): LoginConfig => config;
+export const loginPageController = <ENTITY extends {}>(config: LoginConfig<ENTITY>): LoginConfig<ENTITY> => config;
 
 export const tablePageController = <ENTITY extends {}>(config: TableConfig<ENTITY>)
   : TableConfig<ENTITY> => config;

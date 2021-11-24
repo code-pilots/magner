@@ -73,19 +73,17 @@
           />
         </div>
 
+        <div v-if="selected.length" class="table-page_selection">
+          <span>{{ selected.length }} {{ t('core.table.rows_selected') }}</span>
+          <div class="flex-grow" />
+          <el-button type="danger" size="mini" @click="removeRows">{{ t('core.table.remove') }}</el-button>
+        </div>
+
         <div
           v-if="(response && response.pagination) && (requestData && requestData.pagination)"
           class="table-page_pagination"
-          :class="{'selection': !!selected.length}"
         >
-          <template v-if="selected.length">
-            <span>{{ selected.length }} {{ t('core.table.rows_selected') }}</span>
-            <div class="flex-grow" />
-            <el-button type="danger" size="mini" @click="removeRows">{{ t('core.table.remove') }}</el-button>
-          </template>
-
           <el-pagination
-            v-else
             v-model:currentPage="response.pagination.currentPage"
             :page-sizes="[10, 25, 50, 100]"
             :page-size="parseInt(requestData.pagination.items) ?? 10"
@@ -111,6 +109,7 @@ import {
 } from 'vue';
 import type { TableConfig } from 'lib/types/configs';
 import FilterIcon from 'lib/assets/icons/filter.svg';
+import PlusIcon from 'lib/assets/icons/plus.svg';
 import { useRoute, useRouter } from 'vue-router';
 import { useMobile } from 'lib/utils/core/is-mobile';
 import { useTranslate } from 'lib/utils/core/translate';
@@ -118,7 +117,6 @@ import useDialogForm from 'lib/utils/form/use-dialog-form';
 import useStore from 'lib/controllers/store/store';
 import { layoutToFields } from 'lib/utils/form/form';
 import filterUrlDataComparison from 'lib/utils/form/filter-url-data-comparison';
-import PlusIcon from 'lib/assets/icons/plus.svg';
 import PageHeader from '../components/page-header.vue';
 import DataTable from '../components/table.vue';
 import Dynamic from '../components/dynamic.vue';
@@ -141,8 +139,6 @@ export default defineComponent({
     },
   },
   setup (props) {
-    const filterIcon = shallowRef(FilterIcon);
-    const plusIcon = shallowRef(PlusIcon);
     const tableEl = ref(null);
 
     const { t, customT } = useTranslate();
@@ -231,7 +227,8 @@ export default defineComponent({
     });
 
     return {
-      filterIcon,
+      filterIcon: shallowRef(FilterIcon),
+      plusIcon: shallowRef(PlusIcon),
       t,
       customT,
       requestData,
@@ -243,7 +240,6 @@ export default defineComponent({
       hasFilters,
       tableHeight,
       topFilters,
-      plusIcon,
       selected,
       tableEl,
       select,

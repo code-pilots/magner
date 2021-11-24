@@ -20,7 +20,6 @@
 
   &_menu, & .el-scrollbar__view {
     height: 100%;
-    border: none;
   }
 
   &_item {

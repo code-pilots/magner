@@ -40,6 +40,9 @@ interface RowBase extends LayoutPropsBase {
   /** Vertical alignment of flex layout */
   align?: 'top' | 'middle' | 'bottom',
 
+  /** Whether nested elements of the row should take full width or not */
+  elementsGrow?: boolean,
+
   /** Custom element tag */
   tag?: string,
 }

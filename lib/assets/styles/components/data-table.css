@@ -1,4 +1,8 @@
 .data-table {
+  &.el-table::before {
+    height: 0;
+  }
+
   & .el-table__row {
     & > td {
       padding: 0;

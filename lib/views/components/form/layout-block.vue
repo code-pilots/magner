@@ -10,6 +10,7 @@
     <component
       :is="getProps(block).component"
       :class="[
+        { 'grow-elements': block.props.elementsGrow },
         `generic-form_block-${block.type}`,
         block.props.class,
         block.props.isPaper ? 'el-card is-always-shadow' : '',
@@ -38,6 +39,7 @@
     <component
       :is="getProps(block).component"
       :class="[
+        { 'grow-elements': block.props.elementsGrow },
         `generic-form_block-${block.type}`,
         block.props.class,
         block.props.isPaper ? 'el-card is-always-shadow' : '',

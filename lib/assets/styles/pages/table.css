@@ -106,7 +106,7 @@
     }
   }
 
-  &_pagination {
+  &_pagination, &_selection {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -124,10 +124,10 @@
         display: none !important;
       }
     }
+  }
 
-    &.selection {
-      justify-content: space-between;
-      padding: 0 12px;
-    }
+  &_selection {
+    justify-content: space-between;
+    padding: 0 12px;
   }
 }

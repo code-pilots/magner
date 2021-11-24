@@ -6,6 +6,7 @@ const postsTable = tableController<Post>({
   rowLink: (row) => ({ name: 'post', params: { id: row.id } }),
   rowSelectable: {
     rowIdKey: 'id',
+    removeAction: () => {},
   },
   columns: [
     {

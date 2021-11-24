@@ -15,7 +15,7 @@
       >
         <template #before>
           <figure class="login-page_logo">
-            <img src="/brand-light.svg" alt="" />
+            <img :src="logo" alt="" />
           </figure>
           <h1 class="login-page_form_title">
             {{ customT(config.title) }}
@@ -40,6 +40,7 @@ import useStore from 'lib/controllers/store/store';
 import { useTranslate } from 'lib/utils/core/translate';
 import { requestWrapper } from 'lib/utils/core/request';
 import { layoutToFields } from 'lib/utils/form/form';
+import logoUrl from 'lib/assets/icons/brand-light.svg?url';
 import GenericForm from '../components/form/form.vue';
 
 export default defineComponent({
@@ -47,7 +48,7 @@ export default defineComponent({
   components: { GenericForm },
   props: {
     config: {
-      type: Object as PropType<LoginConfig>,
+      type: Object as PropType<LoginConfig<any>>,
       required: true,
     },
   },
@@ -105,6 +106,7 @@ export default defineComponent({
       noBackend,
       initialData,
       customT,
+      logo: logoUrl,
       login,
     };
   },

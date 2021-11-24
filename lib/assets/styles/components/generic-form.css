@@ -26,6 +26,10 @@
       flex-shrink: 1;
     }
 
+    &.grow-elements > * {
+      flex-grow: 1;
+    }
+
     &.is-justify-space-between {
       justify-content: space-between;
     }
@@ -100,6 +104,10 @@
     }
 
     &-datetime {
+      .el-input {
+        width: 100%;
+      }
+
       @media (--breakpoint-small) {
         width: 100%;
         & .el-range-editor {

@@ -76,6 +76,6 @@ export interface Table<ENTITY extends {} = {}> {
     rowIdKey: keyof ENTITY,
 
     /** Action to perform when 'remove button' is done on selection */
-    removeAction: (rows: ENTITY[]) => void | Promise<void>,
+    removeAction?: (rows: ENTITY[]) => void | Promise<void>,
   },
 }
