@@ -107,7 +107,7 @@
     </template>
   </el-form-item>
 
-  <div v-else-if="!hidden" class="form-collection">
+  <div v-else-if="!hidden" :class="['form-collection', `collection-${field.name}`]">
     <template v-for="(itm, i) in val" :key="i">
       <template v-for="(layout, j) in field.layout" :key="i.toString() + j">
         <FormLayoutBlock :block="layout" :class="$attrs.class">
@@ -118,24 +118,27 @@
               @update:modelValue="changeCollectionItem(i, nestedField.name, $event)"
             />
           </template>
+
+          <template v-if="j === field.layout.length - 1" #after-fields>
+            <el-button
+              v-if="!readOnly && field.props.firstRemovable ? true : i !== 0"
+              :icon="xIcon"
+              :disabled="disabled"
+              type="danger"
+              plain
+              circle
+              size="small"
+              class="form-collection_remove"
+              @click="changeCollectionItems(i)"
+            />
+          </template>
         </FormLayoutBlock>
       </template>
-      <el-button
-        v-if="!readOnly && field.props.firstRemovable ? true : i !== 0"
-        :icon="xIcon"
-        :disabled="disabled"
-        type="danger"
-        plain
-        circle
-        size="small"
-        class="remove-more"
-        @click="changeCollectionItems(i)"
-      />
 
       <div class="flex-grow" />
     </template>
 
-    <div v-if="!readOnly" class="add-more">
+    <div v-if="!readOnly" class="form-collection_add">
       <el-button
         :icon="plusIcon"
         :disabled="disabled"

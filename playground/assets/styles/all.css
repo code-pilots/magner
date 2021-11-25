@@ -11,22 +11,6 @@
       }
     }
 
-    & .add-more {
-      width: 100%;
-      & .el-button {
-        max-width: 200px;
-        & i {
-          transform: translateY(2px);
-        }
-      }
-    }
-
-    & .remove-more {
-      width: 40px;
-      height: 40px;
-      margin-left: 8px;
-    }
-
     & .flex-grow {
       width: 100%;
     }
