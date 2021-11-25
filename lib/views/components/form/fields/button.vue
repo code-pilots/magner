@@ -11,8 +11,9 @@
 
 <script lang="ts">
 import { defineComponent, PropType, watchEffect } from 'vue';
-import type { ButtonField } from '../../../../types/form/fields/button';
-import { useTranslate, useChecks } from '../../../../utils';
+import type { ButtonField } from 'lib/types/form/fields/button';
+import { useTranslate } from 'lib/utils/core/translate';
+import { useChecks } from 'lib/utils/core/mixed-check';
 
 export default defineComponent({
   name: 'FormButton',

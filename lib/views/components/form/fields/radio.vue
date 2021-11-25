@@ -1,44 +1,49 @@
 <template>
-  <el-radio-group
-    :model-value="val"
-    :text-color="field.props.activeTextColor"
-    :fill="field.props.fill"
-    :disabled="disabled"
-    @change="changeVal"
-  >
-    <template v-if="field.radioButtons">
-      <el-radio-button
-        v-for="option in field.options"
-        :key="option.value"
-        :label="option.value"
-        :disabled="option.disabled"
-      >
-        {{ customT(option.label) }}
-      </el-radio-button>
-    </template>
+  <ReadonlyWrap :field="field" :value="val">
+    <el-radio-group
+      :model-value="val"
+      :text-color="field.props.activeTextColor"
+      :fill="field.props.fill"
+      :disabled="disabled"
+      @change="changeVal"
+    >
+      <template v-if="field.radioButtons">
+        <el-radio-button
+          v-for="option in field.options"
+          :key="option.value"
+          :label="option.value"
+          :disabled="option.disabled"
+        >
+          {{ customT(option.label) }}
+        </el-radio-button>
+      </template>
 
-    <template v-else>
-      <el-radio
-        v-for="option in field.options"
-        :key="option.value"
-        :label="option.value"
-        :disabled="option.disabled"
-      >
-        {{ customT(option.label) }}
-      </el-radio>
-    </template>
-  </el-radio-group>
+      <template v-else>
+        <el-radio
+          v-for="option in field.options"
+          :key="option.value"
+          :label="option.value"
+          :disabled="option.disabled"
+        >
+          {{ customT(option.label) }}
+        </el-radio>
+      </template>
+    </el-radio-group>
+  </ReadonlyWrap>
 </template>
 
 <script lang="ts">
 import {
   defineComponent, PropType, ref, watchEffect,
 } from 'vue';
-import { useTranslate, useChecks } from '../../../../utils';
-import type { RadioField } from '../../../../types/form/fields/radio';
+import { useTranslate } from 'lib/utils/core/translate';
+import { useChecks } from 'lib/utils/core/mixed-check';
+import type { RadioField } from 'lib/types/form/fields/radio';
+import ReadonlyWrap from '../readonly-wrap.vue';
 
 export default defineComponent({
   name: 'FormRadio',
+  components: { ReadonlyWrap },
   props: {
     field: {
       type: Object as PropType<RadioField>,

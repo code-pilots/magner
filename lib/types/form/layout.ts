@@ -4,10 +4,10 @@ import type { RouteComponent } from 'vue-router';
 import type { TranslateData } from 'lib/utils/core/translate';
 import type { GenericComponent } from './index';
 
-interface FormLayoutBase {
+interface FormLayoutBase<ENTITY extends {}> {
   title?: TranslateData,
-  layout?: GenericFormLayout[],
-  fields?: GenericComponent[],
+  layout?: GenericFormLayout<ENTITY>[],
+  fields?: GenericComponent<ENTITY>[],
 }
 
 interface LayoutPropsBase {
@@ -40,26 +40,29 @@ interface RowBase extends LayoutPropsBase {
   /** Vertical alignment of flex layout */
   align?: 'top' | 'middle' | 'bottom',
 
+  /** Whether nested elements of the row should take full width or not */
+  elementsGrow?: boolean,
+
   /** Custom element tag */
   tag?: string,
 }
 
 /** Define different column types */
-interface RowFields extends FormLayoutBase {
+interface RowFields<ENTITY extends {}> extends FormLayoutBase<ENTITY> {
   type: 'row',
   props: RowBase,
   layout?: never,
   component?: never,
-  fields: GenericComponent[],
+  fields: GenericComponent<ENTITY>[],
 }
-interface RowLayout extends FormLayoutBase {
+interface RowLayout<ENTITY extends {}> extends FormLayoutBase<ENTITY> {
   type: 'row',
   props: RowBase,
-  layout: GenericFormLayout[],
+  layout: GenericFormLayout<ENTITY>[],
   component?: never,
   fields?: never,
 }
-export type FormLayoutRow = RowLayout | RowFields;
+export type FormLayoutRow<ENTITY extends {}> = RowLayout<ENTITY> | RowFields<ENTITY>;
 
 /** ColumnBase defines element-ui el-col's attributes:
  *  https://element-plus.org/#/en-US/component/layout#col-attributes */
@@ -92,25 +95,25 @@ interface ColumnBase extends LayoutPropsBase {
 }
 
 /** Define different column types */
-export interface ColumnFields extends FormLayoutBase {
+export interface ColumnFields<ENTITY extends {}> extends FormLayoutBase<ENTITY> {
   type: 'column',
   props: ColumnBase,
   layout?: never,
   component?: never,
-  fields: GenericComponent[],
+  fields: GenericComponent<ENTITY>[],
 }
-export interface ColumnLayout extends FormLayoutBase, ColumnBase {
+export interface ColumnLayout<ENTITY extends {}> extends FormLayoutBase<ENTITY>, ColumnBase {
   type: 'column',
   props: ColumnBase,
-  layout: GenericFormLayout[],
+  layout: GenericFormLayout<ENTITY>[],
   component?: never,
   fields?: never,
 }
 
-export type FormLayoutColumn = ColumnLayout | ColumnFields;
+export type FormLayoutColumn<ENTITY extends {}> = ColumnLayout<ENTITY> | ColumnFields<ENTITY>;
 
 /** Custom layout allows adding your own components */
-export interface FormLayoutCustom extends FormLayoutBase {
+export interface FormLayoutCustom<ENTITY extends {}> extends FormLayoutBase<ENTITY> {
   type: 'custom',
   layout?: never,
   fields?: never,
@@ -118,7 +121,10 @@ export interface FormLayoutCustom extends FormLayoutBase {
   props: Record<string, any>,
 }
 
-export type GenericFormLayout = FormLayoutRow | FormLayoutColumn | FormLayoutCustom;
+export type GenericFormLayout<ENTITY extends {}> =
+  | FormLayoutRow<ENTITY>
+  | FormLayoutColumn<ENTITY>
+  | FormLayoutCustom<ENTITY>;
 
 /** Form layout. Allows creating infinitely-nested layouts of rows, columns and custom components */
-export type FormLayout = GenericFormLayout | GenericComponent[];
+export type FormLayout<ENTITY extends {}> = GenericFormLayout<ENTITY> | GenericComponent<ENTITY>[];

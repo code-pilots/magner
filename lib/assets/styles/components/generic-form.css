@@ -26,6 +26,10 @@
       flex-shrink: 1;
     }
 
+    &.grow-elements > * {
+      flex-grow: 1;
+    }
+
     &.is-justify-space-between {
       justify-content: space-between;
     }
@@ -37,6 +41,9 @@
     }
     &.is-justify-end {
       justify-content: end;
+    }
+    &.is-align-center {
+      align-items: center;
     }
 
     &::after, &::before {
@@ -77,6 +84,14 @@
       }
     }
 
+    &_tooltip.el-popper, &_tooltip.el-popper.is-dark {
+      color: black;
+      background: #FFDB31;
+      & .el-popper__arrow:before {
+        background: #FFDB31;
+      }
+    }
+
     & .el-form-item__label {
       @media (--breakpoint-small) {
         line-height: 18px;
@@ -92,6 +107,10 @@
     }
 
     &-datetime {
+      .el-input {
+        width: 100%;
+      }
+
       @media (--breakpoint-small) {
         width: 100%;
         & .el-range-editor {
@@ -109,8 +128,39 @@
     }
   }
 
+  & .readonly-block {
+    display: flex;
+    align-items: center;
+    line-height: 1.5;
+
+    &.gray-block {
+      width: 100%;
+      min-height: 40px;
+      padding: 5px 12px;
+      background-color: #F4F4F5;
+      border-radius: 4px;
+    }
+
+    &.dropzone {
+      align-items: flex-start;
+
+      & > *:not(:first-child) {
+        margin-left: 8px;
+      }
+    }
+  }
+
   & .form-collection {
     display: contents;
+
+    &_more {
+      width: 100%;
+    }
+
+    &_remove {
+      width: 40px;
+      height: 40px;
+    }
   }
 
   &_collection {
@@ -185,7 +235,7 @@
     width: 100%;
   }
 
-  & .el-form-item {
+  & .el-form-item, &.el-form--label-top .el-form-item {
     &__label {
       padding: 0;
       line-height: 30px;

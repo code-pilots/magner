@@ -30,11 +30,11 @@ export default defineUserConfig<DefaultThemeOptions>({
       {
         rel: 'icon',
         type: 'image/png',
-        sizes: '32x32',
-        href: `/magner/favicon.png`,
+        sizes: '112x128',
+        href: `/magner/logo-light-128.png`,
       },
     ],
-    ['link', { rel: 'apple-touch-icon', href: `/magner/favicon.png` }],
+    ['link', { rel: 'apple-touch-icon', href: `/magner/logo-light-128.png` }],
 
     ['meta', { name: 'title', content: 'Magner' }],
     ['meta', { name: 'author', content: 'Code Pilots (https://code-pilots.com/)' }],

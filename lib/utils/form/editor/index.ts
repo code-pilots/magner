@@ -1,3 +1,5 @@
+import { API as EditorApi } from '@editorjs/editorjs';
+
 const setupEditor = async (data: {
   holder: string,
   placeholder: string,
@@ -5,7 +7,7 @@ const setupEditor = async (data: {
   data?: any,
   readOnly?: boolean,
   onReady?: () => void,
-  onChange: () => void,
+  onChange: (editor: EditorApi) => void,
 }) => {
   if (typeof window === 'undefined') return null;
 

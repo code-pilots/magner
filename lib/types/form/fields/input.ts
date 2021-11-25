@@ -45,7 +45,7 @@ export interface InputProps extends BaseProps {
   autofocus?: boolean,
 }
 
-export interface InputField extends BaseField {
+export interface InputField<ENTITY extends {}> extends BaseField<ENTITY> {
   type: 'input',
   props: InputProps,
 }

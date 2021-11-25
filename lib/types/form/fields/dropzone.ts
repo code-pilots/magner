@@ -79,7 +79,7 @@ export interface DropzoneProps extends BaseProps {
   },
 }
 
-export interface DropzoneField extends BaseField {
+export interface DropzoneField<ENTITY extends {}> extends BaseField<ENTITY> {
   type: 'dropzone',
   props: DropzoneProps,
 }

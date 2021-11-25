@@ -1,5 +1,5 @@
 import {
-  translate, cardPageController, mixedCheck, request, SelectField,
+  translate, cardPageController, request, SelectField,
 } from 'lib/index';
 import {
   bigtestCreate, bigtestDelete, bigtestGet, bigtestUpdate,
@@ -30,28 +30,47 @@ const RadioOptions = [
   },
 ];
 
-export default cardPageController({
-  title: translate('form_test.title'),
+interface BigTestEntity {
+  email: string,
+  phone: string,
+  textarea: string,
+  parentCategory: string,
+  country: string,
+  radio: string,
+  checkbox: boolean,
+  checkboxActive: boolean,
+  isactive: boolean,
+  datetime1: string,
+  datetime7: string,
+  photo: string,
+  editor1: string,
+  people: {firstname: string, lastname: string}[],
+}
+
+export default cardPageController<BigTestEntity>({
+  header: {
+    title: translate('form_test.title'),
+
+    tabs: [
+      {
+        label: 'Hey',
+        active: true,
+        link: '/',
+      },
+      {
+        label: 'Lol',
+        active: false,
+        link: '/',
+      },
+    ],
+  },
 
   getRequest: bigtestGet,
   createRequest: bigtestCreate,
   updateRequest: bigtestUpdate,
   deleteRequest: bigtestDelete,
-  alwaysCreate: true,
+  alwaysCreate: false,
   confirmDelete: true,
-
-  tabs: [
-    {
-      label: 'Hey',
-      active: true,
-      link: '/',
-    },
-    {
-      label: 'Lol',
-      active: false,
-      link: '/',
-    },
-  ],
 
   form: {
     debug: true,
@@ -89,13 +108,30 @@ export default cardPageController({
           fields: [
             {
               type: 'input',
+              name: 'email',
+              label: 'Email',
+              validation: {
+                type: 'email',
+                trigger: 'blur',
+              },
+              props: {
+                type: 'email',
+                placeholder: 'example@domain.com',
+              },
+            },
+
+            {
+              type: 'input',
               name: 'phone',
               label: 'Phone',
+              hint: 'Edit the email field to make this field readOnly',
               validation: {
                 type: 'phone',
                 trigger: 'blur',
               },
               props: {
+                readOnly: ({ state }) => !!state.email,
+                readOnlyFormatter: (val) => `+${val}`,
                 type: 'tel',
                 placeholder: '+7-915-820-14-02',
                 mask: {
@@ -110,7 +146,6 @@ export default cardPageController({
               label: 'Textarea',
               hint: 'Edit the \'phone\' field to access this textarea',
               props: {
-                disabled: mixedCheck(({ state }) => !(state.phone)),
                 placeholder: 'Text',
                 autosize: { minRows: 3, maxRows: 5 },
                 maxLength: 1024,
@@ -161,7 +196,7 @@ export default cardPageController({
                 },
               ],
               changeAction: ({ getField }) => {
-                const parentCategoryField = getField<SelectField>('parentCategory');
+                const parentCategoryField = getField<SelectField<BigTestEntity>>('parentCategory');
                 if (parentCategoryField) {
                   parentCategoryField.options = [{
                     id: 2,
@@ -172,7 +207,7 @@ export default cardPageController({
               props: {
                 placeholder: 'Russia',
                 clearable: true,
-                // disabled: true,
+                readOnly: true,
               },
             },
           ],
@@ -198,9 +233,8 @@ export default cardPageController({
                 {
                   type: 'radio',
                   name: 'radio',
-                  props: {
-                    disabled: true,
-                  },
+                  label: 'Your age?',
+                  props: {},
                   options: RadioOptions,
                 },
               ],
@@ -217,10 +251,20 @@ export default cardPageController({
               fields: [
                 {
                   type: 'checkbox',
+                  name: 'checkboxActive',
+                  dataType: 'array',
+                  label: 'Who is allowed?',
+                  props: {},
+                  options: RadioOptions,
+                },
+                {
+                  type: 'checkbox',
                   name: 'checkbox',
                   dataType: 'array',
+                  label: 'Who is allowed?',
                   props: {
-                    disabled: true,
+                    readOnly: true,
+                    readOnlyFormatter: (val) => (val as string[]).join(' and '),
                   },
                   options: RadioOptions,
                 },
@@ -230,7 +274,6 @@ export default cardPageController({
                   name: 'isactive',
                   label: 'Switch',
                   props: {
-                    disabled: true,
                     inactiveLabel: 'Inactive',
                   },
                 },
@@ -260,7 +303,7 @@ export default cardPageController({
                   dataType: 'date',
                   label: 'Date picker',
                   props: {
-                    disabled: true,
+                    readOnly: true,
                     type: 'date',
                     format: 'DD.MM.YYYY',
                     placeholder: '04.10.2001',
@@ -272,7 +315,6 @@ export default cardPageController({
                   dataType: 'array',
                   label: 'Date time range',
                   props: {
-                    disabled: true,
                     type: 'datetimerange',
                   },
                 },
@@ -290,8 +332,9 @@ export default cardPageController({
               type: 'dropzone',
               name: 'photo',
               label: 'Dropzone',
+              dataType: 'array',
               props: {
-                disabled: true,
+                multiple: true,
               },
             },
           ],
@@ -319,8 +362,7 @@ export default cardPageController({
               name: 'editor1',
               props: {
                 id: 'editor1',
-                placeholder: 'Start writing here',
-                disabled: true,
+                placeholder: 'Начните вводить текст',
               },
             },
           ],

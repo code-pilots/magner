@@ -1,27 +1,32 @@
 <template>
-  <el-switch
-    :model-value="val"
-    :inactive-color="field.props.inactiveColor"
-    :active-color="field.props.activeColor"
-    :inactive-text="customT(field.props.inactiveLabel)"
-    :active-text="customT(field.props.activeLabel)"
-    :disabled="disabled"
-    :width="field.props.width"
-    :loading="loading"
-    :before-change="beforeChangeHook"
-    @change="changeVal"
-  />
+  <ReadonlyWrap :field="field" :value="val">
+    <el-switch
+      :model-value="val"
+      :inactive-color="field.props.inactiveColor"
+      :active-color="field.props.activeColor"
+      :inactive-text="customT(field.props.inactiveLabel)"
+      :active-text="customT(field.props.activeLabel)"
+      :disabled="disabled"
+      :width="field.props.width"
+      :loading="loading"
+      :before-change="beforeChangeHook"
+      @change="changeVal"
+    />
+  </ReadonlyWrap>
 </template>
 
 <script lang="ts">
 import {
   defineComponent, PropType, ref, watchEffect,
 } from 'vue';
-import type { SwitchField } from '../../../../types/form/fields/switch';
-import { useTranslate, useChecks } from '../../../../utils';
+import type { SwitchField } from 'lib/types/form/fields/switch';
+import { useTranslate } from 'lib/utils/core/translate';
+import { useChecks } from 'lib/utils/core/mixed-check';
+import ReadonlyWrap from '../readonly-wrap.vue';
 
 export default defineComponent({
   name: 'FormSwitch',
+  components: { ReadonlyWrap },
   props: {
     field: {
       type: Object as PropType<SwitchField>,

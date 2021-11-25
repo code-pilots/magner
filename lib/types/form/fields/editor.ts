@@ -1,12 +1,12 @@
+import type { TranslateData } from 'lib/utils/core/translate';
 import type { BaseField, BaseProps } from '../base';
-import type { TranslateData } from '../../../utils/core/translate';
 
 export interface EditorProps extends BaseProps {
   id: string,
   placeholder?: TranslateData,
 }
 
-export interface EditorField extends BaseField {
+export interface EditorField<ENTITY extends {}> extends BaseField<ENTITY> {
   type: 'editor',
   props: EditorProps,
 }

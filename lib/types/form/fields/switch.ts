@@ -21,7 +21,7 @@ export interface SwitchProps extends BaseProps {
   beforeChange?: (newVal: boolean) => boolean | Promise<boolean>,
 }
 
-export interface SwitchField extends BaseField {
+export interface SwitchField<ENTITY extends {}> extends BaseField<ENTITY> {
   type: 'switch',
   dataType: 'boolean',
   props: SwitchProps,

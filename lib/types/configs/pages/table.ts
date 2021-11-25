@@ -1,9 +1,10 @@
-import type { RequestCallback } from '../../utils/api';
-import type { GenericForm } from '../../form';
-import type { Table } from '../../components/table';
-import type { TranslateData } from '../../../utils/core/translate';
+import type { GenericForm } from 'lib/types/form';
+import type { TranslateData } from 'lib/utils/core/translate';
+import type { RequestCallback } from 'lib/types/utils/api';
+import type { Table } from 'lib/types/components/table';
+import type { PageHeader } from 'lib/types/configs/pages/shared';
 
-export interface FiltersForm extends GenericForm {
+export interface FiltersForm<ENTITY extends {}> extends GenericForm<ENTITY> {
   /** Display the button link for some other page like entity create or not */
   linkToCreateNew?: {
     label: TranslateData,
@@ -61,14 +62,14 @@ export type TableRequestCallback<ROW = unknown> = RequestCallback<TableFiltersRe
 export type TableRequest = <ROW = unknown>(cb: TableRequestCallback<ROW>) => TableRequestCallback<ROW>;
 
 export interface TableConfig<ENTITY extends {}> {
-  /** Page title */
-  title: TranslateData,
+  /** Top header of a page. Consists of the page title and tabs */
+  header: PageHeader,
 
   /** Data request. Must return the data array in the field 'rows' and a pagination object */
   request: TableRequestCallback,
 
   /** Filters configuration */
-  filters: FiltersForm,
+  filters: FiltersForm<ENTITY>,
 
   /** Table configuration */
   table: Table<ENTITY>,

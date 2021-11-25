@@ -1,6 +1,6 @@
 <template>
   <el-row
-    class="login-page flex-center"
+    class="login-page"
     tag="section"
   >
     <el-col :xs="22" :sm="12" :lg="8">
@@ -14,6 +14,9 @@
         @submit="login"
       >
         <template #before>
+          <figure class="login-page_logo">
+            <img :src="logo" alt="" />
+          </figure>
           <h1 class="login-page_form_title">
             {{ customT(config.title) }}
           </h1>
@@ -37,6 +40,7 @@ import useStore from 'lib/controllers/store/store';
 import { useTranslate } from 'lib/utils/core/translate';
 import { requestWrapper } from 'lib/utils/core/request';
 import { layoutToFields } from 'lib/utils/form/form';
+import logoUrl from 'lib/assets/icons/brand-light.svg?url';
 import GenericForm from '../components/form/form.vue';
 
 export default defineComponent({
@@ -44,7 +48,7 @@ export default defineComponent({
   components: { GenericForm },
   props: {
     config: {
-      type: Object as PropType<LoginConfig>,
+      type: Object as PropType<LoginConfig<any>>,
       required: true,
     },
   },
@@ -102,6 +106,7 @@ export default defineComponent({
       noBackend,
       initialData,
       customT,
+      logo: logoUrl,
       login,
     };
   },

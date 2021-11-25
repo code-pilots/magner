@@ -69,11 +69,11 @@ import type { SupportedValidators } from 'lib/types/configs';
 import { DataTypeInitials, fieldsToModels, layoutToFields } from 'lib/utils/form/form';
 import { useTranslate } from 'lib/utils/core/translate';
 import { useMobile } from 'lib/utils/core/is-mobile';
+import { updateFieldValues } from 'lib/utils/core/mixed-check';
 import setupValidators from 'lib/utils/form/setup-validators';
 import FormItem from './form-item.vue';
 import FormLayout from './layout.vue';
 import FormActions from './form-actions.vue';
-import useStore from '../../../controllers/store/store';
 
 interface FormValidator extends HTMLFormElement {
   validate: Function,
@@ -84,7 +84,7 @@ export default defineComponent({
   components: { FormActions, FormLayout, FormItem },
   props: {
     config: {
-      type: Object as PropType<GenericForm>,
+      type: Object as PropType<GenericForm<any>>,
       required: true,
     },
 
@@ -126,7 +126,6 @@ export default defineComponent({
     const { customT, t } = useTranslate();
     const isMobile = useMobile();
     const router = useRouter();
-    const store = useStore();
 
     const reactiveConfig = reactive(props.config);
     const allFields = computed(() => layoutToFields(reactiveConfig.layout));
@@ -137,18 +136,8 @@ export default defineComponent({
     const errors = ref<Record<string, string>>(props.fieldErrors); // Field errors record
     const formEl = ref<HTMLFormElement>();
 
-    /**
-     * `disabled` accepts `mixedChecks` function that returns a boolean depending on the
-     * state of the form and the user role. Here, we bind those values to the function that will
-     * be executed in the FormItem.
-     */
     allFields.value.forEach((field) => {
-      if (typeof field.props.disabled === 'function') {
-        field.props.disabled = field.props.disabled.bind(null, {
-          state: form,
-          role: store.state.role,
-        });
-      }
+      updateFieldValues(field, form);
     });
 
     const submit = () => {
@@ -174,7 +163,7 @@ export default defineComponent({
 
     const getField = (name: string) => allFields.value.find((field) => field.name === name);
     const getDialogForm = (name: string) => reactiveConfig.dialogForms?.find((dialogForm) => dialogForm.name === name);
-    const formData = reactive<FormInteractionsData>({
+    const formData = reactive<FormInteractionsData<any>>({
       form,
       // @ts-ignore
       getField,

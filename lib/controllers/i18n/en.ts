@@ -38,6 +38,8 @@ export const enLocale = {
       filters: 'Filters',
       more_filters: 'All filters',
       filters_applied: 'Filters applied',
+      rows_selected: 'row(s) selected',
+      remove: 'Remove',
     },
 
     validation: {

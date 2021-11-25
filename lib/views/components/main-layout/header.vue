@@ -1,22 +1,30 @@
 <template>
   <header class="header">
     <div class="header_logo">
-      <h1>{{ projectName }}</h1>
+      <template v-if="collapsed">
+        <svg-icon v-if="settings.headerCollapsedIcon" :icon="settings.headerCollapsedIcon" size="inherit" />
+        <h1 v-else-if="settings.headerTitle">{{ settings.headerTitle.charAt(0) || '' }}</h1>
+        <svg-icon v-else core="logo-light" size="inherit" />
+      </template>
+      <template v-else>
+        <svg-icon v-if="settings.headerIcon" :icon="settings.headerIcon" size="inherit" />
+        <h1 v-else-if="settings.headerTitle">{{ settings.headerTitle }}</h1>
+        <svg-icon v-else core="brand-light" size="inherit" />
+      </template>
     </div>
 
     <nav class="header_nav">
       <div class="header_left">
-        <h2>
-          {{ customT(title) }}
-        </h2>
+        <!-- TODO: Implement search -->
+        <div v-if="false" class="header_left_search">
+          <el-input placeholder="Поиск" type="text" />
+        </div>
       </div>
 
       <div class="header_right">
         <el-dropdown v-if="Object.keys(allLanguages).length > 1" size="small" trigger="hover">
           <template #default>
-            <el-button size="mini" circle>
-              <svg-icon core="globe" />
-            </el-button>
+            <el-button :icon="globeIcon" size="mini" circle class="header_right_globe" />
           </template>
 
           <template #dropdown>
@@ -34,9 +42,7 @@
 
         <el-dropdown size="small" trigger="hover">
           <template #default>
-            <el-button size="mini" circle>
-              <svg-icon core="user" />
-            </el-button>
+            <el-button :icon="userIcon" type="primary" size="mini" circle class="header_right_user" />
           </template>
 
           <template #dropdown>
@@ -62,26 +68,38 @@
 
 <script lang="ts">
 import 'lib/assets/styles/components/header.css';
-import { defineComponent, PropType, ref } from 'vue';
+import {
+  defineComponent, PropType, ref, shallowRef,
+} from 'vue';
+import GlobeIcon from 'lib/assets/icons/globe.svg';
+import UserIcon from 'lib/assets/icons/user.svg';
 import { useRouter } from 'vue-router';
 import useStore from 'lib/controllers/store/store';
-import { TranslateData, useTranslate } from 'lib/utils/core/translate';
+import { useTranslate } from 'lib/utils/core/translate';
 import { useMobile } from 'lib/utils/core/is-mobile';
+import { MainLayoutProps } from 'lib/types/configs/routing/layouts';
 
 export default defineComponent({
   name: 'Header',
   props: {
-    title: {
-      type: [String, Object] as PropType<TranslateData>,
-      default: '',
+    settings: {
+      type: Object as PropType<MainLayoutProps>,
+      required: true,
     },
     sidebar: {
+      type: Boolean,
+      default: false,
+    },
+    collapsed: {
       type: Boolean,
       default: false,
     },
   },
   emits: ['update:sidebar'],
   setup (props, context) {
+    const globeIcon = shallowRef(GlobeIcon);
+    const userIcon = shallowRef(UserIcon);
+
     const { customT, t, locale } = useTranslate();
     const store = useStore();
     const router = useRouter();
@@ -108,6 +126,9 @@ export default defineComponent({
     };
 
     return {
+      userIcon,
+      globeIcon,
+
       t,
       customT,
       isMobile,

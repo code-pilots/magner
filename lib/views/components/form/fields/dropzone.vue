@@ -1,69 +1,82 @@
 <template>
-  <div
-    ref="wrapperEl"
-    class="el-upload el-upload--text"
-    :class="{'dragover': dragOver && !disabled, disabled }"
-    tabindex="0"
-    @click.self="select"
-    @dragenter="handleDragEnter"
-    @dragleave="handleDragLeave"
-    @dragover="commonHandler"
-    @drop="handleDrop"
-  >
-    <input
-      ref="inputEl"
-      type="file"
-      style="display: none"
-      :multiple="field.props.multiple || false"
-      :disabled="disabled || false"
-      v-bind="field.props.inputAtts || {}"
-      @change="inputChange"
-    >
-
+  <ReadonlyWrap :field="field" :value="modelValue">
     <div
-      v-if="!files.length"
-      ref="draggerEl"
-      class="el-upload-dragger"
-      :class="{'is-dragover': dragOver}"
-      @click="select"
+      ref="wrapperEl"
+      class="el-upload el-upload--text"
+      :class="{'dragover': dragOver && !disabled, disabled }"
+      tabindex="0"
+      @click.self="select"
+      @dragenter="handleDragEnter"
+      @dragleave="handleDragLeave"
+      @dragover="commonHandler"
+      @drop="handleDrop"
     >
-      <i class="el-icon-upload" />
-      <div class="el-upload__text">
-        {{ t('core.form.dropzone.drag_here') }} <em>{{ t('core.form.dropzone.click_upload') }}</em>
+      <input
+        ref="inputEl"
+        type="file"
+        style="display: none"
+        :multiple="field.props.multiple || false"
+        :disabled="disabled || false"
+        v-bind="field.props.inputAtts || {}"
+        @change="inputChange"
+      >
+
+      <div
+        v-if="!files.length"
+        ref="draggerEl"
+        class="el-upload-dragger empty"
+        :class="{'is-dragover': dragOver}"
+        @click="select"
+      >
+        <svg-icon core="cloud" size="full" />
+        <div class="el-upload__text">
+          {{ t('core.form.dropzone.drag_here') }} <em>{{ t('core.form.dropzone.click_upload') }}</em>
+        </div>
       </div>
+
+      <div
+        v-else
+        ref="draggerEl"
+        class="el-upload-dragger images"
+        :class="{'is-dragover': dragOver}"
+        @click.self="select"
+      >
+        <DropzoneImage
+          v-for="(file, i) in files"
+          :key="file.key ? file.key : i + (file.value || '') + (file.size || '')"
+          :model-value="file"
+          :draggable="field.props.sortable"
+          @dragstart="handleInnerDragStart(i)"
+          @dragover="handleInnerDragOver(i)"
+          @drop="handleInnerDrop(i)"
+          @change="updFile($event, i)"
+        />
+      </div>
+
+      <!--<transition-group
+        v-else
+        ref="draggerEl"
+        tag="div"
+        name="field-group"
+        class="el-upload-dragger images"
+        :class="{'is-dragover': dragOver}"
+        @click.self="select"
+      ></transition-group>-->
+
+      <slot :files="files" :dragOver="dragOver" :select="select" />
     </div>
 
-    <div
-      v-else
-      ref="draggerEl"
-      class="el-upload-dragger images"
-      :class="{'is-dragover': dragOver}"
-      @click.self="select"
-    >
-      <DropzoneImage
-        v-for="(file, i) in files"
-        :key="file.key ? file.key : i + (file.value || '') + (file.size || '')"
-        :model-value="file"
-        :draggable="field.props.sortable"
-        @dragstart="handleInnerDragStart(i)"
-        @dragover="handleInnerDragOver(i)"
-        @drop="handleInnerDrop(i)"
-        @change="updFile($event, i)"
-      />
-    </div>
-
-    <!--<transition-group
-      v-else
-      ref="draggerEl"
-      tag="div"
-      name="field-group"
-      class="el-upload-dragger images"
-      :class="{'is-dragover': dragOver}"
-      @click.self="select"
-    ></transition-group>-->
-
-    <slot :files="files" :dragOver="dragOver" :select="select" />
-  </div>
+    <template #readonly>
+      <div class="readonly-block dropzone">
+        <DropzoneImage
+          v-for="(file, i) in files"
+          :key="file.key ? file.key : i + (file.value || '') + (file.size || '')"
+          :model-value="file"
+          :draggable="false"
+        />
+      </div>
+    </template>
+  </ReadonlyWrap>
 </template>
 
 <script lang="ts">
@@ -78,12 +91,13 @@ import type {
 import { checkFileErrors, prepareValue, uploadValues } from 'lib/utils/form/dropzone';
 import { useChecks } from 'lib/utils';
 import DropzoneImage from './dropzone-image.vue';
+import ReadonlyWrap from '../readonly-wrap.vue';
 
 type DragEvents = 'dragenter' | 'dragleave' | 'dragover' | 'drop';
 
 export default defineComponent({
   name: 'Dropzone',
-  components: { DropzoneImage },
+  components: { ReadonlyWrap, DropzoneImage },
   props: {
     /** Value of the dropzone. Use it to model or clear the input */
     modelValue: {
@@ -92,7 +106,7 @@ export default defineComponent({
     },
 
     field: {
-      type: Object as PropType<DropzoneField>,
+      type: Object as PropType<DropzoneField<any>>,
       required: true,
     },
   },

@@ -9,13 +9,13 @@ const manifest = manifestController({
   start_url: '/',
   icons: [
     {
-      src: '/logo-192.png',
-      sizes: '192x192',
+      src: '/logo-light-192.png',
+      sizes: '163x192',
       type: 'image/png',
     },
     {
-      src: '/logo-512.png',
-      sizes: '512x512',
+      src: '/logo-light-512.png',
+      sizes: '436x512',
       type: 'image/png',
     },
   ],

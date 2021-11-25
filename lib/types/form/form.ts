@@ -1,4 +1,4 @@
-import type { ButtonProps, ButtonField } from './fields/button';
+import type { ButtonField } from './fields/button';
 import type { InputField } from './fields/input';
 import type { TextareaField } from './fields/textarea';
 import type { CheckboxField } from './fields/checkbox';
@@ -19,21 +19,21 @@ import type { FormAction } from './actions';
  * The type of a field used in the forms. Defined by its required 'type' which
  * can be literally anything: from text input to color picker.
  */
-export type GenericComponent =
-  ButtonField
-  | InputField
-  | TextareaField
-  | CheckboxField
-  | RadioField
-  | SwitchField
-  | SelectField
-  | DropzoneField
-  | DateTimeField
-  | EditorField
-  | CollectionField
-  | CustomField;
+export type GenericComponent<ENTITY extends {}> =
+  ButtonField<ENTITY>
+  | InputField<ENTITY>
+  | TextareaField<ENTITY>
+  | CheckboxField<ENTITY>
+  | RadioField<ENTITY>
+  | SwitchField<ENTITY>
+  | SelectField<ENTITY>
+  | DropzoneField<ENTITY>
+  | DateTimeField<ENTITY>
+  | EditorField<ENTITY>
+  | CollectionField<ENTITY>
+  | CustomField<ENTITY>;
 
-export interface GenericForm {
+export interface GenericForm<ENTITY extends {}> {
   /**
    * Reacting to which event the form will trigger 'submit' event.
    * Case 'submit' - only on Submit button or Enter key press
@@ -48,12 +48,12 @@ export interface GenericForm {
    */
   actions?: FormAction[],
 
-  layout: FormLayout,
+  layout: FormLayout<ENTITY>,
 
   /**
    * Dialog forms
    */
-  dialogForms?: DialogForm[],
+  dialogForms?: DialogForm<any>[],
 
   size?: 'medium'|'small'|'mini',
 

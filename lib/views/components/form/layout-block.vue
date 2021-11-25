@@ -10,6 +10,7 @@
     <component
       :is="getProps(block).component"
       :class="[
+        { 'grow-elements': block.props.elementsGrow },
         `generic-form_block-${block.type}`,
         block.props.class,
         block.props.isPaper ? 'el-card is-always-shadow' : '',
@@ -38,6 +39,7 @@
     <component
       :is="getProps(block).component"
       :class="[
+        { 'grow-elements': block.props.elementsGrow },
         `generic-form_block-${block.type}`,
         block.props.class,
         block.props.isPaper ? 'el-card is-always-shadow' : '',
@@ -69,7 +71,7 @@ export default defineComponent({
   components: {},
   props: {
     block: {
-      type: [Object, Array] as PropType<GenericFormLayout>,
+      type: [Object, Array] as PropType<GenericFormLayout<any>>,
       required: true,
     },
   },
@@ -79,7 +81,7 @@ export default defineComponent({
 
     const shallowComponent = shallowRef(props.block.type === 'custom' ? props.block.component?.() : null);
 
-    const getProps = (block: FormLayoutRow | FormLayoutColumn) => {
+    const getProps = (block: FormLayoutRow<any> | FormLayoutColumn<any>) => {
       if (block.type === 'row') {
         return {
           component: 'el-row',

@@ -28,7 +28,7 @@ export interface TextareaProps extends BaseProps {
   autofocus?: boolean,
 }
 
-export interface TextareaField extends BaseField {
+export interface TextareaField<ENTITY extends {}> extends BaseField<ENTITY> {
   type: 'textarea',
   props: TextareaProps,
 }

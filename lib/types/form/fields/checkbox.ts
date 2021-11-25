@@ -23,7 +23,7 @@ export interface CheckboxOption extends Record<string, any> {
   value?: string|number|boolean|Record<string, any>,
 }
 
-export interface CheckboxField extends BaseField {
+export interface CheckboxField<ENTITY extends {}> extends BaseField<ENTITY> {
   type: 'checkbox',
   props: CheckboxProps,
   options: CheckboxOption[],

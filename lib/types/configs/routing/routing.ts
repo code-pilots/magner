@@ -19,7 +19,10 @@ export interface GlobalRouting {
 }
 
 export interface Route extends _RouteRecordBase {
+  /** Route path. Refer to the Vue Router docs */
   path: string,
+
+  /** Route unique name. Refer to the Vue Router docs */
   name: string,
 
   props?: Record<string, unknown>,

@@ -1,5 +1,7 @@
 <template>
   <section class="table-page">
+    <PageHeader :header="config.header" />
+
     <div v-if="hasFilters" class="table-page_top">
       <GenericForm
         ref="formRef"
@@ -10,7 +12,12 @@
         @submit="filterItems"
       >
         <template #after>
-          <el-button type="primary" icon="el-icon-s-operation" @click="drawerOpen = true">
+          <el-button
+            type="primary"
+            plain
+            :icon="filterIcon"
+            @click="drawerOpen = true"
+          >
             {{ t('core.table.more_filters') }}
           </el-button>
           <el-tag v-if="appliedFilters" closable @close="clearFilters">
@@ -47,7 +54,7 @@
         :to="{name: config.filters.linkToCreateNew.routeName, params: { id: 'new' }}"
         class="table-page_top_create"
       >
-        <el-button native-type="button" type="primary">
+        <el-button :icon="plusIcon" native-type="button" type="primary">
           {{ customT(config.filters.linkToCreateNew.label) }}
         </el-button>
       </router-link>
@@ -57,16 +64,24 @@
       <template #default="{response, loading}">
         <div v-loading="loading" class="table-page_table">
           <DataTable
+            ref="tableEl"
             :data="response.rows"
             :config="config.table"
             :table-height="tableHeight"
             @sort="changeSort"
+            @select="select"
           />
+        </div>
+
+        <div v-if="selected.length" class="table-page_selection">
+          <span>{{ selected.length }} {{ t('core.table.rows_selected') }}</span>
+          <div class="flex-grow" />
+          <el-button type="danger" size="mini" @click="removeRows">{{ t('core.table.remove') }}</el-button>
         </div>
 
         <div
           v-if="(response && response.pagination) && (requestData && requestData.pagination)"
-          class="table-page_pagination flex-center"
+          class="table-page_pagination"
         >
           <el-pagination
             v-model:currentPage="response.pagination.currentPage"
@@ -90,34 +105,42 @@
 import 'lib/assets/styles/pages/table.css';
 import {
   computed,
-  defineComponent, PropType, reactive, ref, watch, watchEffect,
+  defineComponent, PropType, reactive, ref, shallowRef, watch, watchEffect,
 } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
 import type { TableConfig } from 'lib/types/configs';
+import FilterIcon from 'lib/assets/icons/filter.svg';
+import PlusIcon from 'lib/assets/icons/plus.svg';
+import { useRoute, useRouter } from 'vue-router';
 import { useMobile } from 'lib/utils/core/is-mobile';
 import { useTranslate } from 'lib/utils/core/translate';
 import useDialogForm from 'lib/utils/form/use-dialog-form';
 import useStore from 'lib/controllers/store/store';
 import { layoutToFields } from 'lib/utils/form/form';
 import filterUrlDataComparison from 'lib/utils/form/filter-url-data-comparison';
+import PageHeader from '../components/page-header.vue';
 import DataTable from '../components/table.vue';
 import Dynamic from '../components/dynamic.vue';
 import GenericForm from '../components/form/form.vue';
 
+type RowData = Record<string, unknown>;
+
 export default defineComponent({
   name: 'TablePage',
   components: {
+    PageHeader,
     DataTable,
     GenericForm,
     Dynamic,
   },
   props: {
     config: {
-      type: Object as PropType<TableConfig>,
+      type: Object as PropType<TableConfig<any>>,
       required: true,
     },
   },
   setup (props) {
+    const tableEl = ref(null);
+
     const { t, customT } = useTranslate();
     const route = useRoute();
     const router = useRouter();
@@ -132,14 +155,17 @@ export default defineComponent({
     const formRef = ref<typeof GenericForm>();
 
     const hasFilters = computed(() => !!(topFilters.value.length || props.config.filters.linkToCreateNew));
+    const hasHeader = computed(() => !!(props.config.header.title
+      || (props.config.header.tabs && props.config.header.tabs.length)));
     const tableHeight = computed(() => {
-      const headerHeight = 50;
+      const navHeight = 50;
+      const headerHeight = hasHeader.value ? 72 : 0;
       const topHeight = hasFilters.value ? 64 : 0;
       const bottomHeight = 40;
 
       let height;
-      if (isMobile.value) height = headerHeight + bottomHeight;
-      else height = headerHeight + topHeight + bottomHeight;
+      if (isMobile.value) height = navHeight + headerHeight + bottomHeight;
+      else height = navHeight + headerHeight + topHeight + bottomHeight;
 
       return `calc(100vh - ${height + 1}px)`;
     });
@@ -150,9 +176,11 @@ export default defineComponent({
       sort: { ...(props.config.filters.sort || {}) },
     });
 
+    const selected = ref<RowData[]>([]);
+
     // Depending on URL query existence and configuration, load initial data from URL or LocalStorage
     const initialData = props.config.filters.saveToLocalStorage && !Object.keys(route.query).length
-      ? store.state.project.lstorage.deepRead('filters', route.name as string)
+      ? store.state.project.lstorage.deepRead('filters', route.name as string) as Record<string, any>
       : store.state.project.development.urlParsers.urlToData(route.query);
     filterUrlDataComparison(requestData, initialData);
 
@@ -177,6 +205,16 @@ export default defineComponent({
       };
     };
 
+    const select = (rows: RowData[]) => {
+      selected.value = rows;
+    };
+
+    const removeRows = async (rows: RowData[]) => {
+      await props.config.table.rowSelectable?.removeAction?.(rows);
+      selected.value = [];
+      (tableEl.value as any)?.tableEl?.clearSelection?.();
+    };
+
     watch(() => requestData, (val) => {
       const query = store.state.project.development.urlParsers.dataToUrl(val);
       router.push(route.path + query);
@@ -189,6 +227,8 @@ export default defineComponent({
     });
 
     return {
+      filterIcon: shallowRef(FilterIcon),
+      plusIcon: shallowRef(PlusIcon),
       t,
       customT,
       requestData,
@@ -200,9 +240,13 @@ export default defineComponent({
       hasFilters,
       tableHeight,
       topFilters,
+      selected,
+      tableEl,
+      select,
       filterItems,
       changeSort,
       clearFilters,
+      removeRows,
     };
   },
 });

@@ -6,10 +6,10 @@ export interface CollectionProps extends BaseProps {
   firstRemovable?: boolean,
 }
 
-export interface CollectionField extends BaseField {
+export interface CollectionField<ENTITY extends {}> extends BaseField<ENTITY> {
   type: 'collection',
   dataType: 'array',
   props: CollectionProps,
   /** Only one level of layout nesting. */
-  layout: (Omit<GenericFormLayout, 'layout'>)[],
+  layout: (Omit<GenericFormLayout<Record<string, any>>, 'layout'>)[],
 }

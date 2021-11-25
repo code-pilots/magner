@@ -1,16 +1,19 @@
 <template>
   <el-form-item
-    v-if="field.type !== 'collection'"
+    v-if="!hidden && field.type !== 'collection'"
     :key="field.name"
     :prop="field.name"
     :required="!!field.required"
     :label-width="field.label ? (isMobile ? null : '100px') : '0'"
     :error="error"
-    :class="['generic-form_item', 'generic-form_item-' + field.type, 'input-' + field.name]"
+    :class="['generic-form_item', 'generic-form_item-' + field.type, 'input-' + field.name, {
+      'readonly': readOnly,
+      'disabled': disabled && !readOnly,
+    }]"
   >
     <template v-if="field.label" #label>
       {{ customT(field.label) }}
-      <el-tooltip v-if="field.hint">
+      <el-tooltip v-if="field.hint" :append-to-body="false" popper-class="generic-form_item_tooltip">
         <svg-icon
           size="sm"
           class="generic-form_item_help"
@@ -104,8 +107,8 @@
     </template>
   </el-form-item>
 
-  <div v-else class="form-collection">
-    <template v-for="(itm, i) in collectionItems" :key="i">
+  <div v-else-if="!hidden" :class="['form-collection', `collection-${field.name}`]">
+    <template v-for="(itm, i) in val" :key="i">
       <template v-for="(layout, j) in field.layout" :key="i.toString() + j">
         <FormLayoutBlock :block="layout" :class="$attrs.class">
           <template #item="nestedField">
@@ -115,31 +118,35 @@
               @update:modelValue="changeCollectionItem(i, nestedField.name, $event)"
             />
           </template>
+
+          <template v-if="j === field.layout.length - 1" #after-fields>
+            <el-button
+              v-if="!readOnly && field.props.firstRemovable ? true : i !== 0"
+              :icon="xIcon"
+              :disabled="disabled"
+              type="danger"
+              plain
+              circle
+              size="small"
+              class="form-collection_remove"
+              @click="changeCollectionItems(i)"
+            />
+          </template>
         </FormLayoutBlock>
       </template>
-      <el-button
-        v-if="field.props.firstRemovable ? true : i !== 0"
-        type="danger"
-        plain
-        circle
-        size="small"
-        class="remove-more"
-        @click="changeCollectionItems(i)"
-      >
-        <svg-icon size="sm" core="x" />
-      </el-button>
 
       <div class="flex-grow" />
     </template>
 
-    <div class="add-more">
+    <div v-if="!readOnly" class="form-collection_add">
       <el-button
+        :icon="plusIcon"
+        :disabled="disabled"
         type="primary"
         size="small"
         plain
         @click="changeCollectionItems('new')"
       >
-        <svg-icon size="sm" core="plus" />
         {{ t('core.card.add_more') }}
       </el-button>
     </div>
@@ -148,12 +155,16 @@
 
 <script lang="ts">
 import {
-  shallowRef, defineComponent, PropType, ref, watchEffect, reactive, computed,
+  shallowRef, defineComponent, PropType, ref, watchEffect,
 } from 'vue';
-import type { GenericComponent } from '../../../types/form';
-import type { GenericFormLayout } from '../../../types/form/layout';
-import { collectFieldsFromLayout, fieldsToModels } from '../../../utils/form/form';
-import { useTranslate, useMobile } from '../../../utils';
+import type { GenericComponent } from 'lib/types/form';
+import type { GenericFormLayout } from 'lib/types/form/layout';
+import { collectFieldsFromLayout, fieldsToModels } from 'lib/utils/form/form';
+import { useTranslate } from 'lib/utils/core/translate';
+import { useMobile } from 'lib/utils/core/is-mobile';
+import { useChecks } from 'lib/utils/core/mixed-check';
+import PlusIcon from 'lib/assets/icons/plus.svg';
+import XIcon from 'lib/assets/icons/x.svg';
 import FormInput from './fields/input.vue';
 import FormSelect from './fields/select.vue';
 import Dropzone from './fields/dropzone.vue';
@@ -185,7 +196,7 @@ export default defineComponent({
   },
   props: {
     field: {
-      type: Object as PropType<GenericComponent>,
+      type: Object as PropType<GenericComponent<any>>,
       required: true,
     },
     error: {
@@ -201,14 +212,14 @@ export default defineComponent({
   setup (props, context) {
     const { customT, t } = useTranslate();
     const isMobile = useMobile();
+    const { hidden, readOnly, disabled } = useChecks(props.field, props.modelValue);
     const customComponent = shallowRef(props.field.type === 'custom' ? props.field.component() : null);
 
-    const collectionLen = props.field.type === 'collection' && props.field.props.showFirst ? 1 : 0;
+    const plusIcon = shallowRef(PlusIcon);
+    const xIcon = shallowRef(XIcon);
+
     const collectionFields = collectFieldsFromLayout(props.field.type === 'collection'
-      ? (props.field.layout as unknown as GenericFormLayout)
-      : []);
-    const collectionItems = ref<CollectionItems>((new Array(collectionLen).fill(0))
-      .map(() => reactive(fieldsToModels(collectionFields))));
+      ? (props.field.layout as unknown as GenericFormLayout<any>) : []);
 
     const val = ref<any>(props.modelValue);
     watchEffect(() => {
@@ -227,28 +238,31 @@ export default defineComponent({
       context.emit('action', e);
     };
 
+    /** Removes or adds the formCollection item into the FormCollection  */
     const changeCollectionItems = (num: number | 'new') => {
       if (num === 'new') {
-        collectionItems.value = [...collectionItems.value, reactive(fieldsToModels(collectionFields))];
+        val.value = [...val.value, fieldsToModels(collectionFields)];
       } else {
-        collectionItems.value = collectionItems.value.filter((_, i) => i !== num);
+        val.value = (val.value as CollectionItems).filter((_, i) => i !== num);
       }
-      val.value = [...collectionItems.value];
       context.emit('update:modelValue', val.value);
     };
 
     const changeCollectionItem = () => {
-      val.value = [...collectionItems.value];
       context.emit('update:modelValue', val.value);
     };
 
     return {
       val,
       isMobile,
+      hidden,
+      readOnly,
+      disabled,
       customComponent,
-      collectionItems,
       t,
       customT,
+      plusIcon,
+      xIcon,
       updVal,
       setError,
       customAction,

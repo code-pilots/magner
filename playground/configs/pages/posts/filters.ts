@@ -1,28 +1,33 @@
-import { filtersFormController } from 'lib/index';
+import { filtersFormController, translate } from 'lib/index';
+import { Post } from '../../../app/requests/posts';
 
-const postsFilters = filtersFormController({
+const postsFilters = filtersFormController<Post>({
   fieldsShowAmount: 1,
+
+  linkToCreateNew: {
+    routeName: 'post',
+    label: translate('post.new_post'),
+  },
 
   saveToLocalStorage: true,
 
   actions: [],
-
   submitEvent: 'input',
 
+  filtersData: {},
+  sort: {},
   pagination: {
     items: 100,
     page: 1,
   },
 
-  filtersData: {
-    fullName: '',
-  },
-
-  sort: {
-    fullName: 'ASC',
-  },
-
-  layout: [],
+  layout: [{
+    type: 'input',
+    name: 'text',
+    props: {
+      placeholder: translate('post.name_input'),
+    },
+  }],
 });
 
 export default postsFilters;

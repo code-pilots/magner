@@ -1,5 +1,5 @@
+import type { TranslateData } from 'lib/utils/core/translate';
 import type { BaseField, BaseProps } from '../base';
-import type { TranslateData } from '../../../utils/core/translate';
 
 export interface DateTimeProps extends BaseProps {
   /** Type of the DateTime picker. Please, refer to the https://element-plus.org/#/en-US/component/datetime-picker */
@@ -18,13 +18,8 @@ export interface DateTimeProps extends BaseProps {
   /** Whether the input is editable. Default is 'true' */
   editable?: boolean,
 
-  /** Whether to pick time using arrow buttons */
-  timeArrowControl?: boolean,
-
-  /** */
+  /** Popper class name */
   popperClass?: string,
-  /** Set custom className for the calendar cell */
-  cellClassName?: (arg: Date) => string,
 
   /** Range separator. Default is '-' */
   rangeSeparator?: string,
@@ -41,7 +36,7 @@ export interface DateTimeProps extends BaseProps {
   clearable?: boolean,
 }
 
-export interface DateTimeField extends BaseField {
+export interface DateTimeField<ENTITY extends {}> extends BaseField<ENTITY> {
   type: 'datetime',
   dataType: 'date' | 'array',
   props: DateTimeProps,

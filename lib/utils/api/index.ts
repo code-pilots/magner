@@ -21,6 +21,9 @@ export const http = async <T>(path: string, config: RequestConfig): Promise<T> =
   if (!config.isFormdata) headers['Content-Type'] = 'application/json';
   if (globalValues.store?.state?.token) headers.Authorization = `Bearer ${globalValues.store.state.token}`;
 
+  // TODO: remove
+  headers['app-id'] = '61668bed20b7c65aee083fd0';
+
   try {
     const req = new Request(globalValues.development.envs.API_URL + path, {
       ...config,

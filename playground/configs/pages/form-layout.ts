@@ -4,7 +4,7 @@ import {
 } from '../../app/requests/big-test';
 import CustomLayout from '../../app/components/custom-layout.vue';
 
-const inputField: InputField = {
+const inputField: InputField<any> = {
   type: 'input',
   name: 'ex1',
   label: translate('form_test.form.example_label'),
@@ -38,8 +38,11 @@ const smallestCol: any = {
   fields: [inputField],
 };
 
-export default cardPageController({
-  title: translate('pages.form_layout'),
+export default cardPageController<any>({
+  header: {
+    title: translate('pages.form_layout'),
+  },
+
   getRequest: bigtestGet,
   createRequest: bigtestCreate,
   updateRequest: bigtestUpdate,

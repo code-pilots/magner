@@ -14,6 +14,7 @@ import {
 import { useTranslate, useChecks } from 'lib/utils';
 import type { EditorField } from 'lib/types/form/fields/editor';
 import setupEditor from 'lib/utils/form/editor';
+import { OutputData } from '@editorjs/editorjs';
 
 export default defineComponent({
   name: 'FormEditor',
@@ -30,7 +31,7 @@ export default defineComponent({
   emits: ['update:modelValue'],
   setup (props, context) {
     const { customT } = useTranslate();
-    const { disabled } = useChecks(props.field);
+    const { disabled, readOnly } = useChecks(props.field);
 
     const val = ref<string>(props.modelValue);
     watchEffect(() => {
@@ -43,11 +44,18 @@ export default defineComponent({
     };
 
     onMounted(() => {
+      let parsedData: OutputData;
+      try {
+        parsedData = JSON.parse(val.value);
+      } catch (_) {
+        parsedData = { blocks: [] };
+      }
+
       setupEditor({
         holder: props.field.props.id,
-        placeholder: customT(props.field.props.placeholder),
-        data: {},
-        readOnly: disabled.value,
+        placeholder: customT(props.field.props.placeholder || ''),
+        data: parsedData,
+        readOnly: readOnly.value || disabled.value,
         onChange: (editor) => {
           editor.saver?.save?.().then((outputData) => {
             changeVal(JSON.stringify(outputData));
