@@ -29,7 +29,7 @@ export default defineComponent({
   components: { ReadonlyWrap },
   props: {
     field: {
-      type: Object as PropType<SwitchField>,
+      type: Object as PropType<SwitchField<any>>,
       required: true,
     },
     modelValue: {

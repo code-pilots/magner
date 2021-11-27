@@ -13,6 +13,7 @@
       :default-first-option="field.props.defaultFirstOption || false"
       :filterable="field.props.filterable || false"
       :filter-method="field.props.filterMethod || null"
+      :allow-create="field.props.allowCreate || false"
       :remote="field.props.remote && field.props.filterable || false"
       :remote-method="field.props.filterable ? remoteMethod : null"
       :loading-text="customT(field.props.loadingText || '')"
@@ -54,7 +55,7 @@ export default defineComponent({
   components: { ReadonlyWrap },
   props: {
     field: {
-      type: Object as PropType<SelectField>,
+      type: Object as PropType<SelectField<any>>,
       required: true,
     },
     modelValue: {
@@ -68,7 +69,7 @@ export default defineComponent({
     const { disabled } = useChecks(props.field);
 
     const val = ref<SelectValue>(props.modelValue);
-    const allOptions = ref<SelectField['options']>(props.field.options);
+    const allOptions = ref<SelectField<any>['options']>(props.field.options);
     const loading = ref<boolean>(false);
     const selectEl = ref<typeof ElSelect>();
 

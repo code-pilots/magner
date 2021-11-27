@@ -98,11 +98,22 @@
       }
     }
 
-    &-dropzone {
-      width: 100%;
+    & .el-form-item__content {
+      line-height: 1;
+    }
 
-      & .el-form-item__content {
-        line-height: normal;
+    &-dropzone, &-editor, &-custom, &-button {
+      width: 100%;
+    }
+
+    &-radio {
+      @media (--breakpoint-small) {
+        & .el-radio.is-bordered {
+          width: 100%;
+          & + .el-radio.is-bordered {
+            margin-left: 0;
+          }
+        }
       }
     }
 
@@ -117,14 +128,6 @@
           width: 100%;
         }
       }
-    }
-
-    &-editor {
-      width: 100%;
-    }
-
-    &-custom, &-button {
-      width: 100%;
     }
   }
 

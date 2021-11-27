@@ -1,6 +1,6 @@
+import type { TranslateData } from 'lib/utils/core/translate';
+import type { RequestCallback } from 'lib/types/utils/api';
 import type { BaseField, BaseProps } from '../base';
-import type { RequestCallback } from '../../utils/api';
-import type { TranslateData } from '../../../utils/core/translate';
 
 /**
  * Props of the Select component from element-ui:
@@ -18,6 +18,9 @@ export interface SelectProps extends BaseProps {
   filterMethod?: Function,
   /** Display this text if filtering returned no results */
   noMatchText?: TranslateData,
+
+  /** When filtering, allow creation of new elements */
+  allowCreate?: boolean,
 
   /** Whether options are loaded from the server. Works only if 'filterable:true' is set */
   remote?: boolean,
@@ -39,8 +42,6 @@ export interface SelectProps extends BaseProps {
   valueKey?: string,
   /** The key of a label field of the Option object */
   labelKey?: string,
-
-  disabled?: boolean,
 
   /** Can the selected option be cleared? */
   clearable?: boolean,

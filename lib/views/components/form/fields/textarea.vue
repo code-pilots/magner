@@ -33,7 +33,7 @@ export default defineComponent({
   components: { ReadonlyWrap },
   props: {
     field: {
-      type: Object as PropType<TextareaField>,
+      type: Object as PropType<TextareaField<any>>,
       required: true,
     },
     modelValue: {

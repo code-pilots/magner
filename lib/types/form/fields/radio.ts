@@ -1,14 +1,18 @@
+import type { TranslateData } from 'lib/utils/core/translate';
 import type { BaseField, BaseProps } from '../base';
-import type { TranslateData } from '../../../utils/core/translate';
 
 export interface RadioProps extends BaseProps {
+  /** Display radio options in form of the buttons */
+  radioButtons?: boolean,
+
+  /** Whether radios should be displayed with a border around it */
+  border?: boolean,
+
   /** Font color when button is active */
   activeTextColor?: string,
 
   /** Border and background color when button is active */
   fill?: string,
-
-  disabled?: boolean,
 }
 
 export interface RadioOption extends Record<string, any> {
@@ -23,5 +27,4 @@ export interface RadioField<ENTITY extends {}> extends BaseField<ENTITY> {
   type: 'radio',
   props: RadioProps,
   options: RadioOption[],
-  radioButtons?: boolean,
 }

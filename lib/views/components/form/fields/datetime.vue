@@ -33,7 +33,7 @@ export default defineComponent({
   components: { ReadonlyWrap },
   props: {
     field: {
-      type: Object as PropType<DateTimeField>,
+      type: Object as PropType<DateTimeField<any>>,
       required: true,
     },
     modelValue: {

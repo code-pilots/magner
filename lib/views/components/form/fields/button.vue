@@ -19,7 +19,7 @@ export default defineComponent({
   name: 'FormButton',
   props: {
     field: {
-      type: Object as PropType<ButtonField>,
+      type: Object as PropType<ButtonField<any>>,
       default: () => ({}),
     },
   },

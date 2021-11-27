@@ -1,5 +1,5 @@
+import type { TranslateData } from 'lib/utils/core/translate';
 import type { BaseField, BaseProps } from '../base';
-import type { TranslateData } from '../../../utils/core/translate';
 
 export interface CheckboxProps extends BaseProps {
   /** Minimum/Maximum number of checkbox checked */
@@ -11,8 +11,6 @@ export interface CheckboxProps extends BaseProps {
 
   /** Border and background color when button is active */
   fill?: string,
-
-  disabled?: boolean,
 }
 
 export interface CheckboxOption extends Record<string, any> {

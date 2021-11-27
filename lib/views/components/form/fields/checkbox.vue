@@ -14,7 +14,6 @@
           v-for="option in field.options"
           :key="option.value"
           :label="option.value"
-          :disabled="option.disabled"
         >
           {{ customT(option.label) }}
         </el-checkbox-button>
@@ -25,7 +24,6 @@
           v-for="option in field.options"
           :key="option.value"
           :label="option.value"
-          :disabled="option.disabled"
         >
           {{ customT(option.label) }}
         </el-checkbox>
@@ -48,7 +46,7 @@ export default defineComponent({
   components: { ReadonlyWrap },
   props: {
     field: {
-      type: Object as PropType<CheckboxField>,
+      type: Object as PropType<CheckboxField<any>>,
       required: true,
     },
     modelValue: {

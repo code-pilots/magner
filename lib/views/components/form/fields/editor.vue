@@ -20,7 +20,7 @@ export default defineComponent({
   name: 'FormEditor',
   props: {
     field: {
-      type: Object as PropType<EditorField>,
+      type: Object as PropType<EditorField<any>>,
       required: true,
     },
     modelValue: {

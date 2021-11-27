@@ -7,12 +7,11 @@
       :disabled="disabled"
       @change="changeVal"
     >
-      <template v-if="field.radioButtons">
+      <template v-if="field.props.radioButtons">
         <el-radio-button
           v-for="option in field.options"
           :key="option.value"
           :label="option.value"
-          :disabled="option.disabled"
         >
           {{ customT(option.label) }}
         </el-radio-button>
@@ -23,7 +22,7 @@
           v-for="option in field.options"
           :key="option.value"
           :label="option.value"
-          :disabled="option.disabled"
+          :border="field.props.border"
         >
           {{ customT(option.label) }}
         </el-radio>
@@ -46,7 +45,7 @@ export default defineComponent({
   components: { ReadonlyWrap },
   props: {
     field: {
-      type: Object as PropType<RadioField>,
+      type: Object as PropType<RadioField<any>>,
       required: true,
     },
     modelValue: {
