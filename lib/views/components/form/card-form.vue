@@ -6,6 +6,7 @@
     :field-errors="fieldErrors"
     :skip-validation="!isNew ? ['empty'] : []"
     :return-initial-difference="!isNew"
+    :request-data="reqData"
     :skip-actions="[isNew || !config.deleteRequest ? ['remove'] : []]"
     class="card-form"
     @submit="save"
@@ -25,6 +26,7 @@
 <script lang="ts">
 import 'lib/assets/styles/components/card-form.css';
 import {
+  computed,
   defineComponent, PropType, ref,
 } from 'vue';
 import type { CardConfig } from 'lib/types/configs';
@@ -63,6 +65,7 @@ export default defineComponent({
 
     const error = ref('');
     const fieldErrors = ref<Record<string, string>>({});
+    const reqData = computed(() => ({ id: props.entityId, data: null, isNew: props.isNew }));
 
     const save = async (data: Record<string, any>) => {
       const submitButton = (props.config.form.actions || [])
@@ -71,8 +74,10 @@ export default defineComponent({
       error.value = '';
       fieldErrors.value = {};
 
-      const reqData = { id: props.entityId, data };
-      const res = await requestWrapper(reqData, props.isNew ? props.config.createRequest : props.config.updateRequest);
+      const res = await requestWrapper(
+        { ...reqData.value, data },
+        props.isNew ? props.config.createRequest : props.config.updateRequest
+      );
       if (submitButton) submitButton.loading = false;
 
       if (res.error) {
@@ -110,8 +115,7 @@ export default defineComponent({
       if (props.config.confirmDelete && !(await confirmDelete())) return;
 
       action.loading = true;
-      const reqData = { id: props.entityId, data: null };
-      const res = await requestWrapper(reqData, props.config.deleteRequest);
+      const res = await requestWrapper(reqData.value, props.config.deleteRequest);
       action.loading = false;
 
       if (res.error) {
@@ -134,6 +138,7 @@ export default defineComponent({
       t,
       error,
       fieldErrors,
+      reqData,
       save,
       deleteEntity,
     };

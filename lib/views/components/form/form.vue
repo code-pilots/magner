@@ -69,11 +69,13 @@ import type { ActionAction } from 'lib/types/utils/actions';
 import { DataTypeInitials, fieldsToModels, layoutToFields } from 'lib/utils/form/form';
 import { useTranslate } from 'lib/utils/core/translate';
 import { useMobile } from 'lib/utils/core/is-mobile';
+import { actionWrapper } from 'lib/utils/core/actions';
 import { updateFieldValues } from 'lib/utils/core/mixed-check';
 import setupValidators from 'lib/utils/form/setup-validators';
 import FormItem from './form-item.vue';
 import FormLayout from './layout.vue';
 import FormActions from './form-actions.vue';
+import { magnerMessage } from 'lib/utils';
 
 interface FormValidator extends HTMLFormElement {
   validate: Function,
@@ -90,6 +92,12 @@ export default defineComponent({
 
     /** Object with keys as field names and values as whatever you pass to a form field */
     initialData: {
+      type: Object,
+      default: () => ({}),
+    },
+
+    /** Anything that will be passed to the actionWrappers and requestWrappers from the Form component */
+    requestData: {
       type: Object,
       default: () => ({}),
     },
@@ -196,6 +204,17 @@ export default defineComponent({
     };
 
     const doActions = async (action: ActionAction) => {
+      if (action.action) {
+        const res = await actionWrapper({ ...props.requestData, form }, action.action);
+        if (res || res === '') {
+          magnerMessage({
+            type: 'error',
+            message: typeof res !== 'boolean' ? customT(res) : t('core.form.failed_action'),
+          });
+          return;
+        }
+      }
+
       if (action.emits === 'clear') {
         Object.assign(form, fieldsToModels(allFields.value));
         errors.value = {};

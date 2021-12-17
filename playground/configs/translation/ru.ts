@@ -40,6 +40,7 @@ const ruCustom: CustomTranslationSchema = {
   form_test: {
     title: 'Тест формы',
     submit_text: 'Сохранить',
+    error: 'Ошибка формы',
     form: {
       example_label: 'Пример',
       layout_text: 'Делайте со структурой что хотите!',

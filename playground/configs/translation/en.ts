@@ -40,6 +40,7 @@ const enCustom = {
   form_test: {
     title: 'Form test',
     submit_text: 'Save',
+    error: 'Form error',
     form: {
       example_label: 'Example',
       layout_text: 'You can do anything with this layout!',

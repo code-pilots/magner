@@ -22,7 +22,7 @@ const postConfig = cardPageController<Post>({
     actions: [
       {
         type: 'action',
-        action: action(async () => {}),
+        action: action(async () => translate('form_test.error')),
         emits: 'submit',
         props: {
           type: 'primary',
@@ -31,7 +31,7 @@ const postConfig = cardPageController<Post>({
       },
       {
         type: 'action',
-        action: action(async () => {}),
+        action: action(async () => false),
         emits: 'remove',
         props: {
           type: 'danger',

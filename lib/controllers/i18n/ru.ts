@@ -26,6 +26,7 @@ export const ruLocale: TranslationSchema = {
       submit: 'Подтвердить',
       remove: 'Удалить',
       cancel: 'Отменить',
+      failed_action: 'Не удалось выполнить действие',
 
       dropzone: {
         drag_here: 'Перетащите файлы сюда или',
