@@ -13,7 +13,7 @@ import type { CustomField } from './fields/custom';
 
 import type { FormLayout } from './layout';
 import type { DialogForm } from './dialog-forms';
-import type { FormAction } from './actions';
+import type { ActionButton } from '../utils/actions';
 
 /**
  * The type of a field used in the forms. Defined by its required 'type' which
@@ -33,7 +33,7 @@ export type GenericComponent<ENTITY extends {}> =
   | CollectionField<ENTITY>
   | CustomField<ENTITY>;
 
-export interface GenericForm<ENTITY extends {}> {
+export interface InnerForm<ENTITY extends {}, EMITTERS = string> {
   /**
    * Reacting to which event the form will trigger 'submit' event.
    * Case 'submit' - only on Submit button or Enter key press
@@ -42,11 +42,13 @@ export interface GenericForm<ENTITY extends {}> {
   submitEvent?: 'submit'|'input',
 
   /**
-   * An array (preserving the order of buttons) of buttons performing different actions with the form.
-   * Supports button-like configs with one additional property `action`. Possible values are:<br>
-   * `action`: `'submit'` | `'cancel'` | `'remove'` | `'clear'`,
+   * An array (preserving the order) of buttons performing different actions with the form.
+   * You can pass links to some page or an action with an async function and 'emits' option.
+   * When the button is clicked, the function is triggers with loader initiation. Finishing the function
+   * emits the 'emits' event back to the form to perform Magner action, e.g. submit, clear, update table etc. Every
+   * form (on card page, table filters and other) supports different 'emits' options that you can use.
    */
-  actions?: FormAction[],
+  actions?: ActionButton<EMITTERS>[],
 
   layout: FormLayout<ENTITY>,
 
@@ -60,3 +62,5 @@ export interface GenericForm<ENTITY extends {}> {
   /** If 'true', shows the debug window with form fields on top right corner of the form */
   debug?: boolean,
 }
+
+export interface GenericForm<ENTITY extends {}> extends InnerForm<ENTITY, string> {}

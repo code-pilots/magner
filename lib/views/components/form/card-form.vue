@@ -28,7 +28,7 @@ import {
   defineComponent, PropType, ref,
 } from 'vue';
 import type { CardConfig } from 'lib/types/configs';
-import type { FormAction } from 'lib/types/form/actions';
+import type { ActionAction } from 'lib/types/utils/actions';
 import { useTranslate } from 'lib/utils/core/translate';
 import { requestWrapper } from 'lib/utils/core/request';
 import { magnerConfirm, magnerMessage } from 'lib/utils/core/messages';
@@ -65,7 +65,8 @@ export default defineComponent({
     const fieldErrors = ref<Record<string, string>>({});
 
     const save = async (data: Record<string, any>) => {
-      const submitButton = (props.config.form.actions || []).find((action) => action.action === 'submit');
+      const submitButton = (props.config.form.actions || [])
+        .find((action) => (action as ActionAction)?.emits === 'submit');
       if (submitButton) submitButton.loading = true;
       error.value = '';
       fieldErrors.value = {};
@@ -92,7 +93,7 @@ export default defineComponent({
 
     const confirmDelete = (): Promise<boolean> => new Promise((resolve) => {
       magnerConfirm({
-        message: t('core.card.removal_confirm', { msg: customT(props.config.title) }),
+        message: t('core.card.removal_confirm', { msg: customT(props.config.header.title || '') }),
         title: t('core.card.attention'),
         confirmButtonText: t('core.card.confirm_button_text'),
         cancelButtonText: t('core.card.cancel_button_text'),
@@ -104,7 +105,7 @@ export default defineComponent({
       });
     });
 
-    const deleteEntity = async (action: FormAction) => {
+    const deleteEntity = async (action: ActionAction) => {
       if (!props.config.deleteRequest) return;
       if (props.config.confirmDelete && !(await confirmDelete())) return;
 
@@ -119,6 +120,7 @@ export default defineComponent({
         } else {
           error.value = res.error.message;
         }
+        return;
       }
 
       magnerMessage({

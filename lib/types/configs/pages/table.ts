@@ -5,10 +5,14 @@ import type { Table } from 'lib/types/components/table';
 import type { PageHeader } from 'lib/types/configs/pages/shared';
 
 export interface FiltersForm<ENTITY extends {}> extends GenericForm<ENTITY> {
-  /** Display the button link for some other page like entity create or not */
+  /** Display the button link for some other page like entity create or not, or choose 'useRelatedForm',
+   * so the tablePage.relatedForm would  */
   linkToCreateNew?: {
-    label: TranslateData,
     routeName: string,
+    label: TranslateData,
+  } | {
+    useRelatedForm: true,
+    label: TranslateData,
   },
 
   /** How many filters should be displayed in the top filters row */

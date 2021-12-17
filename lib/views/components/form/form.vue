@@ -63,9 +63,9 @@ import {
 } from 'vue';
 import { useRouter } from 'vue-router';
 import type { GenericForm } from 'lib/types/form';
-import type { FormAction } from 'lib/types/form/actions';
 import type { FormInteractionsData } from 'lib/types/form/base';
 import type { SupportedValidators } from 'lib/types/configs';
+import type { ActionAction } from 'lib/types/utils/actions';
 import { DataTypeInitials, fieldsToModels, layoutToFields } from 'lib/utils/form/form';
 import { useTranslate } from 'lib/utils/core/translate';
 import { useMobile } from 'lib/utils/core/is-mobile';
@@ -117,11 +117,11 @@ export default defineComponent({
 
     /** Skip action buttons to be displayed. 'true' skips all, array of strings skips specific ones */
     skipActions: {
-      type: [Array, Boolean] as PropType<FormAction['action'][] | boolean>,
+      type: [Array, Boolean] as PropType<string[] | boolean>,
       default: () => ([]),
     },
   },
-  emits: ['submit', 'remove'],
+  emits: ['submit', 'remove', 'action'],
   setup (props, context) {
     const { customT, t } = useTranslate();
     const isMobile = useMobile();
@@ -195,26 +195,27 @@ export default defineComponent({
       errors.value[field] = err;
     };
 
-    const doActions = async (action: FormAction) => {
-      if (action.action === 'clear') {
+    const doActions = async (action: ActionAction) => {
+      if (action.emits === 'clear') {
         Object.assign(form, fieldsToModels(allFields.value));
         errors.value = {};
         return;
       }
 
-      if (action.action === 'submit') {
+      if (action.emits === 'submit') {
         submit();
         return;
       }
 
-      if (action.action === 'cancel') {
+      if (action.emits === 'cancel') {
         await router.go(-1);
         await router.push('/');
         return;
       }
 
-      // In case of 'remove' - send events back
-      context.emit(action.action, action);
+      if (action.emits === 'remove') {
+        context.emit('remove', action);
+      }
     };
 
     watchEffect(() => {

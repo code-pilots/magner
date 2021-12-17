@@ -5,6 +5,8 @@ export {
   requestWrapper,
 } from './core/request';
 
+export { action, actionWrapper } from './core/actions';
+
 export { translate, useTranslate, TranslateError } from './core/translate';
 export { useMobile } from './core/is-mobile';
 export {
