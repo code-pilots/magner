@@ -22,6 +22,9 @@ export type SupportedComponentTypes =
 export interface BaseProps {
   class?: string,
 
+  /** Displays the red asterisk next to the field label. Does not influence any validations! */
+  required?: boolean,
+
   /** Whether the field is disabled. Accepts static boolean or the dynamic
    * MixedChecker function with access to the user's role and form's state */
   disabled?: boolean | MixedChecker,
@@ -48,7 +51,7 @@ export interface FormInteractionsData<ENTITY extends {}> {
   form: Record<string, any>,
   getField: <FIELD extends GenericComponent<ENTITY>
     = GenericComponent<ENTITY>>(name: keyof ENTITY) => FIELD | undefined,
-  getDialogForm: <FORM = DialogForm>(name: string) => DialogForm | undefined,
+  getDialogForm: <FORM = DialogForm<ENTITY>>(name: string) => DialogForm<ENTITY> | undefined,
   config: GenericForm<ENTITY>,
   data?: unknown,
 }
@@ -76,10 +79,6 @@ export interface BaseField<ENTITY extends {}> {
 
   /** Needed to setup initial values for the fields. Default is 'string' that returns and empty string '' */
   dataType?: SupportedDataTypes,
-
-  /** Is the field required.
-   * !!! Doesn't work as expected, so use validation with type 'empty' on a field */
-  required?: boolean,
 
   /** Hides the fields with v-show, so that Vue can display it later with some transition */
   hidden?: boolean,

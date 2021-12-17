@@ -11,9 +11,9 @@ export interface RoutePresetBase {
  * Login page route preset. You define the form in the page and a request to the backend,
  * Magner handles the authorization and role management.
  */
-export interface LoginPreset extends RoutePresetBase {
+export interface LoginPreset<ENTITY extends {} = any> extends RoutePresetBase {
   preset: 'login',
-  config: LoginConfig,
+  config: LoginConfig<ENTITY>,
 }
 
 /**
@@ -27,9 +27,9 @@ export interface TablePreset<ENTITY extends {} = any> extends RoutePresetBase {
 /**
  * Card page route preset. Displays the form or a read-only card for management of the entity card
  */
-export interface CardPreset extends RoutePresetBase {
+export interface CardPreset<ENTITY extends {} = any> extends RoutePresetBase {
   preset: 'card',
-  config: CardConfig,
+  config: CardConfig<ENTITY>,
 }
 
 /**

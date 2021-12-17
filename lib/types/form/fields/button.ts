@@ -1,4 +1,4 @@
-import type { TranslateData } from '../../../utils/core/translate';
+import type { TranslateData } from 'lib/utils/core/translate';
 import type { BaseField, BaseProps } from '../base';
 
 export type ButtonType = 'primary' | 'success' | 'warning' | 'danger' | 'info' | 'text';

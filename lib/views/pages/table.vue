@@ -13,6 +13,7 @@
       >
         <template #after>
           <el-button
+            v-if="config.filters.fieldsShowAmount < allFilters.length"
             type="primary"
             plain
             :icon="filterIcon"
@@ -80,7 +81,7 @@
         </div>
 
         <div
-          v-if="(response && response.pagination) && (requestData && requestData.pagination)"
+          v-if="!selected.length && (response && response.pagination) && (requestData && requestData.pagination)"
           class="table-page_pagination"
         >
           <el-pagination
@@ -148,8 +149,8 @@ export default defineComponent({
     const isMobile = useMobile();
     const drawerComponent = useDialogForm();
 
-    const topFilters = computed(() => layoutToFields(props.config.filters.layout)
-      .slice(0, props.config.filters.fieldsShowAmount ?? undefined));
+    const allFilters = computed(() => layoutToFields(props.config.filters.layout));
+    const topFilters = computed(() => allFilters.value.slice(0, props.config.filters.fieldsShowAmount ?? undefined));
 
     const drawerOpen = ref(false);
     const formRef = ref<typeof GenericForm>();
@@ -239,6 +240,7 @@ export default defineComponent({
       formRef,
       hasFilters,
       tableHeight,
+      allFilters,
       topFilters,
       selected,
       tableEl,

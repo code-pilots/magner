@@ -84,6 +84,10 @@
       }
     }
 
+    &_required {
+      color: #F36D6F;
+    }
+
     &_tooltip.el-popper, &_tooltip.el-popper.is-dark {
       color: black;
       background: #FFDB31;

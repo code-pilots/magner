@@ -115,6 +115,7 @@ export default cardPageController<BigTestEntity>({
                 trigger: 'blur',
               },
               props: {
+                required: true,
                 type: 'email',
                 placeholder: 'example@domain.com',
               },
