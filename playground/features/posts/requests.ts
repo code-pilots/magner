@@ -88,6 +88,6 @@ export const deletePost = cardRequest<Post, PostCreate>(async ({ api, data }) =>
     const res = await api.delete<{}, Post>(`/post/${data.id}`);
     return { data: res };
   } catch (e) {
-    return { error: '' };
+    return { error: 'Cannot delete' };
   }
 });

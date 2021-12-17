@@ -1,5 +1,5 @@
 import { tableController, translate } from 'lib/index';
-import type { Post } from '../../../app/requests/posts';
+import type { Post } from './requests';
 
 const postsTable = tableController<Post>({
   emptyText: translate('posts.not_found'),

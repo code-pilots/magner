@@ -1,5 +1,5 @@
 import { tableRequest } from 'lib/index';
-import { paginationProxy } from './posts';
+import { paginationProxy } from './requests';
 
 export interface User {
   id: string,

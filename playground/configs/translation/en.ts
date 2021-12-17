@@ -21,6 +21,8 @@ const enCustom = {
     form_title: 'Post',
     submit: 'Submit',
     remove: 'Delete',
+    clear: 'Clear',
+    cancel: 'Cancel',
     name_input: 'Name',
     likes_input: 'Likes',
     dropzone_input: 'Cover image',

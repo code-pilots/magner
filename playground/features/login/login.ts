@@ -1,24 +1,28 @@
 import { loginPageController, translate } from 'lib/index';
-import loginRequest from '../../app/requests/login';
+import loginRequest from './requests';
 
 const loginPageConfig = loginPageController({
   title: translate('login.title'),
   request: loginRequest,
   form: {
     actions: [{
-      action: 'submit',
-      type: 'primary',
+      type: 'action',
+      emits: 'submit',
+      props: {
+        type: 'primary',
+        text: translate('post.submit'),
+      },
     }],
     layout: [
       {
         type: 'input',
         name: 'login',
-        required: false,
         validation: {
           type: 'empty',
           trigger: 'blur',
         },
         props: {
+          required: false,
           type: 'text',
           placeholder: translate('login.fields.email_placeholder'),
           icon: () => import('../../assets/icons/mail.svg'),
@@ -27,12 +31,12 @@ const loginPageConfig = loginPageController({
       {
         type: 'input',
         name: 'password',
-        required: false,
         validation: {
           type: 'empty',
           trigger: 'blur',
         },
         props: {
+          required: false,
           type: 'password',
           placeholder: translate('login.fields.password_placeholder'),
           icon: () => import('../../assets/icons/lock.svg'),

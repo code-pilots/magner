@@ -19,5 +19,5 @@ export interface CardConfig<ENTITY extends {}> {
    * when delete button is pressed */
   confirmDelete?: boolean,
 
-  form: InnerForm<ENTITY, 'submit' | 'remove' | 'clear'>,
+  form: InnerForm<ENTITY, 'submit' | 'remove' | 'clear' | 'cancel'>,
 }

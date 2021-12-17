@@ -1,5 +1,5 @@
 import { filtersFormController, translate } from 'lib/index';
-import { Post } from '../../../app/requests/posts';
+import { Post } from './requests';
 
 const postsFilters = filtersFormController<Post>({
   fieldsShowAmount: 1,
