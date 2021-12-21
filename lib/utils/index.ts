@@ -12,6 +12,8 @@ export {
   actionTable,
 } from './core/actions';
 
+export { openModal } from './core/modal';
+
 export { translate, useTranslate, TranslateError } from './core/translate';
 export { useMobile } from './core/is-mobile';
 export {

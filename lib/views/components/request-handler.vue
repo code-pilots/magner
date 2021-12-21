@@ -25,7 +25,7 @@ export default defineComponent({
       default: false,
     },
   },
-  emits: ['loading'],
+  emits: ['loading', 'error'],
   async setup (props, context) {
     const error = ref('');
     const response = ref();
@@ -49,6 +49,7 @@ export default defineComponent({
 
       if (res.error) {
         error.value = res.error as string;
+        context.emit('error', res.error);
       }
     };
 

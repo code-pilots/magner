@@ -1,5 +1,6 @@
 import { InjectionKey } from 'vue';
 import { createStore, useStore as baseUseStore, Store } from 'vuex';
+import type { ModalConfig } from 'lib/types/utils/modals';
 import globalValues, { GlobalValues } from 'lib/global';
 
 interface State {
@@ -11,6 +12,7 @@ interface State {
   role: string | null,
 
   sidebarCollapsed: boolean,
+  modalComponent: ModalConfig<any> | null,
 }
 
 /**
@@ -41,6 +43,7 @@ export const store = () => createStore<State>({
 
       sidebarCollapsed: (typeof window !== 'undefined'
         && globalValues.lstorage.read('sidebarCollapsed') as boolean) || false,
+      modalComponent: null,
     };
   },
 
@@ -83,6 +86,10 @@ export const store = () => createStore<State>({
         globalValues.lstorage.delete('sidebarCollapsed');
       }
     },
+
+    setModalComponent (state, value: ModalConfig<any> | null) {
+      state.modalComponent = value;
+    },
   },
 
   actions: {
@@ -111,6 +118,10 @@ export const store = () => createStore<State>({
 
     toggleSidebar (context) {
       context.commit('setSidebar', !context.state.sidebarCollapsed);
+    },
+
+    changeModalComponent (context, value: ModalConfig<any> | null) {
+      context.commit('setModalComponent', value);
     },
   },
 });

@@ -8,6 +8,10 @@ export const enLocale = {
       collapse: 'Collapse',
     },
 
+    messages: {
+      error: 'An error happened',
+    },
+
     card: {
       remove: 'Remove',
       success_creation: 'Created successfully!',

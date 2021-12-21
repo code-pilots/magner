@@ -30,3 +30,18 @@
   width: 100%;
   height: 100%;
 }
+
+.el-message.in-place {
+  position: relative;
+  left: unset;
+  top: unset;
+  transform: unset;
+}
+
+body .el-dialog {
+  &__body {
+    @media (--breakpoint-small) {
+      padding: 0;
+    }
+  }
+}

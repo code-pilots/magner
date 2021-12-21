@@ -3,8 +3,10 @@ import {
   actionTable,
   filtersFormController,
   translate,
+  openModal,
 } from 'lib/index';
 import { Post } from './requests';
+import postConfig from './post';
 
 const postsFilters = filtersFormController<Post>({
   fieldsShowAmount: 1,
@@ -14,6 +16,15 @@ const postsFilters = filtersFormController<Post>({
       type: 'action',
       emits: 'update-table',
       action: actionTable(async ({ data }) => {
+        openModal<any>({
+          type: 'card',
+          config: postConfig,
+          props: {
+            emptyCard: true,
+            entityId: null,
+          },
+        });
+
         return false;
       }),
       props: {

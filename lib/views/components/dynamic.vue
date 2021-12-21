@@ -6,10 +6,15 @@
         :request="request"
         :data="data"
         :disabled="disabled"
+        @error="emitError"
       >
         <template #default="{response, error, loading}">
           <template v-if="error">
-            {{ error }}
+            <slot name="error" :error="error">
+              <div class="el-message in-place el-message--error">
+                {{ error ? customT(error && error.message) || t('core.messages.error') : t('core.messages.error') }}
+              </div>
+            </slot>
           </template>
           <slot v-else v-bind="{response, loading}" />
         </template>
@@ -23,7 +28,9 @@
 
 <script lang="ts">
 import { defineComponent, PropType, ref } from 'vue';
+import type { ApiError } from 'lib/types/configs/development';
 import { RequestCallback } from 'lib/types/utils/api';
+import { useTranslate } from 'lib/utils/core/translate';
 import RequestHandler from './request-handler.vue';
 
 export default defineComponent({
@@ -43,16 +50,25 @@ export default defineComponent({
       default: false,
     },
   },
-  setup () {
+  emits: ['error'],
+  setup (_, context) {
     const reqHandler = ref<typeof RequestHandler>();
+    const { customT, t } = useTranslate();
 
     const makeRequest = () => {
       reqHandler.value!.makeRequest?.();
     };
 
+    const emitError = (err: string | ApiError) => {
+      context.emit('error', err);
+    };
+
     return {
       reqHandler,
       makeRequest,
+      emitError,
+      customT,
+      t,
     };
   },
 });

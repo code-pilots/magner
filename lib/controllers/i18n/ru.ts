@@ -10,6 +10,10 @@ export const ruLocale: TranslationSchema = {
       collapse: 'Свернуть',
     },
 
+    messages: {
+      error: 'Произошла ошибка',
+    },
+
     card: {
       remove: 'Удалить',
       success_creation: 'Создание прошло успешно!',
