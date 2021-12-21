@@ -6,8 +6,8 @@
 import {
   defineComponent, PropType, ref, watch,
 } from 'vue';
-import type { RequestCallback } from '../../types/utils/api';
-import { requestWrapper } from '../../utils';
+import type { RequestCallback } from 'lib/types/utils/api';
+import { requestWrapper } from 'lib/utils/core/request';
 
 export default defineComponent({
   name: 'RequestHandler',
@@ -37,7 +37,7 @@ export default defineComponent({
       context.emit('loading', val);
     };
 
-    const request = async (newData?: any) => {
+    const makeRequest = async (newData?: any) => {
       if (props.disabled) return;
 
       changeLoading(true);
@@ -48,20 +48,21 @@ export default defineComponent({
       response.value = res.data;
 
       if (res.error) {
-        error.value = res.error;
+        error.value = res.error as string;
       }
     };
 
     watch(() => props.data, (val) => {
-      request(val);
+      makeRequest(val);
     }, { deep: true });
 
-    await request();
+    await makeRequest();
 
     return {
       response,
       error,
       loading,
+      makeRequest,
     };
   },
 });

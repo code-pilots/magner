@@ -2,6 +2,7 @@
   <suspense>
     <template #default>
       <RequestHandler
+        ref="reqHandler"
         :request="request"
         :data="data"
         :disabled="disabled"
@@ -21,8 +22,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
-import { RequestCallback } from '../../types/utils/api';
+import { defineComponent, PropType, ref } from 'vue';
+import { RequestCallback } from 'lib/types/utils/api';
 import RequestHandler from './request-handler.vue';
 
 export default defineComponent({
@@ -41,6 +42,18 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+  },
+  setup () {
+    const reqHandler = ref<typeof RequestHandler>();
+
+    const makeRequest = () => {
+      reqHandler.value!.makeRequest?.();
+    };
+
+    return {
+      reqHandler,
+      makeRequest,
+    };
   },
 });
 </script>

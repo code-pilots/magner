@@ -129,7 +129,7 @@ export default defineComponent({
       default: () => ([]),
     },
   },
-  emits: ['submit', 'remove', 'action'],
+  emits: ['submit', 'remove', 'action', 'action'],
   setup (props, context) {
     const { customT, t } = useTranslate();
     const isMobile = useMobile();
@@ -234,7 +234,10 @@ export default defineComponent({
 
       if (action.emits === 'remove') {
         context.emit('remove', action);
+        return;
       }
+
+      context.emit('action', action);
     };
 
     watchEffect(() => {
