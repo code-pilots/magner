@@ -17,6 +17,7 @@
           <el-button
             v-if="config.filters.fieldsShowAmount < allFilters.length"
             type="primary"
+            class="more-filters"
             plain
             :icon="filterIcon"
             @click="drawerOpen = true"

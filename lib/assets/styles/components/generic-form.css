@@ -68,10 +68,14 @@
       & > * {
         max-width: 200px;
         &:not(:last-child) {
-          @media (--breakpoint-md) {
-            margin-right: 12px;
-          }
+          margin-right: 12px;
         }
+      }
+    }
+
+    @media (--breakpoint-small) {
+      & > *:not(:last-child) {
+        margin-bottom: 4px;
       }
     }
   }

@@ -13,7 +13,7 @@
           :loading="action.loading"
           :type="action.props.type || 'default'"
           :native-type="action.props.nativeType || 'button'"
-          :class="[`generic-form_${action.action}`, action.props.class || '', 'width-full']"
+          :class="[action.props.class || '', 'width-full']"
         >
           {{ getTranslation(action) }}
         </el-button>
@@ -25,7 +25,7 @@
           :loading="action.loading"
           :type="action.props.type || 'default'"
           :native-type="action.props.nativeType || 'button'"
-          :class="[`generic-form_${action.action}`, action.props.class || '', 'width-full']"
+          :class="['generic-form_actions_action', action.props.class || '', 'width-full']"
           @click="act(action)"
         >
           {{ getTranslation(action) }}

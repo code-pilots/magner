@@ -14,7 +14,6 @@ const postsFilters = filtersFormController<Post>({
       type: 'action',
       emits: 'update-table',
       action: actionTable(async ({ data }) => {
-        console.log(data);
         return false;
       }),
       props: {
@@ -44,13 +43,22 @@ const postsFilters = filtersFormController<Post>({
     page: 1,
   },
 
-  layout: [{
-    type: 'input',
-    name: 'text',
-    props: {
-      placeholder: translate('post.name_input'),
+  layout: [
+    {
+      type: 'input',
+      name: 'text',
+      props: {
+        placeholder: translate('post.name_input'),
+      },
     },
-  }],
+    {
+      type: 'input',
+      name: 'likes',
+      props: {
+        placeholder: 'Likes',
+      },
+    },
+  ],
 });
 
 export default postsFilters;

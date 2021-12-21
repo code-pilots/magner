@@ -49,6 +49,12 @@
         }
       }
 
+      & .more-filters {
+        @media (--breakpoint-small) {
+          margin-bottom: 4px;
+        }
+      }
+
       & .el-form-item {
         max-width: 200px;
         margin-right: 8px;
