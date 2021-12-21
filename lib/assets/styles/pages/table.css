@@ -34,11 +34,19 @@
       display: flex;
       flex-wrap: nowrap;
       align-items: center;
+      width: 100%;
       overflow-x: hidden;
 
       @media (--breakpoint-small) {
         flex-direction: column;
         margin-bottom: 4px;
+      }
+
+      & .generic-form_only-fields, & .generic-form_actions {
+        width: auto;
+        @media (--breakpoint-small) {
+          width: 100%;
+        }
       }
 
       & .el-form-item {

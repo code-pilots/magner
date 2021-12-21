@@ -1,17 +1,40 @@
-import { filtersFormController, translate } from 'lib/index';
+import {
+  action,
+  actionTable,
+  filtersFormController,
+  translate,
+} from 'lib/index';
 import { Post } from './requests';
 
 const postsFilters = filtersFormController<Post>({
   fieldsShowAmount: 1,
 
-  linkToCreateNew: {
-    routeName: 'post',
-    label: translate('post.new_post'),
-  },
+  actions: [
+    {
+      type: 'action',
+      emits: 'update-table',
+      action: actionTable(async ({ data }) => {
+        console.log(data);
+        return false;
+      }),
+      props: {
+        type: 'danger',
+        text: 'Open modal',
+      },
+    },
+    {
+      type: 'link',
+      to: { name: 'post', params: { id: 'new' } },
+      external: false,
+      props: {
+        type: 'primary',
+        text: translate('post.new_post'),
+      },
+    },
+  ],
 
   saveToLocalStorage: true,
 
-  actions: [],
   submitEvent: 'input',
 
   filtersData: {},

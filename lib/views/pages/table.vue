@@ -8,6 +8,7 @@
         :config="{ ...config.filters, layout: topFilters }"
         :loading="false"
         :initial-data="requestData.filters"
+        :request-data="{ ...requestData, selected }"
         class="table-page_top_filters"
         @submit="filterItems"
       >

@@ -23,6 +23,8 @@ const ruCustom: CustomTranslationSchema = {
     form_title: 'Публикация',
     submit: 'Сохранить',
     remove: 'Удалить',
+    clear: 'Очистить',
+    cancel: 'Отменить',
     name_input: 'Название',
     likes_input: 'Лайки',
     dropzone_input: 'Обложка',

@@ -28,13 +28,40 @@ interface ActionButtonBase {
 interface ActionLink extends ActionButtonBase {
   type: 'link',
   to: ((route: RouteLocationRaw) => RouteLocationRaw) | RouteLocationRaw,
-  external: boolean,
+  external?: boolean,
 }
 
 export interface ActionAction<EMITTER = string> extends ActionButtonBase {
   type: 'action',
   action?: ActionCallback,
-  emits: EMITTER,
+  emits?: EMITTER,
 }
 
 export type ActionButton<EMITTERS> = ActionLink | ActionAction<EMITTERS>;
+
+/**
+ * Typings for the specific actions: in card form, table etc. They differ in what data is passed to them
+ */
+
+interface ActionDataBase<ENTITY extends {}> {
+  form: ENTITY,
+}
+
+interface ActionCardData<ENTITY extends {}> extends ActionDataBase<ENTITY> {
+  id?: string | number | Record<string, unknown>,
+  isNew: boolean,
+  data: null | ENTITY,
+}
+
+export type ActionFuncCard = <ENTITY extends {}, RESULT = any, EMITTER = string>(
+  cb: ActionCallback<RESULT, ActionCardData<ENTITY>>) => ActionCallback<RESULT, ActionCardData<ENTITY>>;
+
+interface ActionTableData<ENTITY extends {}> extends ActionDataBase<ENTITY> {
+  selected: ENTITY[],
+  pagination: {items?: number | undefined, page?: number | undefined},
+  filters: ENTITY | Record<string, any>,
+  sort: ENTITY | Record<string, any>,
+}
+
+export type ActionFuncTable = <ENTITY extends {}, RESULT = any, EMITTER = string>(
+  cb: ActionCallback<RESULT, ActionTableData<ENTITY>>) => ActionCallback<RESULT, ActionTableData<ENTITY>>;

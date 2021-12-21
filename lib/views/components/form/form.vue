@@ -68,6 +68,7 @@ import type { SupportedValidators } from 'lib/types/configs';
 import type { ActionAction } from 'lib/types/utils/actions';
 import { DataTypeInitials, fieldsToModels, layoutToFields } from 'lib/utils/form/form';
 import { useTranslate } from 'lib/utils/core/translate';
+import { magnerMessage } from 'lib/utils/core/messages';
 import { useMobile } from 'lib/utils/core/is-mobile';
 import { actionWrapper } from 'lib/utils/core/actions';
 import { updateFieldValues } from 'lib/utils/core/mixed-check';
@@ -75,7 +76,6 @@ import setupValidators from 'lib/utils/form/setup-validators';
 import FormItem from './form-item.vue';
 import FormLayout from './layout.vue';
 import FormActions from './form-actions.vue';
-import { magnerMessage } from 'lib/utils';
 
 interface FormValidator extends HTMLFormElement {
   validate: Function,
