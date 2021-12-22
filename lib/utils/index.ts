@@ -1,7 +1,7 @@
 export {
   request,
-  cardRequest,
-  tableRequest,
+  requestCard,
+  requestTable,
   requestWrapper,
 } from './core/request';
 

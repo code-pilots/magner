@@ -47,6 +47,7 @@ export default defineComponent({
         } else if (config.type === 'custom') {
           const imported = await config.component?.();
           contentComponent.value = (imported as any)?.default || imported;
+          contentProps.value = { ...config.props };
         }
         modalOpen.value = true;
       } else {

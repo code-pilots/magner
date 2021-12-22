@@ -6,7 +6,9 @@ import api from '../api';
 
 export const request: RequestFunc = (cb) => cb;
 
-export const cardRequest: CardRequestFunc = (cb) => cb;
+export const requestCard: CardRequestFunc = (cb) => cb;
+
+export const requestTable: TableRequest = (cb) => cb;
 
 export const requestWrapper: RequestWrapper = (data, cb) => cb({
   data,
@@ -16,5 +18,3 @@ export const requestWrapper: RequestWrapper = (data, cb) => cb({
   urlParsers: globalValues.store.state.project.development.urlParsers,
   lstorage: globalValues.lstorage,
 });
-
-export const tableRequest: TableRequest = (cb) => cb;

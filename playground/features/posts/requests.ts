@@ -1,5 +1,5 @@
 import {
-  cardRequest, PaginationType, request, tableRequest,
+  requestCard, PaginationType, request, requestTable,
 } from 'lib/index';
 
 export interface Post {
@@ -33,7 +33,7 @@ export const paginationProxy = <ENTITY>(res: Response<ENTITY>): PaginationType =
   currentPage: res.page,
 });
 
-export const readPosts = tableRequest(async ({ data, api, urlParsers }) => {
+export const readPosts = requestTable(async ({ data, api, urlParsers }) => {
   try {
     const query = urlParsers.dataToUrl({
       limit: data.pagination?.items || 10,
@@ -65,7 +65,7 @@ export const getPost = request<Post, number>(async ({ api, data, errorParser }) 
   }
 });
 
-export const createPost = cardRequest<Post, PostCreate>(async ({ api, data, errorParser }) => {
+export const createPost = requestCard<Post, PostCreate>(async ({ api, data, errorParser }) => {
   try {
     const res = await api.post<PostCreate, Post>('/post/create', data.data);
     return { data: res };
@@ -74,7 +74,7 @@ export const createPost = cardRequest<Post, PostCreate>(async ({ api, data, erro
   }
 });
 
-export const updatePost = cardRequest<Post, PostCreate>(async ({ api, data, errorParser }) => {
+export const updatePost = requestCard<Post, PostCreate>(async ({ api, data, errorParser }) => {
   try {
     const res = await api.put<PostCreate, Post>(`/post/${data.id}`, data.data);
     return { data: res };
@@ -83,7 +83,7 @@ export const updatePost = cardRequest<Post, PostCreate>(async ({ api, data, erro
   }
 });
 
-export const deletePost = cardRequest<Post, PostCreate>(async ({ api, data }) => {
+export const deletePost = requestCard<Post, PostCreate>(async ({ api, data }) => {
   try {
     const res = await api.delete<{}, Post>(`/post/${data.id}`);
     return { data: res };
