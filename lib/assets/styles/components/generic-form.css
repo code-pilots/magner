@@ -66,7 +66,7 @@
       flex-direction: row;
 
       & > * {
-        max-width: 200px;
+        max-width: 250px;
         &:not(:last-child) {
           margin-right: 12px;
         }

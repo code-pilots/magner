@@ -36,6 +36,8 @@ const enCustom = {
   },
   posts: {
     not_found: 'No posts found',
+    create_in_modal: 'Create in modal',
+    failed_creation: 'Post creation failed',
   },
   form_test: {
     title: 'Form test',

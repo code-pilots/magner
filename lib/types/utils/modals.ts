@@ -4,6 +4,7 @@ import type { RouteComponent } from 'vue-router';
 
 interface ModalConfigBase {
   type: 'card' | 'table' | 'custom',
+  readonly handleSuccess?: (data: unknown) => void,
 }
 
 interface ModalConfigCard<ENTITY extends {}> extends ModalConfigBase {

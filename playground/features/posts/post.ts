@@ -1,5 +1,5 @@
 import { cardPageController } from 'lib/controllers';
-import { actionCard, translate } from 'lib/utils';
+import { actionCard, requestWrapper, translate } from 'lib/utils';
 import {
   createPost, deletePost, getPost, Post, updatePost,
 } from './requests';
@@ -22,7 +22,6 @@ const postConfig = cardPageController<Post>({
     actions: [
       {
         type: 'action',
-        action: actionCard(async () => translate('form_test.error')),
         emits: 'submit',
         props: {
           type: 'primary',

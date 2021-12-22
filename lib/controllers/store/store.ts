@@ -3,6 +3,12 @@ import { createStore, useStore as baseUseStore, Store } from 'vuex';
 import type { ModalConfig } from 'lib/types/utils/modals';
 import globalValues, { GlobalValues } from 'lib/global';
 
+interface ModalData {
+  handleSuccess: (data: unknown) => void,
+  handleFail: (data: unknown) => void,
+  config: ModalConfig<any>,
+}
+
 interface State {
   project: GlobalValues,
 
@@ -12,7 +18,7 @@ interface State {
   role: string | null,
 
   sidebarCollapsed: boolean,
-  modalComponent: ModalConfig<any> | null,
+  modalData: ModalData | null,
 }
 
 /**
@@ -43,7 +49,7 @@ export const store = () => createStore<State>({
 
       sidebarCollapsed: (typeof window !== 'undefined'
         && globalValues.lstorage.read('sidebarCollapsed') as boolean) || false,
-      modalComponent: null,
+      modalData: null,
     };
   },
 
@@ -87,8 +93,8 @@ export const store = () => createStore<State>({
       }
     },
 
-    setModalComponent (state, value: ModalConfig<any> | null) {
-      state.modalComponent = value;
+    setModalComponent (state, value: ModalData | null) {
+      state.modalData = value;
     },
   },
 
@@ -120,7 +126,7 @@ export const store = () => createStore<State>({
       context.commit('setSidebar', !context.state.sidebarCollapsed);
     },
 
-    changeModalComponent (context, value: ModalConfig<any> | null) {
+    changeModalComponent (context, value: ModalData | null) {
       context.commit('setModalComponent', value);
     },
   },

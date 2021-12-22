@@ -16,20 +16,23 @@ const postsFilters = filtersFormController<Post>({
       type: 'action',
       emits: 'update-table',
       action: actionTable(async ({ data }) => {
-        openModal<any>({
-          type: 'card',
-          config: postConfig,
-          props: {
-            emptyCard: true,
-            entityId: null,
-          },
-        });
-
-        return false;
+        try {
+          await openModal<any>({
+            type: 'card',
+            config: postConfig,
+            props: {
+              emptyCard: true,
+              entityId: null,
+            },
+          });
+          return false;
+        } catch (e) {
+          return translate('posts.failed_creation');
+        }
       }),
       props: {
         type: 'danger',
-        text: 'Open modal',
+        text: translate('posts.create_in_modal'),
       },
     },
     {

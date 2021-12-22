@@ -9,6 +9,7 @@
           :is-new="isNew"
           :entity-id="cardId"
           :initial-data="response"
+          @success="emitBack"
         />
       </section>
     </template>
@@ -44,13 +45,19 @@ export default defineComponent({
       default: null,
     },
   },
-  setup (props) {
+  emits: ['success'],
+  setup (props, context) {
     const { customT, t } = useTranslate();
     const route = useRoute();
     const cardId = computed(() => props.entityId || route.params.id);
     const isNew = computed<boolean>(() => props.emptyCard || cardId.value === 'new' || !!props.config.alwaysCreate);
 
+    const emitBack = (data: unknown) => {
+      context.emit('success', data);
+    };
+
     return {
+      emitBack,
       customT,
       t,
       cardId,

@@ -38,6 +38,8 @@ const ruCustom: CustomTranslationSchema = {
   },
   posts: {
     not_found: 'Публикации не найдены',
+    create_in_modal: 'Создать в модальном окне',
+    failed_creation: 'Не удалось создать публикацию',
   },
   form_test: {
     title: 'Тест формы',

@@ -60,23 +60,25 @@ export default defineComponent({
       default: () => ({}),
     },
   },
-  setup (props) {
+  emits: ['success'],
+  setup (props, context) {
     const { customT, t } = useTranslate();
 
     const error = ref('');
     const fieldErrors = ref<Record<string, string>>({});
     const reqData = computed(() => ({ id: props.entityId, data: null, isNew: props.isNew }));
 
-    const save = async (data: Record<string, any>) => {
+    const save = async (data: Record<string, unknown>) => {
       const submitButton = (props.config.form.actions || [])
         .find((action) => (action as ActionAction)?.emits === 'submit');
       if (submitButton) submitButton.loading = true;
+
       error.value = '';
       fieldErrors.value = {};
 
       const res = await requestWrapper(
         { ...reqData.value, data },
-        props.isNew ? props.config.createRequest : props.config.updateRequest
+        props.isNew ? props.config.createRequest : props.config.updateRequest,
       );
       if (submitButton) submitButton.loading = false;
 
@@ -94,6 +96,7 @@ export default defineComponent({
         type: 'success',
         message: t('core.card.success_creation'),
       });
+      context.emit('success', { data: { ...reqData.value, data }, response: res.data });
     };
 
     const confirmDelete = (): Promise<boolean> => new Promise((resolve) => {

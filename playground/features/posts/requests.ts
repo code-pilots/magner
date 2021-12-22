@@ -70,7 +70,7 @@ export const createPost = cardRequest<Post, PostCreate>(async ({ api, data, erro
     const res = await api.post<PostCreate, Post>('/post/create', data.data);
     return { data: res };
   } catch (e) {
-    return { error: errorParser(e as any) };
+    return { data: {} as unknown as Post };
   }
 });
 
