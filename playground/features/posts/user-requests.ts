@@ -1,5 +1,5 @@
-import { tableRequest } from 'lib/index';
-import { paginationProxy } from './posts';
+import { requestTable } from 'lib/index';
+import { paginationProxy } from './requests';
 
 export interface User {
   id: string,
@@ -16,7 +16,7 @@ interface Response {
   limit: number,
 }
 
-export const readUsers = tableRequest(async ({ data, api, urlParsers }) => {
+export const readUsers = requestTable(async ({ data, api, urlParsers }) => {
   try {
     const query = urlParsers.dataToUrl({
       limit: data.pagination?.items || 10,

@@ -66,12 +66,16 @@
       flex-direction: row;
 
       & > * {
-        max-width: 200px;
+        max-width: 250px;
         &:not(:last-child) {
-          @media (--breakpoint-md) {
-            margin-right: 12px;
-          }
+          margin-right: 12px;
         }
+      }
+    }
+
+    @media (--breakpoint-small) {
+      & > *:not(:last-child) {
+        margin-bottom: 4px;
       }
     }
   }
@@ -82,6 +86,10 @@
       & svg {
         transform: rotate(0deg) translateY(2px) !important;
       }
+    }
+
+    &_required {
+      color: #F36D6F;
     }
 
     &_tooltip.el-popper, &_tooltip.el-popper.is-dark {
@@ -261,7 +269,7 @@
     padding: 0 6px;
   }
 
-  &_error {
+  &_error.el-alert {
     margin-bottom: 8px;
   }
 

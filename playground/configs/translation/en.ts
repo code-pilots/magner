@@ -21,6 +21,8 @@ const enCustom = {
     form_title: 'Post',
     submit: 'Submit',
     remove: 'Delete',
+    clear: 'Clear',
+    cancel: 'Cancel',
     name_input: 'Name',
     likes_input: 'Likes',
     dropzone_input: 'Cover image',
@@ -34,10 +36,13 @@ const enCustom = {
   },
   posts: {
     not_found: 'No posts found',
+    create_in_modal: 'Create in modal',
+    failed_creation: 'Post creation failed',
   },
   form_test: {
     title: 'Form test',
     submit_text: 'Save',
+    error: 'Form error',
     form: {
       example_label: 'Example',
       layout_text: 'You can do anything with this layout!',

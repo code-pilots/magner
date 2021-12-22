@@ -8,12 +8,16 @@
         :config="{ ...config.filters, layout: topFilters }"
         :loading="false"
         :initial-data="requestData.filters"
+        :request-data="{ ...requestData, selected }"
         class="table-page_top_filters"
         @submit="filterItems"
+        @action="filtersAction"
       >
         <template #after>
           <el-button
+            v-if="config.filters.fieldsShowAmount < allFilters.length"
             type="primary"
+            class="more-filters"
             plain
             :icon="filterIcon"
             @click="drawerOpen = true"
@@ -48,19 +52,9 @@
           </template>
         </GenericForm>
       </component>
-
-      <router-link
-        v-if="config.filters.linkToCreateNew"
-        :to="{name: config.filters.linkToCreateNew.routeName, params: { id: 'new' }}"
-        class="table-page_top_create"
-      >
-        <el-button :icon="plusIcon" native-type="button" type="primary">
-          {{ customT(config.filters.linkToCreateNew.label) }}
-        </el-button>
-      </router-link>
     </div>
 
-    <Dynamic :request="config.request" :data="requestData">
+    <Dynamic ref="dynamicRef" :request="config.request" :data="requestData">
       <template #default="{response, loading}">
         <div v-loading="loading" class="table-page_table">
           <DataTable
@@ -80,7 +74,7 @@
         </div>
 
         <div
-          v-if="(response && response.pagination) && (requestData && requestData.pagination)"
+          v-if="!selected.length && (response && response.pagination) && (requestData && requestData.pagination)"
           class="table-page_pagination"
         >
           <el-pagination
@@ -108,14 +102,16 @@ import {
   defineComponent, PropType, reactive, ref, shallowRef, watch, watchEffect,
 } from 'vue';
 import type { TableConfig } from 'lib/types/configs';
+import type { ActionAction } from 'lib/types/utils/actions';
+import type { FiltersActions } from 'lib/types/configs/pages/table';
 import FilterIcon from 'lib/assets/icons/filter.svg';
 import PlusIcon from 'lib/assets/icons/plus.svg';
 import { useRoute, useRouter } from 'vue-router';
 import { useMobile } from 'lib/utils/core/is-mobile';
 import { useTranslate } from 'lib/utils/core/translate';
+import { layoutToFields } from 'lib/utils/form/form';
 import useDialogForm from 'lib/utils/form/use-dialog-form';
 import useStore from 'lib/controllers/store/store';
-import { layoutToFields } from 'lib/utils/form/form';
 import filterUrlDataComparison from 'lib/utils/form/filter-url-data-comparison';
 import PageHeader from '../components/page-header.vue';
 import DataTable from '../components/table.vue';
@@ -148,13 +144,14 @@ export default defineComponent({
     const isMobile = useMobile();
     const drawerComponent = useDialogForm();
 
-    const topFilters = computed(() => layoutToFields(props.config.filters.layout)
-      .slice(0, props.config.filters.fieldsShowAmount ?? undefined));
+    const allFilters = computed(() => layoutToFields(props.config.filters.layout));
+    const topFilters = computed(() => allFilters.value.slice(0, props.config.filters.fieldsShowAmount ?? undefined));
 
     const drawerOpen = ref(false);
     const formRef = ref<typeof GenericForm>();
+    const dynamicRef = ref<typeof Dynamic>();
 
-    const hasFilters = computed(() => !!(topFilters.value.length || props.config.filters.linkToCreateNew));
+    const hasFilters = computed(() => !!(topFilters.value.length || props.config.filters.actions?.length));
     const hasHeader = computed(() => !!(props.config.header.title
       || (props.config.header.tabs && props.config.header.tabs.length)));
     const tableHeight = computed(() => {
@@ -185,12 +182,18 @@ export default defineComponent({
     filterUrlDataComparison(requestData, initialData);
 
     const appliedFilters = computed(() => Object.values(requestData.filters).filter((filter) => !!filter).length);
-    const clearFilters = () => formRef.value.clearForm?.();
+    const clearFilters = () => formRef.value!.clearForm?.();
 
     const filterItems = (form: Record<string, string>) => {
       requestData.filters = { ...form };
       requestData.pagination = { ...(props.config.filters.pagination || {}) };
       drawerOpen.value = false;
+    };
+
+    const filtersAction = async (action: ActionAction<FiltersActions>) => {
+      if (action.emits === 'update-table') {
+        await dynamicRef.value!.makeRequest();
+      }
     };
 
     const changeSort = (sort: { column: any|null, prop: string|null, order: 'ascending'|'descending'|null }) => {
@@ -237,11 +240,14 @@ export default defineComponent({
       drawerComponent,
       appliedFilters,
       formRef,
+      dynamicRef,
       hasFilters,
       tableHeight,
+      allFilters,
       topFilters,
       selected,
       tableEl,
+      filtersAction,
       select,
       filterItems,
       changeSort,

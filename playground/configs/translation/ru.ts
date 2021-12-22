@@ -23,6 +23,8 @@ const ruCustom: CustomTranslationSchema = {
     form_title: 'Публикация',
     submit: 'Сохранить',
     remove: 'Удалить',
+    clear: 'Очистить',
+    cancel: 'Отменить',
     name_input: 'Название',
     likes_input: 'Лайки',
     dropzone_input: 'Обложка',
@@ -36,10 +38,13 @@ const ruCustom: CustomTranslationSchema = {
   },
   posts: {
     not_found: 'Публикации не найдены',
+    create_in_modal: 'Создать в модальном окне',
+    failed_creation: 'Не удалось создать публикацию',
   },
   form_test: {
     title: 'Тест формы',
     submit_text: 'Сохранить',
+    error: 'Ошибка формы',
     form: {
       example_label: 'Пример',
       layout_text: 'Делайте со структурой что хотите!',

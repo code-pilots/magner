@@ -1,8 +1,8 @@
 import { cardPageController, InputField, translate } from 'lib/index';
 import {
   bigtestCreate, bigtestGet, bigtestUpdate,
-} from '../../app/requests/big-test';
-import CustomLayout from '../../app/components/custom-layout.vue';
+} from './big-test/requests';
+import CustomLayout from '../app/components/custom-layout.vue';
 
 const inputField: InputField<any> = {
   type: 'input',
@@ -48,7 +48,14 @@ export default cardPageController<any>({
   updateRequest: bigtestUpdate,
 
   form: {
-    actions: [{ action: 'submit' }],
+    actions: [{
+      type: 'action',
+      emits: 'submit',
+      props: {
+        type: 'primary',
+        text: translate('post.submit'),
+      },
+    }],
     layout: {
       type: 'row',
       props: {

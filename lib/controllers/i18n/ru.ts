@@ -10,6 +10,10 @@ export const ruLocale: TranslationSchema = {
       collapse: 'Свернуть',
     },
 
+    messages: {
+      error: 'Произошла ошибка',
+    },
+
     card: {
       remove: 'Удалить',
       success_creation: 'Создание прошло успешно!',
@@ -26,6 +30,7 @@ export const ruLocale: TranslationSchema = {
       submit: 'Подтвердить',
       remove: 'Удалить',
       cancel: 'Отменить',
+      failed_action: 'Не удалось выполнить действие',
 
       dropzone: {
         drag_here: 'Перетащите файлы сюда или',

@@ -6,6 +6,7 @@
     :field-errors="fieldErrors"
     :skip-validation="!isNew ? ['empty'] : []"
     :return-initial-difference="!isNew"
+    :request-data="reqData"
     :skip-actions="[isNew || !config.deleteRequest ? ['remove'] : []]"
     class="card-form"
     @submit="save"
@@ -25,10 +26,11 @@
 <script lang="ts">
 import 'lib/assets/styles/components/card-form.css';
 import {
+  computed,
   defineComponent, PropType, ref,
 } from 'vue';
 import type { CardConfig } from 'lib/types/configs';
-import type { FormAction } from 'lib/types/form/actions';
+import type { ActionAction } from 'lib/types/utils/actions';
 import { useTranslate } from 'lib/utils/core/translate';
 import { requestWrapper } from 'lib/utils/core/request';
 import { magnerConfirm, magnerMessage } from 'lib/utils/core/messages';
@@ -58,20 +60,26 @@ export default defineComponent({
       default: () => ({}),
     },
   },
-  setup (props) {
+  emits: ['success'],
+  setup (props, context) {
     const { customT, t } = useTranslate();
 
     const error = ref('');
     const fieldErrors = ref<Record<string, string>>({});
+    const reqData = computed(() => ({ id: props.entityId, data: null, isNew: props.isNew }));
 
-    const save = async (data: Record<string, any>) => {
-      const submitButton = (props.config.form.actions || []).find((action) => action.action === 'submit');
+    const save = async (data: Record<string, unknown>) => {
+      const submitButton = (props.config.form.actions || [])
+        .find((action) => (action as ActionAction)?.emits === 'submit');
       if (submitButton) submitButton.loading = true;
+
       error.value = '';
       fieldErrors.value = {};
 
-      const reqData = { id: props.entityId, data };
-      const res = await requestWrapper(reqData, props.isNew ? props.config.createRequest : props.config.updateRequest);
+      const res = await requestWrapper(
+        { ...reqData.value, data },
+        props.isNew ? props.config.createRequest : props.config.updateRequest,
+      );
       if (submitButton) submitButton.loading = false;
 
       if (res.error) {
@@ -88,11 +96,12 @@ export default defineComponent({
         type: 'success',
         message: t('core.card.success_creation'),
       });
+      context.emit('success', { data: { ...reqData.value, data }, response: res.data });
     };
 
     const confirmDelete = (): Promise<boolean> => new Promise((resolve) => {
       magnerConfirm({
-        message: t('core.card.removal_confirm', { msg: customT(props.config.title) }),
+        message: t('core.card.removal_confirm', { msg: customT(props.config.header.title || '') }),
         title: t('core.card.attention'),
         confirmButtonText: t('core.card.confirm_button_text'),
         cancelButtonText: t('core.card.cancel_button_text'),
@@ -104,13 +113,12 @@ export default defineComponent({
       });
     });
 
-    const deleteEntity = async (action: FormAction) => {
+    const deleteEntity = async (action: ActionAction) => {
       if (!props.config.deleteRequest) return;
       if (props.config.confirmDelete && !(await confirmDelete())) return;
 
       action.loading = true;
-      const reqData = { id: props.entityId, data: null };
-      const res = await requestWrapper(reqData, props.config.deleteRequest);
+      const res = await requestWrapper(reqData.value, props.config.deleteRequest);
       action.loading = false;
 
       if (res.error) {
@@ -119,6 +127,7 @@ export default defineComponent({
         } else {
           error.value = res.error.message;
         }
+        return;
       }
 
       magnerMessage({
@@ -132,6 +141,7 @@ export default defineComponent({
       t,
       error,
       fieldErrors,
+      reqData,
       save,
       deleteEntity,
     };

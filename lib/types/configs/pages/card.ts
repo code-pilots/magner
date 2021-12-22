@@ -1,5 +1,5 @@
 import type { RequestCallback } from 'lib/types/utils/api';
-import type { GenericForm } from 'lib/types/form';
+import type { InnerForm } from 'lib/types/form/form';
 import type { PageHeader } from './shared';
 
 export interface CardConfig<ENTITY extends {}> {
@@ -19,5 +19,5 @@ export interface CardConfig<ENTITY extends {}> {
    * when delete button is pressed */
   confirmDelete?: boolean,
 
-  form: GenericForm<ENTITY>,
+  form: InnerForm<ENTITY, 'submit' | 'remove' | 'clear' | 'cancel'>,
 }

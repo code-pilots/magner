@@ -1,9 +1,9 @@
 import {
-  translate, cardPageController, request, SelectField,
+  translate, cardPageController, request, SelectField, action,
 } from 'lib/index';
 import {
   bigtestCreate, bigtestDelete, bigtestGet, bigtestUpdate,
-} from '../../app/requests/big-test';
+} from './requests';
 
 interface Pet {
   id: number,
@@ -76,18 +76,38 @@ export default cardPageController<BigTestEntity>({
     debug: true,
     actions: [
       {
-        action: 'cancel',
+        type: 'action',
+        action: action(async () => {}),
+        emits: 'cancel',
+        props: {
+          text: translate('post.cancel'),
+        },
       },
       {
-        action: 'submit',
-        type: 'primary',
+        type: 'action',
+        action: action(async () => {}),
+        emits: 'submit',
+        props: {
+          type: 'primary',
+          text: translate('post.submit'),
+        },
       },
       {
-        action: 'remove',
-        type: 'danger',
+        type: 'action',
+        action: action(async () => {}),
+        emits: 'remove',
+        props: {
+          type: 'danger',
+          text: translate('post.remove'),
+        },
       },
       {
-        action: 'clear',
+        type: 'action',
+        action: action(async () => {}),
+        emits: 'clear',
+        props: {
+          text: translate('post.clear'),
+        },
       },
     ],
 
@@ -115,6 +135,7 @@ export default cardPageController<BigTestEntity>({
                 trigger: 'blur',
               },
               props: {
+                required: true,
                 type: 'email',
                 placeholder: 'example@domain.com',
               },

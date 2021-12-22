@@ -1,5 +1,5 @@
 import { tablePageController } from 'lib/index';
-import { Post, readPosts } from '../../../app/requests/posts';
+import { Post, readPosts } from './requests';
 import postsFilters from './filters';
 import postsTable from './table';
 

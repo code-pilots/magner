@@ -1,9 +1,18 @@
 export {
   request,
-  cardRequest,
-  tableRequest,
+  requestCard,
+  requestTable,
   requestWrapper,
 } from './core/request';
+
+export {
+  action,
+  actionWrapper,
+  actionCard,
+  actionTable,
+} from './core/actions';
+
+export { openModal } from './core/modal';
 
 export { translate, useTranslate, TranslateError } from './core/translate';
 export { useMobile } from './core/is-mobile';

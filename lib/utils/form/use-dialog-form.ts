@@ -18,7 +18,7 @@ const useDialogForm = (title?: TranslateData, dialogOnMobile?: boolean) => {
     component: 'el-dialog',
     props: {
       title: customT(title || ''),
-      width: isMobile.value ? '90%' : '70%',
+      width: isMobile.value ? '95%' : '70%',
       top: '114px',
       customClass: 'form_dialog',
     },

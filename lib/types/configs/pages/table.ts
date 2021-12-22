@@ -1,16 +1,11 @@
-import type { GenericForm } from 'lib/types/form';
-import type { TranslateData } from 'lib/utils/core/translate';
+import type { InnerForm } from 'lib/types/form/form';
 import type { RequestCallback } from 'lib/types/utils/api';
 import type { Table } from 'lib/types/components/table';
 import type { PageHeader } from 'lib/types/configs/pages/shared';
 
-export interface FiltersForm<ENTITY extends {}> extends GenericForm<ENTITY> {
-  /** Display the button link for some other page like entity create or not */
-  linkToCreateNew?: {
-    label: TranslateData,
-    routeName: string,
-  },
+export type FiltersActions = 'update-table';
 
+export interface FiltersForm<ENTITY extends {}> extends InnerForm<ENTITY, FiltersActions> {
   /** How many filters should be displayed in the top filters row */
   fieldsShowAmount?: number,
 

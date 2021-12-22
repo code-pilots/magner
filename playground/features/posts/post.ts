@@ -1,10 +1,10 @@
 import { cardPageController } from 'lib/controllers';
-import { translate } from 'lib/utils';
+import { actionCard, requestWrapper, translate } from 'lib/utils';
 import {
   createPost, deletePost, getPost, Post, updatePost,
-} from '../../../app/requests/posts';
-import { readUsers } from '../../../app/requests/users';
-import imageUploadRequest from '../../../app/requests/image-upload';
+} from './requests';
+import { readUsers } from './user-requests';
+import imageUploadRequest from './image-upload';
 
 const postConfig = cardPageController<Post>({
   header: {
@@ -21,14 +21,21 @@ const postConfig = cardPageController<Post>({
 
     actions: [
       {
-        action: 'submit',
-        type: 'primary',
-        text: translate('post.submit'),
+        type: 'action',
+        emits: 'submit',
+        props: {
+          type: 'primary',
+          text: translate('post.submit'),
+        },
       },
       {
-        action: 'remove',
-        type: 'danger',
-        text: translate('post.remove'),
+        type: 'action',
+        action: actionCard(async () => false),
+        emits: 'remove',
+        props: {
+          type: 'danger',
+          text: translate('post.remove'),
+        },
       },
     ],
 

@@ -8,6 +8,10 @@ export const enLocale = {
       collapse: 'Collapse',
     },
 
+    messages: {
+      error: 'An error happened',
+    },
+
     card: {
       remove: 'Remove',
       success_creation: 'Created successfully!',
@@ -24,6 +28,7 @@ export const enLocale = {
       submit: 'Submit',
       remove: 'Remove',
       cancel: 'Cancel',
+      failed_action: 'Failed in performing the action',
 
       dropzone: {
         drag_here: 'Drag file here or',

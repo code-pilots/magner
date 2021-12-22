@@ -3,17 +3,34 @@
     <slot name="actions-before" />
 
     <template v-for="(action, i) in actions" :key="i">
-      <el-button
-        v-if="!skipActions || (Array.isArray(skipActions) && !skipActions.includes(action.action))"
-        :size="size"
-        :loading="action.loading"
-        :type="action.type || 'default'"
-        :native-type="action.nativeType || 'button'"
-        :class="[`generic-form_${action.action}`, action.class || '', 'width-full']"
-        @click="act(action)"
+      <router-link
+        v-if="action.type === 'link'"
+        :to="action.to"
+        class="generic-form_actions_link"
       >
-        {{ getTranslation(action) }}
-      </el-button>
+        <el-button
+          :size="size"
+          :loading="action.loading"
+          :type="action.props.type || 'default'"
+          :native-type="action.props.nativeType || 'button'"
+          :class="[action.props.class || '', 'width-full']"
+        >
+          {{ getTranslation(action) }}
+        </el-button>
+      </router-link>
+
+      <template v-else-if="!skipActions || (Array.isArray(skipActions) && !skipActions.includes(action.action))">
+        <el-button
+          :size="size"
+          :loading="action.loading"
+          :type="action.props.type || 'default'"
+          :native-type="action.props.nativeType || 'button'"
+          :class="['generic-form_actions_action', action.props.class || '', 'width-full']"
+          @click="act(action)"
+        >
+          {{ getTranslation(action) }}
+        </el-button>
+      </template>
     </template>
 
     <slot name="actions-after" />
@@ -22,14 +39,14 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import type { FormAction } from 'lib/types/form/actions';
 import { TranslateData, useTranslate } from 'lib/utils/core/translate';
+import type { ActionButton, ActionAction } from 'lib/types/utils/actions';
 
 export default defineComponent({
   name: 'FormActions',
   props: {
     actions: {
-      type: Array as PropType<FormAction[]>,
+      type: Array as PropType<ActionButton<string>[]>,
       default: () => ([]),
     },
     size: {
@@ -37,7 +54,7 @@ export default defineComponent({
       default: 'medium',
     },
     skipActions: {
-      type: [Array, Boolean] as PropType<FormAction['action'][] | boolean>,
+      type: [Array, Boolean] as PropType<string[] | boolean>,
       default: () => ([]),
     },
   },
@@ -45,18 +62,20 @@ export default defineComponent({
   setup (props, context) {
     const { t, customT } = useTranslate();
 
-    const translations: Record<FormAction['action'], TranslateData> = {
+    const translations: Record<string, TranslateData> = {
       cancel: t('core.form.cancel'),
       clear: t('core.form.clear'),
       remove: t('core.form.remove'),
       submit: t('core.form.submit'),
     };
 
-    const getTranslation = (action: FormAction): string => (action.text
-      ? customT(action.text)
-      : translations[action.action]);
+    const getTranslation = (action: ActionButton<string>): TranslateData => (
+      action.type === 'action' && !action.props.text
+        ? translations[action.emits]
+        : customT(action.props.text || '')
+    );
 
-    const act = (action: FormAction) => {
+    const act = (action: ActionAction) => {
       context.emit('action', action);
     };
 

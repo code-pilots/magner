@@ -1,10 +1,10 @@
 import { routerController, translate } from 'lib/index';
-import postsConfig from './pages/posts/posts';
-import loginPageConfig from './pages/login';
-import bigtestConfig from './pages/big-test';
-import formLayoutConfig from './pages/form-layout';
+import postsConfig from '../features/posts/posts';
+import loginPageConfig from '../features/login/login';
+import bigtestConfig from '../features/big-test/big-test';
+import formLayoutConfig from '../features/form-layout';
 import PostsIcon from '../assets/icons/file-text.svg';
-import postConfig from './pages/posts/post';
+import postConfig from '../features/posts/post';
 
 // eslint-disable-next-line no-shadow
 export enum ROLE {
