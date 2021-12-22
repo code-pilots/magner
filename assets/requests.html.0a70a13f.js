@@ -1,0 +1,1 @@
+const e={key:"v-10f8750c",path:"/docs/requests.html",title:"Requests",lang:"en",frontmatter:{},excerpt:"",headers:[],filePathRelative:"docs/requests.md",git:{updatedTime:1640172046e3,contributors:[{name:"\u041C\u0430\u043A\u0441\u0438\u043C \u041A\u043E\u0440\u0441\u0443\u043D\u043E\u0432",email:"mkorsunov@code-pilots.ru",commits:1}]}};export{e as data};
