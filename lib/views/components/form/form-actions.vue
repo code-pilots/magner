@@ -41,6 +41,7 @@
 import { defineComponent, PropType } from 'vue';
 import { TranslateData, useTranslate } from 'lib/utils/core/translate';
 import type { ActionButton, ActionAction } from 'lib/types/utils/actions';
+import { actionWrapper, magnerMessage } from 'lib/utils';
 
 export default defineComponent({
   name: 'FormActions',
@@ -57,6 +58,10 @@ export default defineComponent({
       type: [Array, Boolean] as PropType<string[] | boolean>,
       default: () => ([]),
     },
+    requestData: {
+      type: Object,
+      default: () => ({}),
+    },
   },
   emits: ['action'],
   setup (props, context) {
@@ -71,11 +76,22 @@ export default defineComponent({
 
     const getTranslation = (action: ActionButton<string>): TranslateData => (
       action.type === 'action' && !action.props.text
-        ? translations[action.emits]
+        ? translations[action.emits as keyof typeof translations]
         : customT(action.props.text || '')
     );
 
-    const act = (action: ActionAction) => {
+    const act = async (action: ActionAction) => {
+      if (action.action) {
+        const res = await actionWrapper(props.requestData, action.action);
+        if (res || res === '') {
+          magnerMessage({
+            type: 'error',
+            message: typeof res !== 'boolean' ? customT(res) : t('core.form.failed_action'),
+          });
+          return;
+        }
+      }
+
       context.emit('action', action);
     };
 

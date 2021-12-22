@@ -6,7 +6,16 @@ const postsTable = tableController<Post>({
   rowLink: (row) => ({ name: 'post', params: { id: row.id } }),
   rowSelectable: {
     rowIdKey: 'id',
-    removeAction: () => {},
+    actions: [
+      {
+        type: 'action',
+        emits: 'deselect-and-update',
+        props: {
+          type: 'danger',
+          text: translate('posts.remove_selected'),
+        },
+      },
+    ],
   },
   columns: [
     {

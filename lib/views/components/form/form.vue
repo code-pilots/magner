@@ -39,6 +39,7 @@
       :actions="reactiveConfig.actions"
       :size="reactiveConfig.size"
       :skip-actions="(config.submitEvent && config.submitEvent === 'input') ? ['submit'] : []"
+      :request-data="{...requestData, form }"
       @action="doActions"
     >
       <template #actions-before><slot name="actions-before" /></template>
@@ -204,17 +205,6 @@ export default defineComponent({
     };
 
     const doActions = async (action: ActionAction) => {
-      if (action.action) {
-        const res = await actionWrapper({ ...props.requestData, form }, action.action);
-        if (res || res === '') {
-          magnerMessage({
-            type: 'error',
-            message: typeof res !== 'boolean' ? customT(res) : t('core.form.failed_action'),
-          });
-          return;
-        }
-      }
-
       if (action.emits === 'clear') {
         Object.assign(form, fieldsToModels(allFields.value));
         errors.value = {};

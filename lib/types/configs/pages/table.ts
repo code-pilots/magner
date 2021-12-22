@@ -3,9 +3,9 @@ import type { RequestCallback } from 'lib/types/utils/api';
 import type { Table } from 'lib/types/components/table';
 import type { PageHeader } from 'lib/types/configs/pages/shared';
 
-export type FiltersActions = 'update-table';
+export type TableActions = 'update-table' | 'deselect' | 'deselect-and-update';
 
-export interface FiltersForm<ENTITY extends {}> extends InnerForm<ENTITY, FiltersActions> {
+export interface FiltersForm<ENTITY extends {}> extends InnerForm<ENTITY, TableActions> {
   /** How many filters should be displayed in the top filters row */
   fieldsShowAmount?: number,
 

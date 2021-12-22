@@ -40,6 +40,7 @@ const ruCustom: CustomTranslationSchema = {
     not_found: 'Публикации не найдены',
     create_in_modal: 'Создать в модальном окне',
     failed_creation: 'Не удалось создать публикацию',
+    remove_selected: 'Удалить выделенное',
   },
   form_test: {
     title: 'Тест формы',

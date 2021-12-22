@@ -1,5 +1,7 @@
 import type { RouteLocationRaw } from 'vue-router';
 import type { TranslateData } from 'lib/utils/core/translate';
+import { ActionButton } from 'lib/types/utils/actions';
+import { TableActions } from 'lib/types/configs/pages/table';
 
 interface RenderHeaderType<COLUMN> {
   column: COLUMN,
@@ -72,10 +74,10 @@ export interface Table<ENTITY extends {} = {}> {
 
   /** Add the select-row checkbox into the first column of a table */
   rowSelectable?: {
-    /** The unique key in your row used to help identifying which row is selected */
+    /** The unique key in your row used to identify which row is selected */
     rowIdKey: keyof ENTITY,
 
     /** Action to perform when 'remove button' is done on selection */
-    removeAction?: (rows: ENTITY[]) => void | Promise<void>,
+    actions?: ActionButton<TableActions>[],
   },
 }

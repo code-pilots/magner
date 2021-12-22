@@ -70,7 +70,13 @@
         <div v-if="selected.length" class="table-page_selection">
           <span>{{ selected.length }} {{ t('core.table.rows_selected') }}</span>
           <div class="flex-grow" />
-          <el-button type="danger" size="mini" @click="removeRows">{{ t('core.table.remove') }}</el-button>
+          <FormActions
+            v-if="config.table.rowSelectable && config.table.rowSelectable.actions"
+            :actions="config.table.rowSelectable.actions"
+            :request-data="{ ...requestData, selected }"
+            size="mini"
+            @action="filtersAction"
+          />
         </div>
 
         <div
@@ -103,7 +109,7 @@ import {
 } from 'vue';
 import type { TableConfig } from 'lib/types/configs';
 import type { ActionAction } from 'lib/types/utils/actions';
-import type { FiltersActions } from 'lib/types/configs/pages/table';
+import type { TableActions } from 'lib/types/configs/pages/table';
 import FilterIcon from 'lib/assets/icons/filter.svg';
 import PlusIcon from 'lib/assets/icons/plus.svg';
 import { useRoute, useRouter } from 'vue-router';
@@ -117,12 +123,14 @@ import PageHeader from '../components/page-header.vue';
 import DataTable from '../components/table.vue';
 import Dynamic from '../components/dynamic.vue';
 import GenericForm from '../components/form/form.vue';
+import FormActions from '../components/form/form-actions.vue';
 
 type RowData = Record<string, unknown>;
 
 export default defineComponent({
   name: 'TablePage',
   components: {
+    FormActions,
     PageHeader,
     DataTable,
     GenericForm,
@@ -190,9 +198,19 @@ export default defineComponent({
       drawerOpen.value = false;
     };
 
-    const filtersAction = async (action: ActionAction<FiltersActions>) => {
+    const filtersAction = async (action: ActionAction<TableActions>) => {
       if (action.emits === 'update-table') {
         await dynamicRef.value!.makeRequest();
+        return;
+      }
+      if (action.emits === 'deselect-and-update') {
+        await dynamicRef.value!.makeRequest();
+        selected.value = [];
+        return;
+      }
+      if (action.emits === 'deselect') {
+        await dynamicRef.value!.makeRequest();
+        selected.value = [];
       }
     };
 
