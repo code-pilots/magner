@@ -85,3 +85,6 @@ export interface DevelopmentConfig {
 
   validation: Validators<string>,
 }
+
+// TODO: МЫСЛЬ! Объединить urlParsers, errorParser, profileRequest в одно. Добавить настройку каждого
+//  baseRequest, по возможности с мульти-выбором реквестов

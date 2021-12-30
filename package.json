@@ -1,7 +1,7 @@
 {
   "name": "magner",
   "description": "Universal admin panel magnetic to any backend",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "files": [
     "dist"
   ],
