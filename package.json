@@ -32,7 +32,7 @@
     "analyze": "ts-node -r tsconfig-paths/register lib/server.ts"
   },
   "bin": {
-    "@vanishmax/create-project": "cli/dist/create-project",
+    "create-magner-app": "cli/dist/create-project.js",
     "create-project": "cli/dist/create-project.js",
     "magner": "cli/dist/index.js"
   },
@@ -59,6 +59,7 @@
     "autoprefixer": "^10.3.7",
     "commander": "^8.3.0",
     "ejs": "^3.1.6",
+    "enquirer": "^2.3.6",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.25.2",

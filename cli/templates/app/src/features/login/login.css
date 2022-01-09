@@ -1,0 +1,9 @@
+.login-page {
+  & .icon-mail svg {
+    transform: translateY(3px);
+  }
+
+  & .generic-form_submit {
+    max-width: unset;
+  }
+}

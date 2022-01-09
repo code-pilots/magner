@@ -16,6 +16,7 @@ specifiers:
   editorjs-table-readonly: ^1.1.0
   ejs: ^3.1.6
   element-plus: ^1.2.0-beta.3
+  enquirer: ^2.3.6
   eslint: ^7.32.0
   eslint-config-airbnb-base: ^14.2.1
   eslint-plugin-import: ^2.25.2
@@ -65,6 +66,7 @@ devDependencies:
   autoprefixer: 10.3.7
   commander: 8.3.0
   ejs: 3.1.6
+  enquirer: 2.3.6
   eslint: 7.32.0
   eslint-config-airbnb-base: 14.2.1_560ef94424f7023f0ab025f67f79aa67
   eslint-plugin-import: 2.25.2_eslint@7.32.0

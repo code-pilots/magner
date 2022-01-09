@@ -2,7 +2,6 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
-    jest: true,
   },
   extends: [
     'plugin:vue/vue3-recommended',
@@ -20,12 +19,6 @@ module.exports = {
   plugins: [
     'vue',
     '@typescript-eslint',
-  ],
-  ignorePatterns: [
-    'dist/**',
-    'public/**',
-    'docs/**',
-    'node_modules/**',
   ],
   overrides: [
     {
@@ -51,10 +44,9 @@ module.exports = {
     'import/extensions': 0,
     'import/no-unresolved': 0,
     'import/prefer-default-export': 0,
-    'import/no-absolute-path': 0,
     'space-before-function-paren': [1, 'always'],
     'no-underscore-dangle': 0,
-    'no-console': ['error', { allow: ['warn', 'error', 'info'] }],
+    'no-console': ['error', { allow: ['warn', 'error'] }],
     'no-trailing-spaces': 0,
     'no-unused-vars': 0,
     'vue/prop-name-casing': 0,
