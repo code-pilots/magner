@@ -1,12 +1,44 @@
-.idea
-.DS_Store
-.vs_code
-.vscode
-dist
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
 node_modules
-.env
+.pnp
+.pnp.js
+
+# testing
 coverage
-.secrets
-.vercel
+
+# build files
+dist
+.next/
+out/
+build
 .temp
 .cache
+
+# IDE files
+.idea
+.vscode
+.vercel
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# local env files
+.env
+.env.local
+.env.development
+.env.development.local
+.env.test.local
+.env.production
+.env.production.local
+
+# turbo
+.turbo

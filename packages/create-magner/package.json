@@ -1,0 +1,49 @@
+{
+  "name": "create-magner",
+  "description": "CLI for bootstrapping Magner projects",
+  "version": "0.4.1",
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=14"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "bin": {
+    "create-magner-app": "dist/create-project.js",
+    "create-project": "dist/create-project.js"
+  },
+  "devDependencies": {
+    "enquirer": "^2.3.6",
+    "ts-node": "^10.3.0",
+    "typescript": "^4.4.4"
+  },
+  "keywords": [
+    "magner",
+    "cli",
+    "create-project",
+    "create-magner",
+    "admin",
+    "admin panel",
+    "admin dashboard",
+    "universal admin",
+    "vue",
+    "javascript",
+    "typescript",
+    "element-ui"
+  ],
+  "author": "Code Pilots (https://code-pilots.com/)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/code-pilots/magner.git"
+  },
+  "bugs": {
+    "url": "https://github.com/code-pilots/magner/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
