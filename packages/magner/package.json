@@ -16,13 +16,7 @@
     "node": ">=14"
   },
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lib": "vite build --config vite.lib.ts",
-    "start": "vite preview",
-    "serve": "vite build && vite preview",
-    "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs",
+    "build": "vite build --config vite.lib.ts",
     "cli": "tsc --project ./cli/tsconfig.json",
     "lint": "eslint --fix .",
     "test:unit": "jest playground --silent",
@@ -32,8 +26,6 @@
     "analyze": "ts-node -r tsconfig-paths/register lib/server.ts"
   },
   "bin": {
-    "create-magner-app": "cli/dist/create-project.js",
-    "create-project": "cli/dist/create-project.js",
     "magner": "cli/dist/index.js"
   },
   "dependencies": {
