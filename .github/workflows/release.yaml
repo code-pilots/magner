@@ -1,0 +1,32 @@
+name: Release
+
+on:
+  release:
+    types:
+      - created
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Use pnpm
+        uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.16.1
+
+      - name: Install and Build packages only 🔧
+        run: |
+          pnpm install
+          pnpm build:packages
+
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: pnpx semantic-release
