@@ -7,26 +7,23 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "turbo run build",
     "dev": "turbo run dev --parallel",
-    "lint": "turbo run lint"
+    "build": "turbo run build",
+    "build:docs": "turbo run build --scope=magner-docs"
   },
   "devDependencies": {
     "turbo": "^1.0.24"
   },
   "turbo": {
+    "baseBranch": "origin/main",
     "pipeline": {
       "build": {
         "dependsOn": [
           "^build"
         ],
         "outputs": [
-          "dist/**",
-          ".next/**"
+          "dist/**"
         ]
-      },
-      "lint": {
-        "outputs": []
       },
       "dev": {
         "cache": false

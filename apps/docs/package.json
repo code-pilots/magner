@@ -7,8 +7,8 @@
     "node": ">=14"
   },
   "scripts": {
-    "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs"
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs && mv ./docs/.vuepress/dist ./dist"
   },
   "devDependencies": {
     "vite": "^2.6.7",
