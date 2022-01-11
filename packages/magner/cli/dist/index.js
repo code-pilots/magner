@@ -1,0 +1,3 @@
+(function empty () {
+  console.info('');
+})

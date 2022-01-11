@@ -18,7 +18,7 @@ jobs:
       - name: Use pnpm
         uses: pnpm/action-setup@v2.0.1
         with:
-          version: 6.16.1
+          version: 6.23.3
 
       - name: Install and Build packages only 🔧
         run: |
