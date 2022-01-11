@@ -1,9 +1,9 @@
 import { createServer } from 'vite';
 import path from 'path';
-import type { ProjectConfig } from 'lib/types/configs/project';
+import type { ProjectConfig } from '../../lib';
 import analyzers from './analyzers';
 
-(async () => {
+const analyze = async () => {
   const server = await createServer({
     root: path.join(__dirname, '..'),
     server: {
@@ -27,4 +27,6 @@ import analyzers from './analyzers';
   }
 
   await server.close();
-})();
+};
+
+export default analyze;

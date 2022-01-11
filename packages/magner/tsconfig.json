@@ -9,17 +9,13 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "lib": ["esnext", "dom"],
-    "types": ["vite/client", "@types/jest"],
+    "types": ["vite/client"],
     "baseUrl": ".",
     "paths": {
-      "lib/*": ["lib/*"],
-      "styles/*": ["playground/assets/styles/*"]
+      "lib/*": ["lib/*"]
     }
   },
   "include": [
-    "playground/**/*.ts",
-    "playground/**/*.d.ts",
-    "playground/**/*.vue",
     "lib/**/*.ts",
     "lib/**/*.d.ts",
     "lib/**/*.vue"
@@ -27,13 +23,9 @@
   "ts-node": {
     "transpileOnly": true,
     "moduleTypes": {
-      "./playground/**/**": "cjs",
       "./lib/**/**": "cjs"
     },
     "include": [
-      "playground/**/*.ts",
-      "playground/**/*.d.ts",
-      "playground/**/*.vue",
       "lib/**/*.ts",
       "lib/**/*.d.ts",
       "lib/**/*.vue"

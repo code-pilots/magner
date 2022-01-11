@@ -1,4 +1,4 @@
-import type { Analyzer } from './index';
+import type { Analyzer } from './analyzers';
 
 const backendAnalyzer: Analyzer = () => {
   console.log('Backend analyzer completed successfully!'); // eslint-disable-line

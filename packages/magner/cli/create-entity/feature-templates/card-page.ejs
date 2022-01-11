@@ -1,0 +1,50 @@
+import { cardPageController, translate } from 'magner';
+import {
+  <%= name %>Get, <%= name %>Create, <%= name %>Update, <%= name %>Delete,
+} from './requests';
+import type { <%= capitalized %> } from './types';
+
+const <%= name %>Config = cardPageController<<%= capitalized %>>({
+  header: {
+    title: translate('<%= name %>.form.title'),
+  },
+
+  getRequest: <%= name %>Get,
+  createRequest: <%= name %>Create,
+  updateRequest: <%= name %>Update,
+  deleteRequest: <%= name %>Delete,
+
+  form: {
+    actions: [
+      {
+        type: 'action',
+        emits: 'submit',
+        props: {
+          text: translate('<%= name %>.form.submit_button'),
+          type: 'primary',
+        },
+      },
+      {
+        type: 'action',
+        emits: 'remove',
+        props: {
+          text: translate('<%= name %>.form.remove_button'),
+          type: 'danger',
+        },
+      },
+    ],
+
+    layout: [
+      {
+        type: 'input',
+        name: 'name',
+        label: translate('<%= name %>.form.name.label'),
+        props: {
+          placeholder: translate('<%= name %>.form.name.placeholder'),
+        },
+      },
+    ],
+  },
+});
+
+export default <%= name %>Config;

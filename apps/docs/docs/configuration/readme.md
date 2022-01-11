@@ -1,6 +1,6 @@
 # Entry point
 
-Usually, the entry file for the project configuration is `src/configs/index.ts`. It is imported from the `main.ts` and exports
+Usually, the entry file for the project configuration is `src/configs/analyzers.ts`. It is imported from the `main.ts` and exports
 the project controller – a function which only argument is the project configuration:
 
 ```ts

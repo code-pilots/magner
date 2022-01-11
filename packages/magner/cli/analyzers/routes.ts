@@ -1,4 +1,4 @@
-import type { Analyzer } from './index';
+import type { Analyzer } from './analyzers';
 
 const routesAnalyzer: Analyzer = (config) => {
   console.log('Routes analyzer completed successfully!'); // eslint-disable-line

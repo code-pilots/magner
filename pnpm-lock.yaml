@@ -84,6 +84,7 @@ importers:
       '@editorjs/editorjs': ^2.22.2
       '@editorjs/header': ^2.6.1
       '@editorjs/list': ^1.6.2
+      '@types/ejs': ^3.1.0
       '@types/node': ^17.0.8
       '@typescript-eslint/eslint-plugin': ^4.33.0
       '@typescript-eslint/parser': ^4.33.0
@@ -108,8 +109,6 @@ importers:
       postcss-nested: ^5.0.6
       start-server-and-test: ^1.14.0
       svgo: ^2.7.0
-      ts-node: ^10.3.0
-      tsconfig-paths: ^3.11.0
       typescript: ^4.4.4
       vite: ^2.6.7
       vite-plugin-dts: ^0.7.0
@@ -129,6 +128,7 @@ importers:
       vue-router: 4.0.12_vue@3.2.20
       vuex: 4.0.2_vue@3.2.20
     devDependencies:
+      '@types/ejs': 3.1.0
       '@types/node': 17.0.8
       '@typescript-eslint/eslint-plugin': 4.33.0_cc617358c89d3f38c52462f6d809db4c
       '@typescript-eslint/parser': 4.33.0_eslint@7.32.0+typescript@4.4.4
@@ -150,8 +150,6 @@ importers:
       postcss-nested: 5.0.6_postcss@8.3.9
       start-server-and-test: 1.14.0
       svgo: 2.7.0
-      ts-node: 10.3.0_49cdecda08f0028ee6d994a7b43b9104
-      tsconfig-paths: 3.11.0
       typescript: 4.4.4
       vite: 2.6.10
       vite-plugin-dts: 0.7.0_vite@2.6.10
@@ -590,6 +588,10 @@ packages:
     resolution: {integrity: sha512-9AonUzyTjXXhEOa0DnqpzZi6VHlqKMswga9EXjpXnnqxwLtdvPPtlO8evrI5D9S6asFRCQ6v+wpiUKbw+vKqyg==}
     dependencies:
       '@types/ms': 0.7.31
+    dev: true
+
+  /@types/ejs/3.1.0:
+    resolution: {integrity: sha512-DCg+Ka+uDQ31lJ/UtEXVlaeV3d6t81gifaVWKJy4MYVVgvJttyX/viREy+If7fz+tK/gVxTGMtyrFPnm4gjrVA==}
     dev: true
 
   /@types/eslint-scope/3.7.1:
@@ -6116,36 +6118,6 @@ packages:
     dependencies:
       '@ts-morph/common': 0.10.1
       code-block-writer: 10.1.1
-    dev: true
-
-  /ts-node/10.3.0_49cdecda08f0028ee6d994a7b43b9104:
-    resolution: {integrity: sha512-RYIy3i8IgpFH45AX4fQHExrT8BxDeKTdC83QFJkNzkvt8uFB6QJ8XMyhynYiKMLxt9a7yuXaDBZNOYS3XjDcYw==}
-    hasBin: true
-    peerDependencies:
-      '@swc/core': '>=1.2.50'
-      '@swc/wasm': '>=1.2.50'
-      '@types/node': '*'
-      typescript: '>=2.7'
-    peerDependenciesMeta:
-      '@swc/core':
-        optional: true
-      '@swc/wasm':
-        optional: true
-    dependencies:
-      '@cspotcode/source-map-support': 0.7.0
-      '@tsconfig/node10': 1.0.8
-      '@tsconfig/node12': 1.0.9
-      '@tsconfig/node14': 1.0.1
-      '@tsconfig/node16': 1.0.2
-      '@types/node': 17.0.8
-      acorn: 8.5.0
-      acorn-walk: 8.2.0
-      arg: 4.1.3
-      create-require: 1.1.1
-      diff: 4.0.2
-      make-error: 1.3.6
-      typescript: 4.4.4
-      yn: 3.1.1
     dev: true
 
   /ts-node/10.3.0_typescript@4.4.4:

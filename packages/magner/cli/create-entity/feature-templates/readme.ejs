@@ -1,0 +1,57 @@
+# Notice about <%= capitalized %> entity usage
+
+To actually use the rendered entity, you need to follow these steps:
+
+* Import `<%= name %>.css` styles in your `all.css` file or a similar one that collects all styles together.
+* Add language translations into your translation schema, for example, in the `configs/translation/en.ts` like so:
+
+```ts
+import { <%= name %>En } from 'features/<%= name %>/en';
+
+const enCustom = {
+  <%= name %>: <%= name %>En,
+};
+
+export type CustomTranslationSchema = typeof enCustom;
+export default enCustom;
+```
+
+* Add generated pages to your routing config like so:
+
+```ts
+import <%= name %>Config from 'features/<%= pluralized %>/card-page';
+import <%= pluralized %>Config from 'features/<%= pluralized %>/table-page';
+
+const routes = [
+  /** <%= capitalized %> */
+  {
+    type: 'preset',
+    preset: {
+      preset: 'card',
+      config: Config,
+    },
+    route: {
+      name: '<%= name %>',
+      path: '/<%= pluralized %>/:id',
+      link: '/<%= pluralized %>/new',
+      roles: true,
+      visible: true,
+      title: translate('<%= name %>.sidebar.card_title'),
+    },
+  },
+  {
+    type: 'preset',
+    preset: {
+      preset: 'table',
+      config: <%= pluralized %>Config,
+    },
+    route: {
+      name: '<%= pluralized %>',
+      path: '/<%= pluralized %>',
+      roles: true,
+      visible: true,
+      title: translate('<%= name %>.sidebar.table_title'),
+    },
+  },
+]
+```
