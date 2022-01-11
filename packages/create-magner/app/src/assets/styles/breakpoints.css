@@ -1,0 +1,2 @@
+@custom-media --breakpoint-small (max-width: 767px);
+@custom-media --breakpoint-md (min-width: 768px);

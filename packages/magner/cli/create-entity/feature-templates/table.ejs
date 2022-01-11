@@ -1,0 +1,20 @@
+import { tableController, translate } from 'magner';
+import type { <%= capitalized %> } from './types';
+
+const <%= pluralized %>Table = tableController<<%= capitalized %>>({
+  emptyText: translate('<%= name %>.table.not_found'),
+  rowLink: (row) => ({ name: '<%= name %>', params: { id: row.id } }),
+  columns: [
+    {
+      prop: 'id',
+      label: translate('<%= name %>.table.id'),
+      width: 80,
+    },
+    {
+      prop: 'name',
+      label: translate('<%= name %>.table.name'),
+    },
+  ],
+});
+
+export default <%= pluralized %>Table;

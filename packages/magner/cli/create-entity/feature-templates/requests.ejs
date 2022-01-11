@@ -1,0 +1,39 @@
+import { request, requestCard, requestTable } from 'magner';
+import type { <%= capitalized %> } from './types';
+
+export const fake<%= capitalized %>: <%= capitalized %> = {
+  id: 'abc',
+  name: 'Name',
+};
+
+export const <%= name %>Read = requestTable<<%= capitalized %>>(async () => {
+  try {
+    return {
+      data: {
+        rows: [fake<%= capitalized %>],
+        pagination: null,
+      },
+    };
+  } catch (e) {
+    return {
+      data: {
+        rows: [],
+        pagination: null,
+      },
+    };
+  }
+});
+
+export const <%= name %>Get = requestCard<<%= capitalized %>, <%= capitalized %>>(async () => {
+  return { data: fake<%= capitalized %> };
+});
+
+export const <%= name %>Create = requestCard<<%= capitalized %>, <%= capitalized %>>(async () => {
+  return { data: fake<%= capitalized %> };
+});
+
+export const <%= name %>Update = requestCard<<%= capitalized %>, <%= capitalized %>>(async () => {
+  return { data: fake<%= capitalized %> };
+});
+
+export const <%= name %>Delete = request(async () => ({ data: 'ok' }));

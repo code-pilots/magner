@@ -1,0 +1,39 @@
+{
+  "name": "magner-docs",
+  "description": "Magner documentation",
+  "version": "0.4.1",
+  "private": true,
+  "engines": {
+    "node": ">=14"
+  },
+  "scripts": {
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs && mv ./docs/.vuepress/dist ./dist"
+  },
+  "devDependencies": {
+    "vite": "^2.6.7",
+    "vuepress": "^2.0.0-beta.26",
+    "vuepress-vite": "^2.0.0-beta.26"
+  },
+  "keywords": [
+    "magner",
+    "docs",
+    "admin",
+    "admin panel",
+    "admin dashboard",
+    "universal admin",
+    "vue",
+    "javascript",
+    "typescript",
+    "element-ui"
+  ],
+  "author": "Code Pilots (https://code-pilots.com/)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/code-pilots/magner.git"
+  },
+  "bugs": {
+    "url": "https://github.com/code-pilots/magner/issues"
+  }
+}

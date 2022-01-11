@@ -1,0 +1,16 @@
+import { tablePageController, translate } from 'magner';
+import type { <%= capitalized %> } from './types';
+import { <%= name %>Read } from './requests';
+import <%= pluralized %>Table from './table';
+import <%= pluralized %>Filters from './filters';
+
+const <%= pluralized %>Config = tablePageController<<%= capitalized %>>({
+  header: {
+    title: translate('<%= name %>.table.title'),
+  },
+  request: <%= name %>Read,
+  table: <%= pluralized %>Table,
+  filters: <%= pluralized %>Filters,
+});
+
+export default <%= pluralized %>Config;

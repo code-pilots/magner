@@ -1,0 +1,37 @@
+import { translate, filtersFormController } from 'magner';
+import type { <%= capitalized %> } from './types';
+
+const <%= pluralized %>Filters = filtersFormController<<%= capitalized %>>({
+  fieldsShowAmount: 1,
+
+  saveToLocalStorage: true,
+
+  actions: [
+    {
+      type: 'link',
+      to: { name: '<%= name %>', params: { id: 'new' } },
+      props: {
+        type: 'primary',
+        text: translate('<%= name %>.filters.create_new'),
+      },
+    },
+  ],
+
+  submitEvent: 'input',
+
+  pagination: {
+    items: 50,
+    page: 1,
+  },
+
+  filtersData: {},
+  sort: {},
+
+  layout: {
+    type: 'row',
+    props: {},
+    layout: [],
+  },
+});
+
+export default <%= pluralized %>Filters;
