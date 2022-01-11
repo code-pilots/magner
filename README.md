@@ -6,7 +6,7 @@ components – use packed tools to make the best admin dashboards in an hour!
 
 **Read more about Magner in [the docs](https://code-pilots.github.io/magner/)**
 
-![](./public/screen.png)
+![](./docs/docs/public/screen.png)
 
 ## Problems and troubleshooting
 

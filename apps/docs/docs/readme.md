@@ -1,16 +1,22 @@
 # Magner
 
-Admin panel that can be used for literally any project.
+Universal admin panel magnetic to any backend. Magner provides a set of tools to bootstrap
+an admin panel website built with [Vue 3](https://v3.vuejs.org/) and [Element Plus](https://element-plus.org/en-US/). All you
+need to do is writing JSON configurations and backend connectors. 
 
-It supports authentication, role management, entity tables, entities creation and edition. Easily configurable with JSON highly-typed controllers. Describes proper backend integration.
+Magner supports authentication, role management, internationalization and CRUD-operations with entities of any type.
 
 ![](./public/screen.png)
 
 ## Installation
 
+You can start your Magner project app with the following command:
+
 ```bash
-npm install magner
+pnpm create magner
 ```
+
+It copies a project template with usage examples into your local machine. 
 
 Proceed to [the configuration](./configuration/) of your project.
 
