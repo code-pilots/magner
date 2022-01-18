@@ -2,9 +2,6 @@
   "name": "create-magner",
   "description": "CLI for bootstrapping Magner projects",
   "version": "0.4.2",
-  "files": [
-    "dist"
-  ],
   "engines": {
     "node": ">=14"
   },
@@ -12,7 +9,7 @@
     "build": "tsc"
   },
   "bin": {
-    "create-magner-app": "dist/create-project.js",
+    "create-magner": "dist/create-project.js",
     "create-project": "dist/create-project.js"
   },
   "devDependencies": {
