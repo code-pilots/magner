@@ -18,6 +18,7 @@ export const http = async <T>(path: string, config: RequestConfig): Promise<T> =
   }
 
   const headers: HeadersInit = {};
+  headers.mode = 'cors';
   if (!config.isFormdata) headers['Content-Type'] = 'application/json';
   if (globalValues.store?.state?.token) headers.Authorization = `Bearer ${globalValues.store.state.token}`;
 
