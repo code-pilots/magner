@@ -54,7 +54,7 @@ const index = async () => {
   }
 
   copy(template, target);
-  console.info('Application successfully created!');
+  console.info('\x1b[32m%s\x1b[0m', 'Application successfully created!');
 
   return true;
 };
