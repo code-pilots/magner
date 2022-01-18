@@ -1,6 +1,6 @@
 {
   "name": "magner-turborepo",
-  "version": "0.4.1",
+  "version": "0.0.0",
   "private": true,
   "workspaces": [
     "apps/*",
@@ -13,6 +13,7 @@
     "build:packages": "turbo run packages"
   },
   "devDependencies": {
+    "@semantic-release/git": "^10.0.1",
     "semantic-release": "^18.0.1",
     "semantic-release-monorepo": "^7.0.5",
     "turbo": "^1.0.24"
@@ -21,24 +22,26 @@
     "baseBranch": "origin/main",
     "pipeline": {
       "build": {
-        "dependsOn": ["^build"],
-        "outputs": ["dist/**"]
+        "dependsOn": [
+          "^build"
+        ],
+        "outputs": [
+          "dist/**"
+        ]
       },
       "packages": {
-        "dependsOn": ["magner#build", "create-magner#build"],
-        "outputs": ["dist/**"]
+        "dependsOn": [
+          "magner#build",
+          "create-magner#build"
+        ],
+        "outputs": [
+          "dist/**"
+        ]
       },
       "dev": {
         "cache": false
       }
     }
-  },
-  "release": {
-    "extends": "semantic-release-monorepo",
-    "branches": [
-      "main"
-    ],
-    "repositoryUrl": "https://github.com/code-pilots/magner"
   },
   "engines": {
     "npm": ">=7.0.0",

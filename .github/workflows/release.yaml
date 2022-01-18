@@ -25,8 +25,18 @@ jobs:
           pnpm install
           pnpm build:packages
 
-      - name: Release
+      - name: Release "magner"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: pnpx semantic-release
+        run: |
+          cd packages/magner
+          pnpx semantic-release
+
+      - name: Release "create-magner"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          cd packages/create-magner
+          pnpx semantic-release
