@@ -1,7 +1,7 @@
 {
   "name": "create-magner",
   "description": "CLI for bootstrapping Magner projects",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "files": [
     "dist"
   ],
