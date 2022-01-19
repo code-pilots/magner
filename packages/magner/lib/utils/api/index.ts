@@ -40,25 +40,31 @@ const resErrParse = async (e: unknown): Promise<DataOrError> => {
   return { error: new Error((e as Error).message) };
 };
 
-const handlePromiseChain = <RESULT = any>(chain: ResponseChain & Promise<RESULT>) => chain
-  .then(resParse).catch(resErrParse) as Promise<DataOrError<RESULT>>;
+const handlePromiseChain = <RESULT = any>(chain: ResponseChain & Promise<RESULT>) => {
+  try {
+    return chain.res().then(resParse).catch(resErrParse) as Promise<DataOrError<RESULT>>;
+  } catch (e) {
+    return resErrParse(e);
+  }
+};
 
 const createApi = (options: ApiControllerOptions) => {
-  const baseApi = wretch(options.baseUrl || '')
-    .options(options.fetchOptions || {});
+  const baseApi = wretch(options.baseUrl || '', options.fetchOptions || {});
 
   return {
     instance: baseApi,
     auth: (header: string) => baseApi.auth(header),
 
     get: <RESULT = any>(path: string, config: WretcherOptions = {}) => handlePromiseChain<RESULT>(baseApi
-      .url(path, true).get(config)),
+      .url(path).get(config)),
     post: <RESULT = any>(path: string, body: any, config: WretcherOptions = {}) => handlePromiseChain<RESULT>(baseApi
-      .url(path, true).post(body, config)),
+      .url(path).post(body, config)),
     put: <RESULT = any>(path: string, body: any, config: WretcherOptions = {}) => handlePromiseChain<RESULT>(baseApi
       .url(path, true).put(body, config)),
     patch: <RESULT = any>(path: string, body: any, config: WretcherOptions = {}) => handlePromiseChain<RESULT>(baseApi
       .url(path, true).patch(body, config)),
+    delete: <RESULT = any>(path: string, config: WretcherOptions = {}) => handlePromiseChain<RESULT>(baseApi
+      .url(path, true).delete(config)),
     head: <RESULT = any>(path: string, config: WretcherOptions = {}) => handlePromiseChain<RESULT>(baseApi
       .url(path, true).head(config)),
     opts: <RESULT = any>(path: string, config: WretcherOptions = {}) => handlePromiseChain<RESULT>(baseApi

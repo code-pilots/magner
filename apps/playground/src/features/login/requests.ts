@@ -14,11 +14,7 @@ export interface Response {
   code: number,
   msg: 'ok',
 
-  user: {
-    id: string,
-    name: string,
-    roles: ROLE[],
-  },
+  user: User,
   token: string,
 }
 

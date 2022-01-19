@@ -1,7 +1,6 @@
 import type { SupportedDataTypes } from 'lib/utils/form/form';
 import type { ApiError } from 'lib/utils/api/api-error';
 import type { TranslateData } from 'lib/utils/core/translate';
-import type { TableFiltersResponse } from 'lib/types/configs/pages/table';
 import type { ProxyFunc, RequestWrap, RequestCallback } from '../utils/api';
 
 type DataBody = Record<string, any>;
@@ -24,8 +23,8 @@ export interface ProfileRequestResponse {
   token: string,
   user: unknown,
 }
-export type ProfileRequestFunc = <ENTITY = any>(cb: RequestCallback<ProfileRequestResponse, ENTITY>) =>
-  RequestWrap<TableFiltersResponse, ENTITY>;
+export type ProfileRequestFunc = <DATA = any>(cb: RequestCallback<ProfileRequestResponse, DATA>) =>
+  RequestWrap<ProfileRequestResponse, DATA>;
 
 export type SupportedValidators = 'password'|'email'|'phone'|'empty';
 
@@ -68,7 +67,7 @@ export interface DevelopmentConfig {
   noBackendMode?: boolean,
 
   /** Request to be used each time user enters the app to check for token validity and quickly authorize them */
-  profileRequest: ProfileRequestFunc,
+  profileRequest: RequestWrap<ProfileRequestResponse>,
 
   validation: Validators<string>,
 }

@@ -24,7 +24,7 @@ export type RequestCallback<RESULT = any, DATA = any> = (info: {
   dataToUrl?: DataToUrlHelper,
 }) => Promise<BaseResponse<RESULT>>;
 
-export type RequestFunc<RESULT = any, DATA = any> = (cb: RequestCallback<RESULT, DATA>) =>
+export type RequestFunc = <RESULT = any, DATA = any>(cb: RequestCallback<RESULT, DATA>) =>
   RequestWrap<RESULT, DATA>;
 
 export type CardRequestFunc = <RESULT = any, DATA = any>(
