@@ -5,7 +5,6 @@ import type {
   ActionWrapper,
 } from 'lib/types/utils/actions';
 import globalValues from 'lib/global';
-import api from '../api';
 
 /**
  * `action` is used in the ActionButtons in the card forms, table filters and other places. It can
@@ -33,7 +32,6 @@ export const actionTable: ActionFuncTable = action;
 /** Use this function in custom components to invoke any `action` with some `data` inside it */
 export const actionWrapper: ActionWrapper = async (data, cb) => cb({
   data,
-  api,
   router: globalValues.router,
   lstorage: globalValues.lstorage,
 });

@@ -32,7 +32,6 @@ import {
 import type { CardConfig } from 'lib/types/configs';
 import type { ActionAction } from 'lib/types/utils/actions';
 import { useTranslate } from 'lib/utils/core/translate';
-import { requestWrapper } from 'lib/utils/core/request';
 import { magnerConfirm, magnerMessage } from 'lib/utils/core/messages';
 import GenericForm from './form.vue';
 import DialogForm from './dialog-form.vue';
@@ -76,10 +75,12 @@ export default defineComponent({
       error.value = '';
       fieldErrors.value = {};
 
-      const res = await requestWrapper(
-        { ...reqData.value, data },
-        props.isNew ? props.config.createRequest : props.config.updateRequest,
-      );
+      let res;
+      if (props.isNew) {
+        res = await props.config.createRequest?.({ ...reqData.value, data });
+      } else {
+        res = await props.config.updateRequest?.({ ...reqData.value, data });
+      }
       if (submitButton) submitButton.loading = false;
 
       if (res.error) {
@@ -118,7 +119,7 @@ export default defineComponent({
       if (props.config.confirmDelete && !(await confirmDelete())) return;
 
       action.loading = true;
-      const res = await requestWrapper(reqData.value, props.config.deleteRequest);
+      const res = await props.config.deleteRequest(reqData.value);
       action.loading = false;
 
       if (res.error) {

@@ -2,7 +2,7 @@
  * An error class for handling API errors. Keeps the response
  * status and data for bug tracking.
  */
-export class ApiError<DataType extends Record<string, unknown>> extends Error {
+export class ApiError<DataType extends Record<any, any>> extends Error {
   name: string;
   status: number;
   data: DataType;

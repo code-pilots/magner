@@ -1,6 +1,6 @@
 export type {
+  RequestWrap,
   RequestFunc,
-  RequestWrapper,
   RequestCallback,
 } from './api';
 

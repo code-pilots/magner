@@ -1,7 +1,6 @@
 import {
-  DropzoneFile, DropzoneFileType, DropzoneValue, DropzoneField, DropzoneError, DropzoneProps,
+  DropzoneFile, DropzoneFileType, DropzoneValue, DropzoneField, DropzoneError,
 } from 'lib/types/form/fields/dropzone';
-import { requestWrapper } from 'lib/utils';
 
 export const fileToSrc = (file: File): Promise<string> => new Promise((resolve) => {
   const fileReader = new FileReader();
@@ -95,7 +94,7 @@ export const uploadFile = async (file: File, field: DropzoneField<any>, time?: n
     };
   }
 
-  const res = await requestWrapper(file, field.props.saveToBackend);
+  const res = await field.props.saveToBackend(file);
   if (res.error) {
     return {
       file,

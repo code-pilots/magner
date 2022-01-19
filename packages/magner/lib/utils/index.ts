@@ -1,11 +1,4 @@
 export {
-  request,
-  requestCard,
-  requestTable,
-  requestWrapper,
-} from './core/request';
-
-export {
   action,
   actionWrapper,
   actionCard,
@@ -21,5 +14,6 @@ export {
 } from './core/messages';
 export { mixedCheck, useChecks } from './core/mixed-check';
 
+export { request } from './api';
+export type { Request, ApiType } from './api';
 export { ApiError } from './api/api-error';
-export { default as api } from './api/index';

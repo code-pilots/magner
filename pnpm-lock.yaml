@@ -120,6 +120,7 @@ importers:
       vue-i18n: 9.2.0-beta.23
       vue-router: ^4.0.12
       vuex: ^4.0.2
+      wretch: ^1.7.7
     dependencies:
       '@editorjs/editorjs': 2.22.2
       '@editorjs/header': 2.6.1
@@ -131,6 +132,7 @@ importers:
       vue-i18n: 9.2.0-beta.23_vue@3.2.20
       vue-router: 4.0.12_vue@3.2.20
       vuex: 4.0.2_vue@3.2.20
+      wretch: 1.7.7
     devDependencies:
       '@types/ejs': 3.1.0
       '@types/node': 17.0.8
@@ -5598,6 +5600,10 @@ packages:
   /wrappy/1.0.2:
     resolution: {integrity: sha1-tSQ9jz7BqjXxNkYFvA0QNuMKtp8=}
     dev: true
+
+  /wretch/1.7.7:
+    resolution: {integrity: sha512-+CYMKQ3ulUFVND3eABUfhGWd43sSXE0UNpcLXcRPBCp/8wJR44yhALeXDhUjRyNDIygT77mMzXlJeGE4PS3iBg==}
+    dev: false
 
   /xtend/4.0.2:
     resolution: {integrity: sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==}

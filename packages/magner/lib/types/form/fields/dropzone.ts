@@ -1,4 +1,4 @@
-import type { RequestCallback } from 'lib/types/utils/api';
+import type { RequestWrap } from 'lib/types/utils/api';
 import type { BaseField, BaseProps } from '../base';
 
 export type DropzoneUploadReturn = string | number | File | Record<string, any>;
@@ -42,7 +42,7 @@ export interface DropzoneProps extends BaseProps {
    * It must return error if upload didn't happen and a string or a file representing the value
    * of a dropzone file
    */
-  saveToBackend?: RequestCallback<DropzoneUploadReturn>,
+  saveToBackend?: RequestWrap<DropzoneUploadReturn, File>,
 
   /** When initial value is passed, define what field is an actual value. Default: 'value' */
   valueKey?: string,

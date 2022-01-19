@@ -1,16 +1,24 @@
-import type { RequestCallback } from 'lib/types/utils/api';
+import type { RequestWrap } from 'lib/types/utils/api';
 import type { InnerForm } from 'lib/types/form/form';
 import type { PageHeader } from './shared';
+
+interface CardRequestData<DATA = any> {
+  id: string | number | Record<string, any>,
+  isNew: boolean,
+  data: DATA,
+}
 
 export interface CardConfig<ENTITY extends {}> {
   /** Top header of a page. Consists of the page title and tabs */
   header: PageHeader,
 
   /** CRUD requests for working with entity data */
-  getRequest: RequestCallback,
-  createRequest: RequestCallback,
-  updateRequest: RequestCallback,
-  deleteRequest?: RequestCallback, // If no function is passed here, then no 'Remove' button will be displayed
+  getRequest: RequestWrap<any, CardRequestData<ENTITY>>,
+  createRequest: RequestWrap<any, CardRequestData<ENTITY>>,
+  updateRequest: RequestWrap<any, CardRequestData<ENTITY>>,
+
+  /** If no function is passed here, then no 'Remove' button will be displayed */
+  deleteRequest?: RequestWrap<any, CardRequestData<ENTITY>>,
 
   /** If true, card page will always leave the form initially empty and won't skip required validations */
   alwaysCreate?: boolean,

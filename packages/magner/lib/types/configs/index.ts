@@ -7,9 +7,7 @@ export type { TranslationConfig } from './translation';
 
 export type {
   DevelopmentConfig,
-  UrlParsers,
-  ApiError as ApiErrorType,
-  ApiErrorData,
+  ApiErrorType,
   SupportedValidators,
   ValidationField,
   ValidatorWrapper,

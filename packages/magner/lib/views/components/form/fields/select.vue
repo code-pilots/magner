@@ -45,7 +45,6 @@ import type { ElSelect } from 'element-plus';
 import type { SelectField } from 'lib/types/form/fields/select';
 import { useTranslate } from 'lib/utils/core/translate';
 import { useChecks } from 'lib/utils/core/mixed-check';
-import { requestWrapper } from 'lib/utils/core/request';
 import ReadonlyWrap from '../readonly-wrap.vue';
 
 type SelectValue = number | string | Record<string, unknown> | (number|string|Record<string, unknown>)[];
@@ -82,7 +81,7 @@ export default defineComponent({
       if (!props.field.props.remote || !props.field.props.remoteMethod) return;
 
       loading.value = true;
-      const newOptions = await requestWrapper(search, props.field.props.remoteMethod);
+      const newOptions = await props.field.props.remoteMethod(search);
       allOptions.value = newOptions.data?.rows || newOptions.data || [];
       loading.value = false;
     };

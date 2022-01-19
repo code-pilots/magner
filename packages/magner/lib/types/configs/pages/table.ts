@@ -1,5 +1,5 @@
 import type { InnerForm } from 'lib/types/form/form';
-import type { RequestCallback } from 'lib/types/utils/api';
+import type { RequestCallback, RequestWrap } from 'lib/types/utils/api';
 import type { Table } from 'lib/types/components/table';
 import type { PageHeader } from 'lib/types/configs/pages/shared';
 
@@ -54,7 +54,8 @@ export interface TableFiltersResponse<ROW = unknown> {
 }
 
 export type TableRequestCallback<ROW = unknown> = RequestCallback<TableFiltersResponse<ROW>, TableFiltersData>;
-export type TableRequest = <ROW = unknown>(cb: TableRequestCallback<ROW>) => TableRequestCallback<ROW>;
+export type TableRequestFunc = <ROW = unknown>(cb: TableRequestCallback<ROW>) =>
+  RequestWrap<TableFiltersResponse<ROW>, TableFiltersData>;
 
 export interface TableConfig<ENTITY extends {}> {
   /** Top header of a page. Consists of the page title and tabs */

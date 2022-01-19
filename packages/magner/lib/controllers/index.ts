@@ -8,10 +8,7 @@ export { translationController } from './i18n';
 
 export {
   developmentController,
-  profileRequestController,
   validationController,
-  urlParsersController,
-  errorParserController,
 } from './development';
 
 export {

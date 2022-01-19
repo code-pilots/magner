@@ -1,101 +1,100 @@
-/* eslint-disable no-undef */
-import globalValues from 'lib/global';
-import { ApiError } from './api-error';
+import type { WretcherOptions, ResponseChain } from 'wretch';
+import wretch from 'wretch';
 
-interface RequestConfig extends RequestInit {
-  isFormdata?: boolean
+import type {
+  DataToUrlHelper, ErrorParser, ProfileRequestFunc, UrlToDataHelper,
+} from 'lib/types/configs/development';
+import type { RequestFunc } from 'lib/types';
+import type { CardRequestFunc } from 'lib/types/utils/api';
+import type { TableRequestFunc } from 'lib/types/configs/pages/table';
+import globalValues from 'lib/global';
+import { ApiError } from 'lib/utils';
+
+interface ApiControllerOptions {
+  baseUrl?: string,
+  fetchOptions?: WretcherOptions, // eslint-disable-line no-undef
+  dataToUrl?: DataToUrlHelper,
+  urlToData?: UrlToDataHelper,
+  parseError?: ErrorParser<any>,
+  headers?: Record<string, string>,
 }
 
-/**
- * A request wrapper method that handles authorization token passing, setting fetch
- * headers, catching errors and useful data passing into the request.
- * @param path – URL of the endpoint relative to the API host environmental constant
- * @param config – additional fetch configuration.
- */
-export const http = async <T>(path: string, config: RequestConfig): Promise<T> => {
-  if (!globalValues.development.envs.API_URL) {
-    throw new Error('Please, set the API_URL in the "envs.ts" file! It is required for any API calls.');
+type DataOrError<RESULT = any> = { data: RESULT, error?: never } | { error: ApiError<any> | Error, data?: never };
+
+const resParse = async (response: any): Promise<DataOrError> => {
+  const data = await response.json().catch(() => ({}));
+
+  if (!response.ok) {
+    throw new ApiError({ status: response?.status ?? 500, data });
   }
 
-  const headers: HeadersInit = {};
-  headers.mode = 'cors';
-  if (!config.isFormdata) headers['Content-Type'] = 'application/json';
-  if (globalValues.store?.state?.token) headers.Authorization = `Bearer ${globalValues.store.state.token}`;
-
-  try {
-    const req = new Request(globalValues.development.envs.API_URL + path, {
-      ...config,
-      headers,
-    });
-    const response = await fetch(req);
-    const data = await response.json().catch(() => ({}));
-
-    if (!response.ok) {
-      throw new ApiError({ status: response?.status ?? 500, data });
-    }
-
-    return data;
-  } catch (e: unknown) {
-    if (e instanceof ApiError) {
-      throw e;
-    } else {
-      console.error(e);
-      throw new Error((e as Error).message);
-    }
-  }
+  return { data };
 };
 
-/** Creates FormData object out of request's data if 'config.isFormdata' flag is passed */
-const prepareBody = (body: any, config?: RequestConfig) => {
-  if (!config?.isFormdata) {
-    return JSON.stringify(body);
+const resErrParse = async (e: unknown): Promise<DataOrError> => {
+  if (e instanceof ApiError) {
+    return { error: e };
   }
 
-  const data = new FormData();
-  Object.entries(body).forEach(([key, value]) => {
-    const formValue = value instanceof Blob ? value : String(value);
-    data.append(key, formValue);
+  console.error(e);
+  return { error: new Error((e as Error).message) };
+};
+
+const handlePromiseChain = <RESULT = any>(chain: ResponseChain & Promise<RESULT>) => chain
+  .then(resParse).catch(resErrParse) as Promise<DataOrError<RESULT>>;
+
+const createApi = (options: ApiControllerOptions) => {
+  const baseApi = wretch(options.baseUrl || '')
+    .options(options.fetchOptions || {});
+
+  return {
+    instance: baseApi,
+    auth: (header: string) => baseApi.auth(header),
+
+    get: <RESULT = any>(path: string, config: WretcherOptions = {}) => handlePromiseChain<RESULT>(baseApi
+      .url(path, true).get(config)),
+    post: <RESULT = any>(path: string, body: any, config: WretcherOptions = {}) => handlePromiseChain<RESULT>(baseApi
+      .url(path, true).post(body, config)),
+    put: <RESULT = any>(path: string, body: any, config: WretcherOptions = {}) => handlePromiseChain<RESULT>(baseApi
+      .url(path, true).put(body, config)),
+    patch: <RESULT = any>(path: string, body: any, config: WretcherOptions = {}) => handlePromiseChain<RESULT>(baseApi
+      .url(path, true).patch(body, config)),
+    head: <RESULT = any>(path: string, config: WretcherOptions = {}) => handlePromiseChain<RESULT>(baseApi
+      .url(path, true).head(config)),
+    opts: <RESULT = any>(path: string, config: WretcherOptions = {}) => handlePromiseChain<RESULT>(baseApi
+      .url(path, true).opts(config)),
+  };
+};
+
+export const request = (options: ApiControllerOptions) => {
+  const api = createApi(options);
+
+  const reqFuncData = {
+    api,
+    urlToData: options.urlToData,
+    dataToUrl: options.dataToUrl,
+    parseError: options.parseError || ((e) => ({ message: e.name, fields: {} })),
+    router: globalValues.router,
+    lstorage: globalValues.lstorage,
+  };
+
+  const requestCustom: RequestFunc = (cb) => async (data) => cb({
+    ...reqFuncData,
+    data,
   });
 
-  return data;
+  const requestCard: CardRequestFunc = requestCustom;
+  const requestTable: TableRequestFunc = requestCustom;
+  const requestProfile: ProfileRequestFunc = requestCustom;
+
+  return {
+    api,
+    custom: requestCustom,
+    card: requestCard,
+    table: requestTable,
+    profile: requestProfile,
+  };
 };
 
-/**
- * Several more useful functions for requests making depending on the
- * request method that you need.
- */
-const api = {
-  /** GET-request: no body needed. Use it to receive data from the backend */
-  get: <T>(path: string, config?: RequestConfig): Promise<T> => {
-    const init = { method: 'get', ...config };
-    return http<T>(path, init);
-  },
-
-  /** POST-request: has optional body. Use it to create new entity instances */
-  post: <T, U>(path: string, body: T, config?: RequestConfig): Promise<U> => {
-    const init = { method: 'post', body: prepareBody(body, config), ...config };
-    return http<U>(path, init);
-  },
-
-  /** PUT-request. Use it to update entity instances */
-  put: <T, U>(path: string, body: T, config?: RequestConfig): Promise<U> => {
-    const init = { method: 'put', body: prepareBody(body, config), ...config };
-    return http<U>(path, init);
-  },
-
-  /** PATCH-request. Use it to update entity instances */
-  patch: <T, U>(path: string, body: T, config?: RequestConfig): Promise<U> => {
-    const init = { method: 'PATCH', body: prepareBody(body, config), ...config };
-    return http<U>(path, init);
-  },
-
-  /** PUT-request. Use it to delete entities */
-  delete: <T, U>(path: string, body?: T, config?: RequestConfig): Promise<U> => {
-    const init = { method: 'delete', body: prepareBody(body, config), ...config };
-    return http<U>(path, init);
-  },
-};
-
-export type ApiType = typeof api;
-
-export default api;
+export type ApiType = ReturnType<typeof createApi>;
+export type Request = ReturnType<typeof request>;

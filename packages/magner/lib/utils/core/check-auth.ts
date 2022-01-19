@@ -1,5 +1,4 @@
 import type { RouteAccessRestriction } from 'lib/types/configs/routing/routing';
-import { requestWrapper } from 'lib/utils/core/request';
 import globalValues from 'lib/global';
 
 /**
@@ -24,7 +23,7 @@ const checkAuth = async (roles?: RouteAccessRestriction) => {
     }
 
     if (store.state.token) {
-      const user = await requestWrapper(null, profileRequest);
+      const user = await profileRequest(null);
       const role = user.data?.role;
 
       if (user.data) {
@@ -46,7 +45,7 @@ const checkAuth = async (roles?: RouteAccessRestriction) => {
   }
 
   if (store.state.token) {
-    const user = await requestWrapper(null, profileRequest);
+    const user = await profileRequest(null);
     if (user.data) {
       await store.dispatch('changeUser', user.data);
       return { name: globalRoutes.homeHasAuthName };
