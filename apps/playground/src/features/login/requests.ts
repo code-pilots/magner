@@ -1,4 +1,4 @@
-import { profileRequestController } from 'magner';
+import { request } from '~/utils/request';
 import { ROLE } from '~/constants';
 
 type ProxyFunc<BEFORE, AFTER> = (data: BEFORE) => AFTER;
@@ -34,21 +34,21 @@ export const dataToProxy: ProxyFunc<Response, Proxy> = (data) => ({
   user: data.user,
 });
 
-const loginRequest = profileRequestController(async ({ data, api }) => {
-  try {
-    const res: Response = await api.post('auth/login', data);
-    const proxied = dataToProxy(res);
-
-    return {
-      data: {
-        user: proxied.user,
-        token: proxied.token,
-        role: proxied.role,
-      },
-    };
-  } catch (e) {
-    return { error: 'Error' };
+const loginRequest = request.profile(async ({ api, parseError }) => {
+  const res = await api.get<Response>('auth/profile');
+  if (res.error) {
+    return { error: parseError(res.error) };
   }
+
+  const proxied = dataToProxy(res.data);
+
+  return {
+    data: {
+      user: proxied.user,
+      token: proxied.token,
+      role: proxied.role,
+    },
+  };
 });
 
 export default loginRequest;

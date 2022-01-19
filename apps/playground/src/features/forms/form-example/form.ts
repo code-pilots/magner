@@ -1,18 +1,22 @@
 import {
-  translate, cardPageController, request, SelectField, action,
+  translate, cardPageController, SelectField, action,
 } from 'magner';
 import {
   bigtestCreate, bigtestDelete, bigtestGet, bigtestUpdate,
 } from '../requests';
+import { request } from '~/utils/request';
 
 interface Pet {
   id: number,
   name: string,
 }
 
-const getList = request<Pet[]>(async ({ api }) => {
+const getList = request.custom<Pet[]>(async ({ api }) => {
   const res = await api.get<Pet[]>('/pet/findByStatus?status=pending');
-  return { data: res || [] };
+  if (res.error) {
+    return { data: [] };
+  }
+  return { data: res.data || [] };
 });
 
 const RadioOptions = [
