@@ -127,7 +127,7 @@
               type="danger"
               plain
               circle
-              size="small"
+              size="default"
               class="form-collection_remove"
               @click="changeCollectionItems(i)"
             />
@@ -143,7 +143,6 @@
         :icon="plusIcon"
         :disabled="disabled"
         type="primary"
-        size="small"
         plain
         @click="changeCollectionItems('new')"
       >

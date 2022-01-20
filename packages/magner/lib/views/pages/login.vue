@@ -15,7 +15,7 @@
       >
         <template #before>
           <figure class="login-page_logo">
-            <img :src="logo" alt="" />
+            <img :src="logo" alt="">
           </figure>
           <h1 class="login-page_form_title">
             {{ customT(config.title) }}
@@ -38,7 +38,6 @@ import type { LoginConfig } from 'lib/types/configs';
 import type { ProfileRequestResponse } from 'lib/types/configs/development';
 import useStore from 'lib/controllers/store/store';
 import { useTranslate } from 'lib/utils/core/translate';
-import { requestWrapper } from 'lib/utils/core/request';
 import { layoutToFields } from 'lib/utils/form/form';
 import logoUrl from 'lib/assets/icons/brand-light.svg?url';
 import GenericForm from '../components/form/form.vue';
@@ -84,7 +83,7 @@ export default defineComponent({
       }
 
       if (submitButton) submitButton.loading = true;
-      const res = await requestWrapper<ProfileRequestResponse>(data, props.config.request);
+      const res = await props.config.request(data);
       if (submitButton) submitButton.loading = false;
 
       if (res.error && typeof res.error === 'object') {

@@ -13,7 +13,6 @@ export type ActionReturn = TranslateData | boolean;
  */
 export type ActionCallback<RESULT = any, DATA = any> = (info: {
   data: DATA,
-  api: ApiType,
   router: Router,
   lstorage: LStorage,
 }) => Promise<ActionReturn>;

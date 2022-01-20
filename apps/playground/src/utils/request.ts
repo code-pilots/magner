@@ -1,16 +1,25 @@
-/* eslint-disable no-restricted-syntax, no-loop-func, no-continue */
-import { urlParsersController } from 'magner';
+import { request as magnerRequest } from 'magner';
+import { API_URL } from '~/constants';
 
-const urlParsers = urlParsersController({
+console.warn('URL is', API_URL);
+
+export const request = magnerRequest({
+  baseUrl: API_URL,
+
+  parseError: (err) => ({
+    message: '',
+    fields: {},
+  }),
+
   /**
    * Function parses an object of form { items: 5, filters: { params: [1, 2] } } to the URL of type
    * ?items=5&filters[0][id]=params&filters[0][value]=1&filters[0][value]=2
    */
   dataToUrl: (data) => {
-    const params = [];
+    const params: string[] = [];
 
-    for (const [key, val] of Object.entries(data)) {
-      if (!val) continue;
+    Object.entries(data).forEach(([key, val]) => {
+      if (!val) { return; }
 
       /** If value is just a string or a number, return like items=15&page=1 */
       if (typeof val === 'string') {
@@ -24,8 +33,8 @@ const urlParsers = urlParsersController({
          * */
         let index = 0;
 
-        for (const [nestedKey, nestedVal] of Object.entries(val)) {
-          if (!nestedVal) continue;
+        Object.entries(val).forEach(([nestedKey, nestedVal]) => {
+          if (!nestedVal) { return; }
 
           params.push(`${key}[${index}][id]=${nestedKey}`);
           if (typeof nestedVal === 'string') {
@@ -38,9 +47,9 @@ const urlParsers = urlParsersController({
             });
           }
           index += 1;
-        }
+        });
       }
-    }
+    });
 
     return `?${params.join('&')}`;
   },
@@ -56,7 +65,7 @@ const urlParsers = urlParsersController({
     /** Vue-Router  */
     Object.entries(query).forEach(([key, value]) => {
       const matched = key.match(/^([^[]+)\[([0-9]+)]\[id]/);
-      const isValue = new RegExp(/^[^[]+\[[0-9]+]\[value]/).test(key);
+      const isValue = /^[^[]+\[[0-9]+]\[value]/.test(key);
       if (!isValue) {
         if (matched) {
           if (!data[matched[1]]) data[matched[1]] = {};
@@ -74,5 +83,3 @@ const urlParsers = urlParsersController({
     return data;
   },
 });
-
-export default urlParsers;

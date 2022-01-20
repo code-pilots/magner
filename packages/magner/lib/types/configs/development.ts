@@ -1,28 +1,30 @@
-import { SupportedDataTypes } from 'lib/utils/form/form';
-import type { ProxyFunc, RequestCallback } from '../utils/api';
+import type { SupportedDataTypes } from 'lib/utils/form/form';
+import type { ApiError } from 'lib/utils/api/api-error';
+import type { TranslateData } from 'lib/utils/core/translate';
+import type { ProxyFunc, RequestWrap, RequestCallback } from '../utils/api';
 
 type DataBody = Record<string, any>;
+
+/** Proxy function from the request data to URL needed in GET requests */
 export type DataToUrlHelper = ProxyFunc<DataBody, string>;
+
+/** Proxy function from the URL query to the data object, opposite to 'dataToUrl' function */
 export type UrlToDataHelper = ProxyFunc<DataBody, DataBody>;
 
-export interface ApiErrorData<DataType = Record<string, unknown>> {
-  name: string,
-  status: number,
-  data: DataType,
+export interface ApiErrorType {
+  fields: Record<string, string>,
+  message: TranslateData,
 }
 
-export interface ApiError {
-  fields: Record<string, string>,
-  message: string,
-}
-export type ErrorParser<ERR> = (err: ApiErrorData<ERR>) => ApiError;
+export type ErrorParser<ERR = Record<string, unknown>> = (err: ApiError<ERR> | Error) => ApiErrorType;
 
 export interface ProfileRequestResponse {
   role: string | null,
   token: string,
   user: unknown,
 }
-export type ProfileRequest = RequestCallback<ProfileRequestResponse>;
+export type ProfileRequestFunc = <DATA = any>(cb: RequestCallback<ProfileRequestResponse, DATA>) =>
+  RequestWrap<ProfileRequestResponse, DATA>;
 
 export type SupportedValidators = 'password'|'email'|'phone'|'empty';
 
@@ -50,13 +52,6 @@ export interface ValidationField {
 export type Validators<CUSTOM_VALIDATION extends string>
   = Record<CUSTOM_VALIDATION, ValidatorWrapper>;
 
-export interface UrlParsers {
-  /** Proxy function from the request data to URL needed in GET requests */
-  dataToUrl: DataToUrlHelper,
-  /** Proxy function from the URL query to the data object, opposite to 'dataToUrl' function */
-  urlToData: UrlToDataHelper,
-}
-
 export interface DevelopmentConfig {
   /** Constants that should be hidden */
   envs: {
@@ -71,20 +66,8 @@ export interface DevelopmentConfig {
    */
   noBackendMode?: boolean,
 
-  /** Functions that transform a key-value object to the URI string and vice versa */
-  urlParsers: UrlParsers,
-
-  /**
-   * Function that parses all errors caught while doing HTTP request to the server.
-   * Return message string as global error or fields object to show error of some error field
-   */
-  errorParser: ErrorParser<any>,
-
   /** Request to be used each time user enters the app to check for token validity and quickly authorize them */
-  profileRequest: ProfileRequest,
+  profileRequest: RequestWrap<ProfileRequestResponse>,
 
   validation: Validators<string>,
 }
-
-// TODO: МЫСЛЬ! Объединить urlParsers, errorParser, profileRequest в одно. Добавить настройку каждого
-//  baseRequest, по возможности с мульти-выбором реквестов

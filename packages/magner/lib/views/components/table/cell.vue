@@ -62,10 +62,12 @@ export default defineComponent({
       }
 
       if (!props.columnConfig.view || props.columnConfig.view === 'text') {
-        const formatted: string = props.columnConfig.formatter ? props.columnConfig.formatter(content,
+        const formatted: string = props.columnConfig.formatter ? props.columnConfig.formatter(
+          content,
           props.tableData.row,
           props.tableData.column,
-          props.tableData.$index) : content;
+          props.tableData.$index,
+        ) : content;
 
         return {
           view: 'text' as 'view',

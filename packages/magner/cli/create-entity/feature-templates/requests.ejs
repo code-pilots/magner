@@ -1,20 +1,10 @@
-import { request, requestCard, requestTable } from 'magner';
-import type { <%= capitalized %> } from './types';
+import { request } from '~/utils/request';
+import { <%= capitalized %> } from './types';
 
-export const fake<%= capitalized %>: <%= capitalized %> = {
-  id: 'abc',
-  name: 'Name',
-};
-
-export const <%= name %>Read = requestTable<<%= capitalized %>>(async () => {
-  try {
-    return {
-      data: {
-        rows: [fake<%= capitalized %>],
-        pagination: null,
-      },
-    };
-  } catch (e) {
+export const <%= name %>Read = request.table<<%= capitalized %>>(async ({ api }) => {
+  const res = await api.get<{ list: <%= capitalized %>[] }>('/<%= pluralized %>');
+  
+  if (res.error) {
     return {
       data: {
         rows: [],
@@ -22,18 +12,47 @@ export const <%= name %>Read = requestTable<<%= capitalized %>>(async () => {
       },
     };
   }
+  
+  return {
+    data: {
+      rows: res.data.list,
+      pagination: {
+        currentPage: 1,
+        totalPages: 1,
+        totalItems: 1,
+      },
+    },
+  };
 });
 
-export const <%= name %>Get = requestCard<<%= capitalized %>, <%= capitalized %>>(async () => {
-  return { data: fake<%= capitalized %> };
+export const <%= name %>Get = request.card<<%= capitalized %>, <%= capitalized %>>(async ({ api, data, parseError }) => {
+  const res = await api.get<{ <%= name %>: <%= capitalized %> }>(`/<%= pluralized %>/${data.id}`);
+  if (res.error) {
+    return { error: parseError(res.error) };
+  }
+  return { data: res.data.<%= name %> };
 });
 
-export const <%= name %>Create = requestCard<<%= capitalized %>, <%= capitalized %>>(async () => {
-  return { data: fake<%= capitalized %> };
+export const <%= name %>Create = request.card<<%= capitalized %>, <%= capitalized %>>(async ({ api, data, parseError }) => {
+  const res = await api.post<{ <%= name %>: <%= capitalized %> }>('/<%= pluralized %>', data.data);
+  if (res.error) {
+    return { error: parseError?.(res.error) };
+  }
+  return { data: res.data.<%= name %> };
 });
 
-export const <%= name %>Update = requestCard<<%= capitalized %>, <%= capitalized %>>(async () => {
-  return { data: fake<%= capitalized %> };
+export const <%= name %>Update = request.card<<%= capitalized %>, <%= capitalized %>>(async ({ api, data, parseError }) => {
+  const res = await api.post<{ <%= name %>: <%= capitalized %> }>(`/<%= pluralized %>/${data.id}`, data.data);
+  if (res.error) {
+    return { error: parseError(res.error) };
+  }
+  return { data: res.data.<%= name %> };
 });
 
-export const <%= name %>Delete = request(async () => ({ data: 'ok' }));
+export const <%= name %>Delete = request.card<{ data: 'ok' }, <%= capitalized %>>(async ({ api, data, parseError }) => {
+  const res = await api.delete(`/<%= pluralized %>/${data.id}`);
+  if (res.error) {
+    return { error: parseError(res.error) };
+  }
+  return { data: res.data };
+});

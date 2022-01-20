@@ -30,10 +30,7 @@ module.exports = {
       rules: {
         'vue/max-attributes-per-line': [1, {
           singleline: 3,
-          multiline: {
-            max: 1,
-            allowFirstLine: false,
-          },
+          multiline: 1,
         }],
         'vue/singleline-html-element-content-newline': 0,
       },
@@ -46,7 +43,7 @@ module.exports = {
     'import/prefer-default-export': 0,
     'space-before-function-paren': [1, 'always'],
     'no-underscore-dangle': 0,
-    'no-console': ['error', { allow: ['warn', 'error'] }],
+    'no-console': ['error', { allow: ['warn', 'error', 'info'] }],
     'no-trailing-spaces': 0,
     'no-unused-vars': 0,
     'vue/prop-name-casing': 0,

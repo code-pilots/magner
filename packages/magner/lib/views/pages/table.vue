@@ -40,7 +40,7 @@
           :config="{
             ...config.filters,
             submitEvent: 'submit',
-            size: isMobile ? 'medium' : 'small',
+            size: 'default',
             clearable: true,
           }"
           :initial-data="requestData.filters"
@@ -74,7 +74,7 @@
             v-if="config.table.rowSelectable && config.table.rowSelectable.actions"
             :actions="config.table.rowSelectable.actions"
             :request-data="{ ...requestData, selected }"
-            size="mini"
+            size="default"
             @action="filtersAction"
           />
         </div>
@@ -186,7 +186,8 @@ export default defineComponent({
     // Depending on URL query existence and configuration, load initial data from URL or LocalStorage
     const initialData = props.config.filters.saveToLocalStorage && !Object.keys(route.query).length
       ? store.state.project.lstorage.deepRead('filters', route.name as string) as Record<string, any>
-      : store.state.project.development.urlParsers.urlToData(route.query);
+      // TODO: add here store.state.project.development.urlParsers.urlToData(route.query);
+      : route.query;
     filterUrlDataComparison(requestData, initialData);
 
     const appliedFilters = computed(() => Object.values(requestData.filters).filter((filter) => !!filter).length);
@@ -237,7 +238,8 @@ export default defineComponent({
     };
 
     watch(() => requestData, (val) => {
-      const query = store.state.project.development.urlParsers.dataToUrl(val);
+      // TODO: add here store.state.project.development.urlParsers.dataToUrl(val);
+      const query = val;
       router.push(route.path + query);
     }, { deep: true });
 

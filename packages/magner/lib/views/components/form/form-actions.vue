@@ -51,8 +51,8 @@ export default defineComponent({
       default: () => ([]),
     },
     size: {
-      type: String as PropType<'medium' | 'small' | 'mini'>,
-      default: 'medium',
+      type: String as PropType<'large' | 'default' | 'small'>,
+      default: 'default',
     },
     skipActions: {
       type: [Array, Boolean] as PropType<string[] | boolean>,

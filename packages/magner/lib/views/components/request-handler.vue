@@ -7,7 +7,6 @@ import {
   defineComponent, PropType, ref, watch,
 } from 'vue';
 import type { RequestCallback } from 'lib/types/utils/api';
-import { requestWrapper } from 'lib/utils/core/request';
 
 export default defineComponent({
   name: 'RequestHandler',
@@ -30,7 +29,7 @@ export default defineComponent({
     const error = ref('');
     const response = ref();
     const loading = ref(false);
-    const initialLoaded = ref(false); // Variable prevents sending two request simultaneously on initial load
+    const initialLoaded = ref(false); // Variable prevents sending two index simultaneously on initial load
 
     const changeLoading = (val: boolean) => {
       loading.value = val;
@@ -41,7 +40,7 @@ export default defineComponent({
       if (props.disabled) return;
 
       changeLoading(true);
-      const res = await requestWrapper(newData || props.data, props.request);
+      const res = await props.request(newData || props.data);
       changeLoading(false);
 
       initialLoaded.value = true;

@@ -1,15 +1,13 @@
 import { dataToProxy, Response } from 'features/login/requests';
-import { profileRequestController } from 'magner';
+import { request } from '~/utils/request';
 
-const profileRequest = profileRequestController(async ({ api }) => {
-  try {
-    const res: Response = await api.get('auth/profile');
-    const proxied = dataToProxy(res);
-
-    return { data: proxied };
-  } catch (e) {
-    return { error: 'Error' };
+const profileRequest = request.profile(async ({ api, parseError }) => {
+  const res = await api.get<Response>('auth/profile');
+  if (res.error) {
+    return { error: parseError(res.error) };
   }
+
+  return { data: dataToProxy(res.data) };
 });
 
 export default profileRequest;

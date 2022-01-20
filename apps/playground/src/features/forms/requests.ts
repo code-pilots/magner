@@ -1,4 +1,4 @@
-import { request } from 'magner';
+import { request } from '~/utils/request';
 
 const editorData = JSON.stringify({
   time: 1636442791295,
@@ -22,7 +22,7 @@ const editorData = JSON.stringify({
   ],
 });
 
-export const bigtestGet = request(async () => ({
+export const bigtestGet = request.custom(async () => ({
   data: {
     phone: '79203122255',
     textarea: 'Hello, my dear friends. Today we are going to learn the basics of the spring theory. This is the one of the most interesting topic of the entire physics!',
@@ -41,8 +41,8 @@ export const bigtestGet = request(async () => ({
   },
 }));
 
-export const bigtestCreate = request(async () => ({ data: {} }));
+export const bigtestCreate = request.custom(async () => ({ data: {} }));
 
-export const bigtestUpdate = request(async () => ({ data: {} }));
+export const bigtestUpdate = request.custom(async () => ({ data: {} }));
 
-export const bigtestDelete = request(async () => ({ data: {} }));
+export const bigtestDelete = request.custom(async () => ({ data: {} }));

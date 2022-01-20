@@ -1,5 +1,5 @@
 import type { TranslateData } from 'lib/utils/core/translate';
-import type { RequestCallback } from 'lib/types/utils/api';
+import type { RequestCallback, RequestWrap } from 'lib/types/utils/api';
 import type { BaseField, BaseProps } from '../base';
 
 /**
@@ -25,7 +25,7 @@ export interface SelectProps extends BaseProps {
   /** Whether options are loaded from the server. Works only if 'filterable:true' is set */
   remote?: boolean,
   /** Only if 'remote:true', custom function to get items from the server */
-  remoteMethod?: RequestCallback,
+  remoteMethod?: RequestWrap,
   /** Only if 'remote:true', display this text when loading */
   loadingText?: TranslateData,
   /** Display this text if remote request returned no results */
@@ -42,6 +42,8 @@ export interface SelectProps extends BaseProps {
   valueKey?: string,
   /** The key of a label field of the Option object */
   labelKey?: string,
+  /** Format options to specific text. Overrides the 'labelKey' property */
+  labelFormatter?: (option: unknown) => string,
 
   /** Can the selected option be cleared? */
   clearable?: boolean,
