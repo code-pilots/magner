@@ -1,12 +1,6 @@
-import type { RequestWrap } from 'lib/types/utils/api';
+import type { RequestWrap, CardRequestData } from 'lib/types/utils/api';
 import type { InnerForm } from 'lib/types/form/form';
 import type { PageHeader } from './shared';
-
-interface CardRequestData<DATA = any> {
-  id: string | number | Record<string, any>,
-  isNew: boolean,
-  data: DATA,
-}
 
 export interface CardConfig<ENTITY extends {}> {
   /** Top header of a page. Consists of the page title and tabs */

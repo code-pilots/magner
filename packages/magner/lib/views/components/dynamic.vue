@@ -28,7 +28,6 @@
 
 <script lang="ts">
 import { defineComponent, PropType, ref } from 'vue';
-import type { ApiError } from 'lib/types/configs/development';
 import { RequestCallback } from 'lib/types/utils/api';
 import { useTranslate } from 'lib/utils/core/translate';
 import RequestHandler from './request-handler.vue';
@@ -59,7 +58,7 @@ export default defineComponent({
       reqHandler.value!.makeRequest?.();
     };
 
-    const emitError = (err: string | ApiError) => {
+    const emitError = (err: string) => {
       context.emit('error', err);
     };
 

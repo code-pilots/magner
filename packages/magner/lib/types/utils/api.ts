@@ -27,6 +27,12 @@ export type RequestCallback<RESULT = any, DATA = any> = (info: {
 export type RequestFunc = <RESULT = any, DATA = any>(cb: RequestCallback<RESULT, DATA>) =>
   RequestWrap<RESULT, DATA>;
 
+export interface CardRequestData<DATA = any> {
+  id: string | number | Record<string, any>,
+  isNew: boolean,
+  data: DATA,
+}
+
 export type CardRequestFunc = <RESULT = any, DATA = any>(
-  cb: RequestCallback<RESULT, { id: number|string, data: DATA }>
-) => RequestWrap<RESULT, { id: number|string, data: DATA }>;
+  cb: RequestCallback<RESULT, CardRequestData<DATA>>
+) => RequestWrap<RESULT, CardRequestData<DATA>>;

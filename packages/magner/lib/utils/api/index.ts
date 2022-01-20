@@ -21,54 +21,44 @@ interface ApiControllerOptions {
 
 type DataOrError<RESULT = any> = { data: RESULT, error?: never } | { error: ApiError<any> | Error, data?: never };
 
-const resParse = async (response: any): Promise<DataOrError> => {
-  const data = await response.json().catch(() => ({}));
+const resParse = async (response: any): Promise<DataOrError> => ({ data: response });
 
-  if (!response.ok) {
-    throw new ApiError({ status: response?.status ?? 500, data });
+const resErrParse = async (e: { response?: Response, text?: string, name?: string }): Promise<DataOrError> => {
+  if (e?.response && e.text) {
+    try {
+      const data = await JSON.parse(e.text);
+      return { error: new ApiError({ status: (e as any).response?.status ?? 500, data }) };
+    } catch (_) {
+      return { error: new Error(e.text) };
+    }
   }
-
-  return { data };
-};
-
-const resErrParse = async (e: unknown): Promise<DataOrError> => {
-  if (e instanceof ApiError) {
-    return { error: e };
-  }
-
-  console.error(e);
   return { error: new Error((e as Error).message) };
 };
 
-const handlePromiseChain = <RESULT = any>(chain: ResponseChain & Promise<RESULT>) => {
-  try {
-    return chain.res().then(resParse).catch(resErrParse) as Promise<DataOrError<RESULT>>;
-  } catch (e) {
-    return resErrParse(e);
-  }
-};
+const handlePromiseChain = async <RESULT = any>(
+  chain: () => ResponseChain,
+): Promise<DataOrError<RESULT>> => chain().json(resParse).catch(resErrParse);
 
 const createApi = (options: ApiControllerOptions) => {
   const baseApi = wretch(options.baseUrl || '', options.fetchOptions || {});
 
   return {
     instance: baseApi,
-    auth: (header: string) => baseApi.auth(header),
 
-    get: <RESULT = any>(path: string, config: WretcherOptions = {}) => handlePromiseChain<RESULT>(baseApi
+    get: <RESULT = any>(path: string, config: WretcherOptions = {}) => handlePromiseChain<RESULT>(() => baseApi
       .url(path).get(config)),
-    post: <RESULT = any>(path: string, body: any, config: WretcherOptions = {}) => handlePromiseChain<RESULT>(baseApi
+    post: <RESULT = any>(path: string, body: any, config: WretcherOptions = {}) => handlePromiseChain<RESULT>(() => baseApi
       .url(path).post(body, config)),
-    put: <RESULT = any>(path: string, body: any, config: WretcherOptions = {}) => handlePromiseChain<RESULT>(baseApi
-      .url(path, true).put(body, config)),
-    patch: <RESULT = any>(path: string, body: any, config: WretcherOptions = {}) => handlePromiseChain<RESULT>(baseApi
-      .url(path, true).patch(body, config)),
-    delete: <RESULT = any>(path: string, config: WretcherOptions = {}) => handlePromiseChain<RESULT>(baseApi
-      .url(path, true).delete(config)),
-    head: <RESULT = any>(path: string, config: WretcherOptions = {}) => handlePromiseChain<RESULT>(baseApi
-      .url(path, true).head(config)),
-    opts: <RESULT = any>(path: string, config: WretcherOptions = {}) => handlePromiseChain<RESULT>(baseApi
-      .url(path, true).opts(config)),
+    put: <RESULT = any>(path: string, body: any, config: WretcherOptions = {}) => handlePromiseChain<RESULT>(() => baseApi
+      .url(path).put(body, config)),
+    patch: <RESULT = any>(path: string, body: any, config: WretcherOptions = {}) => handlePromiseChain<RESULT>(() => baseApi
+      .url(path).patch(body, config)),
+    delete: <RESULT = any>(path: string, config: WretcherOptions = {}) => handlePromiseChain<RESULT>(() => baseApi
+      .url(path).delete(config)),
+    head: <RESULT = any>(path: string, config: WretcherOptions = {}) => handlePromiseChain<RESULT>(() => baseApi
+      .url(path).head(config)),
+    opts: <RESULT = any>(path: string, config: WretcherOptions = {}) => handlePromiseChain<RESULT>(() => baseApi
+      .url(path).opts(config)),
   };
 };
 
