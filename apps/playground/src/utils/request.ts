@@ -65,7 +65,7 @@ export const request = magnerRequest({
     /** Vue-Router  */
     Object.entries(query).forEach(([key, value]) => {
       const matched = key.match(/^([^[]+)\[([0-9]+)]\[id]/);
-      const isValue = new RegExp(/^[^[]+\[[0-9]+]\[value]/).test(key);
+      const isValue = /^[^[]+\[[0-9]+]\[value]/.test(key);
       if (!isValue) {
         if (matched) {
           if (!data[matched[1]]) data[matched[1]] = {};
