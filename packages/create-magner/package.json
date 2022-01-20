@@ -1,7 +1,7 @@
 {
   "name": "create-magner",
   "description": "CLI for bootstrapping Magner projects",
-  "version": "0.4.3",
+  "version": "0.5.0",
   "engines": {
     "node": ">=14"
   },
