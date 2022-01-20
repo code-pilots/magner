@@ -25,7 +25,7 @@
         v-for="option in allOptions"
         :key="field.props.valueKey ? option[field.props.valueKey] : option.value"
         :value="field.props.valueKey ? option[field.props.valueKey] : option.value"
-        :label="field.props.labelKey ? customT(option[field.props.labelKey]) : customT(option.label)"
+        :label="getOptionLabel(option)"
         :disabled="option.disabled || false"
       />
     </el-select>
@@ -86,6 +86,13 @@ export default defineComponent({
       loading.value = false;
     };
 
+    const getOptionLabel = (option: any) => {
+      if (props.field.props.labelFormatter) {
+        return props.field.props.labelFormatter?.(option);
+      }
+      return props.field.props.labelKey ? customT(option[props.field.props.labelKey]) : customT(option?.label);
+    };
+
     onMounted(async () => {
       await remoteMethod('');
 
@@ -116,6 +123,7 @@ export default defineComponent({
       loading,
       allOptions,
       selectEl,
+      getOptionLabel,
       customT,
       changeVal,
       remoteMethod,
