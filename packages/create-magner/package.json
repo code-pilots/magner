@@ -10,6 +10,7 @@
   },
   "bin": {
     "create-magner": "dist/create-project.js",
+    "create-magner-app": "dist/create-project.js",
     "create-project": "dist/create-project.js"
   },
   "devDependencies": {
