@@ -51,13 +51,7 @@ Something about that
 
 ### `developmentController`
 
-### `profileRequestController`
-
 ### `validationController`
-
-### `urlParsersController`
-
-### `errorParserController`
 
 ### `tablePageController`
 
@@ -121,12 +115,6 @@ Something about that
 
 ### `request`
 
-### `requestCard`
-
-### `requestTable`
-
-### `requestWrapper`
-
 ### `action`
 
 ### `actionCard`
@@ -148,8 +136,6 @@ the `card` type of modal, promise either resolves to the form data and result of
 the form, or rejects with the error.
 
 ### `ApiError`
-
-### `api`
 
 ### `translate`
 
