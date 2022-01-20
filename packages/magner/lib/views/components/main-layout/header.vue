@@ -42,7 +42,12 @@
 
         <el-dropdown trigger="hover">
           <template #default>
-            <el-button :icon="userIcon" type="primary" circle class="header_right_user" />
+            <el-button
+              :icon="userIcon"
+              type="primary"
+              circle
+              class="header_right_user"
+            />
           </template>
 
           <template #dropdown>

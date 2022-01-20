@@ -1,3 +1,3 @@
 (function empty () {
   console.info('');
-})
+});

@@ -15,7 +15,7 @@
       >
         <template #before>
           <figure class="login-page_logo">
-            <img :src="logo" alt="" />
+            <img :src="logo" alt="">
           </figure>
           <h1 class="login-page_form_title">
             {{ customT(config.title) }}

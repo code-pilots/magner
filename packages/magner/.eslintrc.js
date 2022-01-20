@@ -25,6 +25,7 @@ module.exports = {
     'public/**',
     'docs/**',
     'node_modules/**',
+    'cli/**',
   ],
   overrides: [
     {
@@ -34,12 +35,9 @@ module.exports = {
         parser: '@typescript-eslint/parser',
       },
       rules: {
-        'vue/max-attributes-per-line': [1, {
+        'vue/max-attributes-per-line': ['warn', {
           singleline: 3,
-          multiline: {
-            max: 1,
-            allowFirstLine: false,
-          },
+          multiline: 1,
         }],
         'vue/singleline-html-element-content-newline': 0,
       },

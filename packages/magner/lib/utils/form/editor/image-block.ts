@@ -10,11 +10,11 @@ import {
 type OutputCodeBlock = BlockToolData<{url: string, caption: string}>;
 
 export default class SimpleImage implements BlockTool {
-  api: API
-  config: ToolConfig
-  readOnly: boolean
-  wrapper: HTMLElement|null
-  data: OutputCodeBlock
+  api: API;
+  config: ToolConfig;
+  readOnly: boolean;
+  wrapper: HTMLElement|null;
+  data: OutputCodeBlock;
 
   constructor ({
     data, api, config, readOnly,
