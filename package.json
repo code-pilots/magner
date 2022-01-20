@@ -16,7 +16,7 @@
     "@semantic-release/git": "^10.0.1",
     "semantic-release": "^18.0.1",
     "semantic-release-monorepo": "^7.0.5",
-    "turbo": "^1.0.24"
+    "turbo": "^1.0.28"
   },
   "turbo": {
     "baseBranch": "origin/main",

@@ -9,7 +9,7 @@
       :config="{
         ...reactiveConfig,
         submitEvent: 'submit',
-        size: isMobile ? 'medium' : 'small',
+        size: 'default',
         clearable: true,
       }"
       :initial-data="{}"

@@ -22,9 +22,9 @@
       </div>
 
       <div class="header_right">
-        <el-dropdown v-if="Object.keys(allLanguages).length > 1" size="small" trigger="hover">
+        <el-dropdown v-if="Object.keys(allLanguages).length > 1" trigger="hover">
           <template #default>
-            <el-button :icon="globeIcon" size="mini" circle class="header_right_globe" />
+            <el-button :icon="globeIcon" circle class="header_right_globe" />
           </template>
 
           <template #dropdown>
@@ -40,9 +40,9 @@
           </template>
         </el-dropdown>
 
-        <el-dropdown size="small" trigger="hover">
+        <el-dropdown trigger="hover">
           <template #default>
-            <el-button :icon="userIcon" type="primary" size="mini" circle class="header_right_user" />
+            <el-button :icon="userIcon" type="primary" circle class="header_right_user" />
           </template>
 
           <template #dropdown>
@@ -54,7 +54,6 @@
 
         <el-button
           v-if="isMobile"
-          size="mini"
           circle
           class="header_right_burger"
           @click="toggleOpen"

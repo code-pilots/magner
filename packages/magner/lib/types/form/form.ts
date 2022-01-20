@@ -57,7 +57,7 @@ export interface InnerForm<ENTITY extends {}, EMITTERS = string> {
    */
   dialogForms?: DialogForm<any>[],
 
-  size?: 'medium'|'small'|'mini',
+  size?: 'large' | 'default' | 'small',
 
   /** If 'true', shows the debug window with form fields on top right corner of the form */
   debug?: boolean,

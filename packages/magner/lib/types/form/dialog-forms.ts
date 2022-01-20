@@ -31,5 +31,5 @@ export interface DialogForm<ENTITY extends {}> {
   /** Call this action on form submit. Has 'data' property as an argument with the field-value object */
   submitAction?: DialogFormInteractions<ENTITY>,
 
-  size?: 'medium'|'small'|'mini',
+  size?: 'large' | 'default' | 'small',
 }

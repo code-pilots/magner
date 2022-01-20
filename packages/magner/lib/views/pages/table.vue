@@ -40,7 +40,7 @@
           :config="{
             ...config.filters,
             submitEvent: 'submit',
-            size: isMobile ? 'medium' : 'small',
+            size: 'default',
             clearable: true,
           }"
           :initial-data="requestData.filters"
@@ -74,7 +74,7 @@
             v-if="config.table.rowSelectable && config.table.rowSelectable.actions"
             :actions="config.table.rowSelectable.actions"
             :request-data="{ ...requestData, selected }"
-            size="mini"
+            size="default"
             @action="filtersAction"
           />
         </div>
