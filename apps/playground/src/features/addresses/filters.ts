@@ -24,14 +24,20 @@ const addressesFilters = filtersFormController<Address>({
     page: 1,
   },
 
-  filtersData: {},
+  filtersData: {
+    name: '',
+  },
   sort: {},
 
-  layout: {
-    type: 'row',
-    props: {},
-    layout: [],
-  },
+  layout: [
+    {
+      type: 'input',
+      name: 'name',
+      props: {
+        placeholder: 'Hello',
+      },
+    },
+  ],
 });
 
 export default addressesFilters;

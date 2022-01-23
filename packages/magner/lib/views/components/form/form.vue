@@ -204,10 +204,17 @@ export default defineComponent({
       errors.value[field] = err;
     };
 
+    const clearForm = (submission = true) => {
+      Object.assign(form, fieldsToModels(allFields.value));
+      errors.value = {};
+      if (submission) {
+        submit();
+      }
+    };
+
     const doActions = async (action: ActionAction) => {
       if (action.emits === 'clear') {
-        Object.assign(form, fieldsToModels(allFields.value));
-        errors.value = {};
+        clearForm(false);
         return;
       }
 
@@ -261,6 +268,7 @@ export default defineComponent({
       isMobile,
       formData,
       submit,
+      clearForm,
       setFieldError,
       controlOnInput,
       customAction,

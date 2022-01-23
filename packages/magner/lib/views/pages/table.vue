@@ -115,7 +115,7 @@ import PlusIcon from 'lib/assets/icons/plus.svg';
 import { useRoute, useRouter } from 'vue-router';
 import { useMobile } from 'lib/utils/core/is-mobile';
 import { useTranslate } from 'lib/utils/core/translate';
-import { layoutToFields } from 'lib/utils/form/form';
+import { layoutToFields, parseUrl } from 'lib/utils/form/form';
 import useDialogForm from 'lib/utils/form/use-dialog-form';
 import useStore from 'lib/controllers/store/store';
 import filterUrlDataComparison from 'lib/utils/form/filter-url-data-comparison';
@@ -186,8 +186,7 @@ export default defineComponent({
     // Depending on URL query existence and configuration, load initial data from URL or LocalStorage
     const initialData = props.config.filters.saveToLocalStorage && !Object.keys(route.query).length
       ? store.state.project.lstorage.deepRead('filters', route.name as string) as Record<string, any>
-      // TODO: add here store.state.project.development.urlParsers.urlToData(route.query);
-      : route.query;
+      : parseUrl(route.query) || {};
     filterUrlDataComparison(requestData, initialData);
 
     const appliedFilters = computed(() => Object.values(requestData.filters).filter((filter) => !!filter).length);
@@ -238,9 +237,7 @@ export default defineComponent({
     };
 
     watch(() => requestData, (val) => {
-      // TODO: add here store.state.project.development.urlParsers.dataToUrl(val);
-      const query = val;
-      router.push(route.path + query);
+      router.push({ path: route.path, query: { data: encodeURI(JSON.stringify(val)) } });
     }, { deep: true });
 
     watchEffect(() => {

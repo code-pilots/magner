@@ -3,7 +3,7 @@ import path from 'path';
 import vue from '@vitejs/plugin-vue';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
-import { transformSvg } from './lib/utils/transform-svg';
+import { transformSvg } from './lib/utils/helpers/transform-svg';
 
 export default defineConfig({
   plugins: [

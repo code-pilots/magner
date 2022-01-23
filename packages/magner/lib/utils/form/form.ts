@@ -44,6 +44,14 @@ export const collectFieldsFromLayout = (
   return fields;
 };
 
+export const parseUrl = (query: { data?: string }) => {
+  try {
+    return JSON.parse(decodeURI(query?.data || ''));
+  } catch (_) {
+    return null;
+  }
+};
+
 /** Extract all generic components (fields) from layout */
 export const layoutToFields = (layout: FormLayout<any>): GenericComponent<Record<string, unknown>>[] => {
   let fields: GenericComponent<any>[];
