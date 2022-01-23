@@ -17,6 +17,7 @@ export const ruLocale: TranslationSchema = {
     card: {
       remove: 'Удалить',
       success_creation: 'Создание прошло успешно!',
+      success_edition: 'Изменение прошло успешно!',
       success_removal: 'Удаление прошло успешно!',
       attention: 'Внимание!',
       removal_confirm: 'Вы уверены, что хотите удалить "{msg}"?',

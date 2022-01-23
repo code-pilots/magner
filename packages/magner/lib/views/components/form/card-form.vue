@@ -26,8 +26,7 @@
 <script lang="ts">
 import 'lib/assets/styles/components/card-form.css';
 import {
-  computed,
-  defineComponent, PropType, ref,
+  computed, defineComponent, PropType, ref,
 } from 'vue';
 import type { CardConfig } from 'lib/types/configs';
 import type { ActionAction } from 'lib/types/utils/actions';
@@ -95,7 +94,7 @@ export default defineComponent({
 
       magnerMessage({
         type: 'success',
-        message: t('core.card.success_creation'),
+        message: props.isNew ? t('core.card.success_creation') : t('core.card.success_edition'),
       });
       context.emit('success', { data: { ...reqData.value, data }, response: res.data });
     };
