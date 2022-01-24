@@ -65,17 +65,13 @@ const createApi = (options: ApiControllerOptions) => {
 export const request = (options: ApiControllerOptions) => {
   const api = createApi(options);
 
-  const reqFuncData = {
+  const requestCustom: RequestFunc = (cb) => async (data) => cb({
     api,
     urlToData: options.urlToData,
     dataToUrl: options.dataToUrl,
     parseError: options.parseError || ((e) => ({ message: e.name, fields: {} })),
     router: globalValues.router,
     lstorage: globalValues.lstorage,
-  };
-
-  const requestCustom: RequestFunc = (cb) => async (data) => cb({
-    ...reqFuncData,
     data,
   });
 

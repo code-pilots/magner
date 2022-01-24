@@ -20,7 +20,6 @@ export type ErrorParser<ERR = Record<string, unknown>> = (err: ApiError<ERR> | E
 
 export interface ProfileRequestResponse {
   role: string | null,
-  token: string,
   user: unknown,
 }
 export type ProfileRequestFunc = <DATA = any>(cb: RequestCallback<ProfileRequestResponse, DATA>) =>

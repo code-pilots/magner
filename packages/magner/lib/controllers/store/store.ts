@@ -13,7 +13,6 @@ interface State {
   project: GlobalValues,
 
   language: string,
-  token: string | null,
   user: unknown | null,
   role: string | null,
 
@@ -35,7 +34,7 @@ export const injectionKey: InjectionKeyType = Symbol();
  */
 export const store = () => createStore<State>({
   /**
-   * Store state. Has persistent data about user-chosen language, token,
+   * Store state. Has persistent data about user-chosen language,
    * currency and additional information that could be shared between components.
    */
   state () {
@@ -43,7 +42,6 @@ export const store = () => createStore<State>({
       project: {} as GlobalValues,
 
       language: '',
-      token: (typeof window !== 'undefined' && globalValues.lstorage.read('token') as string) || null,
       user: null,
       role: null,
 
@@ -64,15 +62,6 @@ export const store = () => createStore<State>({
         globalValues.lstorage.put('language', value);
       } else {
         globalValues.lstorage.delete('language');
-      }
-    },
-
-    setToken (state, value: string) {
-      state.token = value;
-      if (value) {
-        globalValues.lstorage.put('token', value);
-      } else {
-        globalValues.lstorage.delete('token');
       }
     },
 
@@ -107,9 +96,6 @@ export const store = () => createStore<State>({
       context.commit('setLanguage', value);
     },
 
-    changeToken (context, value: string) {
-      context.commit('setToken', value);
-    },
     changeUser (context, value: unknown) {
       context.commit('setUser', value);
     },

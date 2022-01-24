@@ -92,7 +92,6 @@ export default defineComponent({
       } else if (res.error) {
         error.value = res.error;
       } else if (res.data) {
-        await store.dispatch('changeToken', res.data.token);
         await store.dispatch('changeUser', res.data.user);
         await store.dispatch('changeRole', res.data.role);
         await router.push({ name: store.state.project.routes.global.homeHasAuthName });

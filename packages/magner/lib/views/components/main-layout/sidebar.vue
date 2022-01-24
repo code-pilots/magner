@@ -92,7 +92,7 @@ export default defineComponent({
     const isCollapsed = computed<boolean>(() => store.state.sidebarCollapsed);
     const noBackend = computed<boolean>(() => store.state.project.development.noBackendMode || false);
     const role = computed<string>(() => store.state.role as string);
-    const token = computed<string>(() => store.state.token as string);
+    const isAuth = computed(() => !!store.state.user);
 
     /** Go through all sidebar routes and merge them in defined groups */
     const grouped = computed<(MainLayoutRoute | MainLayoutGroup<MainLayoutRoute>)[]>(() => props.routing
@@ -125,7 +125,7 @@ export default defineComponent({
     const isVisible = (route: MainLayoutRoute): boolean => {
       if (!route.visible) return false;
       if (noBackend.value || !route.roles) return true;
-      if (route.roles === true && token.value) return true;
+      if (route.roles === true && isAuth.value) return true;
       return (route.roles as string[]).includes(role.value);
     };
 

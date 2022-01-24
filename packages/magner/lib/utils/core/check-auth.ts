@@ -12,8 +12,6 @@ const checkAuth = async (roles?: RouteAccessRestriction) => {
     return true;
   }
 
-  if (store.state.token === 'null') await store.dispatch('changeToken', null);
-
   const globalRoutes = globalValues.routes.global;
   const profileRequest = globalValues.development.profileRequest;
 
@@ -22,21 +20,18 @@ const checkAuth = async (roles?: RouteAccessRestriction) => {
       return !!(store.state.role && (roles === true || roles.includes(store.state.role)));
     }
 
-    if (store.state.token) {
-      const user = await profileRequest(null);
-      const role = user.data?.role;
+    const user = await profileRequest(null);
+    const role = user.data?.role;
 
-      if (user.data) {
-        await store.dispatch('changeUser', user.data);
-        await store.dispatch('changeRole', user.data.role);
-
-        if (role && (roles === true || roles.includes(role))) return true;
-        return { name: globalRoutes.homeHasAuthName };
-      }
-      await store.dispatch('changeToken', null);
+    if (user.error) {
+      return { name: globalRoutes.homeNoAuthName };
     }
 
-    return { name: globalRoutes.homeNoAuthName };
+    await store.dispatch('changeUser', user.data?.user);
+    await store.dispatch('changeRole', user.data.role);
+
+    if (role && (roles === true || roles.includes(role))) return true;
+    return { name: globalRoutes.homeHasAuthName };
   }
 
   // If route is not protected
@@ -44,16 +39,15 @@ const checkAuth = async (roles?: RouteAccessRestriction) => {
     return { name: globalRoutes.homeHasAuthName };
   }
 
-  if (store.state.token) {
-    const user = await profileRequest(null);
-    if (user.data) {
-      await store.dispatch('changeUser', user.data);
-      return { name: globalRoutes.homeHasAuthName };
-    }
-    await store.dispatch('changeToken', null);
+  const user = await profileRequest(null);
+  if (user.error) {
+    return true;
   }
 
-  return true;
+  await store.dispatch('changeRole', user.data?.role);
+  await store.dispatch('changeUser', user.data?.user);
+
+  return { name: globalRoutes.homeHasAuthName };
 };
 
 export default checkAuth;
