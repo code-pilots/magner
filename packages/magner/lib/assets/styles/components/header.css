@@ -40,9 +40,10 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 8px;
+    padding: 0 24px 0 8px;
 
     @media (--breakpoint-small) {
+      padding: 0 8px;
       justify-content: flex-end;
     }
   }
@@ -78,6 +79,10 @@
     }
 
     &_globe, &_user {
+      &.el-button.is-circle {
+        padding: 8px 6px;
+      }
+
       & .el-icon {
         font-size: 18px;
       }

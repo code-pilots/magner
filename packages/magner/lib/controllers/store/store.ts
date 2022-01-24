@@ -105,7 +105,6 @@ export const store = () => createStore<State>({
     logout (context) {
       context.commit('setUser', null);
       context.commit('setRole', null);
-      context.commit('setToken', null);
     },
 
     toggleSidebar (context) {
