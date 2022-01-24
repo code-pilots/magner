@@ -1,0 +1,1 @@
+const t={key:"v-20e7df08",path:"/contributors.html",title:"Contributors",lang:"en",frontmatter:{},excerpt:"",headers:[{level:2,title:"Project setup",slug:"project-setup",children:[]}],filePathRelative:"contributors.md",git:{updatedTime:16430461e5,contributors:[{name:"VanishMax",email:"maxkors2014@gmail.com",commits:1}]}};export{t as data};
