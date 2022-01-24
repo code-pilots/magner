@@ -92,6 +92,9 @@ export default defineComponent({
         return;
       }
 
+      error.value = '';
+      fieldErrors.value = {};
+
       magnerMessage({
         type: 'success',
         message: props.isNew ? t('core.card.success_creation') : t('core.card.success_edition'),
