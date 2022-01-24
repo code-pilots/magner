@@ -15,7 +15,7 @@
       >
         <template #before>
           <figure class="login-page_logo">
-            <img :src="logo" alt="">
+            <img :src="customLogo || logo" alt="">
           </figure>
           <h1 class="login-page_form_title">
             {{ customT(config.title) }}
@@ -35,7 +35,7 @@ import {
 } from 'vue';
 import { useRouter } from 'vue-router';
 import type { LoginConfig } from 'lib/types/configs';
-import type { ProfileRequestResponse } from 'lib/types/configs/development';
+import type { ActionAction } from 'lib/types/utils/actions';
 import useStore from 'lib/controllers/store/store';
 import { useTranslate } from 'lib/utils/core/translate';
 import { layoutToFields } from 'lib/utils/form/form';
@@ -68,7 +68,8 @@ export default defineComponent({
     }, {} as Record<string, string>));
 
     const login = async (data: Record<string, any>) => {
-      const submitButton = (props.config.form.actions || []).find((action) => action.action === 'submit');
+      const submitButton = (props.config.form.actions || [])
+        .find((action) => (action as ActionAction)?.emits === 'submit');
 
       error.value = '';
       fieldErrors.value = {};
@@ -104,6 +105,7 @@ export default defineComponent({
       noBackend,
       initialData,
       customT,
+      customLogo: store.state.project.manifest.logo,
       logo: logoUrl,
       login,
     };

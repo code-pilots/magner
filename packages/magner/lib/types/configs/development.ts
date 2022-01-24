@@ -68,5 +68,8 @@ export interface DevelopmentConfig {
   /** Request to be used each time user enters the app to check for token validity and quickly authorize them */
   profileRequest: RequestWrap<ProfileRequestResponse>,
 
+  /** Request that clears user session */
+  logoutRequest: RequestWrap<null>,
+
   validation: Validators<string>,
 }

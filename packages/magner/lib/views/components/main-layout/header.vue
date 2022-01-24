@@ -1,7 +1,15 @@
 <template>
   <header class="header">
     <div class="header_logo">
-      <template v-if="collapsed">
+      <template v-if="logo">
+        <img
+          v-if="!collapsed"
+          class="header_logo_img"
+          :src="logo"
+          alt=""
+        >
+      </template>
+      <template v-else-if="collapsed">
         <svg-icon v-if="settings.headerCollapsedIcon" :icon="settings.headerCollapsedIcon" size="inherit" />
         <h1 v-else-if="settings.headerTitle">{{ settings.headerTitle.charAt(0) || '' }}</h1>
         <svg-icon v-else core="logo-light" size="inherit" />
@@ -110,7 +118,7 @@ export default defineComponent({
     const isMobile = useMobile();
 
     const open = ref<boolean>(props.sidebar);
-    const projectName = store.state.project.manifest.name;
+    const logo = store.state.project.manifest.logo;
     const allLanguages = store.state.project.languages;
 
     const toggleOpen = () => {
@@ -119,9 +127,10 @@ export default defineComponent({
       context.emit('update:sidebar', newVal);
     };
 
-    const logout = () => {
-      store.dispatch('logout');
-      router.push({ name: store.state.project.routes.global.homeNoAuthName });
+    const logout = async () => {
+      await store.dispatch('logout');
+      await store.state.project.development.logoutRequest(null);
+      await router.push({ name: store.state.project.routes.global.homeNoAuthName });
     };
 
     const changeLang = (lang: string) => {
@@ -132,13 +141,12 @@ export default defineComponent({
     return {
       userIcon,
       globeIcon,
-
       t,
       customT,
       isMobile,
       open,
-      projectName,
       allLanguages,
+      logo,
       changeLang,
       toggleOpen,
       logout,

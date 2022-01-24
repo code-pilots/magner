@@ -1,3 +1,8 @@
 @import './home/home.css';
 @import './login/login.css';
 @import './addresses/address.css';
+
+.header_logo_img {
+  height: 32px;
+  width: auto;
+}

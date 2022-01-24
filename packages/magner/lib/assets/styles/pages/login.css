@@ -6,7 +6,6 @@
 
   height: 100vh;
   width: 100%;
-  overflow: hidden;
 
   @media (--breakpoint-small) {
     padding-top: 3rem;

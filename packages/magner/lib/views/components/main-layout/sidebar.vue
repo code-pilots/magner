@@ -126,6 +126,7 @@ export default defineComponent({
       if (!route.visible) return false;
       if (noBackend.value || !route.roles) return true;
       if (route.roles === true && isAuth.value) return true;
+      if (route.roles === true && !isAuth.value) return false;
       return (route.roles as string[]).includes(role.value);
     };
 
