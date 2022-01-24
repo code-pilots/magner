@@ -19,7 +19,7 @@
         </el-button>
       </router-link>
 
-      <template v-else-if="!skipActions || (Array.isArray(skipActions) && !skipActions.includes(action.action))">
+      <template v-else-if="!skipActions || (Array.isArray(skipActions) && !skipActions.includes(action.emits))">
         <el-button
           :size="size"
           :loading="action.loading"

@@ -38,7 +38,7 @@
     <FormActions
       :actions="reactiveConfig.actions"
       :size="reactiveConfig.size"
-      :skip-actions="(config.submitEvent && config.submitEvent === 'input') ? ['submit'] : []"
+      :skip-actions="[...skipActions, ...((config.submitEvent && config.submitEvent === 'input') ? ['submit'] : [])]"
       :request-data="{...requestData, form }"
       @action="doActions"
     >

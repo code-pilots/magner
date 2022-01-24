@@ -7,7 +7,7 @@
     :skip-validation="!isNew ? ['empty'] : []"
     :return-initial-difference="!isNew"
     :request-data="reqData"
-    :skip-actions="[isNew || !config.deleteRequest ? ['remove'] : []]"
+    :skip-actions="isNew || !config.deleteRequest ? ['remove'] : []"
     class="card-form"
     @submit="save"
     @remove="deleteEntity"
