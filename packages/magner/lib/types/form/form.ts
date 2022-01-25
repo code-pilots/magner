@@ -41,6 +41,9 @@ export interface InnerForm<ENTITY extends {}, EMITTERS = string> {
    * */
   submitEvent?: 'submit'|'input',
 
+  /** Whether Enter keydown event triggers submit or not */
+  submitOnEnter?: boolean,
+
   /**
    * An array (preserving the order) of buttons performing different actions with the form.
    * You can pass links to some page or an action with an async function and 'emits' option.

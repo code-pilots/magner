@@ -7,6 +7,7 @@
     :size="reactiveConfig.size"
     :class="['generic-form']"
     @submit.prevent="submit"
+    @keydown.enter="enterSubmit"
   >
     <slot name="before" />
 
@@ -170,6 +171,12 @@ export default defineComponent({
       });
     };
 
+    const enterSubmit = () => {
+      if (props.config.submitOnEnter) {
+        submit();
+      }
+    };
+
     const getField = (name: string) => allFields.value.find((field) => field.name === name);
     const getDialogForm = (name: string) => reactiveConfig.dialogForms?.find((dialogForm) => dialogForm.name === name);
     const formData = reactive<FormInteractionsData<any>>({
@@ -273,6 +280,7 @@ export default defineComponent({
       controlOnInput,
       customAction,
       doActions,
+      enterSubmit,
     };
   },
 });

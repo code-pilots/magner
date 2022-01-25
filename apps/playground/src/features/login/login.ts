@@ -5,6 +5,8 @@ const loginPageConfig = loginPageController({
   title: translate('login.title'),
   request: loginRequest,
   form: {
+    submitOnEnter: true,
+
     actions: [
       {
         type: 'action',
