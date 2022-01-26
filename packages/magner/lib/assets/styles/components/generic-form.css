@@ -247,6 +247,7 @@
   }
 
   &_only-fields {
+    display: flex;
     width: 100%;
   }
 
@@ -267,6 +268,12 @@
 
   & .el-select {
     width: 100%;
+  }
+
+  & .el-switch {
+    &__label {
+      font-weight: 400;
+    }
   }
 
   &_icon {

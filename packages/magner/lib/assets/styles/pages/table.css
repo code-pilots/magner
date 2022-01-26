@@ -56,7 +56,6 @@
       }
 
       & .el-form-item {
-        max-width: 200px;
         margin-right: 8px;
         @media (--breakpoint-small) {
           width: 100%;
