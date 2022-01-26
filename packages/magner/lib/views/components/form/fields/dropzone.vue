@@ -45,10 +45,12 @@
           v-for="(file, i) in files"
           :key="file.key ? file.key : i + (file.value || '') + (file.size || '')"
           :model-value="file"
-          :draggable="field.props.sortable"
+          :draggable="field.props.multiple && field.props.sortable"
+          :removable="field.props.removable"
           @dragstart="handleInnerDragStart(i)"
           @dragover="handleInnerDragOver(i)"
           @drop="handleInnerDrop(i)"
+          @remove="remove(i)"
           @change="updFile($event, i)"
         />
       </div>
@@ -73,6 +75,7 @@
           :key="file.key ? file.key : i + (file.value || '') + (file.size || '')"
           :model-value="file"
           :draggable="false"
+          :removable="false"
         />
       </div>
     </template>
@@ -189,6 +192,11 @@ export default defineComponent({
       emitChange();
     };
 
+    const remove = (index: number) => {
+      files.value = files.value.filter((_, i) => i !== index);
+      emitChange();
+    };
+
     const handleDragEnter = (event: Event) => {
       if (innerDrag.value) return;
       toggleDragOver(true);
@@ -247,6 +255,7 @@ export default defineComponent({
       draggerEl,
       upload,
       select,
+      remove,
       updFile,
       toggleDragOver,
       handleDragEnter,

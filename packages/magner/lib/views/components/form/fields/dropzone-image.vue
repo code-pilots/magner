@@ -2,7 +2,7 @@
   <div
     v-loading="loading"
     class="el-upload_card"
-    :class="{loading}"
+    :class="{loading, draggable}"
     :draggable="draggable"
     @dragstart="emitDrag('dragstart', $event)"
     @dragend="emitDrag('dragend', $event)"
@@ -20,6 +20,14 @@
           {{ getMegabytes(modelValue.size) }} Mb
         </span>
       </div>
+      <div v-if="removable" class="el-upload_media-toolbar">
+        <el-button
+          type="danger"
+          :icon="xIcon"
+          plain
+          @click="remove"
+        />
+      </div>
     </template>
   </div>
 </template>
@@ -27,10 +35,11 @@
 <script lang="ts">
 import {
   computed,
-  defineComponent, PropType, ref,
+  defineComponent, PropType, ref, shallowRef,
 } from 'vue';
 import type { DropzoneFile, DropzoneFileView } from 'lib/types/form/fields/dropzone';
 import SvgIcon from 'lib/views/components/icon.vue';
+import XIcon from 'lib/assets/icons/x.svg';
 
 export default defineComponent({
   name: 'DropzoneImage',
@@ -43,11 +52,18 @@ export default defineComponent({
 
     draggable: {
       type: Boolean,
-      default: true,
+      default: false,
+    },
+
+    removable: {
+      type: Boolean,
+      default: false,
     },
   },
   emits: ['change', 'dragstart', 'dragend', 'dragover', 'drop'],
   async setup (props, context) {
+    const xIcon = shallowRef(XIcon);
+
     const file = ref(props.modelValue);
     const view = ref<DropzoneFileView | null>(null);
     const loading = computed(() => file.value.loading);
@@ -76,13 +92,19 @@ export default defineComponent({
       context.emit(name, event);
     };
 
+    const remove = () => {
+      context.emit('remove');
+    }
+
     return {
       file,
       view,
       err,
       loading,
+      xIcon,
       getMegabytes,
       emitDrag,
+      remove,
     };
   },
 });

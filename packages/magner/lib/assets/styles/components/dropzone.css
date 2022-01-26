@@ -37,7 +37,7 @@
     align-items: center;
     justify-content: center;
 
-    &[draggable="true"]:not(.loading) {
+    &.draggable:not(.loading) {
       cursor: move;
     }
 
@@ -53,6 +53,14 @@
       & img {
         transform: scale(1.5);
         filter: blur(3px);
+      }
+    }
+
+    &:hover {
+      & .el-upload_media-toolbar {
+        visibility: visible;
+        opacity: 1;
+        pointer-events: all;
       }
     }
   }
@@ -95,6 +103,23 @@
       text-overflow: ellipsis;
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
+    }
+  }
+
+  &_media-toolbar {
+    position: absolute;
+    right: 2px;
+    top: 2px;
+    display: flex;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease-in-out;
+
+    & .el-button {
+      width: 32px;
+      border-radius: 50%;
     }
   }
 
