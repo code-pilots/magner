@@ -62,7 +62,7 @@ export interface TableConfig<ENTITY extends {}> {
   header: PageHeader,
 
   /** Data request. Must return the data array in the field 'rows' and a pagination object */
-  request: TableRequestCallback,
+  request: ReturnType<TableRequestFunc>,
 
   /** Filters configuration */
   filters: FiltersForm<ENTITY>,

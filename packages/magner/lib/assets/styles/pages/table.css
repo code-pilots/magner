@@ -129,6 +129,10 @@
     min-height: 40px;
     background: #FAFAFA;
 
+    & .el-select .el-input {
+      width: 140px;
+    }
+
     @media (--breakpoint-small) {
       position: fixed;
       bottom: 0;

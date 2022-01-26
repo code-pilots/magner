@@ -6,5 +6,6 @@ import type { RequestWrap } from 'lib/types';
 export interface LoginConfig<ENTITY extends {}> {
   title: TranslateData,
   request: RequestWrap<ProfileRequestResponse>,
+  logo?: string,
   form: GenericForm<ENTITY>,
 }

@@ -105,7 +105,7 @@ export default defineComponent({
       noBackend,
       initialData,
       customT,
-      customLogo: store.state.project.manifest.logo,
+      customLogo: props.config.logo,
       logo: logoUrl,
       login,
     };

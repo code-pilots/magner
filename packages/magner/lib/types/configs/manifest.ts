@@ -19,5 +19,4 @@ interface ManifestIcon {
 export interface ManifestConfig {
   name: string,
   short_name: string,
-  logo?: string,
 }
