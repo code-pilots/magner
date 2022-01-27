@@ -155,7 +155,8 @@ export default defineComponent({
         /** For PATCH methods, return the difference with existing data */
         if (props.returnInitialDifference) {
           const diff = Object.entries(form).reduce((accum, entry) => {
-            if (props.initialData?.[entry[0]] && props.initialData[entry[0]] !== entry[1]) {
+            // eslint-disable-next-line no-prototype-builtins
+            if (props.initialData?.hasOwnProperty(entry[0]) && props.initialData[entry[0]] !== entry[1]) {
               accum[entry[0]] = entry[1];
             }
             return accum;

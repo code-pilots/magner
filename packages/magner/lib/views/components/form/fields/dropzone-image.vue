@@ -60,7 +60,7 @@ export default defineComponent({
       default: false,
     },
   },
-  emits: ['change', 'dragstart', 'dragend', 'dragover', 'drop'],
+  emits: ['change', 'remove', 'dragstart', 'dragend', 'dragover', 'drop'],
   async setup (props, context) {
     const xIcon = shallowRef(XIcon);
 
@@ -94,7 +94,7 @@ export default defineComponent({
 
     const remove = () => {
       context.emit('remove');
-    }
+    };
 
     return {
       file,
