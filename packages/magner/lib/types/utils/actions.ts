@@ -1,6 +1,5 @@
 import type { ButtonProps } from 'lib/types/form/fields/button';
 import type { RouteLocationRaw, Router } from 'vue-router';
-import type { ApiType } from 'lib/utils/api';
 import type { LStorage } from 'lib/utils/core/local-storage';
 import type { TranslateData } from 'lib/utils/core/translate';
 

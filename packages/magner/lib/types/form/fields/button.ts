@@ -1,5 +1,6 @@
 import type { TranslateData } from 'lib/utils/core/translate';
 import type { BaseField, BaseProps } from '../base';
+import type { IconImport } from 'lib/types/utils/useful';
 
 export type ButtonType = 'primary' | 'success' | 'warning' | 'danger' | 'info' | 'text';
 export type ButtonNativeType = 'button' | 'submit';
@@ -21,6 +22,12 @@ export interface ButtonProps extends BaseProps {
 
   /** Whether the button has round borders */
   round?: boolean,
+
+  /**
+   * Icon as a Vue component.
+   * Used as `() => SomeIcon` or  `() => import('../smt.svg'))`
+   */
+  icon?: IconImport,
 }
 
 /** Button, if used in the form, does not return any value by itself and acts as a custom component.

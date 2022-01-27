@@ -24,6 +24,15 @@
     </el-tag>
   </div>
 
+  <div v-else-if="formattedCell.view === 'actions'" class="cell-content_actions">
+    <FormActions
+      :actions="formattedCell.actions"
+      :request-data="tableData"
+      size="default"
+      @action="act"
+    />
+  </div>
+
   <template v-else>
     {{ formattedCell.content }}
   </template>
@@ -31,7 +40,10 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue';
-import { TableColumn } from 'lib/types/components/table';
+import type { TableColumn } from 'lib/types/components/table';
+import type { ActionAction } from 'lib/types/utils/actions';
+import type { TableActions } from 'lib/types/configs/pages/table';
+import FormActions from 'lib/views/components/form/form-actions.vue';
 
 interface TableData {
   row: any,
@@ -41,6 +53,7 @@ interface TableData {
 
 export default defineComponent({
   name: 'TableCell',
+  components: { FormActions },
   props: {
     columnConfig: {
       type: Object as PropType<TableColumn<any>>,
@@ -52,40 +65,49 @@ export default defineComponent({
       required: true,
     },
   },
-  setup (props) {
+  emits: ['action'],
+  setup (props, context) {
     const formattedCell = computed(() => {
       let content = props.tableData.row[props.columnConfig.prop];
-      if (props.columnConfig.formatter) {
-        content = props.columnConfig.formatter(
+      if (props.columnConfig.view?.formatter) {
+        content = props.columnConfig?.view.formatter(
           content,
           props.tableData.row,
           props.tableData.column,
           props.tableData.$index,
         );
-      } else if (props.columnConfig.nestedKey && typeof content === 'object') {
+      } else if (props.columnConfig.view?.nestedKey && typeof content === 'object') {
         content = Array.isArray(content)
-          ? content.map((item) => item?.[props.columnConfig.nestedKey as string] || null)
-          : content?.[props.columnConfig.nestedKey] || null;
+          ? content.map((item) => item?.[props.columnConfig.view?.nestedKey as string] || null)
+          : content?.[props.columnConfig.view.nestedKey] || null;
       }
 
-      if (!props.columnConfig.view || props.columnConfig.view === 'text') {
+      if (!props.columnConfig.view || props.columnConfig.view.type === 'text') {
         return {
           view: 'text' as 'view',
           text: content,
         };
       }
 
-      if (props.columnConfig.view === 'image') {
+      if (props.columnConfig.view.type === 'image') {
         return {
           view: 'image' as 'image',
           images: Array.isArray(content) ? content : [content],
         };
       }
 
-      if (props.columnConfig.view === 'tags') {
+      if (props.columnConfig.view.type === 'tags') {
         return {
           view: 'tags' as 'tags',
           tags: Array.isArray(content) ? content : [content],
+        };
+      }
+
+      if (props.columnConfig.view.type === 'actions') {
+        return {
+          view: 'actions' as 'actions',
+          actions: props.columnConfig.view.actions || [],
+          value: content,
         };
       }
 
@@ -95,8 +117,13 @@ export default defineComponent({
       };
     });
 
+    const act = async (action: ActionAction<TableActions>) => {
+      context.emit('action', action);
+    };
+
     return {
       formattedCell,
+      act,
     };
   },
 });

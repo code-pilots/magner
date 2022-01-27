@@ -8,12 +8,38 @@ interface RenderHeaderType<COLUMN> {
   $index: number,
 }
 
+interface ViewBase<ENTITY extends {}> {
+  /** Using this key, the value displayed in the table will use `entity.[prop].[nestedKey]` content */
+  nestedKey?: keyof ENTITY,
+
+  /** A function that formats the content of the column's cells */
+  formatter?: (cellValue: unknown, row: ENTITY, column: this, index: number) => any,
+}
+
+interface ViewText<ENTITY extends {}> extends ViewBase<ENTITY> {
+  type: 'text',
+}
+interface ViewTags<ENTITY extends {}> extends ViewBase<ENTITY> {
+  type: 'tags',
+}
+interface ViewImage<ENTITY extends {}> extends ViewBase<ENTITY> {
+  type: 'image',
+}
+interface ViewActions<ENTITY extends {}> extends ViewBase<ENTITY> {
+  type: 'actions',
+  /** Action to perform when 'remove button' is done on selection */
+  actions?: ActionButton<TableActions>[],
+}
+
+export type ColumnView<ENTITY extends {}> =
+  | ViewText<ENTITY>
+  | ViewTags<ENTITY>
+  | ViewImage<ENTITY>
+  | ViewActions<ENTITY>;
+
 export interface TableColumn<ENTITY extends {}> {
   /** Property name of the field in the row data for specific column */
   prop: keyof ENTITY,
-
-  /** Using this key, the value displayed in the table will use `entity.[prop].[nestedKey]` content */
-  nestedKey?: keyof ENTITY[this['prop']],
 
   /** Label to display in the header cell */
   label?: TranslateData,
@@ -24,7 +50,10 @@ export interface TableColumn<ENTITY extends {}> {
    * * `image` – can be an image URL or an array of URLs. Displayed in lazy-loaded squares with <el-image> component
    * * `tags` – list of tags with <el-tag>
    */
-  view?: 'text' | 'image' | 'tags',
+  view?: ColumnView<ENTITY>,
+
+  /** Makes column cells links */
+  columnLink?: (row: ENTITY) => RouteLocationRaw,
 
   /** Column fixed width */
   width?: number|string,
@@ -43,9 +72,6 @@ export interface TableColumn<ENTITY extends {}> {
   /** If the content's width is more than in the column, hide the rest of the width and display in the tooltip */
   showOverflowTooltip?: boolean,
 
-  /** Makes column cells links */
-  columnLink?: (row: ENTITY) => RouteLocationRaw,
-
   /** Alignment of the content in the cell */
   align?: 'left'|'center'|'right',
   /** Alignment of the table header. If omitted, the value of the above 'align' attribute will be applied */
@@ -56,11 +82,8 @@ export interface TableColumn<ENTITY extends {}> {
   /** Class name of the label of this column */
   labelClassName?: string,
 
-  /** A function that formats the content of the column's cells */
-  formatter?: (cellValue: ENTITY[this['prop']], row: ENTITY, column: this, index: number) => any,
-
   /** A function that creates a Vue template function for the header cell of a column */
-  renderHeader?: (data: RenderHeaderType<this>) => void,
+  // renderHeader?: (data: RenderHeaderType<this>) => void,
 }
 
 export interface Table<ENTITY extends {} = {}> {

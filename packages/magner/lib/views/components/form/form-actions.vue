@@ -14,6 +14,8 @@
           :type="action.props.type || 'default'"
           :native-type="action.props.nativeType || 'button'"
           :class="[action.props.class || '', 'width-full']"
+          :plain="action.props.plain"
+          :icon="action.props.icon"
         >
           {{ getTranslation(action) }}
         </el-button>
@@ -25,6 +27,8 @@
           :loading="action.loading"
           :type="action.props.type || 'default'"
           :native-type="action.props.nativeType || 'button'"
+          :plain="action.props.plain"
+          :icon="action.props.icon"
           :class="['generic-form_actions_action', action.props.class || '', 'width-full']"
           @click="act(action)"
         >

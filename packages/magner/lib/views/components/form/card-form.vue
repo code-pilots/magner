@@ -137,6 +137,7 @@ export default defineComponent({
         type: 'success',
         message: t('core.card.success_removal'),
       });
+      context.emit('success', { data: { ...reqData.value }, response: res.data });
     };
 
     return {

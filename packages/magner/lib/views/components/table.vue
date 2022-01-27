@@ -39,10 +39,10 @@
           :to="column.columnLink ? column.columnLink(table.row) : config.rowLink(table.row)"
           class="cell-content"
         >
-          <TableCell :column-config="column" :table-data="table" />
+          <TableCell :column-config="column" :table-data="table" @action="$emit('action', $event)" />
         </router-link>
         <div v-else class="cell-content">
-          <TableCell :column-config="column" :table-data="table" />
+          <TableCell :column-config="column" :table-data="table" @action="$emit('action', $event)" />
         </div>
       </template>
     </el-table-column>
@@ -75,7 +75,7 @@ export default defineComponent({
       default: 'auto',
     },
   },
-  emits: ['sort', 'select'],
+  emits: ['sort', 'select', 'action'],
   setup (props, context) {
     const { customT } = useTranslate();
     const tableEl = ref(null);

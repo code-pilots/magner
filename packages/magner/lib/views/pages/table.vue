@@ -64,6 +64,7 @@
             :table-height="tableHeight"
             @sort="changeSort"
             @select="select"
+            @action="filtersAction"
           />
         </div>
 
@@ -209,7 +210,6 @@ export default defineComponent({
         return;
       }
       if (action.emits === 'deselect') {
-        await dynamicRef.value!.makeRequest();
         selected.value = [];
       }
     };
