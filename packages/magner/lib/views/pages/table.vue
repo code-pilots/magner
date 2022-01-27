@@ -165,7 +165,7 @@ export default defineComponent({
     const tableHeight = computed(() => {
       const navHeight = 50;
       const headerHeight = hasHeader.value ? 72 : 0;
-      const topHeight = hasFilters.value ? 64 : 0;
+      const topHeight = hasFilters.value ? 57 : 0;
       const bottomHeight = 40;
 
       let height;

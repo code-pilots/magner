@@ -117,6 +117,26 @@
     @media (--breakpoint-small) {
       padding-bottom: 40px;
     }
+
+    & thead tr th {
+      &:first-child .cell {
+        padding: 0 10px 0 24px;
+      }
+      &:last-child .cell {
+        padding: 0 24px 0 10px;
+      }
+    }
+
+    .row-link {
+      & > td.el-table__cell {
+        &:first-child .cell-content {
+          padding: 12px 10px 12px 24px;
+        }
+        &:last-child .cell-content {
+          padding: 12px 24px 12px 10px;
+        }
+      }
+    }
   }
 
   &_pagination, &_selection {

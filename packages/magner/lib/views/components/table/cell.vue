@@ -48,30 +48,30 @@ export default defineComponent({
     },
 
     tableData: {
-      type: Object as PropType<{}>,
+      type: Object as PropType<{row: any, column: any, $index: number}>,
       required: true,
     },
   },
   setup (props) {
     const formattedCell = computed(() => {
       let content = props.tableData.row[props.columnConfig.prop];
-      if (props.columnConfig.nestedKey && typeof content === 'object') {
-        content = Array.isArray(content)
-          ? content.map((item) => item?.[props.columnConfig.nestedKey] || null)
-          : content?.[props.columnConfig.nestedKey] || null;
-      }
-
-      if (!props.columnConfig.view || props.columnConfig.view === 'text') {
-        const formatted: string = props.columnConfig.formatter ? props.columnConfig.formatter(
+      if (props.columnConfig.formatter) {
+        content = props.columnConfig.formatter(
           content,
           props.tableData.row,
           props.tableData.column,
           props.tableData.$index,
-        ) : content;
+        );
+      } else if (props.columnConfig.nestedKey && typeof content === 'object') {
+        content = Array.isArray(content)
+          ? content.map((item) => item?.[props.columnConfig.nestedKey as string] || null)
+          : content?.[props.columnConfig.nestedKey] || null;
+      }
 
+      if (!props.columnConfig.view || props.columnConfig.view === 'text') {
         return {
           view: 'text' as 'view',
-          text: formatted,
+          text: content,
         };
       }
 
