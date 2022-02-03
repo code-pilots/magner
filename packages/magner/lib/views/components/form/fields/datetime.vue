@@ -14,6 +14,7 @@
       :start-placeholder="customT(field.props.startPlaceholder)"
       :end-placeholder="customT(field.props.endPlaceholder)"
       :disabled="disabled"
+      @blur="$emit('blur', $event)"
       @update:modelValue="changeVal"
     />
   </ReadonlyWrap>
@@ -41,7 +42,7 @@ export default defineComponent({
       default: '',
     },
   },
-  emits: ['update:modelValue'],
+  emits: ['update:modelValue', 'blur'],
   setup (props, context) {
     const { customT } = useTranslate();
     const { disabled } = useChecks(props.field);

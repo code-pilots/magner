@@ -30,6 +30,7 @@
       v-model="val"
       :field="field"
       @action="customAction"
+      @blur="$emit('blur', $event)"
       @update:modelValue="updVal"
     />
 
@@ -37,6 +38,7 @@
       v-else-if="field.type === 'input'"
       v-model="val"
       :field="field"
+      @blur="$emit('blur', $event)"
       @update:modelValue="updVal"
     />
 
@@ -44,6 +46,7 @@
       v-if="field.type === 'textarea'"
       v-model="val"
       :field="field"
+      @blur="$emit('blur', $event)"
       @update:modelValue="updVal"
     />
 
@@ -72,6 +75,7 @@
       v-else-if="field.type === 'select'"
       v-model="val"
       :field="field"
+      @blur="$emit('blur', $event)"
       @update:modelValue="updVal"
     />
 
@@ -79,6 +83,7 @@
       v-else-if="field.type === 'datetime'"
       v-model="val"
       :field="field"
+      @blur="$emit('blur', $event)"
       @update:modelValue="updVal"
     />
 
@@ -94,6 +99,7 @@
       v-else-if="field.type === 'editor'"
       v-model="val"
       :field="field"
+      @blur="$emit('blur', $event)"
       @update:modelValue="updVal"
     />
 
@@ -101,6 +107,7 @@
       <component
         :is="customComponent"
         :field="field.props"
+        @blur="$emit('blur', $event)"
         @action="customAction"
         @update:modelValue="updVal"
       />
@@ -115,6 +122,7 @@
             <FormItem
               v-model="itm[nestedField.name]"
               :field="nestedField"
+              @blur="$emit('blur', $event)"
               @update:modelValue="changeCollectionItem(i, nestedField.name, $event)"
             />
           </template>
@@ -207,7 +215,7 @@ export default defineComponent({
       default: '',
     },
   },
-  emits: ['update:modelValue', 'error', 'action'],
+  emits: ['update:modelValue', 'error', 'action', 'blur'],
   setup (props, context) {
     const { customT, t } = useTranslate();
     const isMobile = useMobile();

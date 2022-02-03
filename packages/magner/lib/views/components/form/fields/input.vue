@@ -11,6 +11,8 @@
       :clearable="field.props.clearable"
       :disabled="disabled"
       :autofocus="field.props.autofocus"
+      :validate-event="false"
+      @blur="$emit('blur', $event)"
       @input="changeVal"
     >
       <template v-if="field.props.icon" #prefix>
@@ -46,7 +48,7 @@ export default defineComponent({
       default: '',
     },
   },
-  emits: ['update:modelValue'],
+  emits: ['update:modelValue', 'blur'],
   setup (props, context) {
     const val = ref<number|string>(props.modelValue);
     const input = ref<HTMLInputElement>();

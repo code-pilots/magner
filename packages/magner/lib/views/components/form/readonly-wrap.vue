@@ -28,6 +28,7 @@ export default defineComponent({
       default: false,
     },
   },
+  emits: ['blur'],
   setup: (props) => {
     const { readOnly, readOnlyText } = useChecks(props.field, props.value);
 

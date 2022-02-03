@@ -19,6 +19,7 @@
       :loading-text="customT(field.props.loadingText || '')"
       :no-match-text="customT(field.props.noMatchText || '')"
       :no-data-text="customT(field.props.noDataText || '')"
+      @blur="$emit('blur', $event)"
       @change="changeVal"
     >
       <el-option
@@ -62,7 +63,7 @@ export default defineComponent({
       default: '',
     },
   },
-  emits: ['update:modelValue'],
+  emits: ['update:modelValue', 'blur'],
   setup (props, context) {
     const { customT } = useTranslate();
     const { disabled } = useChecks(props.field);

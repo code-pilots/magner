@@ -21,6 +21,7 @@
           :class="field.props.class"
           @error="setFieldError(field.name, $event)"
           @action="customAction(field.name, $event)"
+          @blur="validateField(field.name, 'blur')"
           @update:modelValue="controlOnInput(field.name, $event)"
         />
       </template>
@@ -65,7 +66,7 @@ import {
 } from 'vue';
 import { useRouter } from 'vue-router';
 import type { GenericForm } from 'lib/types/form';
-import type { FormInteractionsData } from 'lib/types/form/base';
+import type { BaseValidation, FormInteractionsData } from 'lib/types/form/base';
 import type { SupportedValidators } from 'lib/types/configs';
 import type { ActionAction } from 'lib/types/utils/actions';
 import { DataTypeInitials, fieldsToModels, layoutToFields } from 'lib/utils/form/form';
@@ -79,6 +80,7 @@ import FormActions from './form-actions.vue';
 
 interface FormValidator extends HTMLFormElement {
   validate: Function,
+  validateField: (name: string) => void,
 }
 
 export default defineComponent({
@@ -186,6 +188,17 @@ export default defineComponent({
       config: reactiveConfig,
     });
 
+    const validateField = (field: string, trigger: 'change' | 'blur') => {
+      const fieldProps = getField(field);
+      if (!fieldProps) return;
+      const validations = ([] as BaseValidation[]).concat(fieldProps.validation || []);
+      validations.forEach((rule) => {
+        if (rule.trigger === trigger) {
+          (formEl.value as FormValidator).validateField(field);
+        }
+      });
+    };
+
     const controlOnInput = (field: string, newValue: any) => {
       form[field] = newValue;
       if (reactiveConfig.submitEvent === 'input') {
@@ -194,6 +207,8 @@ export default defineComponent({
 
       const fieldConfig = getField(field);
       if (fieldConfig?.changeAction) fieldConfig.changeAction(formData);
+
+      validateField(field, 'change');
     };
 
     const customAction = (field: string, e: { type: string }) => {
@@ -280,6 +295,7 @@ export default defineComponent({
       customAction,
       doActions,
       enterSubmit,
+      validateField,
     };
   },
 });
