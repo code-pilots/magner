@@ -127,7 +127,7 @@
       }
     }
 
-    .row-link {
+    .el-table__row {
       & > td.el-table__cell {
         &:first-child .cell-content {
           padding: 12px 10px 12px 24px;

@@ -30,7 +30,7 @@
             popper-class="popper-sidebar-submenu"
           >
             <template #title>
-              <svg-icon :icon="route.icon" class="el-icon-margin-right" />
+              <svg-icon :icon="route.icon" />
               <span class="sidebar_item_title">{{ customT(route.title) }}</span>
             </template>
             <template v-for="nested in route.routes">
