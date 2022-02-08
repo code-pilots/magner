@@ -78,7 +78,7 @@
       }
     }
 
-    &_globe, &_user {
+    &_burger, &_user {
       &.el-button.is-circle {
         padding: 8px 6px;
       }

@@ -3,20 +3,26 @@
     height: 0;
   }
 
-  & .el-table__row {
-    & > td {
-      padding: 0;
-      height: 50px;
+  & .el-table {
+    &__header {
+      & .cell {
+        line-height: 1em;
+      }
     }
 
-    & .cell {
-      padding: 0;
+    &__row {
+      & > td {
+        padding: 0;
+        height: 50px;
+      }
+
+      & .cell {
+        padding: 0;
+        line-height: 26px;
+      }
     }
   }
 
-  & .cell {
-    line-height: 26px;
-  }
 
   & .cell-content {
     display: block;

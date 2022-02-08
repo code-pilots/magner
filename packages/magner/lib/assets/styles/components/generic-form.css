@@ -249,6 +249,9 @@
   &_only-fields {
     display: flex;
     width: 100%;
+    @media (--breakpoint-small) {
+      flex-direction: column;
+    }
   }
 
   & .el-form-item, &.el-form--label-top .el-form-item {
