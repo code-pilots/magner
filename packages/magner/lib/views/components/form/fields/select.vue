@@ -105,7 +105,7 @@ export default defineComponent({
             isDisabled: !!props.field.props.disabled,
           }));
         } else {
-          selectEl.value.selectedLabel = props.modelValue[props.field.props.labelKey || 'label'];
+          selectEl.value.selectedLabel = props.modelValue?.[props.field.props.labelKey || 'label'] || '';
         }
       }
     });

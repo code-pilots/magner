@@ -190,7 +190,8 @@ export default defineComponent({
       : parseUrl(route.query) || {};
     filterUrlDataComparison(requestData, initialData);
 
-    const appliedFilters = computed(() => Object.values(requestData.filters).filter((filter) => !!filter).length);
+    const appliedFilters = computed(() => Object.values(requestData.filters)
+      .filter((filter) => (filter && typeof filter === 'object' ? Object.keys(filter)?.length : !!filter)).length);
     const clearFilters = () => formRef.value!.clearForm?.();
 
     const filterItems = (form: Record<string, string>) => {
