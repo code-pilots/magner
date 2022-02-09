@@ -4,7 +4,6 @@
 
     <div v-if="hasFilters" class="table-page_top">
       <GenericForm
-        ref="formRef"
         :config="{ ...config.filters, layout: topFilters }"
         :loading="false"
         :initial-data="requestData.filters"
@@ -39,6 +38,7 @@
         <GenericForm
           :config="{
             ...config.filters,
+            actions: [{ type: 'action', emits: 'submit', props: { type: 'primary', text: t('core.table.filters_submit') }}],
             submitEvent: 'submit',
             size: 'default',
             clearable: true,
@@ -157,7 +157,6 @@ export default defineComponent({
     const topFilters = computed(() => allFilters.value.slice(0, props.config.filters.fieldsShowAmount ?? undefined));
 
     const drawerOpen = ref(false);
-    const formRef = ref<typeof GenericForm>();
     const dynamicRef = ref<typeof Dynamic>();
 
     const hasFilters = computed(() => !!(topFilters.value.length || props.config.filters.actions?.length));
@@ -191,8 +190,10 @@ export default defineComponent({
     filterUrlDataComparison(requestData, initialData);
 
     const appliedFilters = computed(() => Object.values(requestData.filters)
-      .filter((filter) => (filter && typeof filter === 'object' ? Object.keys(filter)?.length : !!filter)).length);
-    const clearFilters = () => formRef.value!.clearForm?.();
+      .filter((filter) => (filter && typeof filter === 'object'
+        ? filter instanceof Date || Object.keys(filter)?.length
+        : !!filter)).length);
+    const clearFilters = () => requestData.filters = { ...(props.config.filters.filtersData || {}) };
 
     const filterItems = (form: Record<string, string>) => {
       requestData.filters = { ...form };
@@ -257,7 +258,6 @@ export default defineComponent({
       isMobile,
       drawerComponent,
       appliedFilters,
-      formRef,
       dynamicRef,
       hasFilters,
       tableHeight,
