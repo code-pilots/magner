@@ -49,14 +49,14 @@ export default defineComponent({
       required: true,
     },
     modelValue: {
-      type: [String, Number],
+      type: [String, Number, Boolean],
       default: '',
     },
   },
   emits: ['update:modelValue'],
   setup (props, context) {
     const { customT } = useTranslate();
-    const val = ref<number|string>(props.modelValue);
+    const val = ref<number|string|boolean>(props.modelValue);
     const { disabled } = useChecks(props.field);
 
     watchEffect(() => {

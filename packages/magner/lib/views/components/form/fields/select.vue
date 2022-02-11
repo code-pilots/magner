@@ -24,8 +24,8 @@
     >
       <el-option
         v-for="option in allOptions"
-        :key="field.props.valueKey ? option[field.props.valueKey] : option.value"
-        :value="field.props.valueKey ? option[field.props.valueKey] : option.value"
+        :key="field.props.valueKey ? option[field.props.valueKey] : option.value || option"
+        :value="field.props.valueKey ? option[field.props.valueKey] : option.value || option"
         :label="getOptionLabel(option)"
         :disabled="option.disabled || false"
       />
@@ -91,7 +91,9 @@ export default defineComponent({
       if (props.field.props.labelFormatter) {
         return props.field.props.labelFormatter?.(option);
       }
-      return props.field.props.labelKey ? customT(option[props.field.props.labelKey]) : customT(option?.label);
+      return props.field.props.labelKey
+        ? customT(option[props.field.props.labelKey])
+        : customT(option?.label || option);
     };
 
     onMounted(async () => {
