@@ -62,14 +62,14 @@
 import 'lib/assets/styles/components/generic-form.css';
 import {
   defineComponent, reactive, ref, PropType,
-  watchEffect, computed,
+  watchEffect, computed, watch,
 } from 'vue';
 import { useRouter } from 'vue-router';
 import type { GenericForm } from 'lib/types/form';
 import type { BaseValidation, FormInteractionsData } from 'lib/types/form/base';
 import type { SupportedValidators } from 'lib/types/configs';
 import type { ActionAction } from 'lib/types/utils/actions';
-import { DataTypeInitials, fieldsToModels, layoutToFields } from 'lib/utils/form/form';
+import { fieldsToModels, initialDifference, layoutToFields } from 'lib/utils/form/form';
 import { useTranslate } from 'lib/utils/core/translate';
 import { useMobile } from 'lib/utils/core/is-mobile';
 import { updateFieldValues } from 'lib/utils/core/mixed-check';
@@ -146,6 +146,7 @@ export default defineComponent({
     const errors = ref<Record<string, string>>(props.fieldErrors); // Field errors record
     const formEl = ref<HTMLFormElement>();
 
+    // Check required, disabled, hidden, readOnly properties of the fields
     allFields.value.forEach((field) => {
       updateFieldValues(field, form);
     });
@@ -156,13 +157,7 @@ export default defineComponent({
 
         /** For PATCH methods, return the difference with existing data */
         if (props.returnInitialDifference) {
-          const diff = Object.entries(form).reduce((accum, entry) => {
-            // eslint-disable-next-line no-prototype-builtins
-            if (props.initialData?.hasOwnProperty(entry[0]) && props.initialData[entry[0]] !== entry[1]) {
-              accum[entry[0]] = entry[1];
-            }
-            return accum;
-          }, {} as Record<string, DataTypeInitials>);
+          const diff = initialDifference(form, props.initialData);
           context.emit('submit', diff);
           return true;
         }
@@ -258,8 +253,8 @@ export default defineComponent({
       context.emit('action', action);
     };
 
-    watchEffect(() => {
-      Object.assign(form, props.initialData);
+    watch(() => props.initialData, (newInitial) => {
+      Object.assign(form, fieldsToModels(allFields.value, newInitial));
     });
 
     watchEffect(() => {

@@ -68,19 +68,58 @@ export const layoutToFields = (layout: FormLayout<any>): GenericComponent<Record
  * Creates an object with initial values for each field of a form.
  * This object is used when the form triggers the 'submit' event.
  */
-export const fieldsToModels = (fields: GenericComponent<Record<string, any>>[], initialData?: Record<string, any>): Record<string, DataTypeInitials> => fields
+export const fieldsToModels = (
+  fields: GenericComponent<Record<string, any>>[],
+  initialData?: Record<string, any>,
+): Record<string, DataTypeInitials> => fields
   .reduce((accum, currentValue) => {
     // In case of FormCollection, get all fields in the collection, and assign initial values
     // for each form in the collection as an object
     if (currentValue.type === 'collection') {
-      const collectionLen = initialData?.[currentValue.name]?.length ?? (currentValue.props.showFirst ? 1 : 0);
+      const initialCollection = initialData?.[currentValue.name] || [];
+      const collectionLen = initialCollection.length ?? (currentValue.props.showFirst ? 1 : 0);
       const collectionFields = collectFieldsFromLayout(currentValue.layout as unknown as GenericFormLayout<any>);
       accum[currentValue.name] = (new Array(collectionLen).fill(0))
-        .map((_, index) => fieldsToModels(collectionFields, (initialData?.[index] || {}) as Record<string, unknown>));
+        .map((_, index) => fieldsToModels(
+          collectionFields,
+          (initialCollection?.[index] || {}) as Record<string, unknown>,
+        ));
       return accum;
     }
 
     accum[currentValue.name] = initialData?.[currentValue.name]
       ?? dataTypeToInitial(currentValue.dataType || 'string');
+    return accum;
+  }, {} as Record<string, DataTypeInitials>);
+
+export const initialDifference = (form: Record<string, any>, initialData: Record<string, any>) => Object
+  .entries(form)
+  .reduce((accum, entry) => {
+    // eslint-disable-next-line no-prototype-builtins
+    if (!initialData?.hasOwnProperty(entry[0])) return accum;
+    const initial = initialData[entry[0]];
+    const current = entry[1];
+
+    if (initial !== current) {
+      accum[entry[0]] = current;
+      return accum;
+    }
+
+    if (Array.isArray(current)) {
+      const hasDifference = current.some((currentNestedVal, i) => {
+        const initialNestedVal = initial?.[i];
+        if (currentNestedVal !== initialNestedVal) return true;
+        if (typeof currentNestedVal === 'object' && typeof initialNestedVal === 'object') {
+          const nestedDifference = initialDifference(currentNestedVal, initialNestedVal);
+          return !!Object.keys(nestedDifference).length;
+        }
+        return false;
+      });
+      if (hasDifference) {
+        accum[entry[0]] = current;
+        return accum;
+      }
+    }
+
     return accum;
   }, {} as Record<string, DataTypeInitials>);

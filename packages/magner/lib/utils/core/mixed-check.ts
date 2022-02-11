@@ -16,7 +16,7 @@ type MixedCheckerOptional = (data?: {
 
 export const mixedCheck = (checker: MixedChecker): MixedChecker => checker;
 
-export const useChecks = (field: GenericComponent, value?: unknown) => {
+export const useChecks = (field: GenericComponent<any>, value?: unknown) => {
   const disabled = computed(() => (typeof field.props.disabled === 'function'
     ? (field.props.disabled as MixedCheckerOptional)()
     : field.props.disabled || false));
@@ -49,7 +49,7 @@ export const useChecks = (field: GenericComponent, value?: unknown) => {
  * be executed in the FormItem.
  */
 export const updateFieldValues = (
-  field: GenericComponent,
+  field: GenericComponent<any>,
   form: Record<string, any>,
   force?: Record<'readOnly' | 'disabled' | 'hidden', boolean | MixedChecker>,
 ) => {
@@ -81,7 +81,7 @@ export const updateFieldValues = (
   }
 
   if (field.type === 'collection') {
-    const nestedFields = layoutToFields(field as unknown as GenericFormLayout);
+    const nestedFields = layoutToFields(field as unknown as GenericFormLayout<any>);
     nestedFields.forEach((nestedField) => updateFieldValues(nestedField, form, {
       readOnly: field.props.readOnly || false,
       disabled: field.props.disabled || false,
