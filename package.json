@@ -6,6 +6,7 @@
     "apps/*",
     "packages/*"
   ],
+  "packageManager": "pnpm@6.31.0",
   "scripts": {
     "dev": "turbo run dev --parallel",
     "build": "turbo run build",
@@ -16,32 +17,7 @@
     "@semantic-release/git": "^10.0.1",
     "semantic-release": "^18.0.1",
     "semantic-release-monorepo": "^7.0.5",
-    "turbo": "^1.0.28"
-  },
-  "turbo": {
-    "baseBranch": "origin/main",
-    "pipeline": {
-      "build": {
-        "dependsOn": [
-          "^build"
-        ],
-        "outputs": [
-          "dist/**"
-        ]
-      },
-      "packages": {
-        "dependsOn": [
-          "magner#build",
-          "create-magner#build"
-        ],
-        "outputs": [
-          "dist/**"
-        ]
-      },
-      "dev": {
-        "cache": false
-      }
-    }
+    "turbo": "^1.1.2"
   },
   "engines": {
     "npm": ">=7.0.0",
