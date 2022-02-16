@@ -1,0 +1,1 @@
+const t={key:"v-0ed12c89",path:"/configuration/i18n.html",title:"Translation",lang:"en",frontmatter:{},excerpt:"",headers:[{level:2,title:"Translation in custom views",slug:"translation-in-custom-views",children:[]}],filePathRelative:"configuration/i18n.md",git:{updatedTime:1645000832e3,contributors:[{name:"VanishMax",email:"maxkors2014@gmail.com",commits:1}]}};export{t as data};
