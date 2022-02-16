@@ -1,7 +1,7 @@
 {
   "name": "magner",
   "description": "Universal admin panel magnetic to any backend",
-  "version": "0.5.15",
+  "version": "0.5.16",
   "main": "./dist/magner.es.js",
   "module": "./dist/magner.es.js",
   "exports": {
