@@ -5,7 +5,7 @@
     <template v-for="(action, i) in actions" :key="i">
       <router-link
         v-if="action.type === 'link'"
-        :to="action.to"
+        :to="getLink(action.to)"
         class="generic-form_actions_link"
       >
         <el-button
@@ -43,8 +43,9 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
+import { RouteLocationRaw, useRoute } from 'vue-router';
 import { TranslateData, useTranslate } from 'lib/utils/core/translate';
-import type { ActionButton, ActionAction } from 'lib/types/utils/actions';
+import type { ActionButton, ActionAction, ActionLink } from 'lib/types/utils/actions';
 import { actionWrapper, magnerMessage } from 'lib/utils';
 
 export default defineComponent({
@@ -70,6 +71,7 @@ export default defineComponent({
   emits: ['action'],
   setup (props, context) {
     const { t, customT } = useTranslate();
+    const route = useRoute();
 
     const translations: Record<string, TranslateData> = {
       cancel: t('core.form.cancel'),
@@ -83,6 +85,13 @@ export default defineComponent({
         ? translations[action.emits as keyof typeof translations]
         : customT(action.props.text || '')
     );
+
+    const getLink = (to: ActionLink['to']): RouteLocationRaw => {
+      if (typeof to === 'function') {
+        return to(route);
+      }
+      return to;
+    };
 
     const act = async (action: ActionAction) => {
       if (action.action) {
@@ -102,6 +111,7 @@ export default defineComponent({
     return {
       act,
       getTranslation,
+      getLink,
     };
   },
 });

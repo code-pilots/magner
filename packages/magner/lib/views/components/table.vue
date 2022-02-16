@@ -36,7 +36,7 @@
       <template #default="table">
         <router-link
           v-if="column.columnLink || config.rowLink"
-          :to="column.columnLink ? column.columnLink(table.row) : config.rowLink(table.row)"
+          :to="column.columnLink ? column.columnLink(table.row, route) : config.rowLink(table.row, route)"
           class="cell-content"
         >
           <TableCell :column-config="column" :table-data="table" @action="$emit('action', $event)" />
@@ -55,6 +55,7 @@ import { defineComponent, PropType, ref } from 'vue';
 import type { Table, TableColumn } from 'lib/types/components/table';
 import { useTranslate } from 'lib/utils/core/translate';
 import TableCell from 'lib/views/components/table/cell.vue';
+import { useRoute } from 'vue-router';
 
 type RowData = Record<string, unknown>;
 
@@ -79,6 +80,7 @@ export default defineComponent({
   setup (props, context) {
     const { customT } = useTranslate();
     const tableEl = ref(null);
+    const route = useRoute();
 
     const sort = (e: unknown) => {
       context.emit('sort', e);
@@ -93,6 +95,7 @@ export default defineComponent({
       tableEl,
       sort,
       select,
+      route,
     };
   },
 });

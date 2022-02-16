@@ -1,5 +1,5 @@
 import type { TranslateData } from 'lib/utils/core/translate';
-import type { RouteLocationRaw } from 'vue-router';
+import type { RouteLocationRaw, RouteLocation } from 'vue-router';
 
 export interface PageHeaderTab {
   label: TranslateData,
@@ -9,7 +9,7 @@ export interface PageHeaderTab {
 
   /** In the tab, you can specify a function which takes a current route
    * as an argument and returns the vue-router acceptable link */
-  link: ((route: RouteLocationRaw) => RouteLocationRaw) | RouteLocationRaw,
+  link: ((route: RouteLocation) => RouteLocationRaw) | RouteLocationRaw,
 }
 
 export interface PageHeader {

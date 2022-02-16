@@ -1,4 +1,4 @@
-import type { RouteLocationRaw } from 'vue-router';
+import type { RouteLocation, RouteLocationRaw } from 'vue-router';
 import type { TranslateData } from 'lib/utils/core/translate';
 import { ActionButton } from 'lib/types/utils/actions';
 import { TableActions } from 'lib/types/configs/pages/table';
@@ -53,7 +53,7 @@ export interface TableColumn<ENTITY extends {}> {
   view?: ColumnView<ENTITY>,
 
   /** Makes column cells links */
-  columnLink?: (row: ENTITY) => RouteLocationRaw,
+  columnLink?: (row: ENTITY, route: RouteLocation) => RouteLocationRaw,
 
   /** Column fixed width */
   width?: number|string,
@@ -93,7 +93,7 @@ export interface Table<ENTITY extends {} = {}> {
   emptyText?: TranslateData,
 
   /** If present, table row becomes a link (doesn't work on columns with 'columnLink' property) */
-  rowLink?: (row: ENTITY) => RouteLocationRaw,
+  rowLink?: (row: ENTITY, route: RouteLocation) => RouteLocationRaw,
 
   /** Add the select-row checkbox into the first column of a table */
   rowSelectable?: {

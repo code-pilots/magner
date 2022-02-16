@@ -1,5 +1,5 @@
 import type { ButtonProps } from 'lib/types/form/fields/button';
-import type { RouteLocationRaw, Router } from 'vue-router';
+import type { RouteLocationRaw, Router, RouteLocation } from 'vue-router';
 import type { LStorage } from 'lib/utils/core/local-storage';
 import type { TranslateData } from 'lib/utils/core/translate';
 
@@ -31,9 +31,9 @@ interface ActionButtonBase {
 }
 
 /** Link actions are displayed as an `<el-button>` inside the `<router-link>` */
-interface ActionLink extends ActionButtonBase {
+export interface ActionLink extends ActionButtonBase {
   type: 'link',
-  to: ((route: RouteLocationRaw) => RouteLocationRaw) | RouteLocationRaw,
+  to: ((route: RouteLocation) => RouteLocationRaw) | RouteLocationRaw,
   external?: boolean,
 }
 
