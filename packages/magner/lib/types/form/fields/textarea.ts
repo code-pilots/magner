@@ -26,6 +26,7 @@ export interface TextareaProps extends BaseProps {
   clearable?: boolean,
 
   autofocus?: boolean,
+  autocomplete?: 'off' | 'on' | string,
 }
 
 export interface TextareaField<ENTITY extends {}> extends BaseField<ENTITY> {

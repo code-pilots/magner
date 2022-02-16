@@ -43,6 +43,7 @@ export interface InputProps extends BaseProps {
   clearable?: boolean,
 
   autofocus?: boolean,
+  autocomplete?: 'off' | 'on' | string,
 }
 
 export interface InputField<ENTITY extends {}> extends BaseField<ENTITY> {

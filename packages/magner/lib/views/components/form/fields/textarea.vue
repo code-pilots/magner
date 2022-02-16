@@ -3,6 +3,7 @@
     <el-input
       :model-value="val"
       type="textarea"
+      :name="field.name"
       :placeholder="customT(field.props.placeholder)"
       :rows="field.props.rows"
       :autosize="field.props.autosize"
@@ -13,6 +14,7 @@
       :disabled="disabled"
       :resize="field.props.resize"
       :autofocus="field.props.autofocus"
+      :autocomplete="field.props.autocomplete"
       @input="changeVal"
     />
   </ReadonlyWrap>
