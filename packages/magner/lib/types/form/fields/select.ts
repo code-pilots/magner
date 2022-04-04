@@ -1,5 +1,5 @@
 import type { TranslateData } from 'lib/utils/core/translate';
-import type { RequestCallback, RequestWrap } from 'lib/types/utils/api';
+import type { RequestWrap } from 'lib/types/utils/api';
 import type { BaseField, BaseProps } from '../base';
 
 /**

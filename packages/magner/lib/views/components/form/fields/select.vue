@@ -19,13 +19,14 @@
       :loading-text="customT(field.props.loadingText || '')"
       :no-match-text="customT(field.props.noMatchText || '')"
       :no-data-text="customT(field.props.noDataText || '')"
+      :value-key="field.props.valueKey"
       @blur="$emit('blur', $event)"
       @change="changeVal"
     >
       <el-option
         v-for="option in allOptions"
-        :key="field.props.valueKey ? option[field.props.valueKey] : option.value || option"
-        :value="field.props.valueKey ? option[field.props.valueKey] : option.value || option"
+        :key="getOptionValue(option)"
+        :value="getOptionValue(option)"
         :label="getOptionLabel(option)"
         :disabled="option.disabled || false"
       />
@@ -95,19 +96,19 @@ export default defineComponent({
         ? customT(option[props.field.props.labelKey])
         : customT(option?.label || option);
     };
+    const getOptionValue = (option: any) => {
+      if (typeof option === 'object') {
+        return option[props.field.props.valueKey || 'value'] || '';
+      }
+      return option || '';
+    };
 
     onMounted(async () => {
       await remoteMethod('');
 
       if (typeof props.modelValue === 'object' && selectEl.value) {
-        if (Array.isArray(props.modelValue)) {
-          selectEl.value.selected = props.modelValue.map((opt) => ({
-            value: typeof opt === 'object' ? opt[props.field.props.valueKey || 'value'] || '' : opt || '',
-            currentLabel: typeof opt === 'object' ? opt[props.field.props.labelKey || 'label'] || '' : opt || '',
-            isDisabled: !!props.field.props.disabled,
-          }));
-        } else {
-          selectEl.value.selectedLabel = props.modelValue?.[props.field.props.labelKey || 'label'] || '';
+        if (!Array.isArray(props.modelValue)) {
+          selectEl.value.selectedLabel = getOptionLabel(props.modelValue);
         }
       }
     });
@@ -127,6 +128,7 @@ export default defineComponent({
       allOptions,
       selectEl,
       getOptionLabel,
+      getOptionValue,
       customT,
       changeVal,
       remoteMethod,
