@@ -30,7 +30,7 @@ import {
 } from 'vue';
 import type { CardConfig } from 'lib/types/configs';
 import type { ActionAction } from 'lib/types/utils/actions';
-import { useTranslate } from 'lib/utils/core/translate';
+import { type TranslateData, useTranslate } from 'lib/utils/core/translate';
 import { magnerConfirm, magnerMessage } from 'lib/utils/core/messages';
 import GenericForm from './form.vue';
 import DialogForm from './dialog-form.vue';
@@ -103,8 +103,12 @@ export default defineComponent({
     };
 
     const confirmDelete = (): Promise<boolean> => new Promise((resolve) => {
+      const confirmMessage = props.config.confirmDelete === true
+        ? t('core.card.removal_confirm', { msg: customT(props.config.header.title || '') })
+        : customT(props.config.confirmDelete as TranslateData);
+
       magnerConfirm({
-        message: t('core.card.removal_confirm', { msg: customT(props.config.header.title || '') }),
+        message: confirmMessage,
         title: t('core.card.attention'),
         confirmButtonText: t('core.card.confirm_button_text'),
         cancelButtonText: t('core.card.cancel_button_text'),

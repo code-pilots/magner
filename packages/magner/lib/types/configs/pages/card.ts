@@ -1,6 +1,7 @@
 import type { RequestWrap, CardRequestData } from 'lib/types/utils/api';
 import type { InnerForm } from 'lib/types/form/form';
 import type { PageHeader } from './shared';
+import { TranslateData } from 'lib/utils/core/translate';
 
 export interface CardConfig<ENTITY extends {}> {
   /** Top header of a page. Consists of the page title and tabs */
@@ -17,9 +18,12 @@ export interface CardConfig<ENTITY extends {}> {
   /** If true, card page will always leave the form initially empty and won't skip required validations */
   alwaysCreate?: boolean,
 
-  /** Whether to open the confirm dialog ("Are you sure you want to delete 'The entity'?")
-   * when delete button is pressed */
-  confirmDelete?: boolean,
+  /** Whether to open the confirm dialog ("Are you sure you want to delete 'The entity'?"),
+   * when delete button is pressed.
+   *
+   * If a `string` or `translate()` function is passed, this information will be written in confirm modal window.
+   * */
+  confirmDelete?: boolean | TranslateData,
 
   form: InnerForm<ENTITY, 'submit' | 'remove' | 'clear' | 'cancel'>,
 }
