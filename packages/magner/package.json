@@ -21,8 +21,7 @@
     "test:e2e": "start-server-and-test dev http-get://localhost:3000 test:e2e-run",
     "test:e2e-run": "cypress run --headless",
     "test:e2e-open": "cypress open -b chrome",
-    "preinstall": "mkdir -p ./cli/dist && cp ./cli/empty.js ./cli/dist/index.js",
-    "rebuild:magner:hubstr:dev": "pnpm run build && cd ../../../hubstr_frontend_admin && pnpm un magner && pnpm i ../magner/packages/magner && pnpm run build && pnpm run start"
+    "preinstall": "mkdir -p ./cli/dist && cp ./cli/empty.js ./cli/dist/index.js"
   },
   "bin": {
     "magner": "cli/dist/index.js"
