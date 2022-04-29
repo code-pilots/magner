@@ -53,6 +53,10 @@ export const updateFieldValues = (
   form: Record<string, any>,
   force?: Record<'readOnly' | 'disabled' | 'hidden', boolean | MixedChecker>,
 ) => {
+  // Save pure disabled function
+  if (typeof field.props.disabledCondition !== 'function') {
+    field.props.disabledCondition = field.props.disabled;
+  }
   const disabled = force?.disabled ?? field.props.disabledCondition;
   if (typeof disabled === 'function') {
     field.props.disabled = disabled.bind(null, {
@@ -61,12 +65,21 @@ export const updateFieldValues = (
     });
   }
 
+  // Save pure hidden function
+  if (typeof field.props.hiddenCondition !== 'function') {
+    field.props.hiddenCondition = field.props.hidden;
+  }
   const hidden = force?.hidden ?? field.props.hiddenCondition;
   if (typeof hidden === 'function') {
     field.props.hidden = hidden.bind(null, {
       state: form,
       role: globalValues.store.state.role as string,
     });
+  }
+
+  // Save pure readOnly function
+  if (typeof field.props.readOnlyCondition !== 'function') {
+    field.props.readOnlyCondition = field.props.readOnly;
   }
 
   const readOnly = force?.readOnly ?? field.props.readOnlyCondition;

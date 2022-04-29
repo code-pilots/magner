@@ -27,17 +27,17 @@ export interface BaseProps {
 
   /** Whether the field is disabled. Accepts static boolean or the dynamic
    * MixedChecker function with access to the user's role and form's state */
-  disabled?: boolean | MixedChecker,
+  disabled?: MixedChecker,
   /** Pure disabled function */
   disabledCondition?: MixedChecker,
 
   /** Hides the field from the form if 'true' */
-  hidden?: boolean | MixedChecker,
+  hidden?: MixedChecker,
   /** Pure hidden function */
   hiddenCondition?: MixedChecker,
 
   /** If 'true', the field gets a design made for the better readability  */
-  readOnly?: boolean | MixedChecker,
+  readOnly?: MixedChecker,
   /** Pure readOnly function */
   readOnlyCondition?: MixedChecker,
 
