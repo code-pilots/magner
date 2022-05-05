@@ -19,6 +19,12 @@ export type SupportedComponentTypes =
   | 'collection'
   | 'custom';
 
+interface InnerConditions {
+  disabledCondition?: MixedChecker,
+  hiddenCondition?: MixedChecker,
+  readOnlyCondition?: MixedChecker,
+}
+
 export interface BaseProps {
   class?: string,
 
@@ -37,6 +43,9 @@ export interface BaseProps {
 
   /** If `readOnly: true`, parse the value of the form field to display as a string */
   readOnlyFormatter?: (val: unknown) => string,
+
+  /** Magner's inner properties. No need to change */
+  inner: InnerConditions
 }
 
 export interface BaseValidation {
