@@ -45,7 +45,7 @@ export interface BaseProps {
   readOnlyFormatter?: (val: unknown) => string,
 
   /** Magner's inner properties. No need to change */
-  inner: InnerConditions
+  inner?: InnerConditions
 }
 
 export interface BaseValidation {
