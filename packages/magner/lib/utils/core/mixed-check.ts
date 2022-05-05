@@ -53,6 +53,10 @@ export const updateFieldValues = (
   form: Record<string, any>,
   force?: Record<'readOnly' | 'disabled' | 'hidden', boolean | MixedChecker>,
 ) => {
+  if (!field.props.inner) {
+    field.props.inner = {};
+  }
+
   // Save pure disabled function
   if (typeof field.props.inner.disabledCondition !== 'function'
     && typeof field.props.disabled === 'function') {

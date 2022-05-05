@@ -148,9 +148,6 @@ export default defineComponent({
 
     // Check required, disabled, hidden, readOnly properties of the fields
     allFields.value.forEach((field) => {
-      if (!field.props.inner) {
-        field.props.inner = {};
-      }
       updateFieldValues(field, form);
     });
 
