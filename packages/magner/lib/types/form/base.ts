@@ -44,7 +44,7 @@ export interface BaseProps {
   /** If `readOnly: true`, parse the value of the form field to display as a string */
   readOnlyFormatter?: (val: unknown) => string,
 
-  /** We keep pure functions in this object */
+  /** Magner's inner properties. No need to change */
   inner: InnerConditions
 }
 
