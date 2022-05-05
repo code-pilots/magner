@@ -53,12 +53,9 @@ export const updateFieldValues = (
   form: Record<string, any>,
   force?: Record<'readOnly' | 'disabled' | 'hidden', boolean | MixedChecker>,
 ) => {
-  if (!field.props.inner) {
-    field.props.inner = {};
-  }
-
   // Save pure disabled function
-  if (typeof field.props.inner.disabledCondition !== 'function') {
+  if (typeof field.props.inner.disabledCondition !== 'function'
+    && typeof field.props.disabled === 'function') {
     field.props.inner.disabledCondition = field.props.disabled;
   }
   const disabled = force?.disabled ?? field.props.inner.disabledCondition;
@@ -70,7 +67,8 @@ export const updateFieldValues = (
   }
 
   // Save pure hidden function
-  if (typeof field.props.inner.hiddenCondition !== 'function') {
+  if (typeof field.props.inner.hiddenCondition !== 'function'
+    && typeof field.props.hidden === 'function') {
     field.props.inner.hiddenCondition = field.props.hidden;
   }
   const hidden = force?.hidden ?? field.props.inner.hiddenCondition;
@@ -82,10 +80,10 @@ export const updateFieldValues = (
   }
 
   // Save pure readOnly function
-  if (typeof field.props.inner.readOnlyCondition !== 'function') {
+  if (typeof field.props.inner.readOnlyCondition !== 'function'
+    && typeof field.props.readOnly === 'function') {
     field.props.inner.readOnlyCondition = field.props.readOnly;
   }
-
   const readOnly = force?.readOnly ?? field.props.inner.readOnlyCondition;
   if (typeof readOnly === 'function') {
     field.props.readOnly = readOnly.bind(null, {
