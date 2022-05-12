@@ -4,9 +4,14 @@
 
 <script lang="ts">
 import {
-  defineComponent, PropType, ref, watch,
+  computed,
+  defineComponent,
+  PropType,
+  ref,
+  watch,
 } from 'vue';
 import type { RequestCallback } from 'lib/types/utils/api';
+import useStore from 'lib/controllers/store/store';
 
 export default defineComponent({
   name: 'RequestHandler',
@@ -26,8 +31,10 @@ export default defineComponent({
   },
   emits: ['loading', 'error'],
   async setup (props, context) {
+    const store = useStore();
+    const response = computed(() => store.state.response);
+
     const error = ref('');
-    const response = ref();
     const loading = ref(false);
     const initialLoaded = ref(false); // Variable prevents sending two index simultaneously on initial load
 
@@ -44,7 +51,7 @@ export default defineComponent({
       changeLoading(false);
 
       initialLoaded.value = true;
-      response.value = res.data;
+      store.commit('setResponse', res.data);
 
       if (res.error) {
         error.value = res.error as string;
