@@ -34,6 +34,7 @@ import { type TranslateData, useTranslate } from 'lib/utils/core/translate';
 import { magnerConfirm, magnerMessage } from 'lib/utils/core/messages';
 import GenericForm from './form.vue';
 import DialogForm from './dialog-form.vue';
+import useStore from 'lib/controllers/store/store';
 
 export default defineComponent({
   name: 'CardForm',
@@ -60,6 +61,7 @@ export default defineComponent({
   },
   emits: ['success'],
   setup (props, context) {
+    const store = useStore();
     const { customT, t } = useTranslate();
 
     const error = ref('');
@@ -79,6 +81,18 @@ export default defineComponent({
         res = await props.config.createRequest?.({ ...reqData.value, data });
       } else {
         res = await props.config.updateRequest?.({ ...reqData.value, data });
+
+        if (!res.error) {
+          const getRes = await props.config.getRequest({
+            data: null,
+            id: res.data.id,
+            isNew: false,
+          });
+
+          if (!getRes.error) {
+            store.commit('setResponse', getRes.data);
+          }
+        }
       }
       if (submitButton) submitButton.loading = false;
 
