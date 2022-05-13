@@ -83,13 +83,15 @@ export default defineComponent({
         res = await props.config.updateRequest?.({ ...reqData.value, data });
 
         if (!res.error) {
-          const newRes = await props.config.getRequest({
+          const getRes = await props.config.getRequest({
             data: null,
             id: res.data.id,
             isNew: false,
           });
 
-          store.commit('setResponse', newRes.data);
+          if (!getRes.error) {
+            store.commit('setResponse', getRes.data);
+          }
         }
       }
       if (submitButton) submitButton.loading = false;
