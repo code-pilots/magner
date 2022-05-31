@@ -107,6 +107,7 @@
       <component
         :is="customComponent"
         :field="field.props"
+        v-model="val"
         @blur="$emit('blur', $event)"
         @action="customAction"
         @update:modelValue="updVal"
