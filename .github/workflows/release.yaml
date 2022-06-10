@@ -25,6 +25,10 @@ jobs:
           pnpm install
           pnpm build:packages
 
+      - name: Alias "npm" to "pnpm"
+        run: |
+          alias npm="pnpm"
+          
       - name: Release "magner"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
