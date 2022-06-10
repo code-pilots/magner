@@ -18,8 +18,6 @@ interface State {
 
   sidebarCollapsed: boolean,
   modalData: ModalData | null,
-
-  response: any,
 }
 
 /**
@@ -50,8 +48,6 @@ export const store = () => createStore<State>({
       sidebarCollapsed: (typeof window !== 'undefined'
         && globalValues.lstorage.read('sidebarCollapsed') as boolean) || false,
       modalData: null,
-
-      response: null,
     };
   },
 
@@ -88,10 +84,6 @@ export const store = () => createStore<State>({
 
     setModalComponent (state, value: ModalData | null) {
       state.modalData = value;
-    },
-
-    setResponse (state, value) {
-      state.response = value;
     },
   },
 
