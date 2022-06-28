@@ -17,13 +17,21 @@ interface ApiControllerOptions {
   urlToData?: UrlToDataHelper,
   parseError?: ErrorParser<any>,
   headers?: Record<string, string>,
+  interceptError?: (e: { response?: Response, text?: string, name?: string }) => void,
 }
 
 type DataOrError<RESULT = any> = { data: RESULT, error?: never } | { error: ApiError<any> | Error, data?: never };
 
 const resParse = async (response: any): Promise<DataOrError> => ({ data: response });
 
-const resErrParse = async (e: { response?: Response, text?: string, name?: string }): Promise<DataOrError> => {
+const resErrParse = async (
+  e: { response?: Response, text?: string, name?: string },
+  interceptor?: ApiControllerOptions['interceptError'],
+): Promise<DataOrError> => {
+  if (interceptor) {
+    interceptor(e);
+  }
+
   if (e?.response && e.text) {
     try {
       const data = await JSON.parse(e.text);
@@ -36,29 +44,26 @@ const resErrParse = async (e: { response?: Response, text?: string, name?: strin
 };
 
 const handlePromiseChain = async <RESULT = any>(
-  chain: () => ResponseChain,
-): Promise<DataOrError<RESULT>> => chain().json(resParse).catch(resErrParse);
+  options: ApiControllerOptions,
+  chain: ResponseChain,
+): Promise<DataOrError<RESULT>> => chain.json(resParse).catch((e) => resErrParse(e, options.interceptError));
 
 const createApi = (options: ApiControllerOptions) => {
   const baseApi = wretch(options.baseUrl || '', options.fetchOptions || {});
 
+  const hcpGet = (chain: (path: string, config?: WretcherOptions) => ResponseChain) => <RESULT = any>(path: string, config: WretcherOptions = {}) => handlePromiseChain<RESULT>(options, chain(path, config));
+  const hcpPost = (chain: (path: string, body: any, config?: WretcherOptions) => ResponseChain) => <RESULT = any>(path: string, body: any, config: WretcherOptions = {}) => handlePromiseChain<RESULT>(options, chain(path, body, config));
+
   return {
     instance: baseApi,
 
-    get: <RESULT = any>(path: string, config: WretcherOptions = {}) => handlePromiseChain<RESULT>(() => baseApi
-      .url(path).get(config)),
-    post: <RESULT = any>(path: string, body: any, config: WretcherOptions = {}) => handlePromiseChain<RESULT>(() => baseApi
-      .url(path).post(body, config)),
-    put: <RESULT = any>(path: string, body: any, config: WretcherOptions = {}) => handlePromiseChain<RESULT>(() => baseApi
-      .url(path).put(body, config)),
-    patch: <RESULT = any>(path: string, body: any, config: WretcherOptions = {}) => handlePromiseChain<RESULT>(() => baseApi
-      .url(path).patch(body, config)),
-    delete: <RESULT = any>(path: string, config: WretcherOptions = {}) => handlePromiseChain<RESULT>(() => baseApi
-      .url(path).delete(config)),
-    head: <RESULT = any>(path: string, config: WretcherOptions = {}) => handlePromiseChain<RESULT>(() => baseApi
-      .url(path).head(config)),
-    opts: <RESULT = any>(path: string, config: WretcherOptions = {}) => handlePromiseChain<RESULT>(() => baseApi
-      .url(path).opts(config)),
+    get: hcpGet((path, config) => baseApi.url(path).get(config)),
+    post: hcpPost((path, body, config) => baseApi.url(path).post(body, config)),
+    put: hcpPost((path, body, config) => baseApi.url(path).put(body, config)),
+    patch: hcpPost((path, body, config) => baseApi.url(path).patch(body, config)),
+    delete: hcpGet((path, config) => baseApi.url(path).delete(config)),
+    head: hcpGet((path, config) => baseApi.url(path).head(config)),
+    opts: hcpGet((path, config) => baseApi.url(path).opts(config)),
   };
 };
 
