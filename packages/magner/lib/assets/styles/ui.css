@@ -38,6 +38,14 @@
   transform: unset;
 }
 
+.el-input {
+  display: block;
+
+  & .el-input__prefix {
+    z-index: 1;
+  }
+}
+
 body .el-dialog {
   &__body {
     @media (--breakpoint-small) {

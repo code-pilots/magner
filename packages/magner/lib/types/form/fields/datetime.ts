@@ -8,6 +8,9 @@ export interface DateTimeProps extends BaseProps {
   /** Format of the displayed value in the input box */
   format?: string,
 
+  /** Format of the value emitted from the DateTime picker */
+  valueFormat?: string,
+
   /** Placeholder in non-range mode */
   placeholder?: TranslateData,
   /** Placeholder for the start date in range mode */

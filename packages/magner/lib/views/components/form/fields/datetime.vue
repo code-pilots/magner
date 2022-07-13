@@ -4,6 +4,7 @@
       :model-value="val"
       :type="field.props.type"
       :format="field.props.format"
+      :value-format="field.props.valueFormat"
       :editable="field.props.editable"
       :popper-class="field.props.popperClass"
       :range-separator="field.props.rangeSeparator"
