@@ -5,6 +5,12 @@
     :row-class-name="config.rowLink ? 'row-link' : ''"
     class="data-table"
     :height="tableHeight"
+    :stripe="config.stripe"
+    :border="config.border"
+    :fit="config.fit"
+    :table-layout="config.tableLayout"
+    :flexible="config.flexible"
+    :scrollbar-always-on="config.scrollbarAlwaysOn"
     @sort-change="sort"
     @selection-change="select"
   >

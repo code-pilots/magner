@@ -89,6 +89,24 @@ export interface TableColumn<ENTITY extends {}> {
 export interface Table<ENTITY extends {} = {}> {
   columns: TableColumn<ENTITY>[],
 
+  /** Whether the Table is striped – each odd row is colored */
+  stripe?: boolean,
+
+  /** Whether the Table has a vertical border */
+  border?: boolean,
+
+  /** Whether the width of column automatically fits its container */
+  fit?: boolean,
+
+  /** Sets the algorithm used to lay out table cells, rows, and columns */
+  tableLayout?: 'fixed' | 'auto',
+
+  /** Always show scrollbar */
+  scrollbarAlwaysOn?: boolean,
+
+  /** Ensure main axis minimum-size doesn't follow the content */
+  flexible?: boolean,
+
   /** Text to display in the table when no data is available */
   emptyText?: TranslateData,
 
