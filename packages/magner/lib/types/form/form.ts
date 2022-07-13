@@ -45,6 +45,12 @@ export interface InnerForm<ENTITY extends {}, EMITTERS = string> {
   submitOnEnter?: boolean,
 
   /**
+   * By default, all non-new forms return only the touched fields on submit.
+   * This flag overrides the behavior and returns full form data.
+   */
+  fullDataOnUpdate?: boolean,
+
+  /**
    * An array (preserving the order) of buttons performing different actions with the form.
    * You can pass links to some page or an action with an async function and 'emits' option.
    * When the button is clicked, the function is triggers with loader initiation. Finishing the function
