@@ -1,17 +1,13 @@
-import { defineUserConfig } from '@vuepress/cli';
-import type { DefaultThemeOptions } from '@vuepress/theme-default';
+import { defineUserConfig, defaultTheme } from 'vuepress';
 import { sidebar, navbar } from './configs';
 
-export default defineUserConfig<DefaultThemeOptions>({
+export default defineUserConfig({
   base: '/magner/',
   lang: 'en',
   title: 'Magner',
   description: 'Universal Admin panel that is magnetic to any backend',
 
-  bundler: '@vuepress/vite',
-  bundlerConfig: {},
-
-  themeConfig: {
+  theme: defaultTheme({
     logo: '/cp.jpeg',
     repo: 'code-pilots/magner',
     docsDir: 'docs',
@@ -22,7 +18,7 @@ export default defineUserConfig<DefaultThemeOptions>({
         editLinkText: 'Edit this page on GitHub',
       },
     },
-  },
+  }),
 
   head: [
     [
