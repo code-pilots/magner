@@ -18,7 +18,7 @@ jobs:
       - name: Use pnpm
         uses: pnpm/action-setup@v2.0.1
         with:
-          version: 6.31.0
+          version: 7.5.0
 
       - name: Install and Build packages only 🔧
         run: |
@@ -28,19 +28,11 @@ jobs:
       - name: Alias "npm" to "pnpm"
         run: |
           alias npm="pnpm"
-          
+
       - name: Release "magner"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          cd packages/magner
-          pnpx semantic-release
-
-      - name: Release "create-magner"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: |
-          cd packages/create-magner
+          cd magner
           pnpx semantic-release
