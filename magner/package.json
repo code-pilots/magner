@@ -2,13 +2,13 @@
   "name": "magner",
   "description": "Universal admin panel magnetic to any backend",
   "version": "0.6.4",
-  "main": "../packages/magner/dist/magner.es.js",
-  "module": "../packages/magner/dist/magner.es.js",
+  "main": "dist/magner.mjs",
+  "module": "dist/magner.mjs",
   "exports": {
-    ".": "./dist/magner.es.js",
+    ".": "./dist/magner.mjs",
     "./style": "./dist/style.css"
   },
-  "types": "./dist/lib/index.d.ts",
+  "types": "./dist/index.d.ts",
   "engines": {
     "node": ">=16"
   },
