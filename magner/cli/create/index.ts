@@ -29,21 +29,15 @@ const copy = (src: string, dest: string) => {
   }
 };
 
-const index = async () => {
-  const response = await prompt<{ folder: string }>({
-    type: 'input',
-    name: 'folder',
-    message: 'Enter the application name',
-  });
-
-  const target = path.join(process.cwd(), response.folder, '/');
-  const template = path.join(__dirname, '..', 'app/');
+const create = async (folder: string) => {
+  const target = path.join(process.cwd(), folder, '/');
+  const template = path.join(__dirname, '..', 'create', 'app/');
 
   if (fs.existsSync(target) && fs.readdirSync(target)) {
     const { overwrite } = await prompt<{ overwrite: boolean }>({
       type: 'confirm',
       name: 'overwrite',
-      message: `Directory ${response.folder} is not empty. Would you like to overwrite it?`,
+      message: `Directory ${folder} is not empty. Would you like to overwrite it?`,
     });
 
     if (!overwrite) {
@@ -59,4 +53,4 @@ const index = async () => {
   return true;
 };
 
-index();
+export default create;

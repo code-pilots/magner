@@ -3,7 +3,7 @@ import path from 'path';
 import ejs from 'ejs';
 import * as process from 'process';
 
-const templateDir = path.join(__dirname, '../..', 'create-entity', 'feature-templates');
+const templateDir = path.join(__dirname, '..', 'create-entity', 'feature-templates');
 const templates = [
   {
     from: path.join(templateDir, 'en.ejs'),

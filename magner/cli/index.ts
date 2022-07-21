@@ -1,9 +1,17 @@
 import commander from 'commander';
 import createEntity from './create-entity';
+import create from './create';
 // import analyze from './analyzers';
 
 const cli = () => {
   const program = commander.createCommand();
+
+  program
+    .command('create <name>')
+    .description('Create a Magner app from boilerplate in <name> directory')
+    .action(async (name: string) => {
+      await create(name);
+    });
 
   program
     .command('create-entity <name> <target>')

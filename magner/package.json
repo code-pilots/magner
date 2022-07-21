@@ -14,21 +14,16 @@
   },
   "scripts": {
     "build:lib": "vite build --config vite.lib.ts",
-    "build:cli": "tsc --project ./cli/tsconfig.json",
-    "build:create": "tsup --config create-magner/tsup.config.ts",
+    "build:cli": "tsup --config cli/tsup.config.ts",
     "build": "pnpm build:lib && pnpm build:cli",
     "lint": "eslint --fix .",
     "test:unit": "jest playground --silent",
     "test:e2e": "start-server-and-test dev http-get://localhost:3000 test:e2e-run",
     "test:e2e-run": "cypress run --headless",
-    "test:e2e-open": "cypress open -b chrome",
-    "preinstall": "mkdir -p cli/dist && cp ./cli/empty.js ./cli/dist/index.js"
+    "test:e2e-open": "cypress open -b chrome"
   },
   "bin": {
-    "magner": "cli/dist/index.js",
-    "create-magner": "dist/create-project.js",
-    "create-magner-app": "dist/create-project.js",
-    "create-project": "dist/create-project.js"
+    "magner": "cli/dist/index.js"
   },
   "dependencies": {
     "@editorjs/editorjs": "^2.23.2",
