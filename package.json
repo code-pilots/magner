@@ -4,7 +4,7 @@
   "private": true,
   "workspaces": [
     "apps/*",
-    "packages/*"
+    "magner"
   ],
   "packageManager": "pnpm@6.31.0",
   "scripts": {
@@ -17,7 +17,8 @@
     "@semantic-release/git": "^10.0.1",
     "semantic-release": "^18.0.1",
     "semantic-release-monorepo": "^7.0.5",
-    "turbo": "^1.1.2"
+    "turbo": "^1.1.2",
+    "nx": "14.4.3"
   },
   "engines": {
     "npm": ">=7.0.0",
