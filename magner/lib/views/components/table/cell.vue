@@ -1,4 +1,12 @@
 <template>
+  <template v-if="formattedCell.view === 'custom'">
+    <component
+      :is="formattedCell.component"
+      :row="formattedCell.row"
+      :column="formattedCell.column"
+    />
+  </template>
+
   <template v-if="formattedCell.view === 'text'">
     {{ formattedCell.text }}
   </template>
@@ -69,6 +77,17 @@ export default defineComponent({
   setup (props, context) {
     const formattedCell = computed(() => {
       let content = props.tableData.row[props.columnConfig.prop];
+
+      if (props.columnConfig.view?.type === 'custom' && !!props.columnConfig.view?.component) {
+        return {
+          view: 'custom',
+          content,
+          row: props.tableData.row,
+          column: props.tableData.column,
+          component: props.columnConfig.view.component(),
+        };
+      }
+
       if (props.columnConfig.view?.formatter) {
         content = props.columnConfig?.view.formatter(
           content,

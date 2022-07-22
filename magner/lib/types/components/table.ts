@@ -2,6 +2,7 @@ import type { RouteLocation, RouteLocationRaw } from 'vue-router';
 import type { TranslateData } from 'lib/utils/core/translate';
 import { ActionButton } from 'lib/types/utils/actions';
 import { TableActions } from 'lib/types/configs/pages/table';
+import { RouteComponent } from 'vue-router';
 
 interface RenderHeaderType<COLUMN> {
   column: COLUMN,
@@ -30,12 +31,18 @@ interface ViewActions<ENTITY extends {}> extends ViewBase<ENTITY> {
   /** Action to perform when 'remove button' is done on selection */
   actions?: ActionButton<TableActions>[],
 }
+interface ViewCustom<ENTITY extends {}> extends ViewBase<ENTITY> {
+  type: 'custom',
+  /** Custom cell component */
+  component: () => RouteComponent,
+}
 
 export type ColumnView<ENTITY extends {}> =
   | ViewText<ENTITY>
   | ViewTags<ENTITY>
   | ViewImage<ENTITY>
-  | ViewActions<ENTITY>;
+  | ViewActions<ENTITY>
+  | ViewCustom<ENTITY>;
 
 export interface TableColumn<ENTITY extends {}> {
   /** Property name of the field in the row data for specific column */
