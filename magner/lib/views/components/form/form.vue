@@ -16,6 +16,7 @@
         <FormItem
           v-show="!field.hidden"
           v-model="form[field.name]"
+          :form="form"
           :error="errors[field.name]"
           :field="field"
           :class="field.props.class"

@@ -107,6 +107,7 @@
       <component
         :is="customComponent"
         :field="field.props"
+        :form="form"
         v-model="val"
         @blur="$emit('blur', $event)"
         @action="customAction"
@@ -123,6 +124,7 @@
             <FormItem
               v-model="itm[nestedField.name]"
               :field="nestedField"
+              :form="form"
               @blur="$emit('blur', $event)"
               @update:modelValue="changeCollectionItem(i, nestedField.name, $event)"
             />
@@ -167,7 +169,7 @@ import {
 } from 'vue';
 import type { GenericComponent } from 'lib/types/form';
 import type { GenericFormLayout } from 'lib/types/form/layout';
-import { collectFieldsFromLayout, fieldsToModels } from 'lib/utils/form/form';
+import { collectFieldsFromLayout, DataTypeInitials, fieldsToModels } from 'lib/utils/form/form';
 import { useTranslate } from 'lib/utils/core/translate';
 import { useMobile } from 'lib/utils/core/is-mobile';
 import { useChecks } from 'lib/utils/core/mixed-check';
@@ -205,6 +207,10 @@ export default defineComponent({
   props: {
     field: {
       type: Object as PropType<GenericComponent<any>>,
+      required: true,
+    },
+    form: {
+      type: Object as PropType<Record<string, DataTypeInitials>>,
       required: true,
     },
     error: {
