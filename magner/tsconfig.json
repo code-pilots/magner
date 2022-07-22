@@ -10,7 +10,7 @@
     "esModuleInterop": true,
     "lib": ["esnext", "dom"],
     "types": ["vite/client"],
-    "baseUrl": "../packages/magner",
+    "baseUrl": ".",
     "paths": {
       "lib/*": ["lib/*"]
     }

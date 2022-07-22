@@ -6,11 +6,13 @@ import { GenericFormLayout } from 'lib/types/form/layout';
 
 export type MixedChecker = (data: {
   role: string,
+  isNew: boolean,
   state: Record<string, unknown>,
 }) => boolean;
 
 type MixedCheckerOptional = (data?: {
   role: string,
+  isNew: boolean,
   state: Record<string, unknown>,
 }) => boolean;
 
@@ -51,6 +53,7 @@ export const useChecks = (field: GenericComponent<any>, value?: unknown) => {
 export const updateFieldValues = (
   field: GenericComponent<any>,
   form: Record<string, any>,
+  isNew?: boolean,
   force?: Record<'readOnly' | 'disabled' | 'hidden', boolean | MixedChecker>,
 ) => {
   if (!field.props.inner) {
@@ -66,6 +69,7 @@ export const updateFieldValues = (
   if (typeof disabled === 'function') {
     field.props.disabled = disabled.bind(null, {
       state: form,
+      isNew: isNew || false,
       role: globalValues.store.state.role as string,
     });
   }
@@ -79,6 +83,7 @@ export const updateFieldValues = (
   if (typeof hidden === 'function') {
     field.props.hidden = hidden.bind(null, {
       state: form,
+      isNew: isNew || false,
       role: globalValues.store.state.role as string,
     });
   }
@@ -92,13 +97,14 @@ export const updateFieldValues = (
   if (typeof readOnly === 'function') {
     field.props.readOnly = readOnly.bind(null, {
       state: form,
+      isNew: isNew || false,
       role: globalValues.store.state.role as string,
     });
   }
 
   if (field.type === 'collection') {
     const nestedFields = layoutToFields(field as unknown as GenericFormLayout<any>);
-    nestedFields.forEach((nestedField) => updateFieldValues(nestedField, form, {
+    nestedFields.forEach((nestedField) => updateFieldValues(nestedField, form, isNew, {
       readOnly: field.props.readOnly || false,
       disabled: field.props.disabled || false,
       hidden: field.props.hidden || false,

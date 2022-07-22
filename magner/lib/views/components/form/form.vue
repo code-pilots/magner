@@ -104,8 +104,8 @@ export default defineComponent({
       default: () => ({}),
     },
 
-    /** When submitting, emit the object with modified fields only */
-    returnInitialDifference: {
+    /** Is the form used for data creation or updating */
+    isNew: {
       type: Boolean,
       default: false,
     },
@@ -148,7 +148,7 @@ export default defineComponent({
 
     // Check required, disabled, hidden, readOnly properties of the fields
     allFields.value.forEach((field) => {
-      updateFieldValues(field, form);
+      updateFieldValues(field, form, props.isNew);
     });
 
     const submit = () => {
@@ -156,7 +156,7 @@ export default defineComponent({
         if (!valid) return false;
 
         /** For PATCH methods, return the difference with existing data */
-        if (!props.config.fullDataOnUpdate && props.returnInitialDifference) {
+        if (!props.config.fullDataOnUpdate && props.isNew) {
           const diff = initialDifference(form, props.initialData);
           context.emit('submit', diff);
           return true;
