@@ -17,9 +17,14 @@
       @blur="$emit('blur', $event)"
       @input="changeVal"
     >
-      <template v-if="field.props.icon" #prefix>
+      <template v-if="field.props.prefixIcon" #prefix>
         <div class="generic-form_icon">
-          <svg-icon :icon="field.props.icon" size="sm" />
+          <svg-icon :icon="field.props.prefixIcon" size="sm" />
+        </div>
+      </template>
+      <template v-if="field.props.suffixIcon" #suffix>
+        <div class="generic-form_icon">
+          <svg-icon :icon="field.props.suffixIcon" size="sm" />
         </div>
       </template>
     </el-input>

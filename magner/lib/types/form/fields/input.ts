@@ -9,10 +9,15 @@ export interface InputProps extends BaseProps {
   placeholder?: TranslateData,
 
   /**
-   * Icon as a Vue component.
+   * Icon as a Vue component. Displayed on the left side of the input
    * Used as `() => SomeIcon` or  `() => import('../smt.svg'))`
    */
-  icon?: IconImport,
+  prefixIcon?: IconImport,
+  /**
+   * Icon as a Vue component.Displayed on the right side of the input
+   * Used as `() => SomeIcon` or  `() => import('../smt.svg'))`
+   */
+  suffixIcon?: IconImport,
 
   /** An amount of milliseconds (put 400 for the best UX) of the delay for the 'update:modelValue' event of
    * the FormInput component to shoot after user typing finishes */
