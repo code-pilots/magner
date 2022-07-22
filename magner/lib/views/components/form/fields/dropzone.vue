@@ -85,7 +85,7 @@
 <script lang="ts">
 import '../../../../assets/styles/components/dropzone.css';
 import {
-  defineComponent, PropType, ref, nextTick,
+  defineComponent, PropType, ref, nextTick, watch,
 } from 'vue';
 import { useI18n } from 'vue-i18n';
 import type {
@@ -243,6 +243,13 @@ export default defineComponent({
     const inputChange = ({ target }: {target: HTMLInputElement}) => {
       if (target.files && !disabled.value) upload(Array.from(target.files));
     };
+
+    watch(() => props.modelValue, (newVal) => {
+      const values = files.value.map((file) => file?.value || file?.file || null).filter((file) => !!file);
+      if (JSON.stringify(values) === JSON.stringify(newVal)) return;
+
+      files.value = prepareValue(newVal, props.field);
+    }, { deep: true });
 
     return {
       t,
