@@ -128,7 +128,7 @@ export default defineComponent({
     const emitChange = () => {
       nextTick(() => {
         const values = files.value.map((file) => file?.value || file?.file || null).filter((file) => !!file);
-        context.emit('update:modelValue', !props.field.props.multiple ? values?.[0] || '' : values);
+        context.emit('update:modelValue', values);
       });
     };
 
