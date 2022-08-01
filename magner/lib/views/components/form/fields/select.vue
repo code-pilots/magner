@@ -41,7 +41,8 @@ import {
   ref,
   watchEffect,
   watch,
-  onMounted, onUpdated,
+  onMounted,
+  onUpdated,
 } from 'vue';
 import type { ElSelect } from 'element-plus';
 import type { SelectField } from 'lib/types/form/fields/select';
