@@ -41,7 +41,7 @@ import {
   ref,
   watchEffect,
   watch,
-  onMounted,
+  onMounted, onUpdated,
 } from 'vue';
 import type { ElSelect } from 'element-plus';
 import type { SelectField } from 'lib/types/form/fields/select';
@@ -103,14 +103,21 @@ export default defineComponent({
       return option || '';
     };
 
-    onMounted(async () => {
-      await remoteMethod('');
-
+    const setSelectValue = () => {
       if (typeof props.modelValue === 'object' && selectEl.value) {
         if (!Array.isArray(props.modelValue)) {
           selectEl.value.selectedLabel = getOptionLabel(props.modelValue);
         }
       }
+    };
+
+    onMounted(async () => {
+      await remoteMethod('');
+      setSelectValue();
+    });
+
+    onUpdated(() => {
+      setSelectValue();
     });
 
     watchEffect(() => {
