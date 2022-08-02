@@ -104,8 +104,8 @@ export default defineComponent({
       return option || '';
     };
 
-    const setSelectValue = () => {
-      if (typeof props.modelValue === 'object' && selectEl.value) {
+    const setSelectedLabel = () => {
+      if (props.modelValue && typeof props.modelValue === 'object' && selectEl.value) {
         if (!Array.isArray(props.modelValue)) {
           selectEl.value.selectedLabel = getOptionLabel(props.modelValue);
         }
@@ -114,11 +114,11 @@ export default defineComponent({
 
     onMounted(async () => {
       await remoteMethod('');
-      setSelectValue();
+      setSelectedLabel();
     });
 
     onUpdated(() => {
-      setSelectValue();
+      setSelectedLabel();
     });
 
     watchEffect(() => {
