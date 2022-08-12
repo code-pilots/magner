@@ -62,6 +62,7 @@ export interface FormInteractionsData<ENTITY extends {}> {
     = GenericComponent<ENTITY>>(name: keyof ENTITY) => FIELD | undefined,
   getDialogForm: <FORM = DialogForm<ENTITY>>(name: string) => DialogForm<ENTITY> | undefined,
   config: GenericForm<ENTITY>,
+  isNew: boolean,
   data?: unknown,
 }
 export type FieldInteractions<ENTITY extends {}> = (arg_1: FormInteractionsData<ENTITY>) => void

@@ -181,6 +181,7 @@ export default defineComponent({
       // @ts-ignore
       getField,
       getDialogForm,
+      isNew: props.isNew,
       config: reactiveConfig,
     });
 
