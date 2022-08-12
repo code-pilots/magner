@@ -157,7 +157,7 @@ export default defineComponent({
         if (!valid) return false;
 
         /** For PATCH methods, return the difference with existing data */
-        if (!props.config.fullDataOnUpdate && props.isNew) {
+        if (!props.config.fullDataOnUpdate && !props.isNew) {
           const diff = initialDifference(form, props.initialData);
           context.emit('submit', diff);
           return true;

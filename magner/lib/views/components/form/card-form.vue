@@ -5,7 +5,7 @@
     :error="error"
     :field-errors="fieldErrors"
     :skip-validation="!isNew ? ['empty'] : []"
-    :return-initial-difference="!isNew"
+    :is-new="isNew"
     :request-data="reqData"
     :skip-actions="isNew || !config.deleteRequest ? ['remove'] : []"
     class="card-form"
