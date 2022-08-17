@@ -56,7 +56,7 @@ export const enLocale = {
     },
 
     modal: {
-      before_close: 'Are you sure to close this dialog?',
+      before_close: 'Are you sure you want to close this window?"',
     },
   },
 };
