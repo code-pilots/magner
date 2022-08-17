@@ -26,10 +26,13 @@ import {
 import useDialogForm from 'lib/utils/form/use-dialog-form';
 import useStore from 'lib/controllers/store/store';
 import { magnerConfirm } from 'lib/utils';
+import { useTranslate } from 'lib/utils/core/translate';
 
 export default defineComponent({
   name: 'MagnerModal',
   setup () {
+    const { t } = useTranslate();
+
     const store = useStore();
     const dialogComponent = useDialogForm(undefined, true);
     const contentComponent = shallowRef();
@@ -73,8 +76,8 @@ export default defineComponent({
     const handleClose = (done: any) => {
       if (handleBeforeClose.value) {
         magnerConfirm({
-          title: 'Внимание',
-          message: 'Вы уверены, что хотите закрыть окно?',
+          title: t('core.card.attention'),
+          message: t('core.modal.before_close'),
         })
           .then(() => {
             store.dispatch('changeModalComponent', null);

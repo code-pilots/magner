@@ -56,5 +56,9 @@ export const ruLocale: TranslationSchema = {
       email: 'Неверный формат емейл',
       password: 'Пароль не может быть короче 6 символов',
     },
+
+    modal: {
+      before_close: 'Вы уверены, что хотите закрыть окно?',
+    },
   },
 };
