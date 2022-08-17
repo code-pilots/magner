@@ -35,6 +35,7 @@
 </template>
 
 <script lang="ts">
+import '../../../../assets/styles/components/select.css';
 import {
   defineComponent,
   PropType,

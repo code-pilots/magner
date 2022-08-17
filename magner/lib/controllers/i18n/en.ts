@@ -54,6 +54,10 @@ export const enLocale = {
       email: 'Wrong email format',
       password: 'Password cannot be shorter than 6 symbols',
     },
+
+    modal: {
+      before_close: 'Are you sure you want to close this window?"',
+    },
   },
 };
 

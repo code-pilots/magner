@@ -4,6 +4,7 @@ import type { RouteComponent } from 'vue-router';
 
 interface ModalConfigBase {
   type: 'card' | 'table' | 'custom',
+  handleBeforeClose?: boolean;
 }
 
 /** If modals are opened on the Card page, they receive form data and information about the entity */

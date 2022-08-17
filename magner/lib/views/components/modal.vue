@@ -3,6 +3,7 @@
     :is="dialogComponent.component"
     v-model="modalOpen"
     v-bind="dialogComponent.props"
+    :before-close="handleClose"
     @close="handleFail"
   >
     <template v-if="modalOpen">
@@ -24,15 +25,20 @@ import {
 } from 'vue';
 import useDialogForm from 'lib/utils/form/use-dialog-form';
 import useStore from 'lib/controllers/store/store';
+import { magnerConfirm } from 'lib/utils';
+import { useTranslate } from 'lib/utils/core/translate';
 
 export default defineComponent({
   name: 'MagnerModal',
   setup () {
+    const { t } = useTranslate();
+
     const store = useStore();
     const dialogComponent = useDialogForm(undefined, true);
     const contentComponent = shallowRef();
     const contentProps = ref();
     const modalOpen = ref(false);
+    const handleBeforeClose = ref(false);
 
     const modal = computed(() => store.state.modalData);
     watchEffect(async () => {
@@ -49,8 +55,10 @@ export default defineComponent({
           contentComponent.value = (imported as any)?.default || imported;
           contentProps.value = { ...config.props };
         }
+        handleBeforeClose.value = config.handleBeforeClose ?? false;
         modalOpen.value = true;
       } else {
+        handleBeforeClose.value = false;
         modalOpen.value = false;
       }
     });
@@ -65,6 +73,21 @@ export default defineComponent({
       store.dispatch('changeModalComponent', null);
     };
 
+    const handleClose = (done: any) => {
+      if (handleBeforeClose.value) {
+        magnerConfirm({
+          title: t('core.card.attention'),
+          message: t('core.modal.before_close'),
+        })
+          .then(() => {
+            store.dispatch('changeModalComponent', null);
+          })
+          .catch(() => {});
+      } else {
+        done();
+      }
+    };
+
     return {
       dialogComponent,
       contentComponent,
@@ -72,6 +95,7 @@ export default defineComponent({
       modalOpen,
       handleSuccess,
       handleFail,
+      handleClose,
     };
   },
 });
