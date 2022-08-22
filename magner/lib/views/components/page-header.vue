@@ -14,12 +14,28 @@
         v-for="tab in tabs.tabs"
         :key="tab.index"
         :name="tab.index"
+        :disabled="isNew && tab.requireSave"
       >
         <template #label>
-          <router-link v-if="!tab.active" :to="typeof tab.link === 'function' ? tab.link(route) : tab.link">
+          <el-tooltip
+            v-if="!tab.active && isNew && tab.requireSave"
+            placement="bottom"
+            effect="dark"
+            :content="tab.requireTooltipContent || ''"
+          >
+            <span class="is-disabled">
+              {{ customT(tab.label) }}
+            </span>
+          </el-tooltip>
+          <router-link
+            v-else-if="!tab.active"
+            :to="typeof tab.link === 'function' ? tab.link(route) : tab.link"
+          >
             {{ customT(tab.label) }}
           </router-link>
-          <span v-else>{{ customT(tab.label) }}</span>
+          <span v-else>
+            {{ customT(tab.label) }}
+          </span>
         </template>
       </el-tab-pane>
     </el-tabs>
@@ -40,6 +56,10 @@ export default defineComponent({
     header: {
       type: Object as PropType<PageHeader>,
       required: true,
+    },
+    isNew: {
+      type: Boolean,
+      default: false,
     },
   },
   emits: [],

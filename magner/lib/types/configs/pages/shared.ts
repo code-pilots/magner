@@ -7,6 +7,10 @@ export interface PageHeaderTab {
   /** Leave only one tab active for the better UX */
   active?: boolean,
 
+  /** If you need to save the page when switching to tab */
+  requireSave?: boolean,
+  requireTooltipContent?: string,
+
   /** In the tab, you can specify a function which takes a current route
    * as an argument and returns the vue-router acceptable link */
   link: ((route: RouteLocation) => RouteLocationRaw) | RouteLocationRaw,
