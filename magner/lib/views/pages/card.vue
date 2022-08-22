@@ -6,7 +6,10 @@
   >
     <template #default="{response, loading}">
       <section v-loading="loading" class="card-page" :class="pageName">
-        <PageHeader :header="config.header" />
+        <PageHeader
+          :header="config.header"
+          :is-new="isNew"
+        />
 
         <CardForm
           :config="config"
