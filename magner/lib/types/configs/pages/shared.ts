@@ -11,6 +11,7 @@ export interface PageHeaderTab {
    * as an argument and returns the vue-router acceptable link */
   link: ((route: RouteLocation) => RouteLocationRaw) | RouteLocationRaw,
 
+  /** If the new entity card needs to hide tab */
   hideIfNew?: boolean,
 }
 
