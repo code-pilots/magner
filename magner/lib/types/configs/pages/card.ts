@@ -1,7 +1,7 @@
 import type { RequestWrap, CardRequestData } from 'lib/types/utils/api';
 import type { InnerForm } from 'lib/types/form/form';
-import type { PageHeader } from './shared';
 import { TranslateData } from 'lib/utils/core/translate';
+import type { PageHeader } from './shared';
 
 export interface CardConfig<ENTITY extends {}> {
   /** Top header of a page. Consists of the page title and tabs */
@@ -9,6 +9,7 @@ export interface CardConfig<ENTITY extends {}> {
 
   /** CRUD requests for working with entity data */
   getRequest: RequestWrap<any, CardRequestData<ENTITY>>,
+  getNewRequest?: RequestWrap<any, CardRequestData<ENTITY>>,
   createRequest: RequestWrap<any, CardRequestData<ENTITY>>,
   updateRequest: RequestWrap<any, CardRequestData<ENTITY>>,
 
