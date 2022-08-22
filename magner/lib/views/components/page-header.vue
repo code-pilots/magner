@@ -41,6 +41,10 @@ export default defineComponent({
       type: Object as PropType<PageHeader>,
       required: true,
     },
+    isNew: {
+      type: Boolean,
+      default: false,
+    },
   },
   emits: [],
   setup (props) {
@@ -48,7 +52,7 @@ export default defineComponent({
     const route = useRoute();
 
     const tabs = computed(() => ({
-      tabs: props.header.tabs?.map((tab, index) => ({ ...tab, index: index.toString() })) || [],
+      tabs: props.header.tabs?.map((tab, index) => ({ ...tab, index: index.toString() })).filter((tab) => !props.isNew || (props.isNew && !tab.hideIfNew)) || [],
       activeIndex: props.header.tabs?.findIndex((tab) => tab.active)?.toString() || -1,
     }));
 

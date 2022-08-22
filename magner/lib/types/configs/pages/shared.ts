@@ -10,6 +10,9 @@ export interface PageHeaderTab {
   /** In the tab, you can specify a function which takes a current route
    * as an argument and returns the vue-router acceptable link */
   link: ((route: RouteLocation) => RouteLocationRaw) | RouteLocationRaw,
+
+  /** Hide the tab if it is used in the empty (New) entity card */
+  hideIfNew?: boolean,
 }
 
 export interface PageHeader {
