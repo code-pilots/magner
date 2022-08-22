@@ -1,5 +1,9 @@
 <template>
-  <Dynamic :request="config.getRequest" :data="{ id: cardId, isNew, data: null }" :disabled="isNew">
+  <Dynamic
+    :request="isNew && config.getNewRequest ? config.getNewRequest : config.getRequest"
+    :data="{ id: cardId, isNew, data: null }"
+    :disabled="isNew && !config.getNewRequest"
+  >
     <template #default="{response, loading}">
       <section v-loading="loading" class="card-page" :class="pageName">
         <PageHeader :header="config.header" />
