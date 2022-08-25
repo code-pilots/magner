@@ -1,13 +1,13 @@
 <template>
   <main :class="{'sidebar-collapsed': sidebarCollapsed}" class="main-layout">
     <Header
-      v-model:sidebar="sidebarOpen"
+      :sidebar="sidebarOpened"
       :collapsed="sidebarCollapsed"
       :settings="data"
     />
 
     <Sidebar
-      :class="{open: sidebarOpen}"
+      :class="{open: sidebarOpened}"
       :routing="routes"
       :groups="data.sidebarGroups"
       :active-route="activeRoute"
@@ -52,7 +52,7 @@ export default defineComponent({
     const route = useRoute();
     const store = useStore();
 
-    const sidebarOpen = ref<boolean>(false);
+    const sidebarOpened = computed<boolean>(() => store.state.sidebarOpened);
     const sidebarCollapsed = computed<boolean>(() => store.state.sidebarCollapsed);
 
     const activeRoute = computed<MainLayoutRoute | null>(() => props.routes
@@ -60,7 +60,7 @@ export default defineComponent({
 
     return {
       sidebarCollapsed,
-      sidebarOpen,
+      sidebarOpened,
       activeRoute,
     };
   },

@@ -19,10 +19,6 @@
 .page {
   position: relative;
   height: 100%;
-
-  @media (--breakpoint-small) {
-    padding: 4px;
-  }
 }
 
 .loading {

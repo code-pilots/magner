@@ -1,8 +1,8 @@
 <template>
   <section class="table-page">
-    <PageHeader :header="config.header" />
+    <PageHeader ref="pageHeaderEl" :header="config.header" />
 
-    <div v-if="hasFilters" class="table-page_top">
+    <div v-if="hasFilters && !filtersCollapsed" id="id-table-page-top" class="table-page_top">
       <GenericForm
         :config="{ ...config.filters, layout: topFilters }"
         :loading="false"
@@ -106,7 +106,7 @@
 import '../../assets/styles/pages/table.css';
 import {
   computed,
-  defineComponent, PropType, reactive, ref, shallowRef, watch, watchEffect,
+  defineComponent, onMounted, PropType, reactive, ref, shallowRef, watch, watchEffect,
 } from 'vue';
 import type { TableConfig } from 'lib/types/configs';
 import type { ActionAction } from 'lib/types/utils/actions';
@@ -145,6 +145,7 @@ export default defineComponent({
   },
   setup (props) {
     const tableEl = ref(null);
+    const pageHeaderEl = ref(null);
 
     const { t, customT } = useTranslate();
     const route = useRoute();
@@ -159,12 +160,13 @@ export default defineComponent({
     const drawerOpen = ref(false);
     const dynamicRef = ref<typeof Dynamic>();
 
+    const filtersCollapsed = computed(() => store.state.filtersCollapsed);
     const hasFilters = computed(() => !!(topFilters.value.length || props.config.filters.actions?.length));
     const hasHeader = computed(() => !!(props.config.header.title
       || (props.config.header.tabs && props.config.header.tabs.length)));
     const tableHeight = computed(() => {
       const navHeight = 50;
-      const headerHeight = hasHeader.value ? 72 : 0;
+      const headerHeight = hasHeader.value ? (pageHeaderEl.value as any)?.$el.offsetHeight : 0;
       const topHeight = hasFilters.value ? 57 : 0;
       const bottomHeight = 40;
 
@@ -248,6 +250,10 @@ export default defineComponent({
       }
     });
 
+    onMounted(() => {
+      store.dispatch('changeHasFilters', hasFilters.value);
+    });
+
     return {
       filterIcon: shallowRef(FilterIcon),
       plusIcon: shallowRef(PlusIcon),
@@ -259,12 +265,14 @@ export default defineComponent({
       drawerComponent,
       appliedFilters,
       dynamicRef,
+      filtersCollapsed,
       hasFilters,
       tableHeight,
       allFilters,
       topFilters,
       selected,
       tableEl,
+      pageHeaderEl,
       filtersAction,
       select,
       filterItems,

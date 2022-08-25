@@ -17,6 +17,14 @@
     @media (--breakpoint-small) {
       flex-direction: column;
       padding: 12px;
+
+      top: 0;
+      left: 0;
+      position: fixed;
+      background-color: #FFFFFF;
+      height: 100%;
+      border-right: 1px solid #EBEEF5;
+      z-index: 1000;
     }
 
     & .el-form-item {

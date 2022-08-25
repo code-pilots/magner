@@ -73,7 +73,7 @@
 <script lang="ts">
 import '../../../assets/styles/components/header.css';
 import {
-  defineComponent, PropType, ref, shallowRef,
+  defineComponent, onBeforeUnmount, onMounted, PropType, shallowRef,
 } from 'vue';
 import GlobeIcon from 'lib/assets/icons/globe.svg';
 import UserIcon from 'lib/assets/icons/user.svg';
@@ -82,6 +82,7 @@ import useStore from 'lib/controllers/store/store';
 import { useTranslate } from 'lib/utils/core/translate';
 import { useMobile } from 'lib/utils/core/is-mobile';
 import { MainLayoutProps } from 'lib/types/configs/routing/layouts';
+import { isInWhiteList } from 'lib/utils/helpers/white-list';
 
 export default defineComponent({
   name: 'Header',
@@ -109,13 +110,10 @@ export default defineComponent({
     const router = useRouter();
     const isMobile = useMobile();
 
-    const open = ref<boolean>(props.sidebar);
     const allLanguages = store.state.project.languages;
 
     const toggleOpen = () => {
-      const newVal = !open.value;
-      open.value = newVal;
-      context.emit('update:sidebar', newVal);
+      store.dispatch('toggleSidebarOpened');
     };
 
     const logout = async () => {
@@ -129,13 +127,33 @@ export default defineComponent({
       locale.value = lang;
     };
 
+    const clickedOutside = (e: MouseEvent) => {
+      if (props.sidebar) {
+        const content = document.getElementById('id-sidebar') || undefined;
+
+        if (
+          e.target
+          && !(e.target as HTMLElement).closest('.header_right_burger')
+          && !isInWhiteList(e.target, content)
+        ) {
+          store.dispatch('toggleSidebarOpened');
+        }
+      }
+    };
+
+    onMounted(() => {
+      document.addEventListener('click', clickedOutside);
+    });
+    onBeforeUnmount(() => {
+      document.removeEventListener('click', clickedOutside);
+    });
+
     return {
       userIcon,
       globeIcon,
       t,
       customT,
       isMobile,
-      open,
       allLanguages,
       changeLang,
       toggleOpen,
