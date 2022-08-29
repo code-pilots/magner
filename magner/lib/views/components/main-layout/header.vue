@@ -82,6 +82,7 @@ import { useTranslate } from 'lib/utils/core/translate';
 import { useMobile } from 'lib/utils/core/is-mobile';
 import { MainLayoutProps } from 'lib/types/configs/routing/layouts';
 import { isInWhiteList } from 'lib/utils/helpers/white-list';
+import { useClickOutside } from 'lib/utils/composables/clickOutside';
 
 export default defineComponent({
   name: 'Header',
@@ -126,25 +127,10 @@ export default defineComponent({
       locale.value = lang;
     };
 
-    const clickedOutside = (e: MouseEvent) => {
+    useClickOutside('id-sidebar', '.header_right_burger', () => {
       if (props.sidebar) {
-        const content = document.getElementById('id-sidebar') || undefined;
-
-        if (
-          e.target
-          && !(e.target as HTMLElement).closest('.header_right_burger')
-          && !isInWhiteList(e.target, content)
-        ) {
-          toggleOpen();
-        }
+        toggleOpen();
       }
-    };
-
-    onMounted(() => {
-      document.addEventListener('click', clickedOutside);
-    });
-    onBeforeUnmount(() => {
-      document.removeEventListener('click', clickedOutside);
     });
 
     return {

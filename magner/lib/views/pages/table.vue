@@ -151,7 +151,7 @@ import { layoutToFields, parseUrl } from 'lib/utils/form/form';
 import useDialogForm from 'lib/utils/form/use-dialog-form';
 import useStore from 'lib/controllers/store/store';
 import filterUrlDataComparison from 'lib/utils/form/filter-url-data-comparison';
-import { isInWhiteList } from 'lib/utils/helpers/white-list';
+import { useClickOutside } from 'lib/utils/composables/clickOutside';
 import PageHeader from '../components/page-header.vue';
 import DataTable from '../components/table.vue';
 import Dynamic from '../components/dynamic.vue';
@@ -198,7 +198,7 @@ export default defineComponent({
       || (props.config.header.tabs && props.config.header.tabs.length)));
     const tableHeight = computed(() => {
       const navHeight = 50;
-      const headerHeight = hasHeader.value ? (pageHeaderEl.value as any)?.$el.offsetHeight : 0;
+      const headerHeight = hasHeader.value ? (pageHeaderEl.value as unknown as {$el: HTMLElement}).$el.offsetHeight : 0;
       const bottomHeight = 40;
 
       const height = navHeight + headerHeight + bottomHeight;
@@ -283,25 +283,10 @@ export default defineComponent({
       filtersOpened.value = !filtersOpened.value;
     };
 
-    const clickedOutside = (e: MouseEvent) => {
+    useClickOutside('id-table-page-top', '.open-filters-btn', () => {
       if (filtersOpened.value) {
-        const content = document.getElementById('id-table-page-top') || undefined;
-
-        if (
-          e.target
-          && !(e.target as HTMLElement).closest('.open-filters-btn')
-          && !isInWhiteList(e.target, content)
-        ) {
-          toggleFilters();
-        }
+        toggleFilters();
       }
-    };
-
-    onMounted(() => {
-      document.addEventListener('click', clickedOutside);
-    });
-    onBeforeUnmount(() => {
-      document.removeEventListener('click', clickedOutside);
     });
 
     return {
