@@ -9,6 +9,7 @@
     <template v-if="modalOpen">
       <component
         :is="contentComponent"
+        is-modal
         v-bind="contentProps"
         @success="handleSuccess"
       />

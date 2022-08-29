@@ -142,8 +142,13 @@ export default defineComponent({
       type: Object as PropType<TableConfig<any>>,
       required: true,
     },
+    isModal: {
+      type: Boolean,
+      default: false,
+    },
   },
-  setup (props) {
+  emits: ['success'],
+  setup (props, context) {
     const tableEl = ref(null);
 
     const { t, customT } = useTranslate();
@@ -214,6 +219,10 @@ export default defineComponent({
       if (action.emits === 'deselect') {
         selected.value = [];
       }
+      if (action.emits === 'deselect-and-success') {
+        selected.value = [];
+        context.emit('success');
+      }
     };
 
     const changeSort = (sort: { column: any|null, prop: string|null, order: 'ascending'|'descending'|null }) => {
@@ -239,7 +248,9 @@ export default defineComponent({
     };
 
     watch(() => requestData, (val) => {
-      router.push({ path: route.path, query: { data: encodeURI(JSON.stringify(val)) } });
+      if (!props.isModal) {
+        router.push({ path: route.path, query: { data: encodeURI(JSON.stringify(val)) } });
+      }
     }, { deep: true });
 
     watchEffect(() => {

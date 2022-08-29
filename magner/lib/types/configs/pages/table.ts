@@ -3,7 +3,7 @@ import type { RequestCallback, RequestWrap } from 'lib/types/utils/api';
 import type { Table } from 'lib/types/components/table';
 import type { PageHeader } from 'lib/types/configs/pages/shared';
 
-export type TableActions = 'update-table' | 'deselect' | 'deselect-and-update';
+export type TableActions = 'update-table' | 'deselect' | 'deselect-and-update' | 'deselect-and-success';
 
 export interface FiltersForm<ENTITY extends {}> extends InnerForm<ENTITY, TableActions> {
   /** How many filters should be displayed in the top filters row */
