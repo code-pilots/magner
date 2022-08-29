@@ -3,6 +3,8 @@
     ref="tableEl"
     :data="data"
     :row-class-name="config.rowLink ? 'row-link' : ''"
+    :row-key="config.rowTree ? config.rowTree.key : ''"
+    :tree-props="{ children: config?.rowTree?.childrenListKey ?? '' }"
     class="data-table"
     :height="tableHeight"
     :stripe="config.stripe"

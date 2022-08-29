@@ -7,7 +7,7 @@
     />
   </template>
 
-  <template v-if="formattedCell.view === 'text'">
+  <template v-else-if="formattedCell.view === 'text'">
     {{ formattedCell.text }}
   </template>
 

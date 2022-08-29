@@ -17,8 +17,24 @@
       }
 
       & .cell {
+        display: flex;
+        align-items: center;
         padding: 0;
         line-height: 26px;
+
+        & .el-table__expand-icon {
+            height: 16px !important;
+            width: 16px !important;
+            margin: 0 0 0 6px;
+
+            &:hover {
+              color: var(--el-color-primary);
+             }
+
+            & .el-icon {
+                font-size: 16px;
+              }
+          }
       }
     }
   }
@@ -55,6 +71,12 @@
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
+    }
+  }
+
+  .el-table-column--selection {
+    .cell {
+      justify-content: center;
     }
   }
 }
