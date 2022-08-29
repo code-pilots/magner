@@ -142,7 +142,7 @@ export default defineComponent({
       type: Object as PropType<TableConfig<any>>,
       required: true,
     },
-    isModal: {
+    routerDisabled: {
       type: Boolean,
       default: false,
     },
@@ -248,7 +248,7 @@ export default defineComponent({
     };
 
     watch(() => requestData, (val) => {
-      if (!props.isModal) {
+      if (!props.routerDisabled) {
         router.push({ path: route.path, query: { data: encodeURI(JSON.stringify(val)) } });
       }
     }, { deep: true });
