@@ -133,8 +133,8 @@ export interface Table<ENTITY extends {} = {}> {
   rowTree?: {
     // ** The prop key is required. */
     /** https://element-plus.org/en-US/component/table.html#tree-data-and-lazy-mode */
-    key: keyof ENTITY,
+    key: string,
     // ** Attribute in row to determine which row contains children */
-    childrenListKey: keyof ENTITY,
+    childrenListKey: string,
   }
 }
