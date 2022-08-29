@@ -9,6 +9,7 @@
     <template v-if="modalOpen">
       <component
         :is="contentComponent"
+        router-disabled
         v-bind="contentProps"
         @success="handleSuccess"
       />
