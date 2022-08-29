@@ -128,4 +128,13 @@ export interface Table<ENTITY extends {} = {}> {
     /** Action to perform when 'remove button' is done on selection */
     actions?: ActionButton<TableActions>[],
   },
+
+  /** For rendering nested data */
+  rowTree?: {
+    // ** The prop key is required. */
+    /** https://element-plus.org/en-US/component/table.html#tree-data-and-lazy-mode */
+    key: string,
+    // ** Attribute in row to determine which row contains children */
+    childrenListKey: string,
+  }
 }
