@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <div class="header_logo">
-      <template v-if="collapsed">
+      <template v-if="collapsed || isMobile">
         <svg-icon v-if="settings.headerCollapsedIcon" :icon="settings.headerCollapsedIcon" size="inherit" />
         <h1 v-else-if="settings.headerTitle">{{ settings.headerTitle.charAt(0) || '' }}</h1>
         <svg-icon v-else core="logo-light" size="inherit" />
@@ -59,7 +59,6 @@
 
         <el-button
           v-if="isMobile"
-          circle
           class="header_right_burger"
           @click="toggleOpen"
         >
@@ -113,7 +112,7 @@ export default defineComponent({
     const allLanguages = store.state.project.languages;
 
     const toggleOpen = () => {
-      store.dispatch('toggleSidebarOpened');
+      store.dispatch('toggleMobileSidebarOpened');
     };
 
     const logout = async () => {
@@ -136,7 +135,7 @@ export default defineComponent({
           && !(e.target as HTMLElement).closest('.header_right_burger')
           && !isInWhiteList(e.target, content)
         ) {
-          store.dispatch('toggleSidebarOpened');
+          toggleOpen();
         }
       }
     };

@@ -49,3 +49,7 @@ body .el-dialog {
     }
   }
 }
+
+.el-select-dropdown {
+  max-width: 295px;
+}

@@ -9,7 +9,7 @@
 
   @media (--breakpoint-small) {
     width: 100%;
-    padding: 12px 10px;
+    padding: 0 10px 5px;
     border-bottom: 1px solid #EBEEF5;
   }
 
@@ -22,28 +22,6 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-  }
-
-  &_filters-btn {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #FFFFFF;
-    width: 36px;
-    min-width: 36px;
-    height: 36px;
-    margin-top: 6px;
-    border: 1px solid #dcdfe6;
-    border-radius: 3px;
-    box-sizing: border-box;
-
-    color: #46A0FC;
-    font-size: 0;
-    line-height: 0;
-
-    @media (--breakpoint-md) {
-      display: none;
-    }
   }
 
   &_title {

@@ -1,13 +1,13 @@
 <template>
   <main :class="{'sidebar-collapsed': sidebarCollapsed}" class="main-layout">
     <Header
-      :sidebar="sidebarOpened"
+      :sidebar="mobileSidebarOpened"
       :collapsed="sidebarCollapsed"
       :settings="data"
     />
 
     <Sidebar
-      :class="{open: sidebarOpened}"
+      :class="{open: mobileSidebarOpened}"
       :routing="routes"
       :groups="data.sidebarGroups"
       :active-route="activeRoute"
@@ -52,7 +52,7 @@ export default defineComponent({
     const route = useRoute();
     const store = useStore();
 
-    const sidebarOpened = computed<boolean>(() => store.state.sidebarOpened);
+    const mobileSidebarOpened = computed<boolean>(() => store.state.mobileSidebarOpened);
     const sidebarCollapsed = computed<boolean>(() => store.state.sidebarCollapsed);
 
     const activeRoute = computed<MainLayoutRoute | null>(() => props.routes
@@ -60,7 +60,7 @@ export default defineComponent({
 
     return {
       sidebarCollapsed,
-      sidebarOpened,
+      mobileSidebarOpened,
       activeRoute,
     };
   },

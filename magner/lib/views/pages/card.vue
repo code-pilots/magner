@@ -26,11 +26,10 @@
 <script lang="ts">
 import '../../assets/styles/pages/card.css';
 import {
-  computed, defineComponent, onMounted, PropType,
+  computed, defineComponent, PropType,
 } from 'vue';
 import { useRoute } from 'vue-router';
 import { useTranslate } from 'lib/utils/core/translate';
-import useStore from 'lib/controllers/store/store';
 import type { CardConfig } from 'lib/types/configs';
 import PageHeader from '../components/page-header.vue';
 import Dynamic from '../components/dynamic.vue';
@@ -59,15 +58,10 @@ export default defineComponent({
     const route = useRoute();
     const cardId = computed(() => props.entityId || route.params.id);
     const isNew = computed<boolean>(() => props.emptyCard || cardId.value === 'new' || !!props.config.alwaysCreate);
-    const store = useStore();
 
     const emitBack = (data: unknown) => {
       context.emit('success', data);
     };
-
-    onMounted(() => {
-      store.dispatch('changeHasFilters', false);
-    });
 
     return {
       emitBack,

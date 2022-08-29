@@ -135,7 +135,7 @@ export default defineComponent({
     };
 
     const navigate = (route: string) => {
-      store.dispatch('toggleSidebarOpened');
+      store.dispatch('toggleMobileSidebarOpened');
       const routeTo = props.routing.find((item) => item.name === route);
       router.push(routeTo?.link ? routeTo.link : { name: route });
     };

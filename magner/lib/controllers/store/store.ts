@@ -19,16 +19,8 @@ interface State {
   /**
    * used only for mobile screens. If true - sidebar opened
    */
-  sidebarOpened: boolean,
+  mobileSidebarOpened: boolean,
   sidebarCollapsed: boolean,
-  /**
-   * used only for mobile screens. True if filters are hidden
-   */
-  filtersCollapsed: boolean,
-  /**
-   * if true - "collapse filters" button is shown in header
-   */
-  hasFilters: boolean;
 
   modalData: ModalData | null,
 }
@@ -58,12 +50,9 @@ export const store = () => createStore<State>({
       user: null,
       role: null,
 
-      sidebarOpened: false,
+      mobileSidebarOpened: false,
       sidebarCollapsed: (typeof window !== 'undefined'
         && globalValues.lstorage.read('sidebarCollapsed') as boolean) || false,
-
-      filtersCollapsed: true,
-      hasFilters: false,
 
       modalData: null,
     };
@@ -91,8 +80,8 @@ export const store = () => createStore<State>({
       state.role = value;
     },
 
-    setSidebarOpened (state, value: boolean) {
-      state.sidebarOpened = value;
+    setMobileSidebarOpened (state, value: boolean) {
+      state.mobileSidebarOpened = value;
     },
 
     setSidebarCollapsed (state, value: boolean) {
@@ -102,14 +91,6 @@ export const store = () => createStore<State>({
       } else {
         globalValues.lstorage.delete('sidebarCollapsed');
       }
-    },
-
-    setFiltersCollapsed (state, value: boolean) {
-      state.filtersCollapsed = value;
-    },
-
-    setHasFilters (state, value: boolean) {
-      state.hasFilters = value;
     },
 
     setModalComponent (state, value: ModalData | null) {
@@ -137,24 +118,12 @@ export const store = () => createStore<State>({
       context.commit('setRole', null);
     },
 
-    toggleSidebarOpened (context, value: boolean) {
-      context.commit('setSidebarOpened', !context.state.sidebarOpened);
+    toggleMobileSidebarOpened (context, value: boolean) {
+      context.commit('setMobileSidebarOpened', !context.state.mobileSidebarOpened);
     },
 
     toggleSidebarCollapsed (context) {
       context.commit('setSidebarCollapsed', !context.state.sidebarCollapsed);
-    },
-
-    toggleFiltersCollapsed (context) {
-      context.commit('setFiltersCollapsed', !context.state.filtersCollapsed);
-    },
-
-    changeIsMobileScreen (context, value: boolean) {
-      context.commit('setFiltersCollapsed', value);
-    },
-
-    changeHasFilters (context, value: boolean) {
-      context.commit('setHasFilters', value);
     },
 
     changeModalComponent (context, value: ModalData | null) {
