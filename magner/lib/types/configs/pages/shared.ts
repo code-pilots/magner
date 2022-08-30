@@ -1,6 +1,6 @@
 import type { TranslateData } from 'lib/utils/core/translate';
 import type { RouteLocationRaw, RouteLocation } from 'vue-router';
-import { ActionButton } from 'lib/types/utils/actions';
+import type { ActionButton } from 'lib/types/utils/actions';
 
 export interface PageHeaderTab {
   label: TranslateData,
