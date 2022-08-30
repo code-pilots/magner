@@ -1,5 +1,6 @@
 import type { TranslateData } from 'lib/utils/core/translate';
 import type { RouteLocationRaw, RouteLocation } from 'vue-router';
+import type { ActionButton } from 'lib/types/utils/actions';
 
 export interface PageHeaderTab {
   label: TranslateData,
@@ -15,10 +16,13 @@ export interface PageHeaderTab {
   hideIfNew?: boolean,
 }
 
-export interface PageHeader {
+export interface PageHeader<EMITTERS = string> {
   /** Page title */
   title?: TranslateData,
 
   /** Tabs are the links to other pages represented in the form of tabs */
   tabs?: PageHeaderTab[],
+
+  /** Actions are buttons placed in page header */
+  actions?: ActionButton<EMITTERS>[],
 }

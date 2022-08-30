@@ -4,8 +4,7 @@
   padding: 12px 24px;
 
   @media (--breakpoint-small) {
-    width: 90%;
-    padding: 12px 0;
+    padding: 10px;
   }
 
   & .el-button {

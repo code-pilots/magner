@@ -8,13 +8,20 @@
   padding: 12px 24px;
 
   @media (--breakpoint-small) {
-    width: 90%;
-    padding: 12px 0;
+    width: 100%;
+    padding: 0 10px 5px;
+    border-bottom: 1px solid #EBEEF5;
   }
 
   @media (--breakpoint-md) {
     flex-direction: row;
     align-items: center;
+  }
+
+  &_title-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
   }
 
   &_title {

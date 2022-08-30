@@ -7,7 +7,7 @@
   --font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
   --font-regular: normal normal 1rem/1.125rem var(--font-family);
   --font-regular-light: 300 normal 1rem/1.125rem var(--font-family);
-  --font-h1: 500 normal 2rem/3rem var(--font-family);
+  --font-h1: 500 normal 1.8rem/2.8rem var(--font-family);
   --font-h2: 500 normal 1.5rem/1.875rem var(--font-family);
   --font-h3: 500 normal 1.25rem/1.5rem var(--font-family);
   --font-small: 300 normal 0.75rem/0.875rem var(--font-family);

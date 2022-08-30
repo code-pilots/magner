@@ -19,10 +19,6 @@
 .page {
   position: relative;
   height: 100%;
-
-  @media (--breakpoint-small) {
-    padding: 4px;
-  }
 }
 
 .loading {
@@ -52,4 +48,8 @@ body .el-dialog {
       padding: 0;
     }
   }
+}
+
+.el-select-dropdown {
+  max-width: 295px;
 }

@@ -49,6 +49,7 @@ export const ruLocale: TranslationSchema = {
       filters_submit: 'Применить фильтры',
       rows_selected: 'строк выбрано',
       remove: 'Удалить',
+      filters_close: 'Закрыть',
     },
 
     validation: {

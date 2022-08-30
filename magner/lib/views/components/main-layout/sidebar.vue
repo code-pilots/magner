@@ -1,5 +1,5 @@
 <template>
-  <nav :class="{collapsed: isCollapsed && !isMobile}" class="sidebar">
+  <nav id="id-sidebar" :class="{collapsed: isCollapsed && !isMobile}" class="sidebar">
     <el-scrollbar class="sidebar_scroll">
       <el-menu
         :collapse="isCollapsed && !isMobile"
@@ -131,10 +131,11 @@ export default defineComponent({
     };
 
     const toggleCollapse = () => {
-      store.dispatch('toggleSidebar');
+      store.dispatch('toggleSidebarCollapsed');
     };
 
     const navigate = (route: string) => {
+      store.dispatch('toggleMobileSidebarOpened');
       const routeTo = props.routing.find((item) => item.name === route);
       router.push(routeTo?.link ? routeTo.link : { name: route });
     };

@@ -16,7 +16,12 @@ interface State {
   user: unknown | null,
   role: string | null,
 
+  /**
+   * used only for mobile screens. If true - sidebar opened
+   */
+  mobileSidebarOpened: boolean,
   sidebarCollapsed: boolean,
+
   modalData: ModalData | null,
 }
 
@@ -45,8 +50,10 @@ export const store = () => createStore<State>({
       user: null,
       role: null,
 
+      mobileSidebarOpened: false,
       sidebarCollapsed: (typeof window !== 'undefined'
         && globalValues.lstorage.read('sidebarCollapsed') as boolean) || false,
+
       modalData: null,
     };
   },
@@ -73,7 +80,11 @@ export const store = () => createStore<State>({
       state.role = value;
     },
 
-    setSidebar (state, value: boolean) {
+    setMobileSidebarOpened (state, value: boolean) {
+      state.mobileSidebarOpened = value;
+    },
+
+    setSidebarCollapsed (state, value: boolean) {
       state.sidebarCollapsed = value;
       if (value) {
         globalValues.lstorage.put('sidebarCollapsed', value);
@@ -107,8 +118,12 @@ export const store = () => createStore<State>({
       context.commit('setRole', null);
     },
 
-    toggleSidebar (context) {
-      context.commit('setSidebar', !context.state.sidebarCollapsed);
+    toggleMobileSidebarOpened (context, value: boolean) {
+      context.commit('setMobileSidebarOpened', !context.state.mobileSidebarOpened);
+    },
+
+    toggleSidebarCollapsed (context) {
+      context.commit('setSidebarCollapsed', !context.state.sidebarCollapsed);
     },
 
     changeModalComponent (context, value: ModalData | null) {

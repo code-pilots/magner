@@ -1,4 +1,6 @@
 .data-table {
+  min-width: 768px;
+
   &.el-table::before {
     height: 0;
   }
@@ -7,6 +9,7 @@
     &__header {
       & .cell {
         line-height: 1em;
+        word-break: break-word;
       }
     }
 
@@ -21,6 +24,7 @@
         align-items: center;
         padding: 0;
         line-height: 26px;
+        word-break: break-word;
 
         & .el-table__expand-icon {
             height: 16px !important;

@@ -1,8 +1,10 @@
 <template>
   <div v-if="header.title || tabs.tabs.length" class="magner-page-header">
-    <h1 class="magner-page-header_title">
-      <template v-if="header.title">{{ customT(header.title) }}</template>
-    </h1>
+    <div class="magner-page-header_title-container">
+      <h1 class="magner-page-header_title">
+        <template v-if="header.title">{{ customT(header.title) }}</template>
+      </h1>
+    </div>
 
     <el-tabs
       v-if="header.tabs && tabs.tabs.length"
@@ -23,19 +25,28 @@
         </template>
       </el-tab-pane>
     </el-tabs>
+
+    <PageHeaderActions
+      :actions="header.actions"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import '../../assets/styles/components/page-header.css';
-import { computed, defineComponent, PropType } from 'vue';
+import {
+  computed, defineComponent, PropType,
+} from 'vue';
 import { useRoute } from 'vue-router';
 import { useTranslate } from 'lib/utils/core/translate';
 import type { PageHeader } from 'lib/types/configs/pages/shared';
+import PageHeaderActions from './page-header-actions.vue';
 
 export default defineComponent({
   name: 'PageHeader',
-  components: {},
+  components: {
+    PageHeaderActions,
+  },
   props: {
     header: {
       type: Object as PropType<PageHeader>,

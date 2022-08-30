@@ -4,65 +4,53 @@
   height: 100%;
   max-height: 100%;
 
-  @media (--breakpoint-small) {
-    display: block;
+  &_filters-btn-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding-bottom: 30px;
+    box-sizing: border-box;
   }
 
   &_top {
     display: flex;
-    justify-content: space-between;
-    padding: 12px 24px;
-    border-bottom: 1px solid #EBEEF5;
+    justify-content: flex-start;
+    flex-direction: column;
+    padding: 12px;
+    width: 320px;
+    box-sizing: border-box;
 
-    @media (--breakpoint-small) {
-      flex-direction: column;
-      padding: 12px;
-    }
-
-    & .el-form-item {
-      margin-bottom: 0;
-    }
-
-    & .el-button {
-      width: auto;
-      @media (--breakpoint-small) {
-        width: 100%;
-      }
-    }
+    top: 0;
+    right: 0;
+    position: fixed;
+    background-color: #FFFFFF;
+    height: 100%;
+    border-left: 1px solid #EBEEF5;
+    z-index: 10000;
 
     &_filters {
       display: flex;
-      flex-wrap: nowrap;
+      flex-direction: column;
       align-items: center;
+      margin-bottom: 4px;
       width: 100%;
       overflow-x: hidden;
 
-      @media (--breakpoint-small) {
-        flex-direction: column;
-        margin-bottom: 4px;
-      }
-
       & .generic-form_only-fields, & .generic-form_actions {
-        width: auto;
-        @media (--breakpoint-small) {
-          width: 100%;
-        }
+        display: block;
+        width: 100%;
+        margin-top: 5px;
       }
 
       & .more-filters {
-        @media (--breakpoint-small) {
-          margin-bottom: 4px;
-        }
+        margin-bottom: 4px;
       }
 
       & .el-form-item {
-        margin-right: 8px;
-        @media (--breakpoint-small) {
-          width: 100%;
-          max-width: 100%;
-          margin-right: 0;
-          margin-bottom: 4px;
-        }
+        width: 100%;
+        max-width: 100%;
+        margin-right: 0;
+        margin-bottom: 4px;
       }
 
       & .el-tag {
