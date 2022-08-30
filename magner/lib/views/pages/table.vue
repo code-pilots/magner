@@ -232,7 +232,7 @@ export default defineComponent({
     const clearFilters = () => requestData.filters = { ...(props.config.filters.filtersData || {}) };
 
     const filterItems = (form: Record<string, string>) => {
-      requestData.filters = { ...form };
+      requestData.filters = { ...requestData.filters, ...form };
       requestData.pagination = { ...(props.config.filters.pagination || {}) };
       drawerOpen.value = false;
     };
@@ -285,6 +285,7 @@ export default defineComponent({
     }, { deep: true });
 
     watchEffect(() => {
+      console.log('requestData.filters', requestData.filters);
       if (props.config.filters.saveToLocalStorage) {
         store.state.project.lstorage.deepPut('filters', route.name as string, { filters: requestData.filters });
       }
