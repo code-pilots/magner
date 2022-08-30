@@ -98,7 +98,7 @@
   }
 }
 
-.el-popper:not(.popper-sidebar-submenu):not(.el-dropdown__popper):not(.generic-form_item_tooltip):not(.el-picker__popper):not(.el-select__popper) {
+.el-popper:not(.popper-sidebar-submenu):not(.el-dropdown__popper):not(.generic-form_item_tooltip):not(.el-picker__popper):not(.el-select__popper):not(.el-cascader__dropdown) {
   background: #46A0FC !important;
   & .el-popper__arrow:before {
     background: #46A0FC !important;
