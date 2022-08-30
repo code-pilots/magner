@@ -8,7 +8,7 @@ import { isInWhiteList } from 'lib/utils/helpers/white-list';
  * @param targetSelector
  * @param callback
  */
-export const useClickOutside = (contentId: string, targetSelector: string, callback: () => void) => {
+export const useClickOutside = (contentId: string, targetSelector: string, callback: (e: EventTarget) => void) => {
   const clickedOutside = (e: MouseEvent) => {
     const content = document.getElementById(contentId) || undefined;
 
@@ -17,7 +17,7 @@ export const useClickOutside = (contentId: string, targetSelector: string, callb
       && !(e.target as HTMLElement).closest(targetSelector)
       && !isInWhiteList(e.target, content)
     ) {
-      callback();
+      callback(e.target);
     }
   };
 
