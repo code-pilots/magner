@@ -136,7 +136,7 @@
 import '../../assets/styles/pages/table.css';
 import {
   computed,
-  defineComponent, onBeforeUnmount, onMounted, PropType, reactive, ref, shallowRef, watch, watchEffect,
+  defineComponent, PropType, reactive, ref, shallowRef, watch, watchEffect,
 } from 'vue';
 import type { TableConfig } from 'lib/types/configs';
 import type { ActionAction } from 'lib/types/utils/actions';
@@ -232,7 +232,7 @@ export default defineComponent({
     const clearFilters = () => requestData.filters = { ...(props.config.filters.filtersData || {}) };
 
     const filterItems = (form: Record<string, string>) => {
-      requestData.filters = { ...form };
+      requestData.filters = { ...requestData.filters, ...form };
       requestData.pagination = { ...(props.config.filters.pagination || {}) };
       drawerOpen.value = false;
     };
@@ -294,9 +294,11 @@ export default defineComponent({
       filtersOpened.value = !filtersOpened.value;
     };
 
-    useClickOutside('id-table-page-top', '.open-filters-btn', () => {
+    useClickOutside('id-table-page-top', '.open-filters-btn', (e: EventTarget) => {
       if (filtersOpened.value) {
-        toggleFilters();
+        if (!(e as HTMLElement).closest('.el-popper')) {
+          toggleFilters();
+        }
       }
     });
 
