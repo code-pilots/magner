@@ -16,7 +16,7 @@
       :end-placeholder="customT(field.props.endPlaceholder)"
       :disabled="disabled"
       @blur="$emit('blur', $event)"
-      @update:modelValue="changeVal"
+      @update:model-value="changeVal"
     />
   </ReadonlyWrap>
 </template>

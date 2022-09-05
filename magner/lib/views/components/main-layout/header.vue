@@ -85,7 +85,7 @@ import { isInWhiteList } from 'lib/utils/helpers/white-list';
 import { useClickOutside } from 'lib/utils/composables/clickOutside';
 
 export default defineComponent({
-  name: 'Header',
+  name: 'MainHeader',
   props: {
     settings: {
       type: Object as PropType<MainLayoutProps>,

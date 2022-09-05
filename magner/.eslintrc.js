@@ -56,6 +56,7 @@ module.exports = {
     'no-unused-vars': 0,
     'vue/prop-name-casing': 0,
     'vue/valid-v-model': 0,
+    'vue/multi-word-component-names': 0,
     'lines-between-class-members': 0,
     'no-param-reassign': 0,
     'prefer-destructuring': 0,

@@ -66,7 +66,11 @@
         <GenericForm
           :config="{
             ...config.filters,
-            actions: [{ type: 'action', emits: 'submit', props: { type: 'primary', text: t('core.table.filters_submit') }}],
+            actions: [{
+              type: 'action',
+              emits: 'submit',
+              props: { type: 'primary', text: t('core.table.filters_submit') },
+            }],
             submitEvent: 'submit',
             size: 'default',
             clearable: true,
@@ -229,7 +233,9 @@ export default defineComponent({
       .filter((filter) => (filter && typeof filter === 'object'
         ? filter instanceof Date || Object.keys(filter)?.length
         : !!filter)).length);
-    const clearFilters = () => requestData.filters = { ...(props.config.filters.filtersData || {}) };
+    const clearFilters = () => {
+      requestData.filters = { ...(props.config.filters.filtersData || {}) };
+    };
 
     const filterItems = (form: Record<string, string>) => {
       requestData.filters = { ...requestData.filters, ...form };

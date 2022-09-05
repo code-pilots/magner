@@ -23,7 +23,7 @@
           @error="setFieldError(field.name, $event)"
           @action="customAction(field.name, $event)"
           @blur="validateField(field.name, 'blur')"
-          @update:modelValue="controlOnInput(field.name, $event)"
+          @update:model-value="controlOnInput(field.name, $event)"
         />
       </template>
     </FormLayout>

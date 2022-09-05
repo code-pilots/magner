@@ -31,7 +31,7 @@
       :field="field"
       @action="customAction"
       @blur="$emit('blur', $event)"
-      @update:modelValue="updVal"
+      @update:model-value="updVal"
     />
 
     <FormInput
@@ -39,7 +39,7 @@
       v-model="val"
       :field="field"
       @blur="$emit('blur', $event)"
-      @update:modelValue="updVal"
+      @update:model-value="updVal"
     />
 
     <FormTextarea
@@ -47,28 +47,28 @@
       v-model="val"
       :field="field"
       @blur="$emit('blur', $event)"
-      @update:modelValue="updVal"
+      @update:model-value="updVal"
     />
 
     <FormRadio
       v-else-if="field.type === 'radio'"
       v-model="val"
       :field="field"
-      @update:modelValue="updVal"
+      @update:model-value="updVal"
     />
 
     <FormCheckbox
       v-else-if="field.type === 'checkbox'"
       v-model="val"
       :field="field"
-      @update:modelValue="updVal"
+      @update:model-value="updVal"
     />
 
     <FormSwitch
       v-else-if="field.type === 'switch'"
       v-model="val"
       :field="field"
-      @update:modelValue="updVal"
+      @update:model-value="updVal"
     />
 
     <FormSelect
@@ -76,7 +76,7 @@
       v-model="val"
       :field="field"
       @blur="$emit('blur', $event)"
-      @update:modelValue="updVal"
+      @update:model-value="updVal"
     />
 
     <DateTime
@@ -84,15 +84,15 @@
       v-model="val"
       :field="field"
       @blur="$emit('blur', $event)"
-      @update:modelValue="updVal"
+      @update:model-value="updVal"
     />
 
     <Dropzone
       v-else-if="field.type === 'dropzone'"
       v-model="val"
       :field="field"
-      @textErrors="setError"
-      @update:modelValue="updVal"
+      @text-errors="setError"
+      @update:model-value="updVal"
     />
 
     <FormEditor
@@ -100,18 +100,18 @@
       v-model="val"
       :field="field"
       @blur="$emit('blur', $event)"
-      @update:modelValue="updVal"
+      @update:model-value="updVal"
     />
 
     <template v-else-if="field.type === 'custom' && customComponent">
       <component
         :is="customComponent"
+        v-model="val"
         :field="field.props"
         :form="form"
-        v-model="val"
         @blur="$emit('blur', $event)"
         @action="customAction"
-        @update:modelValue="updVal"
+        @update:model-value="updVal"
       />
     </template>
   </el-form-item>
@@ -126,7 +126,7 @@
               :field="nestedField"
               :form="form"
               @blur="$emit('blur', $event)"
-              @update:modelValue="changeCollectionItem(i, nestedField.name, $event)"
+              @update:model-value="changeCollectionItem(i, nestedField.name, $event)"
             />
           </template>
 

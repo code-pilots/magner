@@ -1,6 +1,6 @@
 import type { TranslateData } from 'lib/utils/core/translate';
-import type { BaseField, BaseProps } from '../base';
 import type { IconImport } from 'lib/types/utils/useful';
+import type { BaseField, BaseProps } from '../base';
 
 export type ButtonType = 'primary' | 'success' | 'warning' | 'danger' | 'info' | 'text';
 export type ButtonNativeType = 'button' | 'submit';

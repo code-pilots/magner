@@ -3,7 +3,7 @@
     :is="formComponent.component"
     :model-value="open"
     v-bind="formComponent.props"
-    @update:modelValue="toggleOpen"
+    @update:model-value="toggleOpen"
   >
     <GenericForm
       :config="{

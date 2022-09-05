@@ -1,6 +1,6 @@
 <template>
   <main :class="{'sidebar-collapsed': sidebarCollapsed}" class="main-layout">
-    <Header
+    <MainHeader
       :sidebar="mobileSidebarOpened"
       :collapsed="sidebarCollapsed"
       :settings="data"
@@ -29,14 +29,14 @@ import {
 import { useRoute } from 'vue-router';
 import type { MainLayoutProps, MainLayoutRoute } from 'lib/types/configs/routing/layouts';
 import useStore from 'lib/controllers/store/store';
-import Header from 'lib/views/components/main-layout/header.vue';
+import MainHeader from 'lib/views/components/main-layout/header.vue';
 import Sidebar from 'lib/views/components/main-layout/sidebar.vue';
 
 export default defineComponent({
   name: 'MainLayout',
   components: {
     Sidebar,
-    Header,
+    MainHeader,
   },
   props: {
     routes: {

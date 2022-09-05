@@ -65,7 +65,7 @@
         @click.self="select"
       ></transition-group>-->
 
-      <slot :files="files" :dragOver="dragOver" :select="select" />
+      <slot :files="files" :drag-over="dragOver" :select="select" />
     </div>
 
     <template #readonly>
