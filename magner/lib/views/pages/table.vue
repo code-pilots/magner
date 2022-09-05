@@ -6,7 +6,7 @@
         ...config.header,
         actions: [
           ...(config.header.actions ? config.header.actions : []),
-          ...(hasFilters ? [{
+          ...(hasFilters && false ? [{
             type: 'action',
             props: {
               type: 'primary',
@@ -20,8 +20,8 @@
       }"
     />
 
-    <div v-if="hasFilters && filtersOpened" id="id-table-page-top" class="table-page_top">
-      <div class="table-page_filters-btn-container">
+    <div v-if="hasFilters" id="id-table-page-top" class="table-page_top">
+      <div v-if="false" class="table-page_filters-btn-container">
         <el-button
           type="primary"
           :text="t('core.table.filters_close')"

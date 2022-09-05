@@ -8,20 +8,17 @@
   padding: 12px 24px;
 
   @media (--breakpoint-small) {
-    width: 100%;
-    padding: 0 10px 5px;
-    border-bottom: 1px solid #EBEEF5;
+    width: 90%;
+    padding: 12px 0;
+  }
+
+  & .generic-form_actions:empty {
+    width: 0;
   }
 
   @media (--breakpoint-md) {
     flex-direction: row;
     align-items: center;
-  }
-
-  &_title-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
   }
 
   &_title {
