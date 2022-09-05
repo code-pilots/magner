@@ -1,3 +1,12 @@
+## [0.6.21](https://github.com/code-pilots/magner/compare/v0.6.20...v0.6.21) (2022-09-05)
+
+
+### Bug Fixes
+
+* update variables inside CI config ([1fb5fa6](https://github.com/code-pilots/magner/commit/1fb5fa6e7b525379d9598f59acd0180941111e7c))
+
+
+
 ## [0.6.20](https://github.com/code-pilots/magner/compare/0.4.1...0.6.20) (2022-09-05)
 
 
