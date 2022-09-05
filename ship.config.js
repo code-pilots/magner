@@ -1,6 +1,6 @@
 module.exports = {
   installCommand: () => 'pnpm i',
-  buildCommand: () => 'pnpm build',
+  buildCommand: () => 'pnpm build:packages',
   monorepo: {
     mainVersionFile: 'magner/package.json',
     packagesToBump: ['magner'],

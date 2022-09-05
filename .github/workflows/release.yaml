@@ -20,19 +20,13 @@ jobs:
         with:
           version: 7.5.0
 
-      - name: Install and Build packages only 🔧
+      - name: Install the dependencies 🔧
         run: |
           pnpm install
-          pnpm build:packages
-
-      - name: Alias "npm" to "pnpm"
-        run: |
-          alias npm="pnpm"
 
       - name: Release "magner"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          cd magner
-          pnpx semantic-release
+          pnpm release:publish
