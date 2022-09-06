@@ -5,6 +5,7 @@
     :prop="field.name"
     :label-width="field.label ? (isMobile ? null : '100px') : '0'"
     :error="error"
+    :rules="validatorRules"
     :class="['generic-form_item', 'generic-form_item-' + field.type, 'input-' + field.name, {
       'readonly': readOnly,
       'disabled': disabled && !readOnly,
@@ -117,7 +118,12 @@
   </el-form-item>
 
   <div v-else-if="!hidden" :class="['form-collection', `collection-${field.name}`]">
-    <template v-for="(itm, i) in val" :key="i">
+    <el-form
+      v-for="(itm, i) in val"
+      ref="collectionFormEl"
+      :key="i"
+      :model="itm"
+    >
       <template v-for="(layout, j) in field.layout" :key="i.toString() + j">
         <FormLayoutBlock :block="layout" :class="$attrs.class">
           <template #item="nestedField">
@@ -125,8 +131,8 @@
               v-model="itm[nestedField.name]"
               :field="nestedField"
               :form="form"
-              @blur="$emit('blur', $event)"
-              @update:model-value="changeCollectionItem(i, nestedField.name, $event)"
+              @blur="blurCollectionItem(i, nestedField, $event)"
+              @update:model-value="changeCollectionItem(i, nestedField, $event)"
             />
           </template>
 
@@ -147,7 +153,7 @@
       </template>
 
       <div class="flex-grow" />
-    </template>
+    </el-form>
 
     <div v-if="!readOnly" class="form-collection_add">
       <el-button
@@ -165,14 +171,16 @@
 
 <script lang="ts">
 import {
-  shallowRef, defineComponent, PropType, ref, watchEffect,
+  shallowRef, defineComponent, PropType, ref, watchEffect, reactive, computed,
 } from 'vue';
 import type { GenericComponent } from 'lib/types/form';
 import type { GenericFormLayout } from 'lib/types/form/layout';
+import type { BaseValidation } from 'lib/types/form/base';
 import { collectFieldsFromLayout, DataTypeInitials, fieldsToModels } from 'lib/utils/form/form';
 import { useTranslate } from 'lib/utils/core/translate';
 import { useMobile } from 'lib/utils/core/is-mobile';
 import { useChecks } from 'lib/utils/core/mixed-check';
+import setupValidators from 'lib/utils/form/setup-validators';
 import PlusIcon from 'lib/assets/icons/plus.svg';
 import XIcon from 'lib/assets/icons/x.svg';
 import FormInput from './fields/input.vue';
@@ -232,8 +240,10 @@ export default defineComponent({
     const plusIcon = shallowRef(PlusIcon);
     const xIcon = shallowRef(XIcon);
 
+    const collectionFormEl = ref();
     const collectionFields = collectFieldsFromLayout(props.field.type === 'collection'
       ? (props.field.layout as unknown as GenericFormLayout<any>) : []);
+    const validatorRules = setupValidators(props.field, [], props.form);
 
     const val = ref<any>(props.modelValue);
     watchEffect(() => {
@@ -262,8 +272,20 @@ export default defineComponent({
       context.emit('update:modelValue', val.value);
     };
 
-    const changeCollectionItem = () => {
+    const validateCollectionField = (field: GenericComponent<any>, index: number, trigger: 'change' | 'blur' | 'input') => {
+      const validations = ([] as BaseValidation[]).concat(field.validation || []);
+      validations.forEach((rule) => {
+        if (rule.trigger === trigger) (collectionFormEl.value?.[index] as any).validateField?.(field.name);
+      });
+    };
+
+    const changeCollectionItem = (index: number, field: GenericComponent<any>) => {
+      validateCollectionField(field, index, 'change');
       context.emit('update:modelValue', val.value);
+    };
+    const blurCollectionItem = (index: number, field: GenericComponent<any>) => {
+      validateCollectionField(field, index, 'blur');
+      context.emit('blur', val.value);
     };
 
     return {
@@ -274,12 +296,15 @@ export default defineComponent({
       disabled,
       customComponent,
       t,
-      customT,
       plusIcon,
       xIcon,
+      validatorRules,
+      collectionFormEl,
+      customT,
       updVal,
       setError,
       customAction,
+      blurCollectionItem,
       changeCollectionItem,
       changeCollectionItems,
     };

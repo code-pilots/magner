@@ -2,7 +2,6 @@
   <el-form
     ref="formEl"
     :model="form"
-    :rules="validation"
     :label-position="'top'"
     :size="reactiveConfig.size"
     :class="['generic-form']"
@@ -74,7 +73,6 @@ import { fieldsToModels, initialDifference, layoutToFields } from 'lib/utils/for
 import { useTranslate } from 'lib/utils/core/translate';
 import { useMobile } from 'lib/utils/core/is-mobile';
 import { updateFieldValues } from 'lib/utils/core/mixed-check';
-import setupValidators from 'lib/utils/form/setup-validators';
 import FormItem from './form-item.vue';
 import FormLayout from './layout.vue';
 import FormActions from './form-actions.vue';
@@ -141,7 +139,6 @@ export default defineComponent({
     const reactiveConfig = reactive(props.config);
     const allFields = computed(() => layoutToFields(reactiveConfig.layout));
     const form = reactive(fieldsToModels(allFields.value, props.initialData));
-    const validation = setupValidators(allFields.value, props.skipValidation, form);
 
     const globalError = ref<string>(props.error); // Error of the whole form
     const errors = ref<Record<string, string>>(props.fieldErrors); // Field errors record
@@ -185,7 +182,7 @@ export default defineComponent({
       config: reactiveConfig,
     });
 
-    const validateField = (field: string, trigger: 'change' | 'blur') => {
+    const validateField = (field: string, trigger: 'change' | 'blur' | 'input') => {
       const fieldProps = getField(field);
       if (!fieldProps) return;
       const validations = ([] as BaseValidation[]).concat(fieldProps.validation || []);
@@ -279,7 +276,6 @@ export default defineComponent({
       customT,
       reactiveConfig,
       form,
-      validation,
       formEl,
       globalError,
       errors,

@@ -45,7 +45,7 @@ export type ValidatorFunc = (
 export interface ValidationField {
   type: SupportedDataTypes,
   validator: ValidatorFunc,
-  trigger: 'blur'|'change',
+  trigger: 'blur' |'change' | 'input',
 }
 
 export type Validators<CUSTOM_VALIDATION extends string>
