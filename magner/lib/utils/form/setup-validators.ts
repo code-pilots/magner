@@ -1,44 +1,41 @@
 import type { GenericComponent } from 'lib/types/form';
-import type { SupportedValidators, ValidationField } from 'lib/types';
+import type { ValidatorFunc, SupportedValidators, ValidationField } from 'lib/types/configs/development';
 import globalValues from 'lib/global';
-import { layoutToFields } from './form';
 
-type SetupFunc = (
-  fields: GenericComponent<Record<string, any>>[],
+type SetupValidatorFunc = (
+  layout: GenericComponent<any>,
   skipValidation: boolean | SupportedValidators[],
   form: Record<string, any>
-) => Record<string, ValidationField[]>;
+) => ValidationField[] | null;
 
 /**
- * The function goes through all the form fields and collects the 'validation' property, transforms it
- * to the function from the existing validation types and passed to the Form component as a 'rules' prop.
+ * The function takes a field configuration and produces validation rules for it.
+ * To do so, it takes the validation type setting and maps it to the configured validators.
+ *
+ * This `rules`, therefore, is used inside
+ * the [Element-UI's form component](https://element-plus.org/en-US/component/form.html#validation)
+ * along with the [`async-validator`](https://github.com/yiminghe/async-validator)
  */
-const setupValidators: SetupFunc = (layout, skipValidation, form) => {
-  const fields = layoutToFields(layout);
+const setupValidators: SetupValidatorFunc = (field, skipValidation, form) => {
+  if (!field.validation || !skipValidation || skipValidation === true) return null;
 
-  return fields.reduce((accum, field) => {
-    if (!field.validation || !skipValidation || skipValidation === true) return accum;
+  // Make validation to be an array and filter it from skipped validation types
+  const validations = (Array.isArray(field.validation) ? field.validation : [field.validation])
+    .filter((validation) => !skipValidation.includes(validation.type));
 
-    // Make validation to be an array and filter it from skipped validation types
-    const validations = (Array.isArray(field.validation) ? field.validation : [field.validation])
-      .filter((validation) => !skipValidation.includes(validation.type));
+  if (!validations.length) {
+    return null;
+  }
 
-    if (!validations.length) {
-      return accum;
-    }
-
-    accum[field.name] = validations.map((validation) => ({
-      type: field.dataType || 'string',
-      trigger: validation.trigger,
-      validator: (rule, value, callback) => globalValues.development.validation[validation.type]({
-        rule,
-        value,
-        form,
-      }, callback),
-    }));
-
-    return accum;
-  }, {} as Record<string, ValidationField[]>);
+  return validations.map((validation) => ({
+    type: field.dataType || 'string',
+    trigger: validation.trigger,
+    validator: ((rule, value, callback) => globalValues.development.validation[validation.type]({
+      rule,
+      value,
+      form,
+    }, callback)) as ValidatorFunc,
+  }));
 };
 
 export default setupValidators;
