@@ -1,3 +1,13 @@
+## [0.6.22](https://github.com/code-pilots/magner/compare/v0.6.21...v0.6.22) (2022-09-06)
+
+
+### Features
+
+* **magner:** connect all nested forms to be validated when submitted ([45f9bb0](https://github.com/code-pilots/magner/commit/45f9bb01d6f09a3d36256f53313452422b8e4422))
+* **magner:** move validation rules from ElForm to ElFormItem ([16c6937](https://github.com/code-pilots/magner/commit/16c693731eafd6b448e7e4a6849043a3223d9350))
+
+
+
 ## [0.6.21](https://github.com/code-pilots/magner/compare/v0.6.20...v0.6.21) (2022-09-05)
 
 
