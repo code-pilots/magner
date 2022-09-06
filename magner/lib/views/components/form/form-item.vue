@@ -171,11 +171,12 @@
 
 <script lang="ts">
 import {
-  shallowRef, defineComponent, PropType, ref, watchEffect, reactive, computed,
+  shallowRef, defineComponent, PropType, ref, watchEffect, reactive, computed, onMounted,
 } from 'vue';
 import type { GenericComponent } from 'lib/types/form';
 import type { GenericFormLayout } from 'lib/types/form/layout';
 import type { BaseValidation } from 'lib/types/form/base';
+import type { FormValidator } from 'lib/types/configs/development';
 import { collectFieldsFromLayout, DataTypeInitials, fieldsToModels } from 'lib/utils/form/form';
 import { useTranslate } from 'lib/utils/core/translate';
 import { useMobile } from 'lib/utils/core/is-mobile';
@@ -230,7 +231,7 @@ export default defineComponent({
       default: '',
     },
   },
-  emits: ['update:modelValue', 'error', 'action', 'blur'],
+  emits: ['update:modelValue', 'error', 'action', 'blur', 'validator-register'],
   setup (props, context) {
     const { customT, t } = useTranslate();
     const isMobile = useMobile();
@@ -275,8 +276,18 @@ export default defineComponent({
     const validateCollectionField = (field: GenericComponent<any>, index: number, trigger: 'change' | 'blur' | 'input') => {
       const validations = ([] as BaseValidation[]).concat(field.validation || []);
       validations.forEach((rule) => {
-        if (rule.trigger === trigger) (collectionFormEl.value?.[index] as any).validateField?.(field.name);
+        if (rule.trigger === trigger) {
+          (collectionFormEl.value?.[index] as FormValidator).validateField?.(field.name as string);
+        }
       });
+    };
+    const validateAllForms = async () => {
+      let failed = false;
+      const items = Array.isArray(collectionFormEl.value) ? collectionFormEl.value : [collectionFormEl.value] as FormValidator[];
+      await Promise.all(items.map(async (el) => {
+        await el?.validate?.().catch(() => { failed = true; });
+      }));
+      return !failed;
     };
 
     const changeCollectionItem = (index: number, field: GenericComponent<any>) => {
@@ -287,6 +298,10 @@ export default defineComponent({
       validateCollectionField(field, index, 'blur');
       context.emit('blur', val.value);
     };
+
+    onMounted(() => {
+      context.emit('validator-register', validateAllForms);
+    });
 
     return {
       val,
@@ -300,6 +315,7 @@ export default defineComponent({
       xIcon,
       validatorRules,
       collectionFormEl,
+      validateAllForms,
       customT,
       updVal,
       setError,

@@ -51,6 +51,11 @@ export interface ValidationField {
 export type Validators<CUSTOM_VALIDATION extends string>
   = Record<CUSTOM_VALIDATION, ValidatorWrapper>;
 
+export interface FormValidator extends HTMLFormElement {
+  validate: Function,
+  validateField: (name: string) => void,
+}
+
 export interface DevelopmentConfig {
   /** Constants that should be hidden */
   envs: {

@@ -22,6 +22,7 @@
           @error="setFieldError(field.name, $event)"
           @action="customAction(field.name, $event)"
           @blur="validateField(field.name, 'blur')"
+          @validator-register="formValidatorRegister"
           @update:model-value="controlOnInput(field.name, $event)"
         />
       </template>
@@ -67,7 +68,7 @@ import {
 import { useRouter } from 'vue-router';
 import type { GenericForm } from 'lib/types/form';
 import type { BaseValidation, FormInteractionsData } from 'lib/types/form/base';
-import type { SupportedValidators } from 'lib/types/configs';
+import type { SupportedValidators, FormValidator } from 'lib/types/configs/development';
 import type { ActionAction } from 'lib/types/utils/actions';
 import { fieldsToModels, initialDifference, layoutToFields } from 'lib/utils/form/form';
 import { useTranslate } from 'lib/utils/core/translate';
@@ -77,10 +78,7 @@ import FormItem from './form-item.vue';
 import FormLayout from './layout.vue';
 import FormActions from './form-actions.vue';
 
-interface FormValidator extends HTMLFormElement {
-  validate: Function,
-  validateField: (name: string) => void,
-}
+type FormItemEl = { validateAllForms: () => Promise<boolean> };
 
 export default defineComponent({
   name: 'GenericForm',
@@ -149,20 +147,37 @@ export default defineComponent({
       updateFieldValues(field, form, props.isNew);
     });
 
-    const submit = () => {
-      (formEl.value as FormValidator).validate(async (valid: boolean) => {
-        if (!valid) return false;
+    const formValidators = ref<FormItemEl['validateAllForms'][]>([]);
+    const formValidatorRegister = (validator: FormItemEl['validateAllForms']) => {
+      formValidators.value.push(validator);
+    };
 
-        /** For PATCH methods, return the difference with existing data */
-        if (!props.config.fullDataOnUpdate && !props.isNew) {
-          const diff = initialDifference(form, props.initialData);
-          context.emit('submit', diff);
-          return true;
-        }
+    // Call `validate` method in all `ElForm` components
+    const validateAllForms = async () => {
+      let failed = false;
+      await (formEl.value as FormValidator).validate().catch(() => { failed = true; });
 
-        context.emit('submit', form);
+      await Promise.all(formValidators.value.map(async (func) => {
+        const valid = await func();
+        if (!valid) failed = true;
+      }));
+
+      return !failed;
+    };
+
+    const submit = async () => {
+      const valid = await validateAllForms();
+      if (!valid) return false;
+
+      /** For PATCH methods, return the difference with existing data */
+      if (!props.config.fullDataOnUpdate && !props.isNew) {
+        const diff = initialDifference(form, props.initialData);
+        context.emit('submit', diff);
         return true;
-      });
+      }
+
+      context.emit('submit', form);
+      return true;
     };
 
     const enterSubmit = () => {
@@ -289,6 +304,7 @@ export default defineComponent({
       doActions,
       enterSubmit,
       validateField,
+      formValidatorRegister,
     };
   },
 });
