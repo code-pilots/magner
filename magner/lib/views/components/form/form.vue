@@ -23,7 +23,7 @@
           @action="customAction(field.name, $event)"
           @blur="validateField(field.name, 'blur')"
           @validator-register="formValidatorRegister"
-          @update:model-value="controlOnInput(field.name, $event)"
+          @update:model-value="controlOnInput"
         />
       </template>
     </FormLayout>
@@ -66,7 +66,7 @@ import {
   watchEffect, computed, watch,
 } from 'vue';
 import { useRouter } from 'vue-router';
-import type { GenericForm } from 'lib/types/form';
+import type { GenericComponent, GenericForm } from 'lib/types/form';
 import type { BaseValidation, FormInteractionsData } from 'lib/types/form/base';
 import type { SupportedValidators, FormValidator } from 'lib/types/configs/development';
 import type { ActionAction } from 'lib/types/utils/actions';
@@ -206,16 +206,15 @@ export default defineComponent({
       });
     };
 
-    const controlOnInput = (field: string, newValue: any) => {
-      form[field] = newValue;
+    const controlOnInput = (newValue: any, field: GenericComponent<any>, collectionName?: string) => {
+      form[collectionName || field.name as string] = newValue;
       if (reactiveConfig.submitEvent === 'input') {
         submit();
       }
 
-      const fieldConfig = getField(field);
-      if (fieldConfig?.changeAction) fieldConfig.changeAction(formData);
+      if (field?.changeAction) field.changeAction(formData);
 
-      validateField(field, 'change');
+      if (!collectionName) validateField(field.name as string, 'change');
     };
 
     const customAction = (field: string, e: { type: string }) => {

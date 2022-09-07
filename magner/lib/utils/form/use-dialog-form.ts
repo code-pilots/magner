@@ -20,7 +20,7 @@ const useDialogForm = (title?: TranslateData, dialogOnMobile?: boolean) => {
       title: customT(title || ''),
       width: isMobile.value ? '95%' : '70%',
       top: '114px',
-      customClass: 'form_dialog',
+      class: 'form_dialog',
     },
   }));
 };

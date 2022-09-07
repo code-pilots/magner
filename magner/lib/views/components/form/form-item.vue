@@ -252,7 +252,7 @@ export default defineComponent({
     });
 
     const updVal = (newValue: any) => {
-      context.emit('update:modelValue', newValue);
+      context.emit('update:modelValue', newValue, props.field);
     };
 
     const setError = (newValue: any) => {
@@ -270,7 +270,7 @@ export default defineComponent({
       } else {
         val.value = (val.value as CollectionItems).filter((_, i) => i !== num);
       }
-      context.emit('update:modelValue', val.value);
+      context.emit('update:modelValue', val.value, props.field);
     };
 
     const validateCollectionField = (field: GenericComponent<any>, index: number, trigger: 'change' | 'blur' | 'input') => {
@@ -292,7 +292,7 @@ export default defineComponent({
 
     const changeCollectionItem = (index: number, field: GenericComponent<any>) => {
       validateCollectionField(field, index, 'change');
-      context.emit('update:modelValue', val.value);
+      context.emit('update:modelValue', val.value, field, props.field.name);
     };
     const blurCollectionItem = (index: number, field: GenericComponent<any>) => {
       validateCollectionField(field, index, 'blur');
