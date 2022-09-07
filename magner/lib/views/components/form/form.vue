@@ -187,12 +187,10 @@ export default defineComponent({
     };
 
     const getField = (name: string) => allFields.value.find((field) => field.name === name);
-    const getDialogForm = (name: string) => reactiveConfig.dialogForms?.find((dialogForm) => dialogForm.name === name);
     const formData = reactive<FormInteractionsData<any>>({
       form,
       // @ts-ignore
       getField,
-      getDialogForm,
       isNew: props.isNew,
       config: reactiveConfig,
     });

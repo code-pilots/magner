@@ -456,7 +456,5 @@ export default cardPageController<BigTestEntity>({
         },
       ],
     },
-
-    dialogForms: [],
   },
 });

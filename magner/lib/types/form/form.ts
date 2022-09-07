@@ -12,7 +12,6 @@ import type { CollectionField } from './fields/collection';
 import type { CustomField } from './fields/custom';
 
 import type { FormLayout } from './layout';
-import type { DialogForm } from './dialog-forms';
 import type { ActionButton } from '../utils/actions';
 
 /**
@@ -60,11 +59,6 @@ export interface InnerForm<ENTITY extends {}, EMITTERS = string> {
   actions?: ActionButton<EMITTERS>[],
 
   layout: FormLayout<ENTITY>,
-
-  /**
-   * Dialog forms
-   */
-  dialogForms?: DialogForm<any>[],
 
   size?: 'large' | 'default' | 'small',
 

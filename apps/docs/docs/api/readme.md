@@ -246,8 +246,6 @@ the form, or rejects with the error.
 
 ### `GenericComponent`
 
-### `DialogForm`
-
 ### `FormLayout`
 
 ### `FormLayoutColumn`

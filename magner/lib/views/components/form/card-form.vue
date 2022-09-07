@@ -11,16 +11,7 @@
     class="card-form"
     @submit="save"
     @remove="deleteEntity"
-  >
-    <template v-if="config.form.dialogForms && config.form.dialogForms.length" #dialogs="formData">
-      <DialogForm
-        v-for="dialogForm in config.form.dialogForms"
-        :key="dialogForm.name"
-        :config="dialogForm"
-        :form-data="formData"
-      />
-    </template>
-  </GenericForm>
+  />
 </template>
 
 <script lang="ts">
@@ -33,11 +24,10 @@ import type { ActionAction } from 'lib/types/utils/actions';
 import { type TranslateData, useTranslate } from 'lib/utils/core/translate';
 import { magnerConfirm, magnerMessage } from 'lib/utils/core/messages';
 import GenericForm from './form.vue';
-import DialogForm from './dialog-form.vue';
 
 export default defineComponent({
   name: 'CardForm',
-  components: { DialogForm, GenericForm },
+  components: { GenericForm },
   props: {
     config: {
       type: Object as PropType<CardConfig<any>>,

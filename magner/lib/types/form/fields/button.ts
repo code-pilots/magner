@@ -30,9 +30,7 @@ export interface ButtonProps extends BaseProps {
   icon?: IconImport,
 }
 
-/** Button, if used in the form, does not return any value by itself and acts as a custom component.
- * Therefore, you can use it along with a dialogForm: open it, edit, and get some value that the button will return.
- * To correctly return the value, the dialog form should change the 'button.props.value' property */
+/** Button, if used in the form, does not return any value by itself and acts as a custom component. */
 export interface ButtonField<ENTITY extends {}> extends BaseField<ENTITY> {
   type: 'button',
   props: ButtonProps,

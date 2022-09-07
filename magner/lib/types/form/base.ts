@@ -2,7 +2,6 @@ import type { SupportedDataTypes } from 'lib/utils/form/form';
 import type { TranslateData } from 'lib/utils/core/translate';
 import type { MixedChecker } from 'lib/utils/core/mixed-check';
 import type { SupportedValidators } from '../configs/development';
-import type { DialogForm } from './dialog-forms';
 import type { GenericComponent, GenericForm } from './index';
 
 export type SupportedComponentTypes =
@@ -60,7 +59,6 @@ export interface FormInteractionsData<ENTITY extends {}> {
   form: Record<string, any>,
   getField: <FIELD extends GenericComponent<ENTITY>
     = GenericComponent<ENTITY>>(name: keyof ENTITY) => FIELD | undefined,
-  getDialogForm: <FORM = DialogForm<ENTITY>>(name: string) => DialogForm<ENTITY> | undefined,
   config: GenericForm<ENTITY>,
   isNew: boolean,
   data?: unknown,

@@ -12,5 +12,4 @@ export type { DateTimeField } from './fields/datetime';
 export type { EditorField } from './fields/editor';
 
 export type { FormLayout, FormLayoutColumn, FormLayoutRow } from './layout';
-export type { DialogForm } from './dialog-forms';
 export type { GenericForm, GenericComponent } from './form';
