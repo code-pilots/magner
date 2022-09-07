@@ -45,7 +45,7 @@ export const enLocale = {
       more_filters: 'All filters',
       filters_applied: 'Filters applied',
       filters_submit: 'Apply filters',
-      rows_selected: 'row(s) selected',
+      rows_selected: 'One row selected | {count} rows selected',
       remove: 'Remove',
       filters_close: 'Close',
     },

@@ -2,7 +2,7 @@ import { createI18n, I18n } from 'vue-i18n';
 import type { TranslationConfig } from 'lib/types/configs/translation';
 import globalValues from 'lib/global';
 import { enLocale } from './en';
-import { ruLocale } from './ru';
+import { ruLocale, ruPluralization } from './ru';
 
 export type TranslationController = () => {
   i18n: I18n,
@@ -40,6 +40,9 @@ export const translationController = <SUPPORTED_LANGUAGES extends string>(
       locale: (typeof window !== 'undefined'
         && globalValues.lstorage.read('language') as SUPPORTED_LANGUAGES) || config.mainLanguage,
       fallbackLocale: config.fallbackLanguage,
+      pluralRules: {
+        ru: ruPluralization,
+      },
       messages,
     });
 

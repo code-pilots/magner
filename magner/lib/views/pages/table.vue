@@ -103,7 +103,7 @@
         </div>
 
         <div v-if="selected.length" class="table-page_selection">
-          <span>{{ selected.length }} {{ t('core.table.rows_selected') }}</span>
+          <span>{{ t('core.table.rows_selected', { count: selected.length }, selected.length) }}</span>
           <div class="flex-grow" />
           <FormActions
             v-if="config.table.rowSelectable && config.table.rowSelectable.actions"

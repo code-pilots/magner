@@ -1,5 +1,13 @@
 import type { TranslationSchema } from './en';
 
+/**
+ * For pluralization in Russian, use i18n templates as '1 яблоко | 2 яблока | 5 яблок'.
+ */
+export const ruPluralization = (choice: number) => {
+  const cases = [2, 0, 1, 1, 1, 2];
+  return (choice % 100 > 4 && choice % 100 < 20) ? 2 : cases[(choice % 10 < 5) ? choice % 10 : 5];
+};
+
 export const ruLocale: TranslationSchema = {
   core: {
     header: {
@@ -47,7 +55,7 @@ export const ruLocale: TranslationSchema = {
       more_filters: 'Все фильтры',
       filters_applied: 'Применено фильтров',
       filters_submit: 'Применить фильтры',
-      rows_selected: 'строк выбрано',
+      rows_selected: 'Выбрана {count} строка | Выбрано {count} строки | Выбрано {count} строк',
       remove: 'Удалить',
       filters_close: 'Закрыть',
     },
