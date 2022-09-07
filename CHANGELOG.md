@@ -1,3 +1,13 @@
+## [0.6.23](https://github.com/code-pilots/magner/compare/v0.6.22...v0.6.23) (2022-09-07)
+
+
+### Features
+
+* **magner:** add Russian i18n pluralization rules ([5794f2c](https://github.com/code-pilots/magner/commit/5794f2cc3603efcb0d255d92e8f654c6410607f4))
+* **magner:** allow `changeAction` property inside form-collections ([01806a6](https://github.com/code-pilots/magner/commit/01806a6c1350fb33ab0c2752c5a07b6cd30a46b6))
+
+
+
 ## [0.6.22](https://github.com/code-pilots/magner/compare/v0.6.21...v0.6.22) (2022-09-06)
 
 
