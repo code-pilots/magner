@@ -1,3 +1,13 @@
+## [0.6.24](https://github.com/code-pilots/magner/compare/v0.6.23...v0.6.24) (2022-09-08)
+
+
+### Bug Fixes
+
+* **magner:** fix forms not being correctly updated after the first submission ([e27c556](https://github.com/code-pilots/magner/commit/e27c55604ff683d38d7ae24800e9cbd7df50863e))
+* **magner:** fix table styles ([dbaf658](https://github.com/code-pilots/magner/commit/dbaf658eb08549c6504005356cd2350a40367bcb))
+
+
+
 ## [0.6.23](https://github.com/code-pilots/magner/compare/v0.6.22...v0.6.23) (2022-09-07)
 
 
