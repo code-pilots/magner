@@ -108,7 +108,7 @@ export interface Table<ENTITY extends {} = {}> {
   /** Sets the algorithm used to lay out table cells, rows, and columns */
   tableLayout?: 'fixed' | 'auto',
 
-  /** Always show scrollbar */
+  /** Always show scrollbar. Default is `true` */
   scrollbarAlwaysOn?: boolean,
 
   /** Ensure main axis minimum-size doesn't follow the content */

@@ -12,7 +12,7 @@
     :fit="config.fit"
     :table-layout="config.tableLayout"
     :flexible="config.flexible"
-    :scrollbar-always-on="config.scrollbarAlwaysOn"
+    :scrollbar-always-on="config.scrollbarAlwaysOn ?? true"
     @sort-change="sort"
     @selection-change="select"
   >

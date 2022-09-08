@@ -27,6 +27,7 @@
     </el-tabs>
 
     <PageHeaderActions
+      v-if="header.actions?.length"
       :actions="header.actions"
     />
   </div>

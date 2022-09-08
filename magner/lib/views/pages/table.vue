@@ -20,7 +20,12 @@
       }"
     />
 
-    <div v-if="hasFilters" id="id-table-page-top" class="table-page_top">
+    <div
+      v-if="hasFilters"
+      ref="pageTopEl"
+      id="id-table-page-top"
+      class="table-page_top"
+    >
       <div v-if="false" class="table-page_filters-btn-container">
         <el-button
           type="primary"
@@ -85,8 +90,6 @@
         </GenericForm>
       </component>
     </div>
-
-    <div class="table-page_filters" />
 
     <Dynamic ref="dynamicRef" :request="config.request" :data="requestData">
       <template #default="{response, loading}">
@@ -185,8 +188,9 @@ export default defineComponent({
   },
   emits: ['success'],
   setup (props, context) {
-    const tableEl = ref(null);
-    const pageHeaderEl = ref(null);
+    const tableEl = ref<HTMLElement>();
+    const pageHeaderEl = ref<{ $el: HTMLElement }>();
+    const pageTopEl = ref<HTMLElement>();
 
     const { t, customT } = useTranslate();
     const route = useRoute();
@@ -207,10 +211,13 @@ export default defineComponent({
       || (props.config.header.tabs && props.config.header.tabs.length)));
     const tableHeight = computed(() => {
       const navHeight = 50;
-      const headerHeight = hasHeader.value ? (pageHeaderEl.value as unknown as {$el: HTMLElement}).$el.offsetHeight : 0;
+      const headerHeight = hasHeader.value ? pageHeaderEl.value!.$el.offsetHeight : 0;
+      const topHeight = hasFilters.value ? pageTopEl.value!.offsetHeight : 0;
       const bottomHeight = 40;
 
-      const height = navHeight + headerHeight + bottomHeight;
+      let height;
+      if (isMobile.value) height = navHeight + headerHeight + bottomHeight;
+      else height = navHeight + headerHeight + topHeight + bottomHeight;
 
       return `calc(100vh - ${height + 1}px)`;
     });
@@ -327,6 +334,7 @@ export default defineComponent({
       selected,
       tableEl,
       pageHeaderEl,
+      pageTopEl,
       filtersAction,
       select,
       filterItems,
