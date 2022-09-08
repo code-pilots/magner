@@ -134,9 +134,10 @@ export default defineComponent({
     const isMobile = useMobile();
     const router = useRouter();
 
+    const initial = ref(props.initialData);
     const reactiveConfig = reactive(props.config);
     const allFields = computed(() => layoutToFields(reactiveConfig.layout));
-    const form = reactive(fieldsToModels(allFields.value, props.initialData));
+    const form = reactive(fieldsToModels(allFields.value, initial.value));
 
     const globalError = ref<string>(props.error); // Error of the whole form
     const errors = ref<Record<string, string>>(props.fieldErrors); // Field errors record
@@ -171,7 +172,8 @@ export default defineComponent({
 
       /** For PATCH methods, return the difference with existing data */
       if (!props.config.fullDataOnUpdate && !props.isNew) {
-        const diff = initialDifference(form, props.initialData);
+        const diff = initialDifference(form, initial.value);
+        initial.value = JSON.parse(JSON.stringify(form));
         context.emit('submit', diff);
         return true;
       }
@@ -265,6 +267,7 @@ export default defineComponent({
     };
 
     watch(() => props.initialData, (newInitial) => {
+      initial.value = newInitial;
       Object.assign(form, fieldsToModels(allFields.value, newInitial));
     });
 
