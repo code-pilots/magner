@@ -1,3 +1,12 @@
+## [0.6.26](https://github.com/code-pilots/magner/compare/v0.6.25...v0.6.26) (2022-09-12)
+
+
+### Bug Fixes
+
+* **magner:** fix el-input width ([c9bdcda](https://github.com/code-pilots/magner/commit/c9bdcda5481651c19e1543e0a575d439262ae934))
+
+
+
 ## [0.6.24](https://github.com/code-pilots/magner/compare/v0.6.23...v0.6.24) (2022-09-08)
 
 
