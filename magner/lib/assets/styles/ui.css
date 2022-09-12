@@ -37,6 +37,10 @@
 .el-input {
   display: block;
 
+  &__wrapper {
+    width: 100%;
+  }
+
   & .el-input__prefix {
     z-index: 1;
   }
