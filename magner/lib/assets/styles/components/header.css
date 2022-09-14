@@ -9,8 +9,9 @@
     display: flex;
     align-items: center;
     width: 230px;
-    padding: 10px 12px 10px 24px;
     transition: width .3s;
+    padding: 10px 12px;
+    justify-content: center;
 
     @media (--breakpoint-small) {
       padding: 10px 12px 10px 8px;

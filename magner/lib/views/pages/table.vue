@@ -6,7 +6,7 @@
         ...config.header,
         actions: [
           ...(config.header.actions ? config.header.actions : []),
-          ...(hasFilters && false ? [{
+          ...(hasFilters && config.filtersInSeparatePanel ? [{
             type: 'action',
             props: {
               type: 'primary',
@@ -22,11 +22,17 @@
 
     <div
       v-if="hasFilters"
-      ref="pageTopEl"
       id="id-table-page-top"
-      class="table-page_top"
+      ref="pageTopEl"
+      :class="[
+        'table-page_top',
+        {
+          'table-page_top--separate-panel': config.filtersInSeparatePanel,
+          'table-page_top--opened': filtersOpened
+        }
+      ]"
     >
-      <div v-if="false" class="table-page_filters-btn-container">
+      <div v-if="config.filtersInSeparatePanel" class="table-page_filters-btn-container">
         <el-button
           type="primary"
           :text="t('core.table.filters_close')"
@@ -216,7 +222,7 @@ export default defineComponent({
       const bottomHeight = 40;
 
       let height;
-      if (isMobile.value) height = navHeight + headerHeight + bottomHeight;
+      if (isMobile.value || props.config.filtersInSeparatePanel) height = navHeight + headerHeight + bottomHeight;
       else height = navHeight + headerHeight + topHeight + bottomHeight;
 
       return `calc(100vh - ${height + 1}px)`;
