@@ -26,9 +26,11 @@
     <el-tag
       v-for="(tag, i) in formattedCell.tags"
       :key="i"
+      :color="tag.backgroundColor"
+      :style="tag.color ? `color: ${tag.color}` : ''"
       class="cell-content_images_tag"
     >
-      {{ tag }}
+      {{ tag.text }}
     </el-tag>
   </div>
 
@@ -116,9 +118,29 @@ export default defineComponent({
       }
 
       if (props.columnConfig.view.type === 'tags') {
+        const tags = [];
+        if (!Array.isArray(content)) {
+          tags.push({
+            text: content,
+            backgroundColor: '#ecf5ff',
+          });
+        } else {
+          content.map((item: unknown) => {
+            if (typeof item === 'object') {
+              tags.push(item);
+            } else {
+              tags.push({
+                text: item,
+                backgroundColor: '#ecf5ff',
+              });
+            }
+
+            return item;
+          });
+        }
         return {
           view: 'tags' as 'tags',
-          tags: Array.isArray(content) ? content : [content],
+          tags,
         };
       }
 
