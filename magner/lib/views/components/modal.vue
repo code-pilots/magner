@@ -2,7 +2,11 @@
   <component
     :is="dialogComponent.component"
     v-model="modalOpen"
-    v-bind="dialogComponent.props"
+    v-bind="{
+      ...dialogComponent.props,
+      class: `${dialogComponent.props.class ?? ''} ${customClass}`,
+      customClass: `${dialogComponent.props.customClass ?? ''} ${customClass}`
+    }"
     :before-close="handleClose"
     @close="handleFail"
   >
@@ -35,13 +39,15 @@ export default defineComponent({
     const { t } = useTranslate();
 
     const store = useStore();
+    const modal = computed(() => store.state.modalData);
+
     const dialogComponent = useDialogForm(undefined, true);
     const contentComponent = shallowRef();
     const contentProps = ref();
     const modalOpen = ref(false);
     const handleBeforeClose = ref(false);
+    const customClass = ref('');
 
-    const modal = computed(() => store.state.modalData);
     watchEffect(async () => {
       if (modal.value) {
         const config = modal.value.config;
@@ -56,6 +62,7 @@ export default defineComponent({
           contentComponent.value = (imported as any)?.default || imported;
           contentProps.value = { ...config.props };
         }
+        customClass.value = config.customClass ?? '';
         handleBeforeClose.value = config.handleBeforeClose ?? false;
         modalOpen.value = true;
       } else {
@@ -90,6 +97,7 @@ export default defineComponent({
     };
 
     return {
+      customClass,
       dialogComponent,
       contentComponent,
       contentProps,
