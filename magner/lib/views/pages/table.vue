@@ -6,11 +6,11 @@
         ...config.header,
         actions: [
           ...(config.header.actions ? config.header.actions : []),
-          ...(hasFilters && config.filtersInSeparatePanel ? [{
+          ...(hasFilters && filtersInSeparatePanel ? [{
             type: 'action',
             props: {
               type: 'primary',
-              text: t('core.table.filters'),
+              text: t('core.table.filters') + (appliedFilters ? ` (${appliedFilters})` : ''),
               icon: filterIcon,
               class: 'open-filters-btn',
             },
@@ -21,19 +21,37 @@
     />
 
     <template v-if="hasFilters">
-      <component
-        :is="config.filtersInSeparatePanel ? 'el-drawer' : 'div'"
+      <el-drawer
+        :is="'el-drawer'"
+        v-if="filtersInSeparatePanel"
         ref="pageTopEl"
         v-model="filtersOpened"
-        v-bind="config.filtersInSeparatePanel ? {
+        v-bind="{
           direction: 'rtl',
           size: 'auto',
           title: t('core.table.filters'),
           customClass: 'filters_drawer',
-        } : {
-          class: 'table-page_top',
         }"
       >
+        <GenericForm
+          :config="{ ...config.filters, layout: allFilters }"
+          :loading="false"
+          :initial-data="requestData.filters"
+          :request-data="{ ...requestData, selected }"
+          class="table-page_top_filters"
+          @submit="filterItems"
+          @action="filtersAction"
+        >
+          <template #after>
+            <el-tag v-if="appliedFilters" closable @close="clearFilters">
+              {{ t('core.table.filters_applied') }}: {{ appliedFilters }}
+            </el-tag>
+            <div class="flex-grow" />
+          </template>
+        </GenericForm>
+      </el-drawer>
+
+      <div v-else ref="pageTopEl" class="table-page_top">
         <GenericForm
           :config="{ ...config.filters, layout: topFilters }"
           :loading="false"
@@ -87,7 +105,7 @@
             </template>
           </GenericForm>
         </component>
-      </component>
+      </div>
     </template>
 
     <Dynamic ref="dynamicRef" :request="config.request" :data="requestData">
@@ -197,6 +215,7 @@ export default defineComponent({
     const isMobile = useMobile();
     const drawerComponent = useDialogForm();
 
+    const filtersInSeparatePanel = computed(() => props.config.filters.filtersInSeparatePanel);
     const allFilters = computed(() => layoutToFields(props.config.filters.layout));
     const topFilters = computed(() => allFilters.value.slice(0, props.config.filters.fieldsShowAmount ?? undefined));
     const filtersOpened = ref(false);
@@ -214,7 +233,7 @@ export default defineComponent({
       const bottomHeight = 40;
 
       let height;
-      if (isMobile.value || props.config.filtersInSeparatePanel) height = navHeight + headerHeight + bottomHeight;
+      if (isMobile.value || filtersInSeparatePanel) height = navHeight + headerHeight + bottomHeight;
       else height = navHeight + headerHeight + topHeight + bottomHeight;
 
       return `calc(100vh - ${height + 1}px)`;
@@ -326,6 +345,7 @@ export default defineComponent({
       pageHeaderEl,
       pageTopEl,
       filtersOpened,
+      filtersInSeparatePanel,
       filtersAction,
       select,
       filterItems,
