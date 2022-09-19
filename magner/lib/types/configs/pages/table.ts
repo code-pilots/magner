@@ -72,4 +72,7 @@ export interface TableConfig<ENTITY extends {}> {
 
   /** Table configuration */
   table: Table<ENTITY>,
+
+  /** If True - show filters in a separate collapsing panel */
+  filtersInSeparatePanel?: boolean,
 }
