@@ -141,6 +141,11 @@
       }
     }
 
+    & .el-table__body-wrapper {
+      max-height: 100%;
+      height: 100%;
+    }
+
     .el-table__row {
       & > td.el-table__cell {
         &:first-child .cell-content {
