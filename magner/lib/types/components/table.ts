@@ -22,6 +22,8 @@ interface ViewText<ENTITY extends {}> extends ViewBase<ENTITY> {
 }
 interface ViewTags<ENTITY extends {}> extends ViewBase<ENTITY> {
   type: 'tags',
+  textColor?: string;
+  backgroundColor?: string;
 }
 interface ViewImage<ENTITY extends {}> extends ViewBase<ENTITY> {
   type: 'image',

@@ -27,7 +27,7 @@
       v-for="(tag, i) in formattedCell.tags"
       :key="i"
       :color="tag.backgroundColor"
-      :style="tag.color ? `color: ${tag.color}` : ''"
+      :style="`color: ${tag.textColor}`"
       class="cell-content_images_tag"
     >
       {{ tag.text }}
@@ -123,6 +123,7 @@ export default defineComponent({
           tags.push({
             text: content,
             backgroundColor: '#ecf5ff',
+            textColor: '#409eff',
           });
         } else {
           content.map((item: unknown) => {
@@ -132,6 +133,7 @@ export default defineComponent({
               tags.push({
                 text: item,
                 backgroundColor: '#ecf5ff',
+                textColor: '#409eff',
               });
             }
 

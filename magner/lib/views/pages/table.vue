@@ -229,11 +229,11 @@ export default defineComponent({
     const tableHeight = computed(() => {
       const navHeight = 50;
       const headerHeight = hasHeader.value ? pageHeaderEl.value!.$el.offsetHeight : 0;
-      const topHeight = hasFilters.value ? pageTopEl.value!.offsetHeight : 0;
+      const topHeight = hasFilters.value && !filtersInSeparatePanel.value ? pageTopEl.value!.offsetHeight : 0;
       const bottomHeight = 40;
 
       let height;
-      if (isMobile.value || filtersInSeparatePanel) height = navHeight + headerHeight + bottomHeight;
+      if (isMobile.value || filtersInSeparatePanel.value) height = navHeight + headerHeight + bottomHeight;
       else height = navHeight + headerHeight + topHeight + bottomHeight;
 
       return `calc(100vh - ${height + 1}px)`;
