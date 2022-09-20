@@ -9,31 +9,35 @@ interface RenderHeaderType<COLUMN> {
   $index: number,
 }
 
-interface ViewBase<ENTITY extends {}> {
+interface ViewTag {
+  text: string;
+  backgroundColor: string;
+  textColor: string;
+}
+
+interface ViewBase<ENTITY extends {}, FORMATTER_OUTPUT> {
   /** Using this key, the value displayed in the table will use `entity.[prop].[nestedKey]` content */
   nestedKey?: keyof ENTITY,
 
   /** A function that formats the content of the column's cells */
-  formatter?: (cellValue: unknown, row: ENTITY, column: this, index: number) => any,
+  formatter?: (cellValue: unknown, row: ENTITY, column: this, index: number) => FORMATTER_OUTPUT,
 }
 
-interface ViewText<ENTITY extends {}> extends ViewBase<ENTITY> {
+interface ViewText<ENTITY extends {}> extends ViewBase<ENTITY, string> {
   type: 'text',
 }
-interface ViewTags<ENTITY extends {}> extends ViewBase<ENTITY> {
+interface ViewTags<ENTITY extends {}> extends ViewBase<ENTITY, string | string[] | ViewTag[]> {
   type: 'tags',
-  textColor?: string;
-  backgroundColor?: string;
 }
-interface ViewImage<ENTITY extends {}> extends ViewBase<ENTITY> {
+interface ViewImage<ENTITY extends {}> extends ViewBase<ENTITY, string | string[]> {
   type: 'image',
 }
-interface ViewActions<ENTITY extends {}> extends ViewBase<ENTITY> {
+interface ViewActions<ENTITY extends {}> extends ViewBase<ENTITY, string> {
   type: 'actions',
   /** Action to perform when 'remove button' is done on selection */
   actions?: ActionButton<TableActions>[],
 }
-interface ViewCustom<ENTITY extends {}> extends ViewBase<ENTITY> {
+interface ViewCustom<ENTITY extends {}> extends ViewBase<ENTITY, unknown> {
   type: 'custom',
   /** Custom cell component */
   component: () => RouteComponent,
