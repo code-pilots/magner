@@ -3,7 +3,7 @@
     ref="tableEl"
     :data="data"
     :row-class-name="config.rowLink ? 'row-link' : ''"
-    :row-key="config.rowTree ? config.rowTree.key : ''"
+    :row-key="rowKey"
     :tree-props="{ children: config?.rowTree?.childrenListKey ?? '' }"
     class="data-table"
     :height="tableHeight"
@@ -19,6 +19,7 @@
     <el-table-column
       v-if="config.rowSelectable"
       type="selection"
+      :reserve-selection="config.rowSelectable.reserveSelection"
       width="40"
       align="center"
     />
@@ -59,7 +60,7 @@
 
 <script lang="ts">
 import '../../assets/styles/components/data-table.css';
-import { defineComponent, PropType, ref } from 'vue';
+import { computed, defineComponent, PropType, ref } from 'vue';
 import type { Table, TableColumn } from 'lib/types/components/table';
 import { useTranslate } from 'lib/utils/core/translate';
 import TableCell from 'lib/views/components/table/cell.vue';
@@ -90,6 +91,16 @@ export default defineComponent({
     const tableEl = ref(null);
     const route = useRoute();
 
+    const rowKey = computed(() => {
+      if (props.config.rowTree) {
+        return props.config.rowTree.key;
+      }
+      if (props.config.rowSelectable) {
+        return props.config.rowSelectable.rowIdKey;
+      }
+      return '';
+    });
+
     const sort = (e: unknown) => {
       context.emit('sort', e);
     };
@@ -104,6 +115,7 @@ export default defineComponent({
       sort,
       select,
       route,
+      rowKey,
     };
   },
 });
