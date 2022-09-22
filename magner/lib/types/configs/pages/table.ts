@@ -29,6 +29,9 @@ export interface FiltersForm<ENTITY extends {}> extends InnerForm<ENTITY, TableA
 
   /** Initial filters */
   filtersData: Record<string, any>,
+
+  /** If True - show filters in a separate el-drawer panel */
+  filtersInSeparatePanel?: boolean,
 }
 
 export interface PaginationType {
@@ -69,4 +72,7 @@ export interface TableConfig<ENTITY extends {}> {
 
   /** Table configuration */
   table: Table<ENTITY>,
+
+  /** If True - show filters in a separate collapsing panel */
+  filtersInSeparatePanel?: boolean,
 }

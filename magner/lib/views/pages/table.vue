@@ -6,90 +6,107 @@
         ...config.header,
         actions: [
           ...(config.header.actions ? config.header.actions : []),
-          ...(hasFilters && false ? [{
+          ...(hasFilters && filtersInSeparatePanel ? [{
             type: 'action',
             props: {
               type: 'primary',
-              text: t('core.table.filters'),
+              text: t('core.table.filters') + (appliedFilters ? ` (${appliedFilters})` : ''),
               icon: filterIcon,
               class: 'open-filters-btn',
             },
-            action: toggleFilters,
+            action: toggleFiltersOpened,
           }] : []),
         ]
       }"
     />
 
-    <div
-      v-if="hasFilters"
-      ref="pageTopEl"
-      id="id-table-page-top"
-      class="table-page_top"
-    >
-      <div v-if="false" class="table-page_filters-btn-container">
-        <el-button
-          type="primary"
-          :text="t('core.table.filters_close')"
-          plain
-          :icon="closeIcon"
-          @click="toggleFilters"
-        />
-      </div>
-
-      <GenericForm
-        :config="{ ...config.filters, layout: topFilters }"
-        :loading="false"
-        :initial-data="requestData.filters"
-        :request-data="{ ...requestData, selected }"
-        class="table-page_top_filters"
-        @submit="filterItems"
-        @action="filtersAction"
-      >
-        <template #after>
-          <el-button
-            v-if="config.filters.fieldsShowAmount < allFilters.length"
-            type="primary"
-            class="more-filters"
-            plain
-            :icon="filterIcon"
-            @click="drawerOpen = true"
-          >
-            {{ t('core.table.more_filters') }}
-          </el-button>
-          <el-tag v-if="appliedFilters" closable @close="clearFilters">
-            {{ t('core.table.filters_applied') }}: {{ appliedFilters }}
-          </el-tag>
-          <div class="flex-grow" />
-        </template>
-      </GenericForm>
-
-      <component
-        :is="drawerComponent.component"
-        v-model="drawerOpen"
-        v-bind="drawerComponent.props"
+    <template v-if="hasFilters">
+      <el-drawer
+        :is="'el-drawer'"
+        v-if="filtersInSeparatePanel"
+        ref="pageTopEl"
+        v-model="filtersOpened"
+        v-bind="{
+          direction: 'rtl',
+          size: 'auto',
+          title: t('core.table.filters'),
+          customClass: 'filters_drawer',
+        }"
       >
         <GenericForm
-          :config="{
-            ...config.filters,
-            actions: [{
-              type: 'action',
-              emits: 'submit',
-              props: { type: 'primary', text: t('core.table.filters_submit') },
-            }],
-            submitEvent: 'submit',
-            size: 'default',
-            clearable: true,
-          }"
-          :initial-data="requestData.filters"
+          :config="{ ...config.filters, layout: allFilters }"
           :loading="false"
+          :initial-data="requestData.filters"
+          :request-data="{ ...requestData, selected }"
+          class="table-page_top_filters"
           @submit="filterItems"
+          @action="filtersAction"
         >
           <template #after>
+            <el-tag v-if="appliedFilters" closable @close="clearFilters">
+              {{ t('core.table.filters_applied') }}: {{ appliedFilters }}
+            </el-tag>
             <div class="flex-grow" />
           </template>
         </GenericForm>
-      </component>
-    </div>
+      </el-drawer>
+
+      <div v-else ref="pageTopEl" class="table-page_top">
+        <GenericForm
+          :config="{ ...config.filters, layout: topFilters }"
+          :loading="false"
+          :initial-data="requestData.filters"
+          :request-data="{ ...requestData, selected }"
+          class="table-page_top_filters"
+          @submit="filterItems"
+          @action="filtersAction"
+        >
+          <template #after>
+            <el-button
+              v-if="config.filters.fieldsShowAmount < allFilters.length"
+              type="primary"
+              class="more-filters"
+              plain
+              :icon="filterIcon"
+              @click="drawerOpen = true"
+            >
+              {{ t('core.table.more_filters') }}
+            </el-button>
+            <el-tag v-if="appliedFilters" closable @close="clearFilters">
+              {{ t('core.table.filters_applied') }}: {{ appliedFilters }}
+            </el-tag>
+            <div class="flex-grow" />
+          </template>
+        </GenericForm>
+
+        <component
+          :is="drawerComponent.component"
+          v-model="drawerOpen"
+          v-bind="drawerComponent.props"
+        >
+          <GenericForm
+            :config="{
+              ...config.filters,
+              actions: [{
+                type: 'action',
+                emits: 'submit',
+                props: { type: 'primary', text: t('core.table.filters_submit') },
+              }],
+              submitEvent: 'submit',
+              size: 'default',
+              clearable: true,
+            }"
+            :initial-data="requestData.filters"
+            :loading="false"
+            @submit="filterItems"
+          >
+            <template #after>
+              <div class="flex-grow" />
+            </template>
+          </GenericForm>
+        </component>
+      </div>
+    </template>
 
     <Dynamic ref="dynamicRef" :request="config.request" :data="requestData">
       <template #default="{response, loading}">
@@ -158,7 +175,6 @@ import { layoutToFields, parseUrl } from 'lib/utils/form/form';
 import useDialogForm from 'lib/utils/form/use-dialog-form';
 import useStore from 'lib/controllers/store/store';
 import filterUrlDataComparison from 'lib/utils/form/filter-url-data-comparison';
-import { useClickOutside } from 'lib/utils/composables/clickOutside';
 import PageHeader from '../components/page-header.vue';
 import DataTable from '../components/table.vue';
 import Dynamic from '../components/dynamic.vue';
@@ -199,6 +215,7 @@ export default defineComponent({
     const isMobile = useMobile();
     const drawerComponent = useDialogForm();
 
+    const filtersInSeparatePanel = computed(() => props.config.filters.filtersInSeparatePanel);
     const allFilters = computed(() => layoutToFields(props.config.filters.layout));
     const topFilters = computed(() => allFilters.value.slice(0, props.config.filters.fieldsShowAmount ?? undefined));
     const filtersOpened = ref(false);
@@ -212,11 +229,11 @@ export default defineComponent({
     const tableHeight = computed(() => {
       const navHeight = 50;
       const headerHeight = hasHeader.value ? pageHeaderEl.value!.$el.offsetHeight : 0;
-      const topHeight = hasFilters.value ? pageTopEl.value!.offsetHeight : 0;
+      const topHeight = hasFilters.value && !filtersInSeparatePanel.value ? pageTopEl.value!.offsetHeight : 0;
       const bottomHeight = 40;
 
       let height;
-      if (isMobile.value) height = navHeight + headerHeight + bottomHeight;
+      if (isMobile.value || filtersInSeparatePanel.value) height = navHeight + headerHeight + bottomHeight;
       else height = navHeight + headerHeight + topHeight + bottomHeight;
 
       return `calc(100vh - ${height + 1}px)`;
@@ -303,17 +320,9 @@ export default defineComponent({
       }
     });
 
-    const toggleFilters = () => {
+    const toggleFiltersOpened = () => {
       filtersOpened.value = !filtersOpened.value;
     };
-
-    useClickOutside('id-table-page-top', '.open-filters-btn', (e: EventTarget) => {
-      if (filtersOpened.value) {
-        if (!(e as HTMLElement).closest('.el-popper')) {
-          toggleFilters();
-        }
-      }
-    });
 
     return {
       filterIcon: shallowRef(FilterIcon),
@@ -335,14 +344,15 @@ export default defineComponent({
       tableEl,
       pageHeaderEl,
       pageTopEl,
+      filtersOpened,
+      filtersInSeparatePanel,
       filtersAction,
       select,
       filterItems,
       changeSort,
       clearFilters,
       removeRows,
-      filtersOpened,
-      toggleFilters,
+      toggleFiltersOpened,
     };
   },
 });

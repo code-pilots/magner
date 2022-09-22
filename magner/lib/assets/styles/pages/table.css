@@ -8,6 +8,14 @@
     display: block;
   }
 
+  &_filters-btn-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding-bottom: 30px;
+    box-sizing: border-box;
+  }
+
   &_top {
     display: flex;
     justify-content: space-between;
@@ -177,5 +185,19 @@
   &_selection {
     justify-content: space-between;
     padding: 0 12px;
+  }
+}
+
+
+.filters_drawer .table-page_top_filters {
+  flex-wrap: wrap;
+  flex-direction: column;
+
+  .generic-form_only-fields {
+    flex-direction: column;
+
+    .el-form-item {
+      margin-bottom: 10px;
+    }
   }
 }

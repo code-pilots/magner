@@ -3,8 +3,9 @@ import type { TableConfig } from 'lib/types/configs/pages/table';
 import type { RouteComponent } from 'vue-router';
 
 interface ModalConfigBase {
-  type: 'card' | 'table' | 'custom',
+  type: 'card' | 'table' | 'custom';
   handleBeforeClose?: boolean;
+  customClass?: string;
 }
 
 /** If modals are opened on the Card page, they receive form data and information about the entity */
