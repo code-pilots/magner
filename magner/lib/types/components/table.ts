@@ -127,6 +127,10 @@ export interface Table<ENTITY extends {} = {}> {
 
     /** Action to perform when 'remove button' is done on selection */
     actions?: ActionButton<TableActions>[],
+
+    /** Whether to reserve selection after data refreshing, works when type is 'selection'.
+     * Note that row-key is required for this to work */
+    reserveSelection?: boolean, // default false
   },
 
   /** For rendering nested data */

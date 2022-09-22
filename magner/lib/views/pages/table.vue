@@ -143,7 +143,13 @@
 import '../../assets/styles/pages/table.css';
 import {
   computed,
-  defineComponent, PropType, reactive, ref, shallowRef, watch, watchEffect,
+  defineComponent,
+  PropType,
+  reactive,
+  ref,
+  shallowRef,
+  watch,
+  watchEffect,
 } from 'vue';
 import type { TableConfig } from 'lib/types/configs';
 import type { ActionAction } from 'lib/types/utils/actions';
