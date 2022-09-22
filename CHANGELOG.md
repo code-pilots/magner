@@ -1,3 +1,23 @@
+## [0.6.27](https://github.com/code-pilots/magner/compare/v0.6.26...v0.6.27) (2022-09-22)
+
+
+### Bug Fixes
+
+* added possibility to show ALL (not only top) filters in a separate el-drawer element ([d104dc8](https://github.com/code-pilots/magner/commit/d104dc833ba3111dfbb8b2fdf4591184b4515588))
+* moved filters panel to el-drawer component ([05825d3](https://github.com/code-pilots/magner/commit/05825d3b045ba5ffaece6be5bb2b9c62319ac0bb))
+* refactored ViewBase and other child interfaces ([00a484d](https://github.com/code-pilots/magner/commit/00a484dc00040b7da4f52731c822bcfd2239a63d))
+* revert table styles ([b67fda1](https://github.com/code-pilots/magner/commit/b67fda17c15c970791a3784696142d415e19b6ee))
+
+
+### Features
+
+* added new parameter to TableConfig activating special view for filters (as a collapsing panel) ([89fa51d](https://github.com/code-pilots/magner/commit/89fa51d1c05cea3a6d518ab7c3d51e8a40589466))
+* added possibility to set custom background and text colors for el-tag in table cell ([3171f91](https://github.com/code-pilots/magner/commit/3171f91d8202b5c7af33e8b8b356f38580f424a7))
+* added possibility to set custom class for el-dialog (el-drawer) ([7b0dc66](https://github.com/code-pilots/magner/commit/7b0dc6638c0d69fca690381909bb77b743181b7f))
+* extended interface ViewTags with color params ([3512096](https://github.com/code-pilots/magner/commit/3512096e213ed3e5b42c2701bd18b902ce1d2e02))
+
+
+
 ## [0.6.26](https://github.com/code-pilots/magner/compare/v0.6.25...v0.6.26) (2022-09-12)
 
 
