@@ -35,6 +35,14 @@ export interface DropzoneFile {
 
 export type DropzoneValue = string | Record<string, unknown> | string[] | Record<string, unknown>[];
 
+interface InputAtts {
+  id: string,
+  name: string,
+  accept: string,
+  capture: string,
+  autofocus: string,
+}
+
 /** Dropzone component properties */
 export interface DropzoneProps extends BaseProps {
   /**
@@ -73,13 +81,7 @@ export interface DropzoneProps extends BaseProps {
   /** Display "X" button over uploaded images */
   removable?: boolean,
 
-  inputAtts?: {
-    id: string,
-    name: string,
-    accept: string,
-    capture: string,
-    autofocus: string,
-  },
+  inputAtts?: Partial<InputAtts>,
 }
 
 export interface DropzoneField<ENTITY extends {}> extends BaseField<ENTITY> {
