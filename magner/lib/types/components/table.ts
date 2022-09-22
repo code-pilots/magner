@@ -147,4 +147,7 @@ export interface Table<ENTITY extends {} = {}> {
     // ** Attribute in row to determine which row contains children */
     childrenListKey: string,
   }
+
+  /** View pagination when selected items */
+  forceViewPagination?: boolean,
 }

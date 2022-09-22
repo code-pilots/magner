@@ -135,7 +135,9 @@
         </div>
 
         <div
-          v-if="!selected.length && (response && response.pagination) && (requestData && requestData.pagination)"
+          v-if="(!selected.length || config.table.forceViewPagination)
+            && (response && response.pagination)
+            && (requestData && requestData.pagination)"
           class="table-page_pagination"
         >
           <el-pagination
