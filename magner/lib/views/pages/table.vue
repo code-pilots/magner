@@ -135,9 +135,7 @@
         </div>
 
         <div
-          v-if="(!selected.length || config.table.forceViewPagination)
-            && (response && response.pagination)
-            && (requestData && requestData.pagination)"
+          v-if="hasPagination && (response && response.pagination) && (requestData && requestData.pagination)"
           class="table-page_pagination"
         >
           <el-pagination
@@ -228,9 +226,11 @@ export default defineComponent({
     const topFilters = computed(() => allFilters.value.slice(0, props.config.filters.fieldsShowAmount ?? undefined));
     const filtersOpened = ref(false);
 
+    const selected = ref<RowData[]>([]);
     const drawerOpen = ref(false);
     const dynamicRef = ref<typeof Dynamic>();
 
+    const hasPagination = computed(() => !!(!selected.value.length || props.config.table?.rowSelectable?.reserveSelection));
     const hasFilters = computed(() => !!(topFilters.value.length || props.config.filters.actions?.length));
     const hasHeader = computed(() => !!(props.config.header.title
       || (props.config.header.tabs && props.config.header.tabs.length)));
@@ -252,8 +252,6 @@ export default defineComponent({
       filters: { ...(props.config.filters.filtersData || {}) },
       sort: { ...(props.config.filters.sort || {}) },
     });
-
-    const selected = ref<RowData[]>([]);
 
     // Depending on URL query existence and configuration, load initial data from URL or LocalStorage
     const initialData = props.config.filters.saveToLocalStorage && !Object.keys(route.query).length
@@ -345,6 +343,7 @@ export default defineComponent({
       appliedFilters,
       dynamicRef,
       hasFilters,
+      hasPagination,
       tableHeight,
       allFilters,
       topFilters,
