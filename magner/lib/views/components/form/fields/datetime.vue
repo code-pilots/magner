@@ -1,6 +1,23 @@
 <template>
   <ReadonlyWrap :field="field" :value="val" gray-block>
+    <el-time-picker
+      v-if="field.props.type === 'time' || field.props.type === 'timerange'"
+      :model-value="val"
+      :is-range="field.props.type === 'timerange'"
+      :format="field.props.format"
+      :placeholder="customT(field.props.placeholder)"
+      :editable="field.props.editable"
+      :popper-class="field.props.popperClass"
+      :range-separator="field.props.rangeSeparator"
+      :default-value="field.props.defaultValue"
+      :start-placeholder="customT(field.props.startPlaceholder)"
+      :end-placeholder="customT(field.props.endPlaceholder)"
+      :disabled="disabled"
+      @blur="$emit('blur', $event)"
+      @update:model-value="changeVal"
+    />
     <el-date-picker
+      v-else
       :model-value="val"
       :type="field.props.type"
       :format="field.props.format"

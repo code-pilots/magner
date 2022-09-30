@@ -3,7 +3,7 @@ import type { BaseField, BaseProps } from '../base';
 
 export interface DateTimeProps extends BaseProps {
   /** Type of the DateTime picker. Please, refer to the https://element-plus.org/#/en-US/component/datetime-picker */
-  type: 'year' | 'month' | 'date' | 'dates' | 'datetime' | 'week' | 'datetimerange' | 'daterange' | 'monthrange',
+  type: 'year' | 'month' | 'date' | 'dates' | 'datetime' | 'week' | 'datetimerange' | 'daterange' | 'monthrange' | 'time' | 'timerange',
 
   /** Format of the displayed value in the input box */
   format?: string,
