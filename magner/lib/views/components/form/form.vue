@@ -148,6 +148,9 @@ export default defineComponent({
       updateFieldValues(field, form, props.isNew);
     });
 
+    // Check hidden properties of the layouts
+    // reactiveConfig.layout = computed(() => updateLayoutsValue(reactiveConfig.layout, form, props.isNew));
+
     const formValidators = ref<FormItemEl['validateAllForms'][]>([]);
     const formValidatorRegister = (validator: FormItemEl['validateAllForms']) => {
       formValidators.value.push(validator);

@@ -1,4 +1,4 @@
-import { computed } from 'vue';
+import { computed, ComputedRef } from 'vue';
 import type { GenericComponent } from 'lib/types/form/form';
 import globalValues from 'lib/global';
 import { layoutToFields } from 'lib/utils/form/form';
@@ -17,6 +17,49 @@ type MixedCheckerOptional = (data?: {
 }) => boolean;
 
 export const mixedCheck = (checker: MixedChecker): MixedChecker => checker;
+
+export const useLayoutChecks = (layout: GenericFormLayout<any> | GenericFormLayout<any>[]): {
+  hidden: ComputedRef<boolean>
+} => {
+  const hidden = computed(() => {
+    if (Array.isArray(layout)) {
+      return false;
+    }
+
+    return (typeof layout.props.hidden === 'function'
+      ? (layout.props.hidden as MixedCheckerOptional)()
+      : layout.props.hidden || false);
+  });
+
+  return {
+    hidden,
+  };
+};
+
+export const updateLayoutsValue = (
+  layout: GenericFormLayout<any>,
+  form: Record<string, any>,
+  isNew?: boolean,
+) => {
+  if (!layout.props.inner) {
+    layout.props.inner = {};
+  }
+
+  if (typeof layout.props.inner.hiddenCondition !== 'function'
+    && typeof layout.props.hidden === 'function') {
+    layout.props.inner.hiddenCondition = layout.props.hidden;
+  }
+
+  const hidden = layout.props.inner.hiddenCondition;
+
+  if (typeof hidden === 'function') {
+    layout.props.hidden = hidden.bind(null, {
+      state: form,
+      isNew: isNew || false,
+      role: globalValues.store.state.role as string,
+    });
+  }
+};
 
 export const useChecks = (field: GenericComponent<any>, value?: unknown) => {
   const disabled = computed(() => (typeof field.props.disabled === 'function'

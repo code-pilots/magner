@@ -1,8 +1,8 @@
 import type { SupportedDataTypes } from 'lib/utils/form/form';
 import type { TranslateData } from 'lib/utils/core/translate';
 import type { MixedChecker } from 'lib/utils/core/mixed-check';
-import type { SupportedValidators } from '../configs/development';
-import type { GenericComponent, GenericForm } from './index';
+import type { SupportedValidators } from 'lib/types';
+import type { GenericComponent, GenericForm, InnerConditions } from './index';
 
 export type SupportedComponentTypes =
   'button'
@@ -17,12 +17,6 @@ export type SupportedComponentTypes =
   | 'editor'
   | 'collection'
   | 'custom';
-
-interface InnerConditions {
-  disabledCondition?: MixedChecker,
-  hiddenCondition?: MixedChecker,
-  readOnlyCondition?: MixedChecker,
-}
 
 export interface BaseProps {
   class?: string,
@@ -44,7 +38,7 @@ export interface BaseProps {
   readOnlyFormatter?: (val: unknown) => string,
 
   /** Magner's inner properties. No need to change */
-  inner?: InnerConditions
+  inner?: Partial<InnerConditions>
 }
 
 export interface BaseValidation {
