@@ -2,7 +2,7 @@ import { computed, ComputedRef } from 'vue';
 import type { GenericComponent } from 'lib/types/form/form';
 import globalValues from 'lib/global';
 import { layoutToFields } from 'lib/utils/form/form';
-import { GenericFormLayout } from 'lib/types/form/layout';
+import { FormLayout, GenericFormLayout } from 'lib/types/form/layout';
 
 export type MixedChecker = (data: {
   role: string,
@@ -36,7 +36,7 @@ export const useLayoutChecks = (layout: GenericFormLayout<any> | GenericFormLayo
   };
 };
 
-export const updateLayoutsValue = (
+const updateLayoutValue = (
   layout: GenericFormLayout<any>,
   form: Record<string, any>,
   isNew?: boolean,
@@ -59,6 +59,38 @@ export const updateLayoutsValue = (
       role: globalValues.store.state.role as string,
     });
   }
+};
+
+const recursiveUpdateLayout = (
+  layout: GenericFormLayout<any>,
+  form: Record<string, any>,
+  isNew?: boolean,
+): GenericFormLayout<any> => {
+  updateLayoutValue(layout, form, isNew);
+
+  if (layout.layout) {
+    layout.layout.forEach((item) => {
+      recursiveUpdateLayout(item, form, isNew);
+    });
+  }
+
+  return layout;
+};
+
+export const getUpdatedLayoutsValue = (
+  layout: FormLayout<any>,
+  form: Record<string, any>,
+  isNew?: boolean,
+): FormLayout<any> => {
+  let updatedLayout: FormLayout<any>;
+
+  if (Array.isArray(layout)) {
+    updatedLayout = layout;
+  } else {
+    updatedLayout = recursiveUpdateLayout(layout, form, isNew) as FormLayout<any>;
+  }
+
+  return updatedLayout;
 };
 
 export const useChecks = (field: GenericComponent<any>, value?: unknown) => {

@@ -88,16 +88,22 @@ export default defineComponent({
     const shallowComponent = shallowRef(props.block.type === 'custom' ? props.block.component?.() : null);
 
     const getProps = (block: FormLayoutRow<any> | FormLayoutColumn<any>) => {
-      if (block.type === 'row') {
-        return {
-          component: 'el-row',
-          props: block.props || {},
-        };
-      }
-      return {
-        component: 'el-col',
+      const defaultProps = {
+        component: '',
         props: block.props || {},
       };
+
+      if (typeof defaultProps.props.hidden !== 'undefined') {
+        delete defaultProps.props.hidden;
+      }
+
+      if (block.type === 'row') {
+        defaultProps.component = 'el-row';
+      } else {
+        defaultProps.component = 'el-col';
+      }
+
+      return defaultProps;
     };
 
     return {
