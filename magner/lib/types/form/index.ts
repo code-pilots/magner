@@ -13,3 +13,5 @@ export type { EditorField } from './fields/editor';
 
 export type { FormLayout, FormLayoutColumn, FormLayoutRow } from './layout';
 export type { GenericForm, GenericComponent } from './form';
+
+export type { InnerConditions } from './common';

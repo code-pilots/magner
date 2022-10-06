@@ -2,7 +2,8 @@
 
 import type { RouteComponent } from 'vue-router';
 import type { TranslateData } from 'lib/utils/core/translate';
-import type { GenericComponent } from './index';
+import { MixedChecker } from 'lib/utils/core/mixed-check';
+import type { GenericComponent, InnerConditions } from './index';
 
 interface FormLayoutBase<ENTITY extends {}> {
   title?: TranslateData,
@@ -13,6 +14,7 @@ interface FormLayoutBase<ENTITY extends {}> {
 interface LayoutPropsBase {
   /** Add any class to the layout block */
   class?: string,
+
   /** Sets shadow and a padding to the block, visually taking it out of the form */
   isPaper?: boolean,
   /** What type of styles to apply to the title of the block:<br>
@@ -26,6 +28,12 @@ interface LayoutPropsBase {
 
   /** Style object to be applied to the row or column of mobile breakpoint */
   mobileStyles?: Record<string, string>,
+
+  /** Hides the layout if 'true' */
+  hidden?: boolean | MixedChecker;
+
+  /** Magner's inner properties. No need to change */
+  inner?: Partial<InnerConditions>
 }
 
 /** RowBase defines element-ui el-row's attributes:
