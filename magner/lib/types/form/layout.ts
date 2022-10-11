@@ -11,7 +11,7 @@ interface FormLayoutBase<ENTITY extends {}> {
   fields?: GenericComponent<ENTITY>[],
 }
 
-interface LayoutPropsBase {
+interface LayoutPropsBase<ENTITY extends {}> {
   /** Add any class to the layout block */
   class?: string,
 
@@ -30,15 +30,15 @@ interface LayoutPropsBase {
   mobileStyles?: Record<string, string>,
 
   /** Hides the layout if 'true' */
-  hidden?: boolean | MixedChecker;
+  hidden?: boolean | MixedChecker<ENTITY>;
 
   /** Magner's inner properties. No need to change */
-  inner?: Partial<InnerConditions>
+  inner?: Partial<InnerConditions<ENTITY>>
 }
 
 /** RowBase defines element-ui el-row's attributes:
  *  https://element-plus.org/#/en-US/component/layout#row-attributes */
-interface RowBase extends LayoutPropsBase {
+interface RowBase <ENTITY extends {}> extends LayoutPropsBase<ENTITY> {
   /** Grid spacing */
   gutter?: number,
 
@@ -58,14 +58,14 @@ interface RowBase extends LayoutPropsBase {
 /** Define different column types */
 interface RowFields<ENTITY extends {}> extends FormLayoutBase<ENTITY> {
   type: 'row',
-  props: RowBase,
+  props: RowBase<ENTITY>,
   layout?: never,
   component?: never,
   fields: GenericComponent<ENTITY>[],
 }
 interface RowLayout<ENTITY extends {}> extends FormLayoutBase<ENTITY> {
   type: 'row',
-  props: RowBase,
+  props: RowBase<ENTITY>,
   layout: GenericFormLayout<ENTITY>[],
   component?: never,
   fields?: never,
@@ -74,7 +74,7 @@ export type FormLayoutRow<ENTITY extends {}> = RowLayout<ENTITY> | RowFields<ENT
 
 /** ColumnBase defines element-ui el-col's attributes:
  *  https://element-plus.org/#/en-US/component/layout#col-attributes */
-interface ColumnBase extends LayoutPropsBase {
+interface ColumnBase <ENTITY extends {}> extends LayoutPropsBase<ENTITY> {
   /** Number of column the grid spans */
   span?: number,
 
@@ -105,14 +105,14 @@ interface ColumnBase extends LayoutPropsBase {
 /** Define different column types */
 export interface ColumnFields<ENTITY extends {}> extends FormLayoutBase<ENTITY> {
   type: 'column',
-  props: ColumnBase,
+  props: ColumnBase<ENTITY>,
   layout?: never,
   component?: never,
   fields: GenericComponent<ENTITY>[],
 }
-export interface ColumnLayout<ENTITY extends {}> extends FormLayoutBase<ENTITY>, ColumnBase {
+export interface ColumnLayout<ENTITY extends {}> extends FormLayoutBase<ENTITY>, ColumnBase<ENTITY> {
   type: 'column',
-  props: ColumnBase,
+  props: ColumnBase<ENTITY>,
   layout: GenericFormLayout<ENTITY>[],
   component?: never,
   fields?: never,

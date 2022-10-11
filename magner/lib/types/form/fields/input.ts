@@ -2,7 +2,7 @@ import type { TranslateData } from 'lib/utils/core/translate';
 import type { IconImport } from 'lib/types/utils/useful';
 import type { BaseField, BaseProps } from '../base';
 
-export interface InputProps extends BaseProps {
+export interface InputProps<ENTITY extends {}> extends BaseProps<ENTITY> {
   /** Native input type as an HTML attribute. Default it `text` */
   type?: 'text'|'number'|'email'|'password'|'tel'|string,
 
@@ -53,5 +53,5 @@ export interface InputProps extends BaseProps {
 
 export interface InputField<ENTITY extends {}> extends BaseField<ENTITY> {
   type: 'input',
-  props: InputProps,
+  props: InputProps<ENTITY>,
 }

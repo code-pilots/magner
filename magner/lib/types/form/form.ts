@@ -56,7 +56,7 @@ export interface InnerForm<ENTITY extends {}, EMITTERS = string> {
    * emits the 'emits' event back to the form to perform Magner action, e.g. submit, clear, update table etc. Every
    * form (on card page, table filters and other) supports different 'emits' options that you can use.
    */
-  actions?: ActionButton<EMITTERS>[],
+  actions?: ActionButton<EMITTERS, ENTITY>[],
 
   layout: FormLayout<ENTITY>,
 

@@ -18,7 +18,7 @@ export type SupportedComponentTypes =
   | 'collection'
   | 'custom';
 
-export interface BaseProps {
+export interface BaseProps<ENTITY extends {}> {
   class?: string,
 
   /** Displays the red asterisk next to the field label. Does not influence any validations! */
@@ -26,19 +26,19 @@ export interface BaseProps {
 
   /** Whether the field is disabled. Accepts static boolean or the dynamic
    * MixedChecker function with access to the user's role and form's state */
-  disabled?: boolean | MixedChecker,
+  disabled?: boolean | MixedChecker<ENTITY>,
 
   /** Hides the field from the form if 'true' */
-  hidden?: boolean | MixedChecker,
+  hidden?: boolean | MixedChecker<ENTITY>,
 
   /** If 'true', the field gets a design made for the better readability  */
-  readOnly?: boolean | MixedChecker,
+  readOnly?: boolean | MixedChecker<ENTITY>,
 
   /** If `readOnly: true`, parse the value of the form field to display as a string */
   readOnlyFormatter?: (val: unknown) => string,
 
   /** Magner's inner properties. No need to change */
-  inner?: Partial<InnerConditions>
+  inner?: Partial<InnerConditions<ENTITY>>
 }
 
 export interface BaseValidation {
@@ -74,7 +74,7 @@ export interface BaseField<ENTITY extends {}> {
   hint?: TranslateData,
 
   /** Any attributes passed to the base HTML-tag */
-  props: BaseProps,
+  props: BaseProps<ENTITY>,
 
   /** How and when to validate the field */
   validation?: BaseValidation | BaseValidation[],

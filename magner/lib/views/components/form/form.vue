@@ -73,7 +73,7 @@ import type { ActionAction } from 'lib/types/utils/actions';
 import { fieldsToModels, initialDifference, layoutToFields } from 'lib/utils/form/form';
 import { useTranslate } from 'lib/utils/core/translate';
 import { useMobile } from 'lib/utils/core/is-mobile';
-import { updateFieldValues, getUpdatedLayoutsValue } from 'lib/utils/core/mixed-check';
+import { updateFieldValues, getUpdatedLayoutsValue, updateActionValues } from 'lib/utils/core/mixed-check';
 import FormItem from './form-item.vue';
 import FormLayout from './layout.vue';
 import FormActions from './form-actions.vue';
@@ -150,6 +150,13 @@ export default defineComponent({
 
     // Check hidden properties of the layouts
     reactiveConfig.layout = getUpdatedLayoutsValue(reactiveConfig.layout, form, props.isNew);
+
+    // Check hidden properties of the actions
+    if (reactiveConfig.actions?.length) {
+      reactiveConfig.actions.forEach((action) => {
+        updateActionValues(action, form, props.isNew);
+      });
+    }
 
     const formValidators = ref<FormItemEl['validateAllForms'][]>([]);
     const formValidatorRegister = (validator: FormItemEl['validateAllForms']) => {

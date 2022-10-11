@@ -44,7 +44,7 @@ interface InputAtts {
 }
 
 /** Dropzone component properties */
-export interface DropzoneProps extends BaseProps {
+export interface DropzoneProps<ENTITY extends {}> extends BaseProps<ENTITY> {
   /**
    * Function that receives a file as data in the RequestCallback.
    * It must return error if upload didn't happen and a string or a file representing the value
@@ -86,5 +86,5 @@ export interface DropzoneProps extends BaseProps {
 
 export interface DropzoneField<ENTITY extends {}> extends BaseField<ENTITY> {
   type: 'dropzone',
-  props: DropzoneProps,
+  props: DropzoneProps<ENTITY>,
 }

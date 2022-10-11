@@ -25,13 +25,13 @@ export type ActionFunc = <RESULT = any, DATA = any, EMITTER = string>(
 export type ActionWrapper = <RESULT = any, DATA = any>(
   data: DATA, cb: ActionCallback<RESULT, DATA>) => Promise<ActionReturn>;
 
-interface ActionButtonBase {
+interface ActionButtonBase<ENTITY extends {}> {
   loading?: boolean,
-  props: ButtonProps,
+  props: ButtonProps<ENTITY>,
 }
 
 /** Link actions are displayed as an `<el-button>` inside the `<router-link>` */
-export interface ActionLink extends ActionButtonBase {
+export interface ActionLink<ENTITY extends {}> extends ActionButtonBase<ENTITY> {
   type: 'link',
   to: ((route: RouteLocation) => RouteLocationRaw) | RouteLocationRaw,
   external?: boolean,
@@ -41,14 +41,14 @@ export interface ActionLink extends ActionButtonBase {
  * 'Action' action buttons are simple `<el-button`s, click on which calls the `action` function,
  * waits for it to finish and emits the `emits` event to the parent component to do another action.
  */
-export interface ActionAction<EMITTER = string> extends ActionButtonBase {
+export interface ActionAction<EMITTER = string, ENTITY = {}> extends ActionButtonBase<ENTITY> {
   type: 'action',
   action?: ActionCallback,
   emits?: EMITTER,
 }
 
 /** ActionButtons are either links or buttons. They are displayed in forms and table filters */
-export type ActionButton<EMITTERS> = ActionLink | ActionAction<EMITTERS>;
+export type ActionButton<EMITTERS, ENTITY> = ActionLink<ENTITY> | ActionAction<EMITTERS, ENTITY>;
 
 /**
  * Typings for the specific actions: in card form, table etc. They differ in what data is passed to them

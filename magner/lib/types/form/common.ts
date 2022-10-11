@@ -1,7 +1,7 @@
 import { MixedChecker } from 'lib/utils/core/mixed-check';
 
-export interface InnerConditions {
-  disabledCondition: MixedChecker,
-  hiddenCondition: MixedChecker,
-  readOnlyCondition: MixedChecker,
+export interface InnerConditions<ENTITY extends {}> {
+  disabledCondition: MixedChecker<ENTITY>,
+  hiddenCondition: MixedChecker<ENTITY>,
+  readOnlyCondition: MixedChecker<ENTITY>,
 }

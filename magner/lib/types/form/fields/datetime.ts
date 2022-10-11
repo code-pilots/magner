@@ -1,7 +1,7 @@
 import type { TranslateData } from 'lib/utils/core/translate';
 import type { BaseField, BaseProps } from '../base';
 
-export interface DateTimeProps extends BaseProps {
+export interface DateTimeProps<ENTITY extends {}> extends BaseProps<ENTITY> {
   /** Type of the DateTime picker. Please, refer to the https://element-plus.org/#/en-US/component/datetime-picker */
   type: 'year' | 'month' | 'date' | 'dates' | 'datetime' | 'week' | 'datetimerange' | 'daterange' | 'monthrange' | 'time' | 'timerange',
 
@@ -42,5 +42,5 @@ export interface DateTimeProps extends BaseProps {
 export interface DateTimeField<ENTITY extends {}> extends BaseField<ENTITY> {
   type: 'datetime',
   dataType: 'date' | 'array',
-  props: DateTimeProps,
+  props: DateTimeProps<ENTITY>,
 }

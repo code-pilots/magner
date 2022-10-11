@@ -12,7 +12,7 @@ export { useMobile } from './core/is-mobile';
 export {
   magnerAlert, magnerNotify, magnerPrompt, magnerConfirm, magnerMessage,
 } from './core/messages';
-export { mixedCheck, useChecks } from './core/mixed-check';
+export { useChecks } from './core/mixed-check';
 
 export { request } from './api';
 export type { Request, ApiType } from './api';

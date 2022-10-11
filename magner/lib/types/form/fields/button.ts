@@ -7,7 +7,7 @@ export type ButtonNativeType = 'button' | 'submit';
 
 /** Interface mimicking the El-button component properties:
  * https://element-plus.org/#/en-US/component/button */
-export interface ButtonProps extends BaseProps {
+export interface ButtonProps<ENTITY extends {}> extends BaseProps<ENTITY> {
   /** Button content */
   text: TranslateData,
 
@@ -33,7 +33,7 @@ export interface ButtonProps extends BaseProps {
 /** Button, if used in the form, does not return any value by itself and acts as a custom component. */
 export interface ButtonField<ENTITY extends {}> extends BaseField<ENTITY> {
   type: 'button',
-  props: ButtonProps,
+  props: ButtonProps<ENTITY>,
 
   /** This string is prompted to the button's 'changeAction' function in 'data.type' argument */
   clickActionType?: string,
