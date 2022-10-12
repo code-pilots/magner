@@ -7,12 +7,31 @@ export {
 
 export { openModal } from './core/modal';
 
-export { translate, useTranslate, TranslateError } from './core/translate';
-export { useMobile } from './core/is-mobile';
 export {
-  magnerAlert, magnerNotify, magnerPrompt, magnerConfirm, magnerMessage,
+  translate,
+  useTranslate,
+  TranslateError,
+  TranslateData,
+} from './core/translate';
+
+export { useMobile } from './core/is-mobile';
+
+export {
+  magnerAlert,
+  magnerNotify,
+  magnerPrompt,
+  magnerConfirm,
+  magnerMessage,
 } from './core/messages';
-export { useChecks } from './core/mixed-check';
+
+export {
+  useChecks,
+  useActionButtonChecks,
+  useLayoutChecks,
+  updateActionValues,
+  getUpdatedLayoutsValue,
+  updateFieldValues,
+} from './core/mixed-check';
 
 export { request } from './api';
 export type { Request, ApiType } from './api';

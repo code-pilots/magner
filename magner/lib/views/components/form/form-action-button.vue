@@ -37,16 +37,20 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
 import { RouteLocationRaw, useRoute } from 'vue-router';
-import { TranslateData, useTranslate } from 'lib/utils/core/translate';
 import type { ActionButton, ActionAction, ActionLink } from 'lib/types/utils/actions';
-import { actionWrapper, magnerMessage } from 'lib/utils';
-import { useActionButtonChecks } from 'lib/utils/core/mixed-check';
+import {
+  actionWrapper,
+  magnerMessage,
+  useActionButtonChecks,
+  TranslateData,
+  useTranslate,
+} from 'lib/utils';
 
 export default defineComponent({
   name: 'FormActionButton',
   props: {
     action: {
-      type: Object as PropType<ActionButton<string>>,
+      type: Object as PropType<ActionButton<string, any>>,
       required: true,
     },
     size: {
@@ -76,13 +80,13 @@ export default defineComponent({
       submit: t('core.form.submit'),
     };
 
-    const getTranslation = (action: ActionButton<string>): TranslateData => (
+    const getTranslation = (action: ActionButton<string, any>): TranslateData => (
       action.type === 'action' && !action.props.text
         ? translations[action.emits as keyof typeof translations]
         : customT(action.props.text || '')
     );
 
-    const getLink = (to: ActionLink['to']): RouteLocationRaw => {
+    const getLink = (to: ActionLink<any>['to']): RouteLocationRaw => {
       if (typeof to === 'function') {
         return to(route);
       }

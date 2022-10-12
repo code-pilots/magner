@@ -187,7 +187,7 @@ export const updateFieldValues = (
 };
 
 export const updateActionValues = (
-  action: ActionButton<any>,
+  action: ActionButton<any, any>,
   form: Record<string, any>,
   isNew: boolean,
 ) => {
@@ -212,7 +212,7 @@ export const updateActionValues = (
   }
 };
 
-export const useActionButtonChecks = (action: ActionButton<any>) => {
+export const useActionButtonChecks = (action: ActionButton<string, any>) => {
   const hidden = computed(() => (typeof action.props.hidden === 'function'
     ? (action.props.hidden as MixedCheckerOptional)()
     : action.props.hidden || false));

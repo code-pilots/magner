@@ -40,11 +40,13 @@
 
 <script lang="ts">
 import {
-  defineComponent, PropType, ref, watchEffect,
+  defineComponent,
+  PropType,
+  ref,
+  watchEffect,
 } from 'vue';
 import type { DateTimeField } from 'lib/types';
-import { useTranslate } from 'lib/utils/core/translate';
-import { useChecks } from 'lib/utils/core/mixed-check';
+import { useTranslate, useChecks } from 'lib/utils';
 import ReadonlyWrap from '../readonly-wrap.vue';
 
 export default defineComponent({

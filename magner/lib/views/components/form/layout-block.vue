@@ -67,9 +67,11 @@ import {
   shallowRef,
 } from 'vue';
 import type { GenericFormLayout, FormLayoutColumn, FormLayoutRow } from 'lib/types/form/layout';
-import { useTranslate } from 'lib/utils/core/translate';
-import { useMobile } from 'lib/utils/core/is-mobile';
-import { useLayoutChecks } from 'lib/utils/core/mixed-check';
+import {
+  useTranslate,
+  useMobile,
+  useLayoutChecks,
+} from 'lib/utils';
 
 export default defineComponent({
   name: 'FormLayoutBlock',

@@ -35,7 +35,7 @@ interface ViewImage<ENTITY extends {}> extends ViewBase<ENTITY, string | string[
 interface ViewActions<ENTITY extends {}> extends ViewBase<ENTITY, string> {
   type: 'actions',
   /** Action to perform when 'remove button' is done on selection */
-  actions?: ActionButton<TableActions>[],
+  actions?: ActionButton<TableActions, ENTITY>[],
 }
 interface ViewCustom<ENTITY extends {}> extends ViewBase<ENTITY, unknown> {
   type: 'custom',
@@ -132,7 +132,7 @@ export interface Table<ENTITY extends {} = {}> {
     rowIdKey: keyof ENTITY,
 
     /** Action to perform when 'remove button' is done on selection */
-    actions?: ActionButton<TableActions>[],
+    actions?: ActionButton<TableActions, ENTITY>[],
 
     /** Whether to reserve selection after data refreshing, works when type is 'selection'.
      * Note that row-key is required for this to work */

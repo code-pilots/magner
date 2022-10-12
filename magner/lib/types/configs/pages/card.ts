@@ -5,7 +5,7 @@ import type { PageHeader } from './shared';
 
 export interface CardConfig<ENTITY extends {}> {
   /** Top header of a page. Consists of the page title and tabs */
-  header: PageHeader,
+  header: PageHeader<string, ENTITY>,
 
   /** CRUD requests for working with entity data */
   getRequest: RequestWrap<any, CardRequestData<ENTITY>>,

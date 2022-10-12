@@ -10,7 +10,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
 import type { GenericComponent } from 'lib/types/form';
-import { useChecks } from 'lib/utils/core/mixed-check';
+import { useChecks } from 'lib/utils';
 
 export default defineComponent({
   name: 'ReadonlyWrap',

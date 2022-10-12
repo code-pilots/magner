@@ -171,16 +171,19 @@
 
 <script lang="ts">
 import {
-  shallowRef, defineComponent, PropType, ref, watchEffect, reactive, computed, onMounted,
+  shallowRef,
+  defineComponent,
+  PropType,
+  ref,
+  watchEffect,
+  onMounted,
 } from 'vue';
 import type { GenericComponent } from 'lib/types/form';
 import type { GenericFormLayout } from 'lib/types/form/layout';
 import type { BaseValidation } from 'lib/types/form/base';
 import type { FormValidator } from 'lib/types/configs/development';
 import { collectFieldsFromLayout, DataTypeInitials, fieldsToModels } from 'lib/utils/form/form';
-import { useTranslate } from 'lib/utils/core/translate';
-import { useMobile } from 'lib/utils/core/is-mobile';
-import { useChecks } from 'lib/utils/core/mixed-check';
+import { useMobile, useChecks, useTranslate } from 'lib/utils';
 import setupValidators from 'lib/utils/form/setup-validators';
 import PlusIcon from 'lib/assets/icons/plus.svg';
 import XIcon from 'lib/assets/icons/x.svg';

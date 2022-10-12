@@ -27,7 +27,7 @@ export default defineComponent({
   components: { FormActionButton },
   props: {
     actions: {
-      type: Array as PropType<ActionButton<string>[]>,
+      type: Array as PropType<ActionButton<string, any>[]>,
       default: () => ([]),
     },
     size: {

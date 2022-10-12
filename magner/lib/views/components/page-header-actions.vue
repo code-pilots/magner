@@ -41,14 +41,13 @@
 import { defineComponent, PropType } from 'vue';
 import { RouteLocationRaw, useRoute } from 'vue-router';
 import { TranslateData, useTranslate } from 'lib/utils/core/translate';
-import type { ActionButton, ActionAction, ActionLink } from 'lib/types/utils/actions';
-import { actionWrapper, magnerMessage } from 'lib/utils';
+import type { ActionButton, ActionLink } from 'lib/types/utils/actions';
 
 export default defineComponent({
   name: 'PageHeaderActions',
   props: {
     actions: {
-      type: Array as PropType<ActionButton<string>[]>,
+      type: Array as PropType<ActionButton<string, any>[]>,
       default: () => ([]),
     },
     size: {
@@ -68,13 +67,13 @@ export default defineComponent({
       submit: t('core.form.submit'),
     };
 
-    const getTranslation = (action: ActionButton<string>): TranslateData => (
+    const getTranslation = (action: ActionButton<string, any>): TranslateData => (
       action.type === 'action' && !action.props.text
         ? translations[action.emits as keyof typeof translations]
         : customT(action.props.text || '')
     );
 
-    const getLink = (to: ActionLink['to']): RouteLocationRaw => {
+    const getLink = (to: ActionLink<any>['to']): RouteLocationRaw => {
       if (typeof to === 'function') {
         return to(route);
       }

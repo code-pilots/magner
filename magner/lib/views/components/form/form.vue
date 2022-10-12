@@ -62,8 +62,13 @@
 <script lang="ts">
 import '../../../assets/styles/components/generic-form.css';
 import {
-  defineComponent, reactive, ref, PropType,
-  watchEffect, computed, watch,
+  defineComponent,
+  reactive,
+  ref,
+  PropType,
+  watchEffect,
+  computed,
+  watch,
 } from 'vue';
 import { useRouter } from 'vue-router';
 import type { GenericComponent, GenericForm } from 'lib/types/form';
@@ -71,9 +76,13 @@ import type { BaseValidation, FormInteractionsData } from 'lib/types/form/base';
 import type { SupportedValidators, FormValidator } from 'lib/types/configs/development';
 import type { ActionAction } from 'lib/types/utils/actions';
 import { fieldsToModels, initialDifference, layoutToFields } from 'lib/utils/form/form';
-import { useTranslate } from 'lib/utils/core/translate';
-import { useMobile } from 'lib/utils/core/is-mobile';
-import { updateFieldValues, getUpdatedLayoutsValue, updateActionValues } from 'lib/utils/core/mixed-check';
+import {
+  updateFieldValues,
+  getUpdatedLayoutsValue,
+  updateActionValues,
+  useMobile,
+  useTranslate,
+} from 'lib/utils';
 import FormItem from './form-item.vue';
 import FormLayout from './layout.vue';
 import FormActions from './form-actions.vue';
