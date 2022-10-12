@@ -1,7 +1,7 @@
 import type { BaseField, BaseProps } from '../base';
 import type { TranslateData } from '../../../utils/core/translate';
 
-export interface SwitchProps extends BaseProps {
+export interface SwitchProps<ENTITY extends {}> extends BaseProps<ENTITY> {
   /** Text to display on the left side of the switch */
   inactiveLabel?: TranslateData,
   /** Text to display on the right side of the switch */
@@ -24,5 +24,5 @@ export interface SwitchProps extends BaseProps {
 export interface SwitchField<ENTITY extends {}> extends BaseField<ENTITY> {
   type: 'switch',
   dataType: 'boolean',
-  props: SwitchProps,
+  props: SwitchProps<ENTITY>,
 }

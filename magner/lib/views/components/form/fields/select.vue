@@ -47,8 +47,7 @@ import {
 } from 'vue';
 import type { ElSelect } from 'element-plus';
 import type { SelectField } from 'lib/types/form/fields/select';
-import { useTranslate } from 'lib/utils/core/translate';
-import { useChecks } from 'lib/utils/core/mixed-check';
+import { useTranslate, useChecks } from 'lib/utils';
 import ReadonlyWrap from '../readonly-wrap.vue';
 
 type SelectValue = number | string | Record<string, unknown> | (number|string|Record<string, unknown>)[];

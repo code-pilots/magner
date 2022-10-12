@@ -1,7 +1,7 @@
 import type { TranslateData } from 'lib/utils/core/translate';
 import type { BaseField, BaseProps } from '../base';
 
-export interface CheckboxProps extends BaseProps {
+export interface CheckboxProps<ENTITY extends {}> extends BaseProps<ENTITY> {
   /** Minimum/Maximum number of checkbox checked */
   min?: number,
   max?: number,
@@ -23,7 +23,7 @@ export interface CheckboxOption extends Record<string, any> {
 
 export interface CheckboxField<ENTITY extends {}> extends BaseField<ENTITY> {
   type: 'checkbox',
-  props: CheckboxProps,
+  props: CheckboxProps<ENTITY>,
   options: CheckboxOption[],
   dataType: 'array',
   checkboxButtons?: boolean,

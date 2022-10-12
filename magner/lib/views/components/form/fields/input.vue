@@ -33,11 +33,14 @@
 
 <script lang="ts">
 import {
-  defineComponent, PropType, ref, watchEffect, onMounted,
+  defineComponent,
+  PropType,
+  ref,
+  watchEffect,
+  onMounted,
 } from 'vue';
 import { create as Maska } from 'maska';
-import { useTranslate } from 'lib/utils/core/translate';
-import { useChecks } from 'lib/utils/core/mixed-check';
+import { useTranslate, useChecks } from 'lib/utils';
 import debounceOnInput from 'lib/utils/form/input-debounce';
 import type { InputField } from 'lib/types/form/fields/input';
 import ReadonlyWrap from '../readonly-wrap.vue';

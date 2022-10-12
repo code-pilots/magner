@@ -60,8 +60,13 @@
 
 <script lang="ts">
 import '../../assets/styles/components/data-table.css';
-import { computed, defineComponent, PropType, ref } from 'vue';
-import type { Table, TableColumn } from 'lib/types/components/table';
+import {
+  computed,
+  defineComponent,
+  PropType,
+  ref,
+} from 'vue';
+import type { Table } from 'lib/types/components/table';
 import { useTranslate } from 'lib/utils/core/translate';
 import TableCell from 'lib/views/components/table/cell.vue';
 import { useRoute } from 'vue-router';

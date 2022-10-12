@@ -1,7 +1,7 @@
 import type { TranslateData } from 'lib/utils/core/translate';
 import type { BaseField, BaseProps } from '../base';
 
-export interface RadioProps extends BaseProps {
+export interface RadioProps<ENTITY extends {}> extends BaseProps<ENTITY> {
   /** Display radio options in form of the buttons */
   radioButtons?: boolean,
 
@@ -25,6 +25,6 @@ export interface RadioOption extends Record<string, any> {
 
 export interface RadioField<ENTITY extends {}> extends BaseField<ENTITY> {
   type: 'radio',
-  props: RadioProps,
+  props: RadioProps<ENTITY>,
   options: RadioOption[],
 }

@@ -16,7 +16,7 @@ export interface PageHeaderTab {
   hideIfNew?: boolean,
 }
 
-export interface PageHeader<EMITTERS = string> {
+export interface PageHeader<EMITTERS = string, ENTITY = {}> {
   /** Page title */
   title?: TranslateData,
 
@@ -24,5 +24,5 @@ export interface PageHeader<EMITTERS = string> {
   tabs?: PageHeaderTab[],
 
   /** Actions are buttons placed in page header */
-  actions?: ActionButton<EMITTERS>[],
+  actions?: ActionButton<EMITTERS, ENTITY>[],
 }

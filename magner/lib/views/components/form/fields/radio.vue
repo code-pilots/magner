@@ -35,8 +35,7 @@
 import {
   defineComponent, PropType, ref, watchEffect,
 } from 'vue';
-import { useTranslate } from 'lib/utils/core/translate';
-import { useChecks } from 'lib/utils/core/mixed-check';
+import { useTranslate, useChecks } from 'lib/utils';
 import type { RadioField } from 'lib/types/form/fields/radio';
 import ReadonlyWrap from '../readonly-wrap.vue';
 

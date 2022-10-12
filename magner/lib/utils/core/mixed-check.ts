@@ -3,11 +3,12 @@ import type { GenericComponent } from 'lib/types/form/form';
 import globalValues from 'lib/global';
 import { layoutToFields } from 'lib/utils/form/form';
 import { FormLayout, GenericFormLayout } from 'lib/types/form/layout';
+import { ActionButton } from 'lib/types/utils/actions';
 
-export type MixedChecker = (data: {
+export type MixedChecker<ENTITY extends {}> = (data: {
   role: string,
   isNew: boolean,
-  state: Record<string, unknown>,
+  state: ENTITY,
 }) => boolean;
 
 type MixedCheckerOptional = (data?: {
@@ -15,8 +16,6 @@ type MixedCheckerOptional = (data?: {
   isNew: boolean,
   state: Record<string, unknown>,
 }) => boolean;
-
-export const mixedCheck = (checker: MixedChecker): MixedChecker => checker;
 
 export const useLayoutChecks = (layout: GenericFormLayout<any> | GenericFormLayout<any>[]): {
   hidden: ComputedRef<boolean>
@@ -129,7 +128,7 @@ export const updateFieldValues = (
   field: GenericComponent<any>,
   form: Record<string, any>,
   isNew?: boolean,
-  force?: Record<'readOnly' | 'disabled' | 'hidden', boolean | MixedChecker>,
+  force?: Record<'readOnly' | 'disabled' | 'hidden', undefined | boolean | MixedChecker<any>>,
 ) => {
   if (!field.props.inner) {
     field.props.inner = {};
@@ -180,9 +179,45 @@ export const updateFieldValues = (
   if (field.type === 'collection') {
     const nestedFields = layoutToFields(field as unknown as GenericFormLayout<any>);
     nestedFields.forEach((nestedField) => updateFieldValues(nestedField, form, isNew, {
-      readOnly: field.props.readOnly || false,
-      disabled: field.props.disabled || false,
-      hidden: field.props.hidden || false,
+      readOnly: field.props.readOnly || undefined,
+      disabled: field.props.disabled || undefined,
+      hidden: field.props.hidden || undefined,
     }));
   }
+};
+
+export const updateActionValues = (
+  action: ActionButton<any, any>,
+  form: Record<string, any>,
+  isNew: boolean,
+) => {
+  if (!action.props.inner) {
+    action.props.inner = {};
+  }
+
+  // Save pure hidden function
+  if (typeof action.props.inner.hiddenCondition !== 'function'
+    && typeof action.props.hidden === 'function') {
+    action.props.inner.hiddenCondition = action.props.hidden;
+  }
+
+  const hidden = action.props.inner.hiddenCondition;
+
+  if (typeof hidden === 'function') {
+    action.props.hidden = hidden.bind(null, {
+      state: form,
+      isNew: isNew || false,
+      role: globalValues.store.state.role as string,
+    });
+  }
+};
+
+export const useActionButtonChecks = (action: ActionButton<string, any>) => {
+  const hidden = computed(() => (typeof action.props.hidden === 'function'
+    ? (action.props.hidden as MixedCheckerOptional)()
+    : action.props.hidden || false));
+
+  return {
+    hidden,
+  };
 };

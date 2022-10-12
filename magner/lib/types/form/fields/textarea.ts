@@ -1,7 +1,7 @@
 import type { BaseField, BaseProps } from '../base';
 import type { TranslateData } from '../../../utils/core/translate';
 
-export interface TextareaProps extends BaseProps {
+export interface TextareaProps<ENTITY extends {}> extends BaseProps<ENTITY> {
   placeholder?: TranslateData,
 
   /** An amount of milliseconds (put 400 for the best UX) of the delay for the 'update:modelValue' event of
@@ -31,5 +31,5 @@ export interface TextareaProps extends BaseProps {
 
 export interface TextareaField<ENTITY extends {}> extends BaseField<ENTITY> {
   type: 'textarea',
-  props: TextareaProps,
+  props: TextareaProps<ENTITY>,
 }

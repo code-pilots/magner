@@ -6,7 +6,7 @@ import type { BaseField, BaseProps } from '../base';
  * Props of the Select component from element-ui:
  * https://element-plus.org/#/en-US/component/select#select-attributes
  */
-export interface SelectProps extends BaseProps {
+export interface SelectProps<ENTITY extends {}> extends BaseProps<ENTITY> {
   placeholder?: TranslateData,
 
   /** Use first option as initially selected */
@@ -59,6 +59,6 @@ export interface OptionComponent extends Record<string, any> {
 
 export interface SelectField<ENTITY extends {}> extends BaseField<ENTITY> {
   type: 'select',
-  props: SelectProps,
+  props: SelectProps<ENTITY>,
   options: OptionComponent[],
 }
