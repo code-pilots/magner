@@ -128,7 +128,7 @@ export const updateFieldValues = (
   field: GenericComponent<any>,
   form: Record<string, any>,
   isNew?: boolean,
-  force?: Record<'readOnly' | 'disabled' | 'hidden', boolean | MixedChecker<any>>,
+  force?: Record<'readOnly' | 'disabled' | 'hidden', undefined | boolean | MixedChecker<any>>,
 ) => {
   if (!field.props.inner) {
     field.props.inner = {};
@@ -179,9 +179,9 @@ export const updateFieldValues = (
   if (field.type === 'collection') {
     const nestedFields = layoutToFields(field as unknown as GenericFormLayout<any>);
     nestedFields.forEach((nestedField) => updateFieldValues(nestedField, form, isNew, {
-      readOnly: field.props.readOnly || false,
-      disabled: field.props.disabled || false,
-      hidden: field.props.hidden || false,
+      readOnly: field.props.readOnly || undefined,
+      disabled: field.props.disabled || undefined,
+      hidden: field.props.hidden || undefined,
     }));
   }
 };
