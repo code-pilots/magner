@@ -11,9 +11,8 @@ export {
   translate,
   useTranslate,
   TranslateError,
-  TranslateData,
 } from './core/translate';
-
+export type { TranslateData } from './core/translate';
 export { useMobile } from './core/is-mobile';
 
 export {
