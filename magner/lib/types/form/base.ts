@@ -90,4 +90,9 @@ export interface BaseField<ENTITY extends {}> {
    * configuration. Can be used in cases like dynamic displaying/disabling of hidden fields etc.
    */
   changeAction?: FieldInteractions<ENTITY>,
+
+  /**
+   * pointer to parent element in collection
+   */
+  parent?: unknown,
 }

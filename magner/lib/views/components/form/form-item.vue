@@ -129,7 +129,7 @@
           <template #item="nestedField">
             <FormItem
               v-model="itm[nestedField.name]"
-              :field="nestedField"
+              :field="{...nestedField, parent: itm}"
               :form="form"
               @blur="blurCollectionItem(i, nestedField, $event)"
               @update:model-value="changeCollectionItem(i, nestedField, $event)"
