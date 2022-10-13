@@ -94,7 +94,7 @@ export const getUpdatedLayoutsValue = (
 
 export const useChecks = (field: GenericComponent<any>, value?: unknown) => {
   const disabled = computed(() => (typeof field.props.disabled === 'function'
-    ? (field.props.disabled as MixedCheckerOptional)()
+    ? (field.props.disabled as MixedCheckerOptional)(field.parent)
     : field.props.disabled || false));
 
   const hidden = computed(() => (typeof field.props.hidden === 'function'
