@@ -15,7 +15,7 @@ type MixedCheckerOptional = (data?: {
   role: string,
   isNew: boolean,
   state: Record<string, unknown>,
-}) => boolean;
+} | unknown) => boolean;
 
 export const useLayoutChecks = (layout: GenericFormLayout<any> | GenericFormLayout<any>[]): {
   hidden: ComputedRef<boolean>
