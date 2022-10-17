@@ -1,3 +1,12 @@
+## [0.6.36](https://github.com/code-pilots/magner/compare/v0.6.35...v0.6.36) (2022-10-17)
+
+
+### Bug Fixes
+
+* fixed comparison of initial and new form data ([#58](https://github.com/code-pilots/magner/issues/58)) ([ac094c3](https://github.com/code-pilots/magner/commit/ac094c347f23cf09bbab90d7b100dd1b7f657912))
+
+
+
 ## [0.6.35](https://github.com/code-pilots/magner/compare/v0.6.34...v0.6.35) (2022-10-17)
 
 
