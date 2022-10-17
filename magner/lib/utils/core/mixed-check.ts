@@ -98,11 +98,11 @@ export const useChecks = (field: GenericComponent<any>, value?: unknown) => {
     : field.props.disabled || false));
 
   const hidden = computed(() => (typeof field.props.hidden === 'function'
-    ? (field.props.hidden as MixedCheckerOptional)()
+    ? (field.props.hidden as MixedCheckerOptional)(field.parent)
     : field.props.hidden || false));
 
   const readOnly = computed(() => (typeof field.props.readOnly === 'function'
-    ? (field.props.readOnly as MixedCheckerOptional)()
+    ? (field.props.readOnly as MixedCheckerOptional)(field.parent)
     : field.props.readOnly || false));
 
   const readOnlyText = computed<string>(() => (
