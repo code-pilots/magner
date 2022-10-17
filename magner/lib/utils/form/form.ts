@@ -100,7 +100,7 @@ export const initialDifference = (form: Record<string, any>, initialData: Record
     const initial = initialData[entry[0]];
     const current = entry[1];
 
-    if (initial !== current) {
+    if (typeof current !== 'object' && initial !== current) {
       accum[entry[0]] = current;
       return accum;
     }
