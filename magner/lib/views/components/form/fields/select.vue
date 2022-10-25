@@ -75,9 +75,9 @@ export default defineComponent({
     const loading = ref<boolean>(false);
     const selectEl = ref<typeof ElSelect>();
 
-    const changeVal = (newVal: string|number) => {
-      val.value = newVal;
-      context.emit('update:modelValue', newVal);
+    const changeVal = (newVal: string|number|(string|number)[]) => {
+      val.value = Array.isArray(newVal) && newVal.length === 0 ? '' : newVal;
+      context.emit('update:modelValue', val.value);
     };
 
     const remoteMethod = async (search: string) => {
