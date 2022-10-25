@@ -230,7 +230,9 @@ export default defineComponent({
     const drawerOpen = ref(false);
     const dynamicRef = ref<typeof Dynamic>();
 
-    const hasPagination = computed(() => !!(!selected.value.length || props.config.table.rowSelectable?.reserveSelection));
+    const hasPagination = computed(
+      () => !!(!selected.value.length || props.config.table.rowSelectable?.reserveSelection),
+    );
     const hasFilters = computed(() => !!(topFilters.value.length || props.config.filters.actions?.length));
     const hasHeader = computed(() => !!(props.config.header.title
       || (props.config.header.tabs && props.config.header.tabs.length)));
@@ -293,7 +295,13 @@ export default defineComponent({
     };
 
     const changeSort = (sort: { column: any|null, prop: string|null, order: 'ascending'|'descending'|null }) => {
-      requestData.pagination = { ...(props.config.filters.pagination || {}) };
+      requestData.pagination = {
+        ...requestData.pagination,
+        ...(props.config.filters.pagination
+          ? { page: props.config.filters.pagination.page }
+          : {}
+        ),
+      };
       if (!sort.prop) {
         requestData.sort = { ...(props.config.filters.sort || {}) };
         return;
