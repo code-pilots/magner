@@ -1,3 +1,12 @@
+## [0.6.38](https://github.com/code-pilots/magner/compare/v0.6.37...v0.6.38) (2022-10-26)
+
+
+### Bug Fixes
+
+* on filters change - reset only page, not items ([#62](https://github.com/code-pilots/magner/issues/62)) ([1e49cb0](https://github.com/code-pilots/magner/commit/1e49cb0567a03c904af0d9d951cec147c200ade6))
+
+
+
 ## [0.6.37](https://github.com/code-pilots/magner/compare/v0.6.36...v0.6.37) (2022-10-25)
 
 
