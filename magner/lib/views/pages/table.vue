@@ -270,8 +270,14 @@ export default defineComponent({
     };
 
     const filterItems = (form: Record<string, string>) => {
+      requestData.pagination = {
+        ...requestData.pagination,
+        ...(props.config.filters.pagination
+          ? { page: props.config.filters.pagination.page }
+          : {}
+        ),
+      };
       requestData.filters = { ...requestData.filters, ...form };
-      requestData.pagination = { ...(props.config.filters.pagination || {}) };
       drawerOpen.value = false;
     };
 
