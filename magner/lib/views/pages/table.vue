@@ -21,35 +21,51 @@
     />
 
     <template v-if="hasFilters">
-      <el-drawer
-        :is="'el-drawer'"
-        v-if="filtersInSeparatePanel"
-        ref="pageTopEl"
-        v-model="filtersOpened"
-        v-bind="{
-          direction: 'rtl',
-          size: 'auto',
-          title: t('core.table.filters'),
-          customClass: 'filters_drawer',
-        }"
-      >
-        <GenericForm
-          :config="{ ...config.filters, layout: allFilters }"
-          :loading="false"
-          :initial-data="requestData.filters"
-          :request-data="{ ...requestData, selected }"
-          class="table-page_top_filters"
-          @submit="filterItems"
-          @action="filtersAction"
+      <template v-if="filtersInSeparatePanel">
+        <div
+          v-if="config.filters.fieldsShowAmount && config.filters.fieldsShowAmount > 0"
+          ref="pageTopEl"
+          class="table-page_top"
         >
-          <template #after>
-            <el-tag v-if="appliedFilters" closable @close="clearFilters">
-              {{ t('core.table.filters_applied') }}: {{ appliedFilters }}
-            </el-tag>
-            <div class="flex-grow" />
-          </template>
-        </GenericForm>
-      </el-drawer>
+          <GenericForm
+            :config="{ ...config.filters, layout: topFilters }"
+            :loading="false"
+            :initial-data="requestData.filters"
+            :request-data="{ ...requestData, selected }"
+            class="table-page_top_filters"
+            @submit="filterItems"
+            @action="filtersAction"
+          />
+        </div>
+
+        <el-drawer
+          :is="'el-drawer'"
+          v-model="filtersOpened"
+          v-bind="{
+            direction: 'rtl',
+            size: 'auto',
+            title: t('core.table.filters'),
+            customClass: 'filters_drawer',
+          }"
+        >
+          <GenericForm
+            :config="{ ...config.filters, layout: allFilters }"
+            :loading="false"
+            :initial-data="requestData.filters"
+            :request-data="{ ...requestData, selected }"
+            class="table-page_top_filters"
+            @submit="filterItems"
+            @action="filtersAction"
+          >
+            <template #after>
+              <el-tag v-if="appliedFilters" closable @close="clearFilters">
+                {{ t('core.table.filters_applied') }}: {{ appliedFilters }}
+              </el-tag>
+              <div class="flex-grow" />
+            </template>
+          </GenericForm>
+        </el-drawer>
+      </template>
 
       <div v-else ref="pageTopEl" class="table-page_top">
         <GenericForm
@@ -233,18 +249,22 @@ export default defineComponent({
     const hasPagination = computed(
       () => !!(!selected.value.length || props.config.table.rowSelectable?.reserveSelection),
     );
-    const hasFilters = computed(() => !!(topFilters.value.length || props.config.filters.actions?.length));
+    const hasFilters = computed(() => !!(allFilters.value.length || props.config.filters.actions?.length));
     const hasHeader = computed(() => !!(props.config.header.title
       || (props.config.header.tabs && props.config.header.tabs.length)));
     const tableHeight = computed(() => {
       const navHeight = 50;
       const headerHeight = hasHeader.value ? pageHeaderEl.value!.$el.offsetHeight : 0;
-      const topHeight = hasFilters.value && !filtersInSeparatePanel.value ? pageTopEl.value!.offsetHeight : 0;
+      const topHeight = hasFilters.value
+        && !(
+          filtersInSeparatePanel.value
+          && (!props.config.filters.fieldsShowAmount || props.config.filters.fieldsShowAmount === 0)
+        )
+        ? pageTopEl.value!.offsetHeight
+        : 0;
       const bottomHeight = 40;
 
-      let height;
-      if (isMobile.value || filtersInSeparatePanel.value) height = navHeight + headerHeight + bottomHeight;
-      else height = navHeight + headerHeight + topHeight + bottomHeight;
+      const height = navHeight + headerHeight + topHeight + bottomHeight;
 
       return `calc(100vh - ${height + 1}px)`;
     });
