@@ -20,6 +20,7 @@
       :no-match-text="customT(field.props.noMatchText || '')"
       :no-data-text="customT(field.props.noDataText || '')"
       :value-key="field.props.valueKey"
+      :remote-show-suffix="true"
       @blur="$emit('blur', $event)"
       @change="changeVal"
     >
