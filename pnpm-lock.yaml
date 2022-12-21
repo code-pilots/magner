@@ -89,7 +89,7 @@ importers:
       commander: 9.4.0
       editorjs-table-readonly: ^1.1.0
       ejs: ^3.1.8
-      element-plus: 2.2.16
+      element-plus: 2.2.27
       enquirer: ^2.3.6
       eslint: 8.9.0
       eslint-config-airbnb-base: 15.0.0
@@ -117,7 +117,7 @@ importers:
       '@editorjs/header': 2.6.2
       '@editorjs/list': 1.7.0
       editorjs-table-readonly: 1.1.0
-      element-plus: 2.2.16_vue@3.2.39
+      element-plus: 2.2.27_vue@3.2.39
       maska: 1.5.0
       vue: 3.2.39
       vue-i18n: 9.2.2_vue@3.2.39
@@ -822,10 +822,6 @@ packages:
     resolution: {integrity: sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==}
     dev: true
 
-  /@types/json-schema/7.0.9:
-    resolution: {integrity: sha512-qcUXuemtEu+E5wZSJHNxUXeCZhAfXKQ41D+duX+VYPde7xyEVZci+/oXKJL13tnRs9lR2pr4fod59GT6/X1/yQ==}
-    dev: true
-
   /@types/json5/0.0.29:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
     dev: true
@@ -939,12 +935,12 @@ packages:
       '@typescript-eslint/scope-manager': 5.12.0
       '@typescript-eslint/type-utils': 5.12.0_fhzmdq77bspfhxkfuzq4fbrdsy
       '@typescript-eslint/utils': 5.12.0_fhzmdq77bspfhxkfuzq4fbrdsy
-      debug: 4.3.3
+      debug: 4.3.4
       eslint: 8.9.0
       functional-red-black-tree: 1.0.1
       ignore: 5.2.0
       regexpp: 3.2.0
-      semver: 7.3.5
+      semver: 7.3.7
       tsutils: 3.21.0_typescript@4.5.5
       typescript: 4.5.5
     transitivePeerDependencies:
@@ -964,7 +960,7 @@ packages:
       '@typescript-eslint/scope-manager': 5.12.0
       '@typescript-eslint/types': 5.12.0
       '@typescript-eslint/typescript-estree': 5.12.0_typescript@4.5.5
-      debug: 4.3.3
+      debug: 4.3.4
       eslint: 8.9.0
       typescript: 4.5.5
     transitivePeerDependencies:
@@ -1010,7 +1006,7 @@ packages:
         optional: true
     dependencies:
       '@typescript-eslint/utils': 5.12.0_fhzmdq77bspfhxkfuzq4fbrdsy
-      debug: 4.3.3
+      debug: 4.3.4
       eslint: 8.9.0
       tsutils: 3.21.0_typescript@4.5.5
       typescript: 4.5.5
@@ -1090,7 +1086,7 @@ packages:
     peerDependencies:
       eslint: ^6.0.0 || ^7.0.0 || ^8.0.0
     dependencies:
-      '@types/json-schema': 7.0.9
+      '@types/json-schema': 7.0.11
       '@typescript-eslint/scope-manager': 5.12.0
       '@typescript-eslint/types': 5.12.0
       '@typescript-eslint/typescript-estree': 5.12.0_typescript@4.5.5
@@ -2030,7 +2026,7 @@ packages:
   /axios/0.21.4_debug@4.3.2:
     resolution: {integrity: sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==}
     dependencies:
-      follow-redirects: 1.15.2_debug@4.3.2
+      follow-redirects: 1.15.1_debug@4.3.2
     transitivePeerDependencies:
       - debug
     dev: true
@@ -2780,8 +2776,8 @@ packages:
       - '@vue/composition-api'
     dev: false
 
-  /element-plus/2.2.16_vue@3.2.39:
-    resolution: {integrity: sha512-rvaTMFIujec9YDC5lyaiQv2XVUCHuhVDq2k+9vQxP78N8Wd07iEOGa9pvEVOO2uYc75l4rSl2RE/IWPH/6Mdzw==}
+  /element-plus/2.2.27_vue@3.2.39:
+    resolution: {integrity: sha512-P04HDOZBYDdvlYuleuCZRULzAc5xJVOBfLDK9xWxVo0vyo8ntdaXS5sTU+/76vrNzuO3FhLn9kvrsbiJEVa1jg==}
     peerDependencies:
       vue: ^3.2.0
     dependencies:
@@ -3728,7 +3724,7 @@ packages:
       confusing-browser-globals: 1.0.11
       eslint: 8.9.0
       eslint-plugin-import: 2.25.4_ejxzxsyv2dsrkmg64kmojwaw7u
-      object.assign: 4.1.2
+      object.assign: 4.1.4
       object.entries: 1.1.5
       semver: 6.3.0
     dev: true
@@ -3775,7 +3771,7 @@ packages:
       eslint-import-resolver-webpack:
         optional: true
     dependencies:
-      '@typescript-eslint/parser': 5.12.0_jsc5jh3pcm2sdrulvniismgau4
+      '@typescript-eslint/parser': 5.12.0_fhzmdq77bspfhxkfuzq4fbrdsy
       debug: 3.2.7
       eslint-import-resolver-node: 0.3.6
       find-up: 2.1.0
@@ -4208,8 +4204,8 @@ packages:
         optional: true
     dev: true
 
-  /follow-redirects/1.15.2_debug@4.3.2:
-    resolution: {integrity: sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==}
+  /follow-redirects/1.15.1_debug@4.3.2:
+    resolution: {integrity: sha512-yLAMQs+k0b2m7cVxpS1VKJVvoz7SS9Td1zss3XRwXj+ZDH00RJgnuLx7E44wx02kQLrdM3aOOy+FpzS7+8OizA==}
     engines: {node: '>=4.0'}
     peerDependencies:
       debug: '*'
@@ -5747,7 +5743,7 @@ packages:
       postcss: ^8.2.14
     dependencies:
       postcss: 8.4.14
-      postcss-selector-parser: 6.0.9
+      postcss-selector-parser: 6.0.10
     dev: true
 
   /postcss-nested/5.0.6_postcss@8.4.16:
@@ -5762,14 +5758,6 @@ packages:
 
   /postcss-selector-parser/6.0.10:
     resolution: {integrity: sha512-IQ7TZdoaqbT+LCpShg46jnZVlhWD2w6iQYAcYXfHARZ7X1t/UGhhceQDs5X0cGqKvYlHNOuv7Oa1xmb0oQuA3w==}
-    engines: {node: '>=4'}
-    dependencies:
-      cssesc: 3.0.0
-      util-deprecate: 1.0.2
-    dev: true
-
-  /postcss-selector-parser/6.0.9:
-    resolution: {integrity: sha512-UO3SgnZOVTwu4kyLR22UQ1xZh086RyNZppb7lLAKBFK8a32ttG5i87Y/P3+2bRSjZNyJ1B7hfFNo273tKe9YxQ==}
     engines: {node: '>=4'}
     dependencies:
       cssesc: 3.0.0
