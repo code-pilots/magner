@@ -37,6 +37,9 @@ export interface DateTimeProps<ENTITY extends {}> extends BaseProps<ENTITY> {
 
   /** Whether to show clear button */
   clearable?: boolean,
+
+  /** Function determining if a date is disabled with that date as its parameter. */
+  disabledDate?: (time: Date) => boolean
 }
 
 export interface DateTimeField<ENTITY extends {}> extends BaseField<ENTITY> {

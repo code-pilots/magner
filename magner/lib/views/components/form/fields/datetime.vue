@@ -31,6 +31,7 @@
       :placeholder="customT(field.props.placeholder)"
       :start-placeholder="customT(field.props.startPlaceholder)"
       :end-placeholder="customT(field.props.endPlaceholder)"
+      :disabled-date="field.props.disabledDate"
       :disabled="disabled"
       @blur="$emit('blur', $event)"
       @update:model-value="changeVal"
