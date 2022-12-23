@@ -1,3 +1,12 @@
+# [0.7.0](https://github.com/code-pilots/magner/compare/v0.6.40...v0.7.0) (2022-12-23)
+
+
+### Features
+
+* add props ([#68](https://github.com/code-pilots/magner/issues/68)) ([5ab8f5c](https://github.com/code-pilots/magner/commit/5ab8f5c50e31693f921cc5feb101bc6480a32542))
+
+
+
 ## [0.6.40](https://github.com/code-pilots/magner/compare/v0.6.39...v0.6.40) (2022-12-21)
 
 
