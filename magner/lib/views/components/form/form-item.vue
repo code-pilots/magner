@@ -76,6 +76,7 @@
       v-else-if="field.type === 'select'"
       v-model="val"
       :field="field"
+      :form="form"
       @blur="$emit('blur', $event)"
       @update:model-value="updVal"
     />

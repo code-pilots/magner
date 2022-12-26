@@ -49,6 +49,7 @@ import {
 import type { ElSelect } from 'element-plus';
 import type { SelectField } from 'lib/types/form/fields/select';
 import { useTranslate, useChecks } from 'lib/utils';
+import { DataTypeInitials } from 'lib/utils/form/form';
 import ReadonlyWrap from '../readonly-wrap.vue';
 
 type SelectValue = number | string | Record<string, unknown> | (number|string|Record<string, unknown>)[];
@@ -64,6 +65,10 @@ export default defineComponent({
     modelValue: {
       type: [String, Number, Array, Object] as PropType<SelectValue>,
       default: '',
+    },
+    form: {
+      type: Object as PropType<Record<string, DataTypeInitials>>,
+      required: true,
     },
   },
   emits: ['update:modelValue', 'blur'],
@@ -85,7 +90,7 @@ export default defineComponent({
       if (!props.field.props.remote || !props.field.props.remoteMethod) return;
 
       loading.value = true;
-      const newOptions = await props.field.props.remoteMethod(search);
+      const newOptions = await props.field.props.remoteMethod({ search, form: props.form });
       allOptions.value = newOptions.data?.rows || newOptions.data || [];
       loading.value = false;
     };
