@@ -1,3 +1,12 @@
+## [0.7.2](https://github.com/code-pilots/magner/compare/v0.7.1...v0.7.2) (2022-12-26)
+
+
+### Features
+
+* remote method data ([#72](https://github.com/code-pilots/magner/issues/72)) ([ea7084b](https://github.com/code-pilots/magner/commit/ea7084b1ba25c3fd63aa2bb2814135a0add89f8e))
+
+
+
 ## [0.7.1](https://github.com/code-pilots/magner/compare/v0.7.0...v0.7.1) (2022-12-26)
 
 
