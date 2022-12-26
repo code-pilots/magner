@@ -328,13 +328,24 @@ export default defineComponent({
           : {}
         ),
       };
+
       if (!sort.prop) {
         requestData.sort = { ...(props.config.filters.sort || {}) };
         return;
       }
 
+      let sortValue: 'ASC' | 'DESC' | null = null;
+
+      if (sort.order === 'ascending') {
+        sortValue = 'ASC';
+      }
+
+      if (sort.order === 'descending') {
+        sortValue = 'DESC';
+      }
+
       requestData.sort = {
-        [sort.prop]: sort.order === 'ascending' ? 'ASC' : 'DESC',
+        [sort.prop]: sortValue,
       };
     };
 
