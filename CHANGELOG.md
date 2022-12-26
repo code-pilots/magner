@@ -1,3 +1,12 @@
+## [0.7.1](https://github.com/code-pilots/magner/compare/v0.7.0...v0.7.1) (2022-12-26)
+
+
+### Bug Fixes
+
+* sort table asc desc ([#70](https://github.com/code-pilots/magner/issues/70)) ([7ab8e49](https://github.com/code-pilots/magner/commit/7ab8e49d3ccf1a576217fcb40a1ba3c0ed1156fc))
+
+
+
 # [0.7.0](https://github.com/code-pilots/magner/compare/v0.6.40...v0.7.0) (2022-12-23)
 
 
