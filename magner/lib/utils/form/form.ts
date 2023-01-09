@@ -115,7 +115,7 @@ export const initialDifference = (form: Record<string, any>, initialData: Record
         }
         return false;
       });
-      if (hasDifference) {
+      if (hasDifference || current?.length !== initial?.length) {
         accum[entry[0]] = current;
         return accum;
       }
