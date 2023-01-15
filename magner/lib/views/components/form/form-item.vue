@@ -122,7 +122,7 @@
     <el-form
       v-for="(itm, i) in val"
       ref="collectionFormEl"
-      :key="i"
+      :key="i + val.length"
       :model="itm"
     >
       <template v-for="(layout, j) in field.layout" :key="i.toString() + j">
