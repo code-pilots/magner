@@ -1,3 +1,12 @@
+## [0.7.5](https://github.com/code-pilots/magner/compare/v0.7.4...v0.7.5) (2023-01-18)
+
+
+### Features
+
+* add onFocus event ([#78](https://github.com/code-pilots/magner/issues/78)) ([920f66a](https://github.com/code-pilots/magner/commit/920f66a8ada3ac8f99e28208d8afd8f96583f9e1))
+
+
+
 ## [0.7.4](https://github.com/code-pilots/magner/compare/v0.7.3...v0.7.4) (2023-01-16)
 
 
