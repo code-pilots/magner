@@ -47,6 +47,8 @@ export interface SelectProps<ENTITY extends {}> extends BaseProps<ENTITY> {
 
   /** Can the selected option be cleared? */
   clearable?: boolean,
+
+  loadRemoteMethodOnFocus?: boolean
 }
 
 export interface OptionComponent extends Record<string, any> {

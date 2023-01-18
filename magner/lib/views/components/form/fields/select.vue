@@ -22,6 +22,7 @@
       :value-key="field.props.valueKey"
       :remote-show-suffix="true"
       @blur="$emit('blur', $event)"
+      @focus="onFocus"
       @change="changeVal"
     >
       <el-option
@@ -118,6 +119,16 @@ export default defineComponent({
       }
     };
 
+    const onFocus = async () => {
+      if (
+        props.field.props.loadRemoteMethodOnFocus
+        && props.field.props.remote
+        && props.field.props.remoteMethod
+      ) {
+        await remoteMethod('');
+      }
+    };
+
     onMounted(async () => {
       await remoteMethod('');
       setSelectedLabel();
@@ -141,6 +152,7 @@ export default defineComponent({
       loading,
       allOptions,
       selectEl,
+      onFocus,
       getOptionLabel,
       getOptionValue,
       customT,
