@@ -1,3 +1,12 @@
+## [0.7.6](https://github.com/code-pilots/magner/compare/v0.7.5...v0.7.6) (2023-02-02)
+
+
+### Features
+
+* currentItem in remotheMethod ([#80](https://github.com/code-pilots/magner/issues/80)) ([bf80ed6](https://github.com/code-pilots/magner/commit/bf80ed6b045149f92c4f888e1cdabd7a57fe00cb))
+
+
+
 ## [0.7.5](https://github.com/code-pilots/magner/compare/v0.7.4...v0.7.5) (2023-01-18)
 
 
