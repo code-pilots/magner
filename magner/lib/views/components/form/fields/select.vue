@@ -91,7 +91,11 @@ export default defineComponent({
       if (!props.field.props.remote || !props.field.props.remoteMethod) return;
 
       loading.value = true;
-      const newOptions = await props.field.props.remoteMethod({ search, form: props.form });
+      const newOptions = await props.field.props.remoteMethod({
+        search,
+        form: props.form,
+        currentItem: props.field.parent,
+      });
       allOptions.value = newOptions.data?.rows || newOptions.data || [];
       loading.value = false;
     };
@@ -120,11 +124,7 @@ export default defineComponent({
     };
 
     const onFocus = async () => {
-      if (
-        props.field.props.loadRemoteMethodOnFocus
-        && props.field.props.remote
-        && props.field.props.remoteMethod
-      ) {
+      if (props.field.props.loadRemoteMethodOnFocus) {
         await remoteMethod('');
       }
     };
