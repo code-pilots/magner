@@ -1,3 +1,12 @@
+## [0.7.7](https://github.com/code-pilots/magner/compare/v0.7.6...v0.7.7) (2023-02-03)
+
+
+### Features
+
+* current collection item to changeAction func ([#82](https://github.com/code-pilots/magner/issues/82)) ([bb7f2ee](https://github.com/code-pilots/magner/commit/bb7f2eeae428a99528c766fc94d4fa9ae83b77ba))
+
+
+
 ## [0.7.6](https://github.com/code-pilots/magner/compare/v0.7.5...v0.7.6) (2023-02-02)
 
 
