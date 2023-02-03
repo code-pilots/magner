@@ -57,7 +57,10 @@ export interface FormInteractionsData<ENTITY extends {}> {
   isNew: boolean,
   data?: unknown,
 }
-export type FieldInteractions<ENTITY extends {}> = (arg_1: FormInteractionsData<ENTITY>) => void
+export type FieldInteractions<ENTITY extends {}> = (
+  arg_1: FormInteractionsData<ENTITY>,
+  currentCollectionItem?: Record<string, any>,
+  ) => void
 
 export interface BaseField<ENTITY extends {}> {
   /** Choose any supported type of the field */

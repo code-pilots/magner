@@ -133,7 +133,7 @@
               :field="{...nestedField, parent: itm}"
               :form="form"
               @blur="blurCollectionItem(i, nestedField, $event)"
-              @update:model-value="changeCollectionItem(i, nestedField, $event)"
+              @update:model-value="changeCollectionItem(i, nestedField, itm, $event)"
             />
           </template>
 
@@ -294,9 +294,19 @@ export default defineComponent({
       return !failed;
     };
 
-    const changeCollectionItem = (index: number, field: GenericComponent<any>) => {
+    const changeCollectionItem = (
+      index: number,
+      field: GenericComponent<any>,
+      currentItem: Record<string, any>,
+    ) => {
       validateCollectionField(field, index, 'change');
-      context.emit('update:modelValue', val.value, field, props.field.name);
+      context.emit(
+        'update:modelValue',
+        val.value,
+        field,
+        props.field.name,
+        currentItem,
+      );
     };
     const blurCollectionItem = (index: number, field: GenericComponent<any>) => {
       validateCollectionField(field, index, 'blur');
