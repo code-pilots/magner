@@ -227,13 +227,18 @@ export default defineComponent({
       });
     };
 
-    const controlOnInput = (newValue: any, field: GenericComponent<any>, collectionName?: string) => {
+    const controlOnInput = (
+      newValue: any,
+      field: GenericComponent<any>,
+      collectionName?: string,
+      currentCollectionItem?: Record<string, any>,
+    ) => {
       form[collectionName || field.name as string] = newValue;
       if (reactiveConfig.submitEvent === 'input') {
         submit();
       }
 
-      if (field?.changeAction) field.changeAction(formData);
+      if (field?.changeAction) field.changeAction(formData, currentCollectionItem);
 
       if (!collectionName) validateField(field.name as string, 'change');
     };
