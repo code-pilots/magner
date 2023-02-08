@@ -121,5 +121,9 @@ export const initialDifference = (form: Record<string, any>, initialData: Record
       }
     }
 
+    if (typeof current === 'object' && current instanceof Date) {
+      accum[entry[0]] = current;
+    }
+
     return accum;
   }, {} as Record<string, DataTypeInitials>);
