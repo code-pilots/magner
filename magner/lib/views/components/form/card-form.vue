@@ -93,10 +93,23 @@ export default defineComponent({
       error.value = '';
       fieldErrors.value = {};
 
+      let message;
+
+      if (props.isNew) {
+        message = props.config.successMessage?.create
+          ? props.config.successMessage?.create
+          : t('core.card.success_creation');
+      } else {
+        message = props.config.successMessage?.update
+          ? props.config.successMessage?.update
+          : t('core.card.success_edition');
+      }
+
       magnerMessage({
         type: 'success',
-        message: props.isNew ? t('core.card.success_creation') : t('core.card.success_edition'),
+        message,
       });
+
       context.emit('success', { data: { ...reqData.value, data }, response: res.data });
     };
 
@@ -135,10 +148,15 @@ export default defineComponent({
         return;
       }
 
+      const message = props.config.successMessage?.delete
+        ? props.config.successMessage?.delete
+        : t('core.card.success_removal');
+
       magnerMessage({
         type: 'success',
-        message: t('core.card.success_removal'),
+        message,
       });
+
       context.emit('success', { data: { ...reqData.value }, response: res.data });
     };
 
