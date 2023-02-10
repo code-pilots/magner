@@ -16,6 +16,12 @@ export interface CardConfig<ENTITY extends {}> {
   /** If no function is passed here, then no 'Remove' button will be displayed */
   deleteRequest?: RequestWrap<any, CardRequestData<ENTITY>>,
 
+  successMessage?: Partial<{
+    create: string,
+    update: string,
+    delete: string,
+  }>
+
   /** If true, card page will always leave the form initially empty and won't skip required validations */
   alwaysCreate?: boolean,
 
