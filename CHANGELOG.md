@@ -1,3 +1,12 @@
+## [0.7.9](https://github.com/code-pilots/magner/compare/v0.7.8...v0.7.9) (2023-02-10)
+
+
+### Features
+
+* prop successMessage to card ([#86](https://github.com/code-pilots/magner/issues/86)) ([f4b3b58](https://github.com/code-pilots/magner/commit/f4b3b580919de7c57c7277e2bc9a9e39d23cd7e1))
+
+
+
 ## [0.7.8](https://github.com/code-pilots/magner/compare/v0.7.7...v0.7.8) (2023-02-08)
 
 
