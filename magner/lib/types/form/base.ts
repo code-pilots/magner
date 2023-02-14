@@ -37,7 +37,7 @@ export interface BaseProps<ENTITY extends {}> {
   hiddenCollectionAddButton?: boolean | MixedChecker<ENTITY>,
 
   /** If `readOnly: true`, parse the value of the form field to display as a string */
-  readOnlyFormatter?: (val: unknown) => string,
+  readOnlyFormatter?: (val: any) => string,
 
   /** Magner's inner properties. No need to change */
   inner?: Partial<InnerConditions<ENTITY>>
