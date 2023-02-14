@@ -4,4 +4,5 @@ export interface InnerConditions<ENTITY extends {}> {
   disabledCondition: MixedChecker<ENTITY>,
   hiddenCondition: MixedChecker<ENTITY>,
   readOnlyCondition: MixedChecker<ENTITY>,
+  hiddenCollectionAddButtonCondition: MixedChecker<ENTITY>
 }

@@ -34,6 +34,8 @@ export interface BaseProps<ENTITY extends {}> {
   /** If 'true', the field gets a design made for the better readability  */
   readOnly?: boolean | MixedChecker<ENTITY>,
 
+  hiddenCollectionAddButton?: boolean | MixedChecker<ENTITY>,
+
   /** If `readOnly: true`, parse the value of the form field to display as a string */
   readOnlyFormatter?: (val: unknown) => string,
 
