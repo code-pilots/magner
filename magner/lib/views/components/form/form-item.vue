@@ -248,6 +248,11 @@ export default defineComponent({
       type: [String, Number, Object, Array, Boolean] as PropType<any>,
       default: '',
     },
+    /** Is the form used for data creation or updating */
+    isNew: {
+      type: Boolean,
+      default: false,
+    },
   },
   emits: ['update:modelValue', 'error', 'action', 'blur', 'validator-register'],
   setup (props, context) {
@@ -334,6 +339,14 @@ export default defineComponent({
 
     onMounted(() => {
       context.emit('validator-register', validateAllForms);
+
+      if (
+        props.isNew
+        && props.field.type === 'collection'
+        && props.field.props.createFirstItemIfNew
+      ) {
+        changeCollectionItems('new');
+      }
     });
 
     return {

@@ -19,6 +19,7 @@
           :error="errors[field.name]"
           :field="field"
           :class="field.props.class"
+          :is-new="isNew"
           @error="setFieldError(field.name, $event)"
           @action="customAction(field.name, $event)"
           @blur="validateField(field.name, 'blur')"
