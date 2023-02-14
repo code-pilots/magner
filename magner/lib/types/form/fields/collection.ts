@@ -4,6 +4,7 @@ import type { GenericFormLayout } from '../layout';
 export interface CollectionProps<ENTITY extends {}> extends BaseProps<ENTITY> {
   showFirst?: boolean,
   firstRemovable?: boolean,
+  createFirstItemIfNew?: boolean
 }
 
 export interface CollectionField<ENTITY extends {}> extends BaseField<ENTITY> {

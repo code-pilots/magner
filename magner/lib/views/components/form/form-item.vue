@@ -125,6 +125,11 @@
       :key="i + val.length"
       :model="itm"
     >
+      <div
+        v-if="+i !== 0"
+        class="flex-grow"
+      />
+
       <template v-for="(layout, j) in field.layout" :key="i.toString() + j">
         <FormLayoutBlock :block="layout" :class="$attrs.class">
           <template #item="nestedField">
@@ -137,9 +142,12 @@
             />
           </template>
 
-          <template v-if="j === field.layout.length - 1" #after-fields>
+          <template
+            v-if="!readOnly && j === field.layout.length - 1"
+            #after-fields
+          >
             <el-button
-              v-if="!readOnly && field.props.firstRemovable ? true : i !== 0"
+              v-if="field.props.firstRemovable ? true : i !== 0"
               :icon="xIcon"
               :disabled="disabled"
               type="danger"
@@ -152,11 +160,17 @@
           </template>
         </FormLayoutBlock>
       </template>
-
-      <div class="flex-grow" />
     </el-form>
 
-    <div v-if="!readOnly" class="form-collection_add">
+    <div
+      v-if="!readOnly && !hiddenCollectionAddButton"
+      class="form-collection_add"
+    >
+      <div
+        v-if="val.length"
+        class="flex-grow"
+      />
+
       <el-button
         :icon="plusIcon"
         :disabled="disabled"
@@ -234,12 +248,22 @@ export default defineComponent({
       type: [String, Number, Object, Array, Boolean] as PropType<any>,
       default: '',
     },
+    /** Is the form used for data creation or updating */
+    isNew: {
+      type: Boolean,
+      default: false,
+    },
   },
   emits: ['update:modelValue', 'error', 'action', 'blur', 'validator-register'],
   setup (props, context) {
     const { customT, t } = useTranslate();
     const isMobile = useMobile();
-    const { hidden, readOnly, disabled } = useChecks(props.field, props.modelValue);
+    const {
+      hidden,
+      readOnly,
+      disabled,
+      hiddenCollectionAddButton,
+    } = useChecks(props.field, props.modelValue);
     const customComponent = shallowRef(props.field.type === 'custom' ? props.field.component() : null);
 
     const plusIcon = shallowRef(PlusIcon);
@@ -315,6 +339,14 @@ export default defineComponent({
 
     onMounted(() => {
       context.emit('validator-register', validateAllForms);
+
+      if (
+        props.isNew
+        && props.field.type === 'collection'
+        && props.field.props.createFirstItemIfNew
+      ) {
+        changeCollectionItems('new');
+      }
     });
 
     return {
@@ -323,6 +355,7 @@ export default defineComponent({
       hidden,
       readOnly,
       disabled,
+      hiddenCollectionAddButton,
       customComponent,
       t,
       plusIcon,
