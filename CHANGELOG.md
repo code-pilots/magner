@@ -1,3 +1,12 @@
+## [0.7.10](https://github.com/code-pilots/magner/compare/v0.7.9...v0.7.10) (2023-02-14)
+
+
+### Features
+
+* hiddenCollectionAddButton props ([#88](https://github.com/code-pilots/magner/issues/88)) ([801a921](https://github.com/code-pilots/magner/commit/801a9215dbea851b7845167c379d2eaad80bc1c5))
+
+
+
 ## [0.7.9](https://github.com/code-pilots/magner/compare/v0.7.8...v0.7.9) (2023-02-10)
 
 

@@ -105,6 +105,10 @@ export const useChecks = (field: GenericComponent<any>, value?: unknown) => {
     ? (field.props.readOnly as MixedCheckerOptional)(field.parent)
     : field.props.readOnly || false));
 
+  const hiddenCollectionAddButton = computed(() => (typeof field.props.hiddenCollectionAddButton === 'function'
+    ? (field.props.hiddenCollectionAddButton as MixedCheckerOptional)(field.parent)
+    : field.props.hiddenCollectionAddButton || false));
+
   const readOnlyText = computed<string>(() => (
     (readOnly.value && field.props.readOnlyFormatter)
       ? field.props.readOnlyFormatter?.(value || null)
@@ -116,6 +120,7 @@ export const useChecks = (field: GenericComponent<any>, value?: unknown) => {
     hidden,
     readOnly,
     readOnlyText,
+    hiddenCollectionAddButton,
   };
 };
 
@@ -128,7 +133,10 @@ export const updateFieldValues = (
   field: GenericComponent<any>,
   form: Record<string, any>,
   isNew?: boolean,
-  force?: Record<'readOnly' | 'disabled' | 'hidden', undefined | boolean | MixedChecker<any>>,
+  force?: Record<
+    'readOnly' | 'disabled' | 'hidden' | 'hiddenCollectionAddButton',
+    undefined | boolean | MixedChecker<any>
+  >,
 ) => {
   if (!field.props.inner) {
     field.props.inner = {};
@@ -177,11 +185,26 @@ export const updateFieldValues = (
   }
 
   if (field.type === 'collection') {
+    if (typeof field.props.inner.hiddenCollectionAddButtonCondition !== 'function'
+      && typeof field.props.hiddenCollectionAddButton === 'function') {
+      field.props.inner.hiddenCollectionAddButtonCondition = field.props.hiddenCollectionAddButton;
+    }
+    const hiddenCollectionAddButton = force?.hiddenCollectionAddButton ?? field.props.inner.hiddenCollectionAddButtonCondition;
+
+    if (typeof hiddenCollectionAddButton === 'function') {
+      field.props.hiddenCollectionAddButton = hiddenCollectionAddButton.bind(null, {
+        state: form,
+        isNew: isNew || false,
+        role: globalValues.store.state.role as string,
+      });
+    }
+
     const nestedFields = layoutToFields(field as unknown as GenericFormLayout<any>);
     nestedFields.forEach((nestedField) => updateFieldValues(nestedField, form, isNew, {
       readOnly: field.props.readOnly || undefined,
       disabled: field.props.disabled || undefined,
       hidden: field.props.hidden || undefined,
+      hiddenCollectionAddButton: field.props.hiddenCollectionAddButton || undefined,
     }));
   }
 };
