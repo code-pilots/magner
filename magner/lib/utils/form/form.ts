@@ -125,5 +125,10 @@ export const initialDifference = (form: Record<string, any>, initialData: Record
       accum[entry[0]] = current;
     }
 
+    // Example [](initial) => null(current)
+    if (Array.isArray(initial) && !Array.isArray(current)) {
+      accum[entry[0]] = current;
+    }
+
     return accum;
   }, {} as Record<string, DataTypeInitials>);
