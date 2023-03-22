@@ -43,7 +43,7 @@
       >
         <DropzoneImage
           v-for="(file, i) in files"
-          :key="file.key ? file.key : i + (file.value || '') + (file.size || '')"
+          :key="file.key ? file.key : (file.value || '') + (file.size || '')"
           :model-value="file"
           :draggable="field.props.multiple && field.props.sortable"
           :removable="field.props.removable"
@@ -55,24 +55,14 @@
         />
       </div>
 
-      <!--<transition-group
-        v-else
-        ref="draggerEl"
-        tag="div"
-        name="field-group"
-        class="el-upload-dragger images"
-        :class="{'is-dragover': dragOver}"
-        @click.self="select"
-      ></transition-group>-->
-
       <slot :files="files" :drag-over="dragOver" :select="select" />
     </div>
 
     <template #readonly>
       <div class="readonly-block dropzone">
         <DropzoneImage
-          v-for="(file, i) in files"
-          :key="file.key ? file.key : i + (file.value || '') + (file.size || '')"
+          v-for="file in files"
+          :key="file.key ? file.key : (file.value || '') + (file.size || '')"
           :model-value="file"
           :draggable="false"
           :removable="false"
@@ -225,13 +215,16 @@ export default defineComponent({
 
     const handleInnerDragOver = (index: number) => {
       if (index !== innerDrag.value - 1) {
-        const vals = files.value;
+        const vals = [...files.value];
 
         // Swap elements
         const tempEl = vals?.[innerDrag.value - 1];
+
         vals[innerDrag.value - 1] = vals[index];
         vals[index] = tempEl;
+
         files.value = [...vals];
+
         innerDrag.value = index + 1;
       }
     };
