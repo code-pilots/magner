@@ -61,7 +61,7 @@
     <template #readonly>
       <div class="readonly-block dropzone">
         <DropzoneImage
-          v-for="(file, i) in files"
+          v-for="file in files"
           :key="file.key ? file.key : (file.value || '') + (file.size || '')"
           :model-value="file"
           :draggable="false"
