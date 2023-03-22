@@ -215,7 +215,7 @@ export default defineComponent({
 
     const handleInnerDragOver = (index: number) => {
       if (index !== innerDrag.value - 1) {
-        const vals = files.value;
+        const vals = [...files.value];
 
         // Swap elements
         const tempEl = vals?.[innerDrag.value - 1];
