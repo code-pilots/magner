@@ -1,0 +1,11 @@
+.magner-not-found {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.magner-not-found_message {
+  text-align: center;
+}
