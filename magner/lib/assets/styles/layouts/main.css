@@ -1,8 +1,4 @@
 .main-layout {
-  &_sidebar {
-
-  }
-
   &_content {
     height: calc(100vh - 50px);
     padding-left: 230px;
