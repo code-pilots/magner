@@ -1,3 +1,7 @@
+## [0.7.13](https://github.com/code-pilots/magner/compare/v0.7.12...v0.7.13) (2023-04-07)
+
+
+
 ## [0.7.12](https://github.com/code-pilots/magner/compare/v0.7.11...v0.7.12) (2023-03-22)
 
 
