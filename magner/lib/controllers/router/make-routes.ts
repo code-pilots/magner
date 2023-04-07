@@ -42,6 +42,7 @@ const makeRoutes = (routes: FinalRoute[]): Route[] => routes.map((route) => {
     if (!route.preset?.preset) {
       throw new Error(`No preset type provided for the route with path "${route.route?.path || ''}"`);
     }
+
     if (!allPresets[route.preset.preset]) {
       throw new Error(`Unsupported preset: ${route.preset.preset || ''}`);
     }
