@@ -5,6 +5,6 @@ module.exports = {
     mainVersionFile: 'magner/package.json',
     packagesToBump: ['magner'],
     packagesToPublish: ['magner'],
-    updateDependencies: false,
+    updateDependencies: true,
   },
 };
