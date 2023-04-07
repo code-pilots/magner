@@ -69,14 +69,6 @@ export default defineComponent({
         res = await props.config.createRequest?.({ ...reqData.value, data });
       } else {
         res = await props.config.updateRequest?.({ ...reqData.value, data });
-
-        // if (!res.error) {
-        //   const getRes = await props.config.getRequest({
-        //     data: null,
-        //     id: res.data.id,
-        //     isNew: false,
-        //   });
-        // }
       }
       if (submitButton) submitButton.loading = false;
 
