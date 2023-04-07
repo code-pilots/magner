@@ -20,6 +20,8 @@ export const ruLocale: TranslationSchema = {
 
     messages: {
       error: 'Произошла ошибка',
+      not_found_title: 'Извините, такой  страницы не существует',
+      not_found_disc: 'Возможно, вы ошиблись в адресе или страница была удалена.',
     },
 
     card: {

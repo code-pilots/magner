@@ -11,9 +11,7 @@
         <template #default="{response, error, loading}">
           <template v-if="error">
             <slot name="error" :error="error">
-              <div class="el-message in-place el-message--error">
-                {{ error ? customT(error && error.message) || t('core.messages.error') : t('core.messages.error') }}
-              </div>
+              <error-page />
             </slot>
           </template>
           <slot v-else v-bind="{response, loading}" />
@@ -30,11 +28,12 @@
 import { defineComponent, PropType, ref } from 'vue';
 import { RequestCallback } from 'lib/types/utils/api';
 import { useTranslate } from 'lib/utils/core/translate';
+import ErrorPage from 'lib/views/pages/404.vue';
 import RequestHandler from './request-handler.vue';
 
 export default defineComponent({
   name: 'Dynamic',
-  components: { RequestHandler },
+  components: { ErrorPage, RequestHandler },
   props: {
     request: {
       type: Function as PropType<RequestCallback>,

@@ -10,6 +10,8 @@ export const enLocale = {
 
     messages: {
       error: 'An error happened',
+      not_found_title: 'Sorry, there is no such page',
+      not_found_disc: 'You may have been wrong in the address or the page has been deleted.',
     },
 
     card: {
