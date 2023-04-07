@@ -1,3 +1,12 @@
+## [0.7.14](https://github.com/code-pilots/magner/compare/v0.7.13...v0.7.14) (2023-04-07)
+
+
+### Bug Fixes
+
+* comment ([4adf83a](https://github.com/code-pilots/magner/commit/4adf83afc59a48dda2de9944d8fe07dc01e24e81))
+
+
+
 ## [0.7.13](https://github.com/code-pilots/magner/compare/v0.7.12...v0.7.13) (2023-04-07)
 
 
