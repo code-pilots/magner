@@ -1,3 +1,12 @@
+## [0.7.18](https://github.com/code-pilots/magner/compare/v0.7.13...v0.7.18) (2023-04-10)
+
+
+### Bug Fixes
+
+* depend ([4e623cc](https://github.com/code-pilots/magner/commit/4e623cc39f85ceb9adcd01820c6b699f739b3c3b))
+
+
+
 ## [0.7.17](https://github.com/code-pilots/magner/compare/v0.7.13...v0.7.17) (2023-04-07)
 
 
