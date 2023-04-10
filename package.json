@@ -16,8 +16,8 @@
     "release:publish": "shipjs trigger"
   },
   "devDependencies": {
-    "shipjs": "^0.24.4",
-    "turbo": "^1.3.3"
+    "shipjs": "0.24.4",
+    "turbo": "1.3.3"
   },
   "engines": {
     "npm": ">=8.0.0",
