@@ -2,6 +2,7 @@ import type { ButtonProps } from 'lib/types/form/fields/button';
 import type { RouteLocationRaw, Router, RouteLocation } from 'vue-router';
 import type { LStorage } from 'lib/utils/core/local-storage';
 import type { TranslateData } from 'lib/utils/core/translate';
+import { RouteComponent } from 'vue-router';
 
 /** Return from the action function is an error string or boolean (true = error happened) */
 export type ActionReturn = TranslateData | boolean;
@@ -76,3 +77,8 @@ interface ActionTableData<ENTITY extends {}> extends ActionDataBase<ENTITY> {
 
 export type ActionFuncTable = <ENTITY extends {}, RESULT = any, EMITTER = string>(
   cb: ActionCallback<RESULT, ActionTableData<ENTITY>>) => ActionCallback<RESULT, ActionTableData<ENTITY>>;
+
+export interface CustomAction<EMITTER = string> {
+  component: () => RouteComponent,
+  emits?: EMITTER,
+}

@@ -185,6 +185,7 @@
   &_selection {
     justify-content: space-between;
     padding: 0 12px;
+    gap: 24px;
   }
 }
 
