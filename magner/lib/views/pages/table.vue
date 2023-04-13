@@ -1,5 +1,8 @@
 <template>
-  <section class="table-page">
+  <section
+    class="table-page"
+    :class="pageName"
+  >
     <PageHeader
       ref="pageHeaderEl"
       :header="{
@@ -138,14 +141,25 @@
           />
         </div>
 
-        <div v-if="selected.length" class="table-page_selection">
-          <span>{{ t('core.table.rows_selected', { count: selected.length }, selected.length) }}</span>
+        <div
+          v-if="selected.length"
+          class="table-page_selection"
+        >
+          <span>
+            {{ t('core.table.rows_selected', { count: selected.length }, selected.length) }}
+          </span>
           <div class="flex-grow" />
           <FormActions
-            v-if="config.table.rowSelectable && config.table.rowSelectable.actions"
+            v-if="config.table.rowSelectable?.actions"
             :actions="config.table.rowSelectable.actions"
             :request-data="{ ...requestData, selected }"
             size="default"
+            @action="filtersAction"
+          />
+          <FormCustomActions
+            v-if="config.table.rowSelectable?.customActions"
+            :custom-actions="config.table.rowSelectable.customActions"
+            :request-data="{ ...requestData, selected }"
             @action="filtersAction"
           />
         </div>
@@ -202,12 +216,14 @@ import DataTable from '../components/table.vue';
 import Dynamic from '../components/dynamic.vue';
 import GenericForm from '../components/form/form.vue';
 import FormActions from '../components/form/form-actions.vue';
+import FormCustomActions from '../components/form/form-custom-actions.vue';
 
 type RowData = Record<string, unknown>;
 
 export default defineComponent({
   name: 'TablePage',
   components: {
+    FormCustomActions,
     FormActions,
     PageHeader,
     DataTable,
@@ -245,6 +261,8 @@ export default defineComponent({
     const selected = ref<RowData[]>([]);
     const drawerOpen = ref(false);
     const dynamicRef = ref<typeof Dynamic>();
+
+    const pageName = `page-${route.name as string}`;
 
     const hasPagination = computed(
       () => !!(!selected.value.length || props.config.table.rowSelectable?.reserveSelection),
@@ -398,6 +416,7 @@ export default defineComponent({
       pageTopEl,
       filtersOpened,
       filtersInSeparatePanel,
+      pageName,
       filtersAction,
       select,
       filterItems,

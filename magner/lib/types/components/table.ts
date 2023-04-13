@@ -1,6 +1,6 @@
 import type { RouteLocation, RouteLocationRaw } from 'vue-router';
 import type { TranslateData } from 'lib/utils/core/translate';
-import { ActionButton } from 'lib/types/utils/actions';
+import { ActionButton, CustomAction } from 'lib/types/utils/actions';
 import { TableActions } from 'lib/types/configs/pages/table';
 import { RouteComponent } from 'vue-router';
 
@@ -131,8 +131,11 @@ export interface Table<ENTITY extends {} = {}> {
     /** The unique key in your row used to identify which row is selected */
     rowIdKey: keyof ENTITY,
 
-    /** Action to perform when 'remove button' is done on selection */
+    /** Action to perform on selected rows */
     actions?: ActionButton<TableActions, ENTITY>[],
+
+    /** Custom action to perform on selected rows */
+    customActions?: CustomAction<TableActions>[]
 
     /** Whether to reserve selection after data refreshing, works when type is 'selection'.
      * Note that row-key is required for this to work */
