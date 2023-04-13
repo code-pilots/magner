@@ -1,3 +1,12 @@
+## [0.7.19](https://github.com/code-pilots/magner/compare/v0.7.18...v0.7.19) (2023-04-13)
+
+
+### Features
+
+* form-custom-actions.vue ([205a3a6](https://github.com/code-pilots/magner/commit/205a3a652315f886a319b1e6cb89777342f0e5bf))
+
+
+
 ## [0.7.18](https://github.com/code-pilots/magner/compare/v0.7.13...v0.7.18) (2023-04-10)
 
 
