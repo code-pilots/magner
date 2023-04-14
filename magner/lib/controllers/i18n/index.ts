@@ -1,6 +1,7 @@
 import { createI18n, I18n } from 'vue-i18n';
 import type { TranslationConfig } from 'lib/types/configs/translation';
 import globalValues from 'lib/global';
+import { uzLocale } from './uz';
 import { enLocale } from './en';
 import { ruLocale, ruPluralization } from './ru';
 
@@ -12,6 +13,7 @@ export type TranslationController = () => {
 const coreMessages = {
   en: enLocale,
   ru: ruLocale,
+  uz: uzLocale,
 };
 
 export const translationController = <SUPPORTED_LANGUAGES extends string>(
