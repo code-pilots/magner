@@ -41,6 +41,10 @@
     width: 100%;
   }
 
+  &__inner {
+     font-family: var(--font-regular);
+   }
+
   & .el-input__prefix {
     z-index: 1;
   }

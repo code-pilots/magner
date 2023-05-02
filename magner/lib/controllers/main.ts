@@ -15,6 +15,7 @@ import '../assets/styles/normalize.css';
 import '../assets/styles/breakpoints.css';
 import '../assets/styles/ui.css';
 import '../assets/styles/typography.css';
+import '../assets/styles/fonts.css';
 
 import lstorageController from 'lib/utils/core/local-storage';
 import { storeController } from './store';

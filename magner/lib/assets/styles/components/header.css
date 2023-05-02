@@ -12,6 +12,7 @@
     transition: width .3s;
     padding: 10px 12px;
     justify-content: center;
+    border-right: none !important;
 
     @media (--breakpoint-small) {
       padding: 10px 12px 10px 8px;
@@ -79,6 +80,11 @@
       }
     }
 
+    &_user-name {
+       font-size: 14px;
+       color: var(--el-text-color-secondary);
+     }
+
     &_burger, &_user {
       &.el-button.is-circle {
         padding: 8px 6px;
@@ -105,5 +111,28 @@
     &_user.el-button {
       background: #46A0FC;
     }
+  }
+
+  &_toggle.el-button {
+     bottom: 20px;
+     right: 20px;
+     width: 26px;
+     height: 26px;
+     min-width: 26px;
+     min-height: 26px;
+     padding: 4px;
+     background: #F4F4F5;
+     border-radius: 2px;
+     border: none;
+     transition: right .3s;
+
+  & .icon {
+      width: 10px;
+      height: 10px;
+    }
+
+  @media (--breakpoint-small) {
+    display: none;
+  }
   }
 }

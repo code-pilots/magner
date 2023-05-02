@@ -20,7 +20,6 @@
     display: flex;
     justify-content: space-between;
     padding: 12px 24px;
-    border-bottom: 1px solid #EBEEF5;
 
     @media (--breakpoint-small) {
       flex-direction: column;

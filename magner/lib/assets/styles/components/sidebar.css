@@ -59,30 +59,6 @@
       }
     }
   }
-
-  &_toggle.el-button {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    width: 26px;
-    height: 26px;
-    min-width: 26px;
-    min-height: 26px;
-    padding: 4px;
-    background: #F4F4F5;
-    border-radius: 2px;
-    border: none;
-    transition: right .3s;
-
-    & .icon {
-      width: 10px;
-      height: 10px;
-    }
-
-    @media (--breakpoint-small) {
-      display: none;
-    }
-  }
 }
 
 .popper-sidebar-submenu {
@@ -103,4 +79,8 @@
   & .el-popper__arrow:before {
     background: #46A0FC !important;
   }
+}
+
+.el-menu {
+  border-right: none;
 }

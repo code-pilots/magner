@@ -15,6 +15,10 @@
 
     <nav class="header_nav">
       <div class="header_left">
+        <el-button class="header_toggle" @click="toggleCollapse">
+          <svg-icon :rotate="isCollapsed ? 'right' : 'left'" core="chevrons" size="full" />
+        </el-button>
+
         <!-- TODO: Implement search -->
         <div v-if="false" class="header_left_search">
           <el-input placeholder="Поиск" type="text" />
@@ -39,6 +43,10 @@
             </el-dropdown-menu>
           </template>
         </el-dropdown>
+
+        <div class="header_right_user-name">
+            {{ userName }}
+        </div>
 
         <el-dropdown trigger="hover">
           <template #default>
@@ -72,6 +80,7 @@
 <script lang="ts">
 import '../../../assets/styles/components/header.css';
 import {
+  computed,
   defineComponent, onBeforeUnmount, onMounted, PropType, shallowRef,
 } from 'vue';
 import GlobeIcon from 'lib/assets/icons/globe.svg';
@@ -111,6 +120,9 @@ export default defineComponent({
     const isMobile = useMobile();
 
     const allLanguages = store.state.project.languages;
+    const userName = store.state.user?.name;
+
+    const isCollapsed = computed<boolean>(() => store.state.sidebarCollapsed);
 
     const toggleOpen = () => {
       store.dispatch('toggleMobileSidebarOpened');
@@ -133,6 +145,10 @@ export default defineComponent({
       }
     });
 
+    const toggleCollapse = () => {
+      store.dispatch('toggleSidebarCollapsed');
+    };
+
     return {
       userIcon,
       globeIcon,
@@ -140,8 +156,11 @@ export default defineComponent({
       customT,
       isMobile,
       allLanguages,
+      userName,
+      isCollapsed,
       changeLang,
       toggleOpen,
+      toggleCollapse,
       logout,
     };
   },

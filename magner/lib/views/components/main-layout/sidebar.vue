@@ -52,10 +52,6 @@
         </template>
       </el-menu>
     </el-scrollbar>
-
-    <el-button class="sidebar_toggle" @click="toggleCollapse">
-      <svg-icon :rotate="isCollapsed ? 'right' : 'left'" core="chevrons" size="full" />
-    </el-button>
   </nav>
 </template>
 
@@ -130,10 +126,6 @@ export default defineComponent({
       return (route.roles as string[]).includes(role.value);
     };
 
-    const toggleCollapse = () => {
-      store.dispatch('toggleSidebarCollapsed');
-    };
-
     const navigate = (route: string) => {
       store.dispatch('toggleMobileSidebarOpened');
       const routeTo = props.routing.find((item) => item.name === route);
@@ -148,7 +140,6 @@ export default defineComponent({
       grouped,
       isVisible,
       customT,
-      toggleCollapse,
       navigate,
     };
   },

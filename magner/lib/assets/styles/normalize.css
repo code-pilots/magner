@@ -5,6 +5,7 @@ html, body {
 
 * {
   box-sizing: border-box;
+  letter-spacing: var(--letter-spacing);
 }
 
 body {
