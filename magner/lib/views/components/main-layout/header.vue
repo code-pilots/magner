@@ -15,6 +15,10 @@
 
     <nav class="header_nav">
       <div class="header_left">
+        <el-button v-if="togglePositionTop" class="header_toggle" @click="toggleCollapse">
+          <svg-icon :rotate="isCollapsed ? 'right' : 'left'" core="chevrons" size="full" />
+        </el-button>
+
         <!-- TODO: Implement search -->
         <div v-if="false" class="header_left_search">
           <el-input placeholder="Поиск" type="text" />
@@ -39,6 +43,10 @@
             </el-dropdown-menu>
           </template>
         </el-dropdown>
+
+        <div v-if="userName" class="header_right_user-name">
+          {{ userName }}
+        </div>
 
         <el-dropdown trigger="hover">
           <template #default>
@@ -72,7 +80,7 @@
 <script lang="ts">
 import '../../../assets/styles/components/header.css';
 import {
-  defineComponent, onBeforeUnmount, onMounted, PropType, shallowRef,
+  defineComponent, onBeforeUnmount, onMounted, PropType, shallowRef, computed
 } from 'vue';
 import GlobeIcon from 'lib/assets/icons/globe.svg';
 import UserIcon from 'lib/assets/icons/user.svg';
@@ -111,6 +119,9 @@ export default defineComponent({
     const isMobile = useMobile();
 
     const allLanguages = store.state.project.languages;
+    const togglePositionTop = computed<boolean>(() => store.state.project.development.toggleBtnPositionTop || false);
+    const userName = store.state.user?.name;
+    const isCollapsed = computed<boolean>(() => store.state.sidebarCollapsed);
 
     const toggleOpen = () => {
       store.dispatch('toggleMobileSidebarOpened');
@@ -133,6 +144,10 @@ export default defineComponent({
       }
     });
 
+    const toggleCollapse = () => {
+      store.dispatch('toggleSidebarCollapsed');
+    };
+
     return {
       userIcon,
       globeIcon,
@@ -140,8 +155,12 @@ export default defineComponent({
       customT,
       isMobile,
       allLanguages,
+      userName,
+      isCollapsed,
+      togglePositionTop,
       changeLang,
       toggleOpen,
+      toggleCollapse,
       logout,
     };
   },

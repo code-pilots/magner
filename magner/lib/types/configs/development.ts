@@ -70,6 +70,12 @@ export interface DevelopmentConfig {
    */
   noBackendMode?: boolean,
 
+  /**
+   * Defines the position of the button that opens and closes the sidebar menu.
+   * At the bottom of the sidebar or in the header
+   */
+  toggleBtnPositionTop?: boolean,
+
   /** Request to be used each time user enters the app to check for token validity and quickly authorize them */
   profileRequest: RequestWrap<ProfileRequestResponse>,
 

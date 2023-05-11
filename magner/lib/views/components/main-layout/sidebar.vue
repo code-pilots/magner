@@ -53,7 +53,7 @@
       </el-menu>
     </el-scrollbar>
 
-    <el-button class="sidebar_toggle" @click="toggleCollapse">
+    <el-button v-if="!togglePositionTop" class="sidebar_toggle" @click="toggleCollapse">
       <svg-icon :rotate="isCollapsed ? 'right' : 'left'" core="chevrons" size="full" />
     </el-button>
   </nav>
@@ -91,6 +91,7 @@ export default defineComponent({
 
     const isCollapsed = computed<boolean>(() => store.state.sidebarCollapsed);
     const noBackend = computed<boolean>(() => store.state.project.development.noBackendMode || false);
+    const togglePositionTop = computed<boolean>(() => store.state.project.development.toggleBtnPositionTop || false);
     const role = computed<string>(() => store.state.role as string);
     const isAuth = computed(() => !!store.state.user);
 
@@ -149,6 +150,7 @@ export default defineComponent({
       isVisible,
       customT,
       toggleCollapse,
+      togglePositionTop,
       navigate,
     };
   },
