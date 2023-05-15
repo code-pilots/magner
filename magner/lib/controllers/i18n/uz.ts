@@ -3,65 +3,65 @@ import type { TranslationSchema } from './en';
 export const uzLocale: TranslationSchema = {
   core: {
     header: {
-      logout: 'Выйти',
+      logout: 'Чиқиш',
     },
 
     sidebar: {
-      collapse: 'Свернуть',
+      collapse: 'Бузиш',
     },
 
     messages: {
-      error: 'Произошла ошибка',
+      error: 'Муаммо юзага келди.',
       not_found_title: 'Извините, такой  страницы не существует',
       not_found_disc: 'Возможно, вы ошиблись в адресе или страница была удалена.',
     },
 
     card: {
-      remove: 'Удалить',
-      success_creation: 'Создание прошло успешно!',
-      success_edition: 'Изменение прошло успешно!',
-      success_removal: 'Удаление прошло успешно!',
-      attention: 'Внимание!',
-      removal_confirm: 'Вы уверены, что хотите удалить "{msg}"?',
-      confirm_button_text: 'Да',
-      cancel_button_text: 'Отмена',
-      add_more: 'Добавить',
+      remove: 'Ўчириш',
+      success_creation: 'Яратиш муваффақиятли якунланди!',
+      success_edition: 'Таҳрирлаш муваффақиятли амалга оширилди!',
+      success_removal: 'Ўчириш муваффақиятли якунланди!',
+      attention: 'Диққат!',
+      removal_confirm: 'Ушбу"{msg}"ни ўчириб ташламоқчимисиз?',
+      confirm_button_text: 'Ҳа',
+      cancel_button_text: 'Бекор қилиш',
+      add_more: 'Қўшиш',
     },
 
     form: {
-      clear: 'Очистить',
-      submit: 'Подтвердить',
-      remove: 'Удалить',
-      cancel: 'Отменить',
-      failed_action: 'Не удалось выполнить действие',
+      clear: 'Тозалаш',
+      submit: 'Тасдиқлаш',
+      remove: 'Ўчириш',
+      cancel: 'Бекор қилиш',
+      failed_action: 'Ҳаракатни амалга оширишни иложи бўлмади.',
 
       dropzone: {
-        drag_here: 'Перетащите файлы сюда или',
-        click_upload: 'нажмите для загрузки',
-        wrong_format: 'Неправильный формат файла {filename}',
-        wrong_size: 'Превышен максимальный размер файла {filename}. Максимум: {size} МБ',
-        max_files: 'Mаксимальное количество загружаемых файлов: {max}',
+        drag_here: 'Файлни шу ерга ташланг ёки',
+        click_upload: 'юклаб олиш учун шу ерни босинг.',
+        wrong_format: 'Файл нотўғри форматда {filename}',
+        wrong_size: 'Файлнинг максимал ҳажми {мах} дан ошиб кетди. Максимал ҳажми:{мах}',
+        max_files: 'Юкланган файлларнинг максимал сони: {мах}',
       },
     },
 
     table: {
-      filters: 'Фильтры',
-      more_filters: 'Все фильтры',
-      filters_applied: 'Применено фильтров',
-      filters_submit: 'Применить фильтры',
-      rows_selected: 'Выбрана {count} строка | Выбрано {count} строки | Выбрано {count} строк',
-      remove: 'Удалить',
-      filters_close: 'Закрыть',
+      filters: 'Фильтрлар',
+      more_filters: 'Барча фильтрлар',
+      filters_applied: 'Фильтрлар қўлланилди',
+      filters_submit: 'Фильтрларни қўллаш',
+      rows_selected: '{cоунт} қатор танланди | {cоунт} қатор танланди | {cоунт} танланди строк',
+      remove: 'Ўчириш',
+      filters_close: 'Бекор қилиш',
     },
 
     validation: {
-      empty: 'Поле не может быть пустым',
-      email: 'Неверный формат емейл',
-      password: 'Пароль не может быть короче 6 символов',
+      empty: 'Майдон бўш бўла олмайди.',
+      email: 'Электрон почта формати нотўғри',
+      password: 'Парол 6 та белгидан кам бўлмаслиги керак',
     },
 
     modal: {
-      before_close: 'Вы уверены, что хотите закрыть окно?',
+      before_close: 'Ҳақиқатан ҳам ойнани ёпмоқчимисиз?',
     },
   },
 };
