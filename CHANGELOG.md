@@ -1,3 +1,13 @@
+## [0.7.21](https://github.com/code-pilots/magner/compare/v0.7.20...v0.7.21) (2023-05-16)
+
+
+### Features
+
+* add username in the header and settings the toggle button position ([#118](https://github.com/code-pilots/magner/issues/118)) ([1613db0](https://github.com/code-pilots/magner/commit/1613db04ffae356a2f92e7f6af8e8a9822f3dfea))
+* add Uzbekistan language ([#119](https://github.com/code-pilots/magner/issues/119)) ([412a637](https://github.com/code-pilots/magner/commit/412a6371ba028efbc6764b7246e518de9245244f))
+
+
+
 ## [0.7.20](https://github.com/code-pilots/magner/compare/v0.7.19...v0.7.20) (2023-04-14)
 
 
