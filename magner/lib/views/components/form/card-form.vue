@@ -1,7 +1,8 @@
 <template>
   <GenericForm
+    v-if="formConfigReceived"
     :initial-data="initialData"
-    :config="config.form"
+    :config="formConfig"
     :error="error"
     :field-errors="fieldErrors"
     :skip-validation="!isNew ? ['empty'] : []"
@@ -55,6 +56,8 @@ export default defineComponent({
     const error = ref('');
     const fieldErrors = ref<Record<string, string>>({});
     const reqData = computed(() => ({ id: props.entityId, data: null, isNew: props.isNew }));
+    const formConfig: any = ref({});
+    const formConfigReceived = ref(false);
 
     const save = async (data: Record<string, unknown>) => {
       const submitButton = (props.config.form.actions || [])
@@ -152,6 +155,19 @@ export default defineComponent({
       context.emit('success', { data: { ...reqData.value }, response: res.data });
     };
 
+    const receiveFormConfig = async () => {
+      if (props.config.getLayoutRequest) {
+        const res = await props.config.getLayoutRequest?.({ ...reqData.value });
+        formConfig.value = res.data;
+        formConfigReceived.value = true;
+      } else {
+        formConfig.value = props.config.form;
+        formConfigReceived.value = true;
+      }
+    };
+
+    receiveFormConfig();
+
     return {
       customT,
       t,
@@ -160,6 +176,9 @@ export default defineComponent({
       reqData,
       save,
       deleteEntity,
+
+      formConfig,
+      formConfigReceived,
     };
   },
 });

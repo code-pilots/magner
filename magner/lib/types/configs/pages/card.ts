@@ -10,6 +10,7 @@ export interface CardConfig<ENTITY extends {}> {
   /** CRUD requests for working with entity data */
   getRequest: RequestWrap<any, CardRequestData<ENTITY>>,
   getNewRequest?: RequestWrap<any, CardRequestData<ENTITY>>,
+  getLayoutRequest?: RequestWrap<any, CardRequestData<ENTITY>>,
   createRequest: RequestWrap<any, CardRequestData<ENTITY>>,
   updateRequest: RequestWrap<any, CardRequestData<ENTITY>>,
 

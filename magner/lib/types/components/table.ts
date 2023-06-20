@@ -3,6 +3,7 @@ import type { TranslateData } from 'lib/utils/core/translate';
 import { ActionButton, CustomAction } from 'lib/types/utils/actions';
 import { TableActions } from 'lib/types/configs/pages/table';
 import { RouteComponent } from 'vue-router';
+import { RequestWrap } from 'lib/types';
 
 interface RenderHeaderType<COLUMN> {
   column: COLUMN,
@@ -101,6 +102,7 @@ export interface TableColumn<ENTITY extends {}> {
 
 export interface Table<ENTITY extends {} = {}> {
   columns: TableColumn<ENTITY>[],
+  getColumnsRequest: RequestWrap<TableColumn<ENTITY>[], null>,
 
   /** Whether the Table is striped – each odd row is colored */
   stripe?: boolean,
