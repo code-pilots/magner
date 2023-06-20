@@ -1,5 +1,6 @@
 <template>
   <el-table
+    v-if="tableColumnsReceived"
     ref="tableEl"
     :data="data"
     :row-class-name="config.rowLink ? 'row-link' : ''"
@@ -25,7 +26,7 @@
     />
 
     <el-table-column
-      v-for="column in config.columns"
+      v-for="column in tableColumns"
       :key="column.prop"
       :prop="column.prop"
       :label="customT(column.label)"
@@ -95,6 +96,8 @@ export default defineComponent({
     const { customT } = useTranslate();
     const tableEl = ref(null);
     const route = useRoute();
+    const tableColumns: any = ref([]);
+    const tableColumnsReceived = ref(false);
 
     const rowKey = computed(() => {
       if (props.config.rowTree) {
@@ -114,6 +117,19 @@ export default defineComponent({
       context.emit('select', rows);
     };
 
+    const receiveTableConfig = async () => {
+      if (props.config.getColumnsRequest) {
+        const res = await props.config.getColumnsRequest?.(null);
+        tableColumns.value = res.data;
+        tableColumnsReceived.value = true;
+      } else {
+        tableColumns.value = props.config.columns;
+        tableColumnsReceived.value = true;
+      }
+    };
+
+    receiveTableConfig();
+
     return {
       customT,
       tableEl,
@@ -121,6 +137,9 @@ export default defineComponent({
       select,
       route,
       rowKey,
+
+      tableColumns,
+      tableColumnsReceived,
     };
   },
 });
