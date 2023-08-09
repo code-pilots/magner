@@ -11,6 +11,12 @@
         width: 16px;
       }
     }
+
+    &[data-tool="underline"] {
+      svg {
+        fill: none;
+      }
+    }
   }
 
   &.disabled {

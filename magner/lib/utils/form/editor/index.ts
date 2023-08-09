@@ -21,6 +21,7 @@ const setupEditor = async (
   const List = (await import('@editorjs/list')).default;
   const Table = (await import('editorjs-table-readonly')).default;
   const ColorPlugin = (await import('editorjs-text-color-plugin')).default;
+  const Underline = (await import('@editorjs/underline')).default;
 
   // @ts-ignore
   const Image = (await import('./image-block')).default;
@@ -38,6 +39,7 @@ const setupEditor = async (
         ...tools.color.config,
       } : { ...colorConfig },
     },
+    underline: Underline,
   };
 
   const hasCustomTools = !!tools;
@@ -82,8 +84,9 @@ const setupEditor = async (
     },
     Color: {
       class: ColorPlugin,
-      config: { ...colorConfig},
+      config: { ...colorConfig },
     },
+    underline: Underline,
   };
 
   return new EditorJS({
