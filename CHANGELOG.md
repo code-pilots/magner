@@ -1,3 +1,12 @@
+## [0.7.24](https://github.com/code-pilots/magner/compare/v0.7.23...v0.7.24) (2023-08-09)
+
+
+### Features
+
+* underline ([#130](https://github.com/code-pilots/magner/issues/130)) ([a93c1fd](https://github.com/code-pilots/magner/commit/a93c1fd3fdabe7a14fbe91c1099755b883da03cd))
+
+
+
 ## [0.7.23](https://github.com/code-pilots/magner/compare/v0.7.22...v0.7.23) (2023-08-09)
 
 
