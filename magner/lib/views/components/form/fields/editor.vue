@@ -9,7 +9,11 @@
 <script lang="ts">
 import '../../../../assets/styles/components/editor.css';
 import {
-  defineComponent, onMounted, PropType, ref, watchEffect,
+  defineComponent,
+  onMounted,
+  PropType,
+  ref,
+  watchEffect,
 } from 'vue';
 import { useTranslate, useChecks } from 'lib/utils';
 import type { EditorField } from 'lib/types/form/fields/editor';
@@ -61,7 +65,7 @@ export default defineComponent({
             changeVal(JSON.stringify(outputData));
           });
         },
-      });
+      }, props.field.props.tools);
     });
 
     return {
