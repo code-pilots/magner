@@ -110,6 +110,12 @@ importers:
       '@editorjs/list':
         specifier: ^1.7.0
         version: 1.7.0
+      '@editorjs/underline':
+        specifier: ^1.1.0
+        version: 1.1.0
+      editorjs-strikethrough:
+        specifier: ^1.0.0
+        version: 1.0.0
       editorjs-table-readonly:
         specifier: ^1.1.0
         version: 1.1.0
@@ -299,6 +305,10 @@ packages:
       '@babel/helper-validator-identifier': 7.19.1
       to-fast-properties: 2.0.0
 
+  /@codexteam/icons@0.0.6:
+    resolution: {integrity: sha512-L7Q5PET8PjKcBT5wp7VR+FCjwCi5PUp7rd/XjsgQ0CI5FJz0DphyHGRILMuDUdCW2MQT9NHbVr4QP31vwAkS/A==}
+    dev: false
+
   /@cspotcode/source-map-support@0.8.1:
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
     engines: {node: '>=12'}
@@ -330,6 +340,12 @@ packages:
 
   /@editorjs/list@1.7.0:
     resolution: {integrity: sha512-0k0RKbQqfV32u24UYHHz5mrmSu4wr246qqXBT7xQiS533Bfd4hzki6UGzvy4f275ULzi+egbjI3BXLkpoTh9iQ==}
+    dev: false
+
+  /@editorjs/underline@1.1.0:
+    resolution: {integrity: sha512-vQj2ROW1KreD31QHlhaPikmDJGWYzRBusN4Zyfwl9nIIQCByt4S8fZQpsrRvH4sct5mkirsHllNT00rJlqHK7Q==}
+    dependencies:
+      '@codexteam/icons': 0.0.6
     dev: false
 
   /@element-plus/icons-vue@0.2.7(vue@3.2.31):
@@ -2786,6 +2802,10 @@ packages:
   /duplexer@0.1.2:
     resolution: {integrity: sha512-jtD6YG370ZCIi/9GTaJKQxWTZD045+4R4hTk/x1UyoqadyJ9x9CgSi1RlVDQF8U2sxLLSnFkCaMihqljHIWgMg==}
     dev: true
+
+  /editorjs-strikethrough@1.0.0:
+    resolution: {integrity: sha512-jesqbAg/nehdhU2LWSH4nxzy276Zvym9T8RjPLpeCEqpJJDzrlmU4CAEGgQUQlbJlNuEtp+w8yloAOwaA5QoYg==}
+    dev: false
 
   /editorjs-table-readonly@1.1.0:
     resolution: {integrity: sha512-7sndo9sgT0kUfXHowT4OMvAydWEttPhtDGd/oLp4y4DeYsxw1+5JAxSm7Uzj1A/W2XPxMUYvyF7jrMcDedZzJA==}

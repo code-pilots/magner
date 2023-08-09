@@ -19,8 +19,10 @@ const setupEditor = async (
   const EditorJS = (await import('@editorjs/editorjs')).default;
   const Header = (await import('@editorjs/header')).default;
   const List = (await import('@editorjs/list')).default;
+  const Underline = (await import('@editorjs/underline')).default;
   const Table = (await import('editorjs-table-readonly')).default;
   const ColorPlugin = (await import('editorjs-text-color-plugin')).default;
+  const Strikethrough = (await import('editorjs-strikethrough')).default;
 
   // @ts-ignore
   const Image = (await import('./image-block')).default;
@@ -38,6 +40,8 @@ const setupEditor = async (
         ...tools.color.config,
       } : { ...colorConfig },
     },
+    underline: Underline,
+    strikethrough: Strikethrough,
   };
 
   const hasCustomTools = !!tools;
@@ -82,8 +86,10 @@ const setupEditor = async (
     },
     Color: {
       class: ColorPlugin,
-      config: { ...colorConfig},
+      config: { ...colorConfig },
     },
+    underline: Underline,
+    strikethrough: Strikethrough,
   };
 
   return new EditorJS({

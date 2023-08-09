@@ -11,6 +11,19 @@
         width: 16px;
       }
     }
+
+    &[data-tool="underline"] {
+      svg {
+        fill: none;
+      }
+    }
+
+    &[data-tool="strikethrough"] {
+      svg {
+        width: 16px;
+        height: auto;
+      }
+    }
   }
 
   &.disabled {
