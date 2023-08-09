@@ -17,6 +17,13 @@
         fill: none;
       }
     }
+
+    &[data-tool="strikethrough"] {
+      svg {
+        width: 16px;
+        height: auto;
+      }
+    }
   }
 
   &.disabled {

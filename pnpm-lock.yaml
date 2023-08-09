@@ -113,6 +113,9 @@ importers:
       '@editorjs/underline':
         specifier: ^1.1.0
         version: 1.1.0
+      editorjs-strikethrough:
+        specifier: ^1.0.0
+        version: 1.0.0
       editorjs-table-readonly:
         specifier: ^1.1.0
         version: 1.1.0
@@ -2799,6 +2802,10 @@ packages:
   /duplexer@0.1.2:
     resolution: {integrity: sha512-jtD6YG370ZCIi/9GTaJKQxWTZD045+4R4hTk/x1UyoqadyJ9x9CgSi1RlVDQF8U2sxLLSnFkCaMihqljHIWgMg==}
     dev: true
+
+  /editorjs-strikethrough@1.0.0:
+    resolution: {integrity: sha512-jesqbAg/nehdhU2LWSH4nxzy276Zvym9T8RjPLpeCEqpJJDzrlmU4CAEGgQUQlbJlNuEtp+w8yloAOwaA5QoYg==}
+    dev: false
 
   /editorjs-table-readonly@1.1.0:
     resolution: {integrity: sha512-7sndo9sgT0kUfXHowT4OMvAydWEttPhtDGd/oLp4y4DeYsxw1+5JAxSm7Uzj1A/W2XPxMUYvyF7jrMcDedZzJA==}
