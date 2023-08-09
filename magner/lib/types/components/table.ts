@@ -102,7 +102,7 @@ export interface TableColumn<ENTITY extends {}> {
 
 export interface Table<ENTITY extends {} = {}> {
   columns: TableColumn<ENTITY>[],
-  getColumnsRequest: RequestWrap<TableColumn<ENTITY>[], null>,
+  getColumnsRequest?: RequestWrap<TableColumn<ENTITY>[], null>,
 
   /** Whether the Table is striped – each odd row is colored */
   stripe?: boolean,

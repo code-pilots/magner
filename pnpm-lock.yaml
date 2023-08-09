@@ -113,6 +113,9 @@ importers:
       editorjs-table-readonly:
         specifier: ^1.1.0
         version: 1.1.0
+      editorjs-text-color-plugin:
+        specifier: ^2.0.4
+        version: 2.0.4
       element-plus:
         specifier: 2.2.27
         version: 2.2.27(vue@3.2.39)
@@ -2786,6 +2789,10 @@ packages:
 
   /editorjs-table-readonly@1.1.0:
     resolution: {integrity: sha512-7sndo9sgT0kUfXHowT4OMvAydWEttPhtDGd/oLp4y4DeYsxw1+5JAxSm7Uzj1A/W2XPxMUYvyF7jrMcDedZzJA==}
+    dev: false
+
+  /editorjs-text-color-plugin@2.0.4:
+    resolution: {integrity: sha512-QpibTkOxs3ndlKNOLT8ZlC4ktc3/eKIajiLO0Jm/hh9AJug/CrM1/rAvHy+ldfUKavbWeI+YZvgjad0YTyoyGw==}
     dev: false
 
   /ejs@3.1.8:

@@ -4,6 +4,15 @@
     padding-bottom: 16px;
   }
 
+  .ce-inline-tool {
+    &.colorPlugin {
+      svg {
+        margin-bottom: 1px;
+        width: 16px;
+      }
+    }
+  }
+
   &.disabled {
     background-color: var(--el-disabled-fill-base);
     border-color: var(--el-disabled-border-base);
