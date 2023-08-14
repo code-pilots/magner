@@ -188,7 +188,25 @@ export default defineComponent({
 
     const submit = async () => {
       const valid = await validateAllForms();
-      if (!valid) return false;
+
+      if (!valid) {
+        const firstFormItemErrorElement = document.querySelector('.el-form-item.is-error');
+
+        if (firstFormItemErrorElement) {
+          const scrollContainer = document.querySelector('.js-main-layout') as HTMLDivElement;
+          const headerHeight = (document.querySelector('.js-header') as HTMLHeadingElement).offsetHeight;
+
+          const scrollTop = scrollContainer?.scrollTop ?? 0;
+          const top = firstFormItemErrorElement.getBoundingClientRect()?.top ?? 0;
+
+          scrollContainer.scrollTo({
+            top: (scrollTop + top) - headerHeight,
+            behavior: 'smooth',
+          });
+        }
+
+        return false;
+      }
 
       /** For PATCH methods, return the difference with existing data */
       if (!props.config.fullDataOnUpdate && !props.isNew) {
