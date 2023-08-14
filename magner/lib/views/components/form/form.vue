@@ -77,6 +77,7 @@ import type { BaseValidation, FormInteractionsData } from 'lib/types/form/base';
 import type { SupportedValidators, FormValidator } from 'lib/types/configs/development';
 import type { ActionAction } from 'lib/types/utils/actions';
 import { fieldsToModels, initialDifference, layoutToFields } from 'lib/utils/form/form';
+import scrollToErrorInput from 'lib/utils/form/scroll-to-error-input';
 import {
   updateFieldValues,
   getUpdatedLayoutsValue,
@@ -190,21 +191,7 @@ export default defineComponent({
       const valid = await validateAllForms();
 
       if (!valid) {
-        const firstFormItemErrorElement = document.querySelector('.el-form-item.is-error');
-
-        if (firstFormItemErrorElement) {
-          const scrollContainer = document.querySelector('.js-main-layout') as HTMLDivElement;
-          const headerHeight = (document.querySelector('.js-header') as HTMLHeadingElement).offsetHeight;
-
-          const scrollTop = scrollContainer?.scrollTop ?? 0;
-          const top = firstFormItemErrorElement.getBoundingClientRect()?.top ?? 0;
-
-          scrollContainer.scrollTo({
-            top: (scrollTop + top) - headerHeight,
-            behavior: 'smooth',
-          });
-        }
-
+        scrollToErrorInput();
         return false;
       }
 

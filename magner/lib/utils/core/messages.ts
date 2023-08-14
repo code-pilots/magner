@@ -37,7 +37,7 @@ export const magnerMessage = (config: Message) => ElMessage({
 
 export const magnerNotify = (config: Notification) => ElNotification({
   message: customT(config.message, globalValues.t),
-  title: customT(config.message, globalValues.t),
+  title: customT(config.title, globalValues.t),
   type: config.type,
   duration: config.duration,
   onClose: config.onClose,
