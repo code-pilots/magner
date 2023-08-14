@@ -77,6 +77,7 @@ import type { BaseValidation, FormInteractionsData } from 'lib/types/form/base';
 import type { SupportedValidators, FormValidator } from 'lib/types/configs/development';
 import type { ActionAction } from 'lib/types/utils/actions';
 import { fieldsToModels, initialDifference, layoutToFields } from 'lib/utils/form/form';
+import scrollToErrorInput from 'lib/utils/form/scroll-to-error-input';
 import {
   updateFieldValues,
   getUpdatedLayoutsValue,
@@ -188,7 +189,11 @@ export default defineComponent({
 
     const submit = async () => {
       const valid = await validateAllForms();
-      if (!valid) return false;
+
+      if (!valid) {
+        scrollToErrorInput();
+        return false;
+      }
 
       /** For PATCH methods, return the difference with existing data */
       if (!props.config.fullDataOnUpdate && !props.isNew) {

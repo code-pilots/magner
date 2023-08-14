@@ -24,6 +24,7 @@ import type { CardConfig } from 'lib/types/configs';
 import type { ActionAction } from 'lib/types/utils/actions';
 import { type TranslateData, useTranslate } from 'lib/utils/core/translate';
 import { magnerConfirm, magnerMessage } from 'lib/utils/core/messages';
+import scrollToErrorInput from 'lib/utils/form/scroll-to-error-input';
 import GenericForm from './form.vue';
 
 export default defineComponent({
@@ -81,6 +82,7 @@ export default defineComponent({
         } else {
           error.value = res.error.message;
           fieldErrors.value = res.error.fields;
+          scrollToErrorInput();
         }
         return;
       }

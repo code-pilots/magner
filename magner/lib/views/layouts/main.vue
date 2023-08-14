@@ -13,7 +13,7 @@
       :active-route="activeRoute"
     />
 
-    <div class="main-layout_content">
+    <div class="main-layout_content js-main-layout">
       <section class="page">
         <router-view :key="activeRoute ? activeRoute.name : ''" />
       </section>

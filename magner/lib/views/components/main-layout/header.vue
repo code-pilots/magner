@@ -1,5 +1,5 @@
 <template>
-  <header class="header">
+  <header class="header js-header">
     <div class="header_logo">
       <template v-if="collapsed || isMobile">
         <svg-icon v-if="settings.headerCollapsedIcon" :icon="settings.headerCollapsedIcon" size="inherit" />
