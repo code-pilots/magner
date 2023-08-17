@@ -44,12 +44,17 @@ interface ViewCustom<ENTITY extends {}> extends ViewBase<ENTITY, unknown> {
   component: () => RouteComponent,
 }
 
+interface ViewHtml<ENTITY extends {}> extends ViewBase<ENTITY, string> {
+  type: 'html',
+}
+
 export type ColumnView<ENTITY extends {}> =
   | ViewText<ENTITY>
   | ViewTags<ENTITY>
   | ViewImage<ENTITY>
   | ViewActions<ENTITY>
-  | ViewCustom<ENTITY>;
+  | ViewCustom<ENTITY>
+  | ViewHtml<ENTITY>;
 
 export interface TableColumn<ENTITY extends {}> {
   /** Property name of the field in the row data for specific column */
