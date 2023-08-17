@@ -1,6 +1,6 @@
 <template>
   <el-color-picker
-    v-model="val"
+    :model-value="val"
     :disabled="field.props.disabled ?? false"
     :size="field.props.size ?? 'default'"
     :color-format="field.props.colorFormat ?? 'hex'"
@@ -38,9 +38,7 @@ export default defineComponent({
     const val = ref<string>(props.modelValue);
 
     const changeVal = (newVal: any) => {
-      val.value = newVal;
-
-      context.emit('update:modelValue', val.value);
+      context.emit('update:modelValue', newVal);
     };
 
     watch(() => props.modelValue, () => {
