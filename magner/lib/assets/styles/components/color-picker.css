@@ -1,0 +1,7 @@
+.color-picker > div {
+  padding: 6px 12px;
+  margin: -6px -12px;
+  background-color: white;
+  border-radius: var(--el-popper-border-radius);
+  border: 1px solid var(--el-border-color-lighter)
+}

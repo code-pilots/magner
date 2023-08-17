@@ -16,7 +16,8 @@ export type SupportedComponentTypes =
   | 'datetime'
   | 'editor'
   | 'collection'
-  | 'custom';
+  | 'custom'
+  | 'color-picker';
 
 export interface BaseProps<ENTITY extends {}> {
   class?: string,

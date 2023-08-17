@@ -105,6 +105,13 @@
       @update:model-value="updVal"
     />
 
+    <ColorPicker
+      v-else-if="field.type === 'color-picker'"
+      v-model="val"
+      :field="field"
+      @update:model-value="updVal"
+    />
+
     <template v-else-if="field.type === 'custom' && customComponent">
       <component
         :is="customComponent"
@@ -213,12 +220,14 @@ import FormTextarea from './fields/textarea.vue';
 import DateTime from './fields/datetime.vue';
 import FormEditor from './fields/editor.vue';
 import FormButton from './fields/button.vue';
+import ColorPicker from './fields/color-picker.vue';
 
 type CollectionItems = ReturnType<typeof fieldsToModels>[];
 
 export default defineComponent({
   name: 'FormItem',
   components: {
+    ColorPicker,
     FormButton,
     FormEditor,
     DateTime,
