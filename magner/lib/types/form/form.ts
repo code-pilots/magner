@@ -10,6 +10,7 @@ import type { DateTimeField } from './fields/datetime';
 import type { EditorField } from './fields/editor';
 import type { CollectionField } from './fields/collection';
 import type { CustomField } from './fields/custom';
+import type { ColorPickerField } from './fields/color-picker';
 
 import type { FormLayout } from './layout';
 import type { ActionButton } from '../utils/actions';
@@ -30,7 +31,8 @@ export type GenericComponent<ENTITY extends {}> =
   | DateTimeField<ENTITY>
   | EditorField<ENTITY>
   | CollectionField<ENTITY>
-  | CustomField<ENTITY>;
+  | CustomField<ENTITY>
+  | ColorPickerField<ENTITY>;
 
 export interface InnerForm<ENTITY extends {}, EMITTERS = string> {
   /**

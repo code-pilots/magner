@@ -43,6 +43,12 @@
     />
   </div>
 
+  <div
+    v-else-if="formattedCell.view === 'html'"
+    class="cell-content_html"
+    v-html="formattedCell.content"
+  />
+
   <template v-else>
     {{ formattedCell.content }}
   </template>
@@ -155,7 +161,7 @@ export default defineComponent({
       }
 
       return {
-        view: props.columnConfig.view,
+        view: props.columnConfig.view.type,
         content,
       };
     });

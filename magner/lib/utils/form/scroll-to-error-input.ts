@@ -1,6 +1,6 @@
 const scrollToErrorInput = (): void => {
   setTimeout(() => {
-    const firstFormItemErrorElement = document.querySelector('.el-form-item.is-error');
+    const firstFormItemErrorElement = document.querySelector('.is-error');
 
     if (firstFormItemErrorElement) {
       const scrollContainer = document.querySelector('.js-main-layout') as HTMLDivElement;
