@@ -235,9 +235,9 @@ export default defineComponent({
       type: Object as PropType<TableConfig<any>>,
       required: true,
     },
-    routerDisabled: {
-      type: Boolean,
-      default: false,
+    rootTemplate: {
+      type: String as PropType<'modal' | 'page'>,
+      default: 'page',
     },
   },
   emits: ['success'],
@@ -262,6 +262,7 @@ export default defineComponent({
     const drawerOpen = ref(false);
     const dynamicRef = ref<typeof Dynamic>();
 
+    const tableInTheModal: boolean = props.rootTemplate === 'modal';
     const pageName = `page-${route.name as string}`;
 
     const hasPagination = computed(
@@ -284,7 +285,7 @@ export default defineComponent({
 
       const height = navHeight + headerHeight + topHeight + bottomHeight;
 
-      return `calc(100vh - ${height + 1}px)`;
+      return tableInTheModal ? '50vh' : `calc(100vh - ${height + 1}px)`;
     });
 
     const requestData = reactive({
@@ -293,11 +294,14 @@ export default defineComponent({
       sort: { ...(props.config.filters.sort || {}) },
     });
 
-    // Depending on URL query existence and configuration, load initial data from URL or LocalStorage
-    const initialData = props.config.filters.saveToLocalStorage && !Object.keys(route.query).length
-      ? store.state.project.lstorage.deepRead('filters', route.name as string) as Record<string, any>
-      : parseUrl(route.query) || {};
-    filterUrlDataComparison(requestData, initialData);
+    if (!tableInTheModal) {
+      // Depending on URL query existence and configuration, load initial data from URL or LocalStorage
+      const initialData = props.config.filters.saveToLocalStorage && !Object.keys(route.query).length
+        ? store.state.project.lstorage.deepRead('filters', route.name as string) as Record<string, any>
+        : parseUrl(route.query) || {};
+
+      filterUrlDataComparison(requestData, initialData);
+    }
 
     const appliedFilters = computed(() => Object.values(requestData.filters)
       .filter((filter) => (filter && typeof filter === 'object'
@@ -378,7 +382,7 @@ export default defineComponent({
     };
 
     watch(() => requestData, (val) => {
-      if (!props.routerDisabled) {
+      if (!tableInTheModal) {
         router.push({ path: route.path, query: { data: encodeURI(JSON.stringify(val)) } });
       }
     }, { deep: true });

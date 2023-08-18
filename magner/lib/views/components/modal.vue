@@ -13,7 +13,7 @@
     <template v-if="modalOpen">
       <component
         :is="contentComponent"
-        router-disabled
+        root-template="modal"
         v-bind="contentProps"
         @success="handleSuccess"
       />
