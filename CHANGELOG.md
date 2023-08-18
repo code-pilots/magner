@@ -1,3 +1,12 @@
+## [0.7.27](https://github.com/code-pilots/magner/compare/v0.7.26...v0.7.27) (2023-08-18)
+
+
+### Bug Fixes
+
+* modal template props ([#136](https://github.com/code-pilots/magner/issues/136)) ([4d9832a](https://github.com/code-pilots/magner/commit/4d9832a124a91140473ca0f76d4d1043d5d38e1f))
+
+
+
 ## [0.7.26](https://github.com/code-pilots/magner/compare/v0.7.25...v0.7.26) (2023-08-17)
 
 
