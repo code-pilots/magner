@@ -1,3 +1,12 @@
+## [0.7.28](https://github.com/code-pilots/magner/compare/v0.7.27...v0.7.28) (2023-08-21)
+
+
+### Features
+
+* brands ([#138](https://github.com/code-pilots/magner/issues/138)) ([90efe6b](https://github.com/code-pilots/magner/commit/90efe6b0280532444323da502d7f0f28e40395e2))
+
+
+
 ## [0.7.27](https://github.com/code-pilots/magner/compare/v0.7.26...v0.7.27) (2023-08-18)
 
 
