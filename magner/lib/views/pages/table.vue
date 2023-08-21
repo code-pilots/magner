@@ -323,6 +323,11 @@ export default defineComponent({
       drawerOpen.value = false;
     };
 
+    const clearSelection = () => {
+      selected.value = [];
+      (tableEl.value as any)?.tableEl?.clearSelection?.();
+    };
+
     const filtersAction = async (action: ActionAction<TableActions>) => {
       if (action.emits === 'update-table') {
         await dynamicRef.value!.makeRequest();
@@ -330,14 +335,14 @@ export default defineComponent({
       }
       if (action.emits === 'deselect-and-update') {
         await dynamicRef.value!.makeRequest();
-        selected.value = [];
+        clearSelection();
         return;
       }
       if (action.emits === 'deselect') {
-        selected.value = [];
+        clearSelection();
       }
       if (action.emits === 'deselect-and-success') {
-        selected.value = [];
+        clearSelection();
         context.emit('success');
       }
     };
@@ -373,12 +378,6 @@ export default defineComponent({
 
     const select = (rows: RowData[]) => {
       selected.value = rows;
-    };
-
-    const removeRows = async (rows: RowData[]) => {
-      await props.config.table.rowSelectable?.removeAction?.(rows);
-      selected.value = [];
-      (tableEl.value as any)?.tableEl?.clearSelection?.();
     };
 
     watch(() => requestData, (val) => {
@@ -426,7 +425,6 @@ export default defineComponent({
       filterItems,
       changeSort,
       clearFilters,
-      removeRows,
       toggleFiltersOpened,
     };
   },
