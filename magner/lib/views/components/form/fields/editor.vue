@@ -47,7 +47,7 @@ export default defineComponent({
       context.emit('update:modelValue', newVal);
     };
 
-    onMounted(() => {
+    onMounted(async () => {
       let parsedData: OutputData;
       try {
         parsedData = JSON.parse(val.value);
@@ -55,7 +55,7 @@ export default defineComponent({
         parsedData = { blocks: [] };
       }
 
-      setupEditor({
+      const editorInstance = await setupEditor({
         holder: props.field.props.id,
         placeholder: customT(props.field.props.placeholder || ''),
         data: parsedData,
@@ -66,6 +66,8 @@ export default defineComponent({
           });
         },
       }, props.field.props.tools);
+
+      Reflect.set(window, `${props.field.props.id}`, editorInstance);
     });
 
     return {
