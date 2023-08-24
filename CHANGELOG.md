@@ -1,3 +1,12 @@
+## [0.7.30](https://github.com/code-pilots/magner/compare/v0.7.29...v0.7.30) (2023-08-24)
+
+
+### Features
+
+* visible empty groups ([#142](https://github.com/code-pilots/magner/issues/142)) ([9c1cb9c](https://github.com/code-pilots/magner/commit/9c1cb9cdfa262905191d8668ef2b7413093dd1e5))
+
+
+
 ## [0.7.29](https://github.com/code-pilots/magner/compare/v0.7.28...v0.7.29) (2023-08-22)
 
 
