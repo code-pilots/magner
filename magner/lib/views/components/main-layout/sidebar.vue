@@ -23,7 +23,7 @@
           </el-menu-item>
 
           <el-sub-menu
-            v-else-if="route.routes"
+            v-else-if="route.routes && route.routes.some((route) => isVisible(route))"
             :key="route.name"
             :index="route.name"
             class="sidebar_submenu"
