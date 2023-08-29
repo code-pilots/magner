@@ -311,7 +311,7 @@ export default defineComponent({
       requestData.filters = { ...(props.config.filters.filtersData || {}) };
     };
 
-    const filterItems = (form: Record<string, string>) => {
+    const filterItems = (form: {form: Record<string, string>, newForm: Record<string, string>}) => {
       requestData.pagination = {
         ...requestData.pagination,
         ...(props.config.filters.pagination
@@ -319,7 +319,7 @@ export default defineComponent({
           : {}
         ),
       };
-      requestData.filters = { ...requestData.filters, ...form };
+      requestData.filters = { ...requestData.filters, ...form.form };
       drawerOpen.value = false;
     };
 

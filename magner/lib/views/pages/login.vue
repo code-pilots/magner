@@ -67,7 +67,7 @@ export default defineComponent({
       return accum;
     }, {} as Record<string, string>));
 
-    const login = async (data: Record<string, any>) => {
+    const login = async (data: {form: Record<string, any>, newForm: Record<string, any>}) => {
       const submitButton = (props.config.form.actions || [])
         .find((action) => (action as ActionAction)?.emits === 'submit');
 
@@ -84,7 +84,7 @@ export default defineComponent({
       }
 
       if (submitButton) submitButton.loading = true;
-      const res = await props.config.request(data);
+      const res = await props.config.request(data.form);
       if (submitButton) submitButton.loading = false;
 
       if (res.error && typeof res.error === 'object') {

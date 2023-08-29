@@ -198,12 +198,11 @@ export default defineComponent({
       /** For PATCH methods, return the difference with existing data */
       if (!props.config.fullDataOnUpdate && !props.isNew) {
         const diff = initialDifference(form, initial.value);
-        initial.value = JSON.parse(JSON.stringify(form));
-        context.emit('submit', diff);
+        context.emit('submit', { form: diff, newForm: JSON.parse(JSON.stringify(form)) });
         return true;
       }
 
-      context.emit('submit', form);
+      context.emit('submit', { form });
       return true;
     };
 
