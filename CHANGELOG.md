@@ -1,3 +1,12 @@
+## [0.7.31](https://github.com/code-pilots/magner/compare/v0.7.30...v0.7.31) (2023-08-29)
+
+
+### Bug Fixes
+
+* removed form initial data update on error requests ([#144](https://github.com/code-pilots/magner/issues/144)) ([922be4f](https://github.com/code-pilots/magner/commit/922be4fb82940ad4cd88426657402e2f636df604))
+
+
+
 ## [0.7.30](https://github.com/code-pilots/magner/compare/v0.7.29...v0.7.30) (2023-08-24)
 
 
