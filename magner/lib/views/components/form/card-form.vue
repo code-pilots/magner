@@ -1,7 +1,7 @@
 <template>
   <GenericForm
     v-if="formConfigReceived"
-    :initial-data="initialData"
+    :initial-data="initial"
     :config="formConfig"
     :error="error"
     :field-errors="fieldErrors"
@@ -18,7 +18,7 @@
 <script lang="ts">
 import '../../../assets/styles/components/card-form.css';
 import {
-  computed, defineComponent, PropType, ref,
+  computed, defineComponent, PropType, ref, watch,
 } from 'vue';
 import type { CardConfig } from 'lib/types/configs';
 import type { ActionAction } from 'lib/types/utils/actions';
@@ -54,13 +54,14 @@ export default defineComponent({
   setup (props, context) {
     const { customT, t } = useTranslate();
 
+    const initial = ref(props.initialData);
     const error = ref('');
     const fieldErrors = ref<Record<string, string>>({});
     const reqData = computed(() => ({ id: props.entityId, data: null, isNew: props.isNew }));
     const formConfig: any = ref({});
     const formConfigReceived = ref(false);
 
-    const save = async (data: Record<string, unknown>) => {
+    const save = async (data: {form: Record<string, unknown>, newForm: Record<string, unknown>}) => {
       const submitButton = (props.config.form.actions || [])
         .find((action) => (action as ActionAction)?.emits === 'submit');
       if (submitButton) submitButton.loading = true;
@@ -70,9 +71,9 @@ export default defineComponent({
 
       let res;
       if (props.isNew) {
-        res = await props.config.createRequest?.({ ...reqData.value, data });
+        res = await props.config.createRequest?.({ ...reqData.value, data: data.form });
       } else {
-        res = await props.config.updateRequest?.({ ...reqData.value, data });
+        res = await props.config.updateRequest?.({ ...reqData.value, data: data.form });
       }
       if (submitButton) submitButton.loading = false;
 
@@ -85,6 +86,10 @@ export default defineComponent({
           scrollToErrorInput();
         }
         return;
+      }
+
+      if (!formConfig.value.fullDataOnUpdate && !props.isNew) {
+        initial.value = data.newForm;
       }
 
       error.value = '';
@@ -107,7 +112,7 @@ export default defineComponent({
         message,
       });
 
-      context.emit('success', { data: { ...reqData.value, data }, response: res.data });
+      context.emit('success', { data: { ...reqData.value, data: data.form }, response: res.data });
     };
 
     const confirmDelete = (): Promise<boolean> => new Promise((resolve) => {
@@ -170,9 +175,14 @@ export default defineComponent({
 
     receiveFormConfig();
 
+    watch(() => props.initialData, (newInitial) => {
+      initial.value = newInitial;
+    });
+
     return {
       customT,
       t,
+      initial,
       error,
       fieldErrors,
       reqData,
