@@ -26,6 +26,14 @@
       </div>
 
       <div class="header_right">
+        <el-link
+          v-if="changeLogRoute"
+          :disabled="!changeLogRoute.route.path"
+          type="default"
+          @click="toChangeLog"
+        >
+          {{ appVersion }}
+        </el-link>
         <el-dropdown v-if="Object.keys(allLanguages).length > 1" trigger="hover">
           <template #default>
             <el-button :icon="globeIcon" circle class="header_right_globe" />
@@ -88,9 +96,10 @@ import { useRouter } from 'vue-router';
 import useStore from 'lib/controllers/store/store';
 import { useTranslate } from 'lib/utils/core/translate';
 import { useMobile } from 'lib/utils/core/is-mobile';
-import { MainLayoutProps } from 'lib/types/configs/routing/layouts';
+import { MainLayoutProps, RouteLayout } from 'lib/types/configs/routing/layouts';
 import { isInWhiteList } from 'lib/utils/helpers/white-list';
 import { useClickOutside } from 'lib/utils/composables/clickOutside';
+import { FinalNoLayoutRoute } from 'lib/types';
 
 export default defineComponent({
   name: 'MainHeader',
@@ -122,6 +131,11 @@ export default defineComponent({
     const togglePositionTop = computed<boolean>(() => store.state.project.development.toggleBtnPositionTop || false);
     const userName = store.state.user?.name;
     const isCollapsed = computed<boolean>(() => store.state.sidebarCollapsed);
+    const appVersion = store.state.project.development?.appVersion || null;
+    const changeLogRoute = computed<FinalNoLayoutRoute | null>(() => {
+      const routeLayout = store.state.project.routes.routes.find((routes) => routes.type === 'layout') as RouteLayout;
+      return routeLayout?.layout.routes.find((r) => r.route.name === 'change-log') || null;
+    });
 
     const toggleOpen = () => {
       store.dispatch('toggleMobileSidebarOpened');
@@ -136,6 +150,10 @@ export default defineComponent({
     const changeLang = (lang: string) => {
       store.dispatch('changeLanguage', lang);
       locale.value = lang;
+    };
+
+    const toChangeLog = () => {
+      router.push({ name: changeLogRoute.value?.route.name });
     };
 
     useClickOutside('id-sidebar', '.header_right_burger', () => {
@@ -158,7 +176,10 @@ export default defineComponent({
       userName,
       isCollapsed,
       togglePositionTop,
+      appVersion,
+      changeLogRoute,
       changeLang,
+      toChangeLog,
       toggleOpen,
       toggleCollapse,
       logout,

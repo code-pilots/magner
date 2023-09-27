@@ -83,4 +83,7 @@ export interface DevelopmentConfig {
   logoutRequest: RequestWrap<null>,
 
   validation: Validators<string>,
+
+  /** Accepts the current version of the application */
+  appVersion?: string,
 }
