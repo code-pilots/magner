@@ -1,3 +1,12 @@
+## [0.7.32](https://github.com/code-pilots/magner/compare/v0.7.31...v0.7.32) (2023-09-27)
+
+
+### Features
+
+* version of the application in header ([8e9da28](https://github.com/code-pilots/magner/commit/8e9da280e4030014f5ed6eddc7025d47e40d90b0))
+
+
+
 ## [0.7.31](https://github.com/code-pilots/magner/compare/v0.7.30...v0.7.31) (2023-08-29)
 
 
