@@ -27,8 +27,8 @@
 
       <div class="header_right">
         <el-link
-          v-if="changeLogRoute"
-          :disabled="!changeLogRoute.route.path"
+          v-if="appVersion"
+          :disabled="!changeLogRoute"
           type="default"
           @click="toChangeLog"
         >
