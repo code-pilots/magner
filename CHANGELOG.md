@@ -1,3 +1,12 @@
+## [0.7.33](https://github.com/code-pilots/magner/compare/v0.7.32...v0.7.33) (2023-09-28)
+
+
+### Bug Fixes
+
+* show change-log if there is a appVersion ([#150](https://github.com/code-pilots/magner/issues/150)) ([332edf0](https://github.com/code-pilots/magner/commit/332edf063eb5ea4b712cffa3873f1fa38fd25436))
+
+
+
 ## [0.7.32](https://github.com/code-pilots/magner/compare/v0.7.31...v0.7.32) (2023-09-27)
 
 
