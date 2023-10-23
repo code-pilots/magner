@@ -11,6 +11,21 @@
     padding-top: 3rem;
   }
 
+  &_lang {
+    position: absolute;
+    right: 100px;
+    top: 30px;
+
+    @media (--breakpoint-small) {
+      top: 20px;
+      right: 0;
+      display: flex;
+      justify-content: flex-end;
+      position: relative;
+      width: 91.6666666667%;
+    }
+  }
+
   &_logo {
     display: flex;
     align-items: center;

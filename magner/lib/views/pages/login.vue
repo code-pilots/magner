@@ -3,6 +3,29 @@
     class="login-page"
     tag="section"
   >
+    <el-dropdown v-if="Object.keys(allLanguages).length > 1" trigger="hover" class="login-page_lang">
+      <template #default>
+        <el-button
+          :icon="globeIcon"
+          text
+        >
+          {{ allLanguages[locale] }}
+        </el-button>
+      </template>
+
+      <template #dropdown>
+        <el-dropdown-menu>
+          <el-dropdown-item
+            v-for="lang in Object.entries(allLanguages)"
+            :key="lang[0]"
+            @click="changeLang(lang[0])"
+          >
+            {{ lang[1] }}
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </template>
+    </el-dropdown>
+
     <el-col :xs="22" :sm="12" :lg="8">
       <GenericForm
         :config="config.form"
@@ -31,7 +54,7 @@ import '../../assets/styles/pages/login.css';
 import {
   defineComponent,
   ref,
-  PropType, reactive, computed,
+  PropType, reactive, computed, shallowRef,
 } from 'vue';
 import { useRouter } from 'vue-router';
 import type { LoginConfig } from 'lib/types/configs';
@@ -40,6 +63,7 @@ import useStore from 'lib/controllers/store/store';
 import { useTranslate } from 'lib/utils/core/translate';
 import { layoutToFields } from 'lib/utils/form/form';
 import logoUrl from 'lib/assets/icons/brand-light.svg';
+import GlobeIcon from 'lib/assets/icons/globe.svg';
 import GenericForm from '../components/form/form.vue';
 
 export default defineComponent({
@@ -52,7 +76,9 @@ export default defineComponent({
     },
   },
   setup (props) {
-    const { customT } = useTranslate();
+    const globeIcon = shallowRef(GlobeIcon);
+
+    const { customT, locale } = useTranslate();
     const router = useRouter();
     const store = useStore();
 
@@ -66,6 +92,7 @@ export default defineComponent({
       accum[current.name] = 'random';
       return accum;
     }, {} as Record<string, string>));
+    const allLanguages = store.state.project.languages;
 
     const login = async (data: {form: Record<string, any>, newForm: Record<string, any>}) => {
       const submitButton = (props.config.form.actions || [])
@@ -99,15 +126,24 @@ export default defineComponent({
       }
     };
 
+    const changeLang = (lang: string) => {
+      store.dispatch('changeLanguage', lang);
+      locale.value = lang;
+    };
+
     return {
+      globeIcon,
       error,
       fieldErrors,
       noBackend,
       initialData,
+      allLanguages,
+      locale,
       customT,
       customLogo: props.config.logo,
       logo: logoUrl,
       login,
+      changeLang,
     };
   },
 });
