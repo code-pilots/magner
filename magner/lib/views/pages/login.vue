@@ -7,7 +7,7 @@
       v-if="isMultipleLanguages"
       class="login-page_lang"
     >
-      <LangSwitcher :circle="false" />
+      <LangSwitcher />
     </div>
 
     <el-col :xs="22" :sm="12" :lg="8">

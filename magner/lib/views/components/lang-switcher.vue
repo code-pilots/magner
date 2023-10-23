@@ -39,7 +39,7 @@ export default defineComponent({
   props: {
     circle: {
       type: Boolean,
-      default: true,
+      default: false,
     },
   },
   setup () {
