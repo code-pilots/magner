@@ -35,7 +35,10 @@
           {{ appVersion }}
         </el-link>
 
-        <LangSwitcher v-if="Object.keys(allLanguages).length > 1" circle />
+        <LangSwitcher
+          v-if="isMultipleLanguages"
+          circle
+        />
 
         <div v-if="userName" class="header_right_user-name">
           {{ userName }}
@@ -73,17 +76,20 @@
 <script lang="ts">
 import '../../../assets/styles/components/header.css';
 import {
-  defineComponent, onBeforeUnmount, onMounted, PropType, shallowRef, computed,
+  defineComponent,
+  PropType,
+  shallowRef,
+  computed,
 } from 'vue';
-import UserIcon from 'lib/assets/icons/user.svg';
 import { useRouter } from 'vue-router';
 import useStore from 'lib/controllers/store/store';
 import { useTranslate } from 'lib/utils/core/translate';
 import { useMobile } from 'lib/utils/core/is-mobile';
 import { MainLayoutProps, RouteLayout } from 'lib/types/configs/routing/layouts';
-import { isInWhiteList } from 'lib/utils/helpers/white-list';
 import { useClickOutside } from 'lib/utils/composables/clickOutside';
 import { FinalNoLayoutRoute } from 'lib/types';
+
+import UserIcon from 'lib/assets/icons/user.svg';
 import LangSwitcher from 'lib/views/components/lang-switcher.vue';
 
 export default defineComponent({
@@ -107,12 +113,12 @@ export default defineComponent({
   setup (props, context) {
     const userIcon = shallowRef(UserIcon);
 
-    const { customT, t, locale } = useTranslate();
+    const { customT, t } = useTranslate();
     const store = useStore();
     const router = useRouter();
     const isMobile = useMobile();
 
-    const allLanguages = store.state.project.languages;
+    const isMultipleLanguages = computed(() => store.getters.isMultipleLanguages);
     const togglePositionTop = computed<boolean>(() => store.state.project.development.toggleBtnPositionTop || false);
     const userName = store.state.user?.name;
     const isCollapsed = computed<boolean>(() => store.state.sidebarCollapsed);
@@ -151,7 +157,7 @@ export default defineComponent({
       t,
       customT,
       isMobile,
-      allLanguages,
+      isMultipleLanguages,
       userName,
       isCollapsed,
       togglePositionTop,

@@ -4,7 +4,7 @@
     tag="section"
   >
     <div
-      v-if="Object.keys(allLanguages).length > 1"
+      v-if="isMultipleLanguages"
       class="login-page_lang"
     >
       <LangSwitcher :circle="false" />
@@ -38,7 +38,9 @@ import '../../assets/styles/pages/login.css';
 import {
   defineComponent,
   ref,
-  PropType, reactive, computed,
+  PropType,
+  reactive,
+  computed,
 } from 'vue';
 import { useRouter } from 'vue-router';
 import type { LoginConfig } from 'lib/types/configs';
@@ -60,12 +62,14 @@ export default defineComponent({
     },
   },
   setup (props) {
-    const { customT, locale } = useTranslate();
+    const { customT } = useTranslate();
     const router = useRouter();
     const store = useStore();
 
     const error = ref('');
     const fieldErrors = ref<Record<string, string>>({});
+
+    const isMultipleLanguages = computed(() => store.getters.isMultipleLanguages);
 
     /** No backend. Create fake data that will be accepted by the form */
     const noBackend = computed(() => store.state.project.development.noBackendMode);
@@ -74,7 +78,6 @@ export default defineComponent({
       accum[current.name] = 'random';
       return accum;
     }, {} as Record<string, string>));
-    const allLanguages = store.state.project.languages;
 
     const login = async (data: {form: Record<string, any>, newForm: Record<string, any>}) => {
       const submitButton = (props.config.form.actions || [])
@@ -113,8 +116,7 @@ export default defineComponent({
       fieldErrors,
       noBackend,
       initialData,
-      locale,
-      allLanguages,
+      isMultipleLanguages,
       customT,
       customLogo: props.config.logo,
       logo: logoUrl,

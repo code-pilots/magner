@@ -130,6 +130,12 @@ export const store = () => createStore<State>({
       context.commit('setModalComponent', value);
     },
   },
+
+  getters: {
+    isMultipleLanguages (state): boolean {
+      return Object.keys(state.project.languages)?.length > 1;
+    },
+  },
 });
 
 export type StoreType = ReturnType<typeof store>;

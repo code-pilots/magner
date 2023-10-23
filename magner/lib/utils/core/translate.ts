@@ -1,3 +1,4 @@
+import { Ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import type { I18n } from 'vue-i18n';
 import type { GlobalValues } from 'lib/global';
@@ -33,7 +34,7 @@ type UseTranslate = () => {
   t: I18n['global']['t'],
   d: I18n['global']['d'],
   n: I18n['global']['n'],
-  locale: I18n['global']['locale'],
+  locale: Ref<I18n['global']['locale']>,
   customT: (data: TranslateData) => string,
 };
 
