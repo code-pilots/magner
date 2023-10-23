@@ -58,7 +58,7 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-vue": "9.4.0",
     "identity-obj-proxy": "^3.0.0",
-    "postcss": "8.4.16",
+    "postcss": "8.4.31",
     "postcss-custom-media": "^8.0.2",
     "postcss-nested": "^5.0.6",
     "start-server-and-test": "^1.14.0",
