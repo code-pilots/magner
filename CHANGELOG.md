@@ -1,3 +1,12 @@
+## [0.7.34](https://github.com/code-pilots/magner/compare/v0.7.33...v0.7.34) (2023-10-23)
+
+
+### Features
+
+* added language switcher to login page ([#153](https://github.com/code-pilots/magner/issues/153)) ([036f8c4](https://github.com/code-pilots/magner/commit/036f8c4829460d6df14fb4803bbb2b0e7849290e))
+
+
+
 ## [0.7.33](https://github.com/code-pilots/magner/compare/v0.7.32...v0.7.33) (2023-09-28)
 
 
