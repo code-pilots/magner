@@ -34,23 +34,8 @@
         >
           {{ appVersion }}
         </el-link>
-        <el-dropdown v-if="Object.keys(allLanguages).length > 1" trigger="hover">
-          <template #default>
-            <el-button :icon="globeIcon" circle class="header_right_globe" />
-          </template>
 
-          <template #dropdown>
-            <el-dropdown-menu>
-              <el-dropdown-item
-                v-for="lang in Object.entries(allLanguages)"
-                :key="lang[0]"
-                @click="changeLang(lang[0])"
-              >
-                {{ lang[1] }}
-              </el-dropdown-item>
-            </el-dropdown-menu>
-          </template>
-        </el-dropdown>
+        <LangSwitcher v-if="Object.keys(allLanguages).length > 1" circle />
 
         <div v-if="userName" class="header_right_user-name">
           {{ userName }}
@@ -88,9 +73,8 @@
 <script lang="ts">
 import '../../../assets/styles/components/header.css';
 import {
-  defineComponent, onBeforeUnmount, onMounted, PropType, shallowRef, computed
+  defineComponent, onBeforeUnmount, onMounted, PropType, shallowRef, computed,
 } from 'vue';
-import GlobeIcon from 'lib/assets/icons/globe.svg';
 import UserIcon from 'lib/assets/icons/user.svg';
 import { useRouter } from 'vue-router';
 import useStore from 'lib/controllers/store/store';
@@ -100,9 +84,11 @@ import { MainLayoutProps, RouteLayout } from 'lib/types/configs/routing/layouts'
 import { isInWhiteList } from 'lib/utils/helpers/white-list';
 import { useClickOutside } from 'lib/utils/composables/clickOutside';
 import { FinalNoLayoutRoute } from 'lib/types';
+import LangSwitcher from 'lib/views/components/lang-switcher.vue';
 
 export default defineComponent({
   name: 'MainHeader',
+  components: { LangSwitcher },
   props: {
     settings: {
       type: Object as PropType<MainLayoutProps>,
@@ -119,7 +105,6 @@ export default defineComponent({
   },
   emits: ['update:sidebar'],
   setup (props, context) {
-    const globeIcon = shallowRef(GlobeIcon);
     const userIcon = shallowRef(UserIcon);
 
     const { customT, t, locale } = useTranslate();
@@ -147,11 +132,6 @@ export default defineComponent({
       await router.push({ name: store.state.project.routes.global.homeNoAuthName });
     };
 
-    const changeLang = (lang: string) => {
-      store.dispatch('changeLanguage', lang);
-      locale.value = lang;
-    };
-
     const toChangeLog = () => {
       router.push({ name: changeLogRoute.value?.route.name });
     };
@@ -168,7 +148,6 @@ export default defineComponent({
 
     return {
       userIcon,
-      globeIcon,
       t,
       customT,
       isMobile,
@@ -178,7 +157,6 @@ export default defineComponent({
       togglePositionTop,
       appVersion,
       changeLogRoute,
-      changeLang,
       toChangeLog,
       toggleOpen,
       toggleCollapse,
