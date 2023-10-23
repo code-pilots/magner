@@ -3,6 +3,13 @@
     class="login-page"
     tag="section"
   >
+    <div
+      v-if="isMultipleLanguages"
+      class="login-page_lang"
+    >
+      <LangSwitcher />
+    </div>
+
     <el-col :xs="22" :sm="12" :lg="8">
       <GenericForm
         :config="config.form"
@@ -31,7 +38,9 @@ import '../../assets/styles/pages/login.css';
 import {
   defineComponent,
   ref,
-  PropType, reactive, computed,
+  PropType,
+  reactive,
+  computed,
 } from 'vue';
 import { useRouter } from 'vue-router';
 import type { LoginConfig } from 'lib/types/configs';
@@ -40,11 +49,12 @@ import useStore from 'lib/controllers/store/store';
 import { useTranslate } from 'lib/utils/core/translate';
 import { layoutToFields } from 'lib/utils/form/form';
 import logoUrl from 'lib/assets/icons/brand-light.svg';
+import LangSwitcher from 'lib/views/components/lang-switcher.vue';
 import GenericForm from '../components/form/form.vue';
 
 export default defineComponent({
   name: 'LoginPage',
-  components: { GenericForm },
+  components: { LangSwitcher, GenericForm },
   props: {
     config: {
       type: Object as PropType<LoginConfig<any>>,
@@ -58,6 +68,8 @@ export default defineComponent({
 
     const error = ref('');
     const fieldErrors = ref<Record<string, string>>({});
+
+    const isMultipleLanguages = computed(() => store.getters.isMultipleLanguages);
 
     /** No backend. Create fake data that will be accepted by the form */
     const noBackend = computed(() => store.state.project.development.noBackendMode);
@@ -104,6 +116,7 @@ export default defineComponent({
       fieldErrors,
       noBackend,
       initialData,
+      isMultipleLanguages,
       customT,
       customLogo: props.config.logo,
       logo: logoUrl,
