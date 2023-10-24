@@ -1,1 +1,1 @@
-export type CustomStoreType = any
+export type AppStoreType = any

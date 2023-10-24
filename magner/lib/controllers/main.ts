@@ -28,8 +28,8 @@ export const mainController = (project: ProjectConfig) => {
 
   globalValues.development = project.development();
 
-  if (project.customStore) {
-    globalValues.customStore = project.customStore;
+  if (project.appStore) {
+    globalValues.appStore = project.appStore;
   }
 
   const i18n = project.i18n();

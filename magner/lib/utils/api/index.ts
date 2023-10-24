@@ -77,7 +77,7 @@ export const request = (options: ApiControllerOptions) => {
     parseError: options.parseError || ((e) => ({ message: e.name, fields: {} })),
     router: globalValues.router,
     lstorage: globalValues.lstorage,
-    customStore: globalValues.customStore,
+    appStore: globalValues.appStore,
     data,
   });
 

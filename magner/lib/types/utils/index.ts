@@ -10,7 +10,7 @@ export type {
   ActionWrapper,
 } from './actions';
 
-export type { CustomStoreType } from './custom-store.type';
+export type { AppStoreType } from './custom-store.type';
 
 export type { TranslateData } from 'lib/utils/core/translate';
 
