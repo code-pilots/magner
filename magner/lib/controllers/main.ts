@@ -28,6 +28,10 @@ export const mainController = (project: ProjectConfig) => {
 
   globalValues.development = project.development();
 
+  if (project.customStore) {
+    globalValues.customStore = project.customStore;
+  }
+
   const i18n = project.i18n();
   globalValues.t = i18n.i18n.global.t;
   globalValues.locales = i18n.config.elLocales;

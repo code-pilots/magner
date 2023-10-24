@@ -1,6 +1,7 @@
 import type { Router } from 'vue-router';
 import type { Language } from 'element-plus/lib/locale';
 import type { I18n } from 'vue-i18n';
+import type { CustomStoreType } from 'lib/types';
 import type { StoreType } from './controllers/store/store';
 import type { DevelopmentConfig, ManifestConfig, RoutingConfig } from './types/configs';
 import type { LStorage } from './utils/core/local-storage';
@@ -18,6 +19,8 @@ export interface GlobalValues {
   languages: Record<string, string>,
 
   lstorage: LStorage,
+
+  customStore: CustomStoreType,
 }
 
 const globalValues = {} as GlobalValues;

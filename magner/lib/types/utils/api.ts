@@ -4,6 +4,7 @@ import type {
 } from 'lib/types/configs/development';
 import type { ApiType } from 'lib/utils/api';
 import type { LStorage } from 'lib/utils/core/local-storage';
+import type { CustomStoreType } from 'lib/types';
 
 /** A proxy that accepts anything and returns something different */
 export type ProxyFunc<ARGUMENT = any, PROXY = any> = (data: ARGUMENT) => PROXY;
@@ -22,6 +23,7 @@ export type RequestCallback<RESULT = any, DATA = any> = (info: {
   parseError: ErrorParser<any>,
   urlToData?: UrlToDataHelper,
   dataToUrl?: DataToUrlHelper,
+  customStore?: CustomStoreType,
 }) => Promise<BaseResponse<RESULT>>;
 
 export type RequestFunc = <RESULT = any, DATA = any>(cb: RequestCallback<RESULT, DATA>) =>
