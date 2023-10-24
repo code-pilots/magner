@@ -19,7 +19,6 @@ export interface GlobalValues {
   languages: Record<string, string>,
 
   lstorage: LStorage,
-
   appStore: AppStoreType,
 }
 
