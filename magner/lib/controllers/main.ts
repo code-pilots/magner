@@ -25,12 +25,9 @@ export const mainController = (project: ProjectConfig) => {
 
   const store = storeController()();
   globalValues.store = store[0];
+  globalValues.appStore = project.appStore;
 
   globalValues.development = project.development();
-
-  if (project.appStore) {
-    globalValues.appStore = project.appStore;
-  }
 
   const i18n = project.i18n();
   globalValues.t = i18n.i18n.global.t;
