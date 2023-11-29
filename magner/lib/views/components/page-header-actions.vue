@@ -42,6 +42,7 @@ import { defineComponent, PropType } from 'vue';
 import { RouteLocationRaw, useRoute } from 'vue-router';
 import { TranslateData, useTranslate } from 'lib/utils/core/translate';
 import type { ActionButton, ActionLink } from 'lib/types/utils/actions';
+import { magnerMessage } from 'lib/utils';
 
 export default defineComponent({
   name: 'PageHeaderActions',
@@ -82,7 +83,14 @@ export default defineComponent({
 
     const act = async (action: {action: Function}) => {
       if (action.action && typeof action.action === 'function') {
-        action.action();
+        const res = await action.action();
+        if (res || res === '') {
+          magnerMessage({
+            type: 'error',
+            message: typeof res !== 'boolean' ? customT(res) : t('core.form.failed_action'),
+          });
+          return;
+        }
       }
 
       context.emit('action', action);

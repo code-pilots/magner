@@ -21,6 +21,7 @@
           }] : []),
         ]
       }"
+      @action="filtersAction"
     />
 
     <template v-if="hasFilters">
