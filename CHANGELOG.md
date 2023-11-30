@@ -1,3 +1,12 @@
+## [0.7.36](https://github.com/code-pilots/magner/compare/v0.7.35...v0.7.36) (2023-11-30)
+
+
+### Bug Fixes
+
+* table update event after creation from a modal window ([#158](https://github.com/code-pilots/magner/issues/158)) ([3718303](https://github.com/code-pilots/magner/commit/371830371efee0131efd00eb7fd3c03f9f47556a))
+
+
+
 ## [0.7.35](https://github.com/code-pilots/magner/compare/v0.7.34...v0.7.35) (2023-10-26)
 
 
