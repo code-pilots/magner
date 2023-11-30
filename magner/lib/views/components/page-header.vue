@@ -29,6 +29,8 @@
     <PageHeaderActions
       v-if="header.actions?.length"
       :actions="header.actions"
+      :request-data="requestData"
+      @action="emitAction"
     />
   </div>
 </template>
@@ -41,6 +43,7 @@ import {
 import { useRoute } from 'vue-router';
 import { useTranslate } from 'lib/utils/core/translate';
 import type { PageHeader } from 'lib/types/configs/pages/shared';
+import { ActionAction } from 'lib/types/utils/actions';
 import PageHeaderActions from './page-header-actions.vue';
 
 export default defineComponent({
@@ -57,9 +60,13 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    requestData: {
+      type: Object,
+      default: () => ({}),
+    },
   },
-  emits: [],
-  setup (props) {
+  emits: ['action'],
+  setup (props, context) {
     const { customT } = useTranslate();
     const route = useRoute();
 
@@ -68,8 +75,11 @@ export default defineComponent({
       activeIndex: props.header.tabs?.findIndex((tab) => tab.active)?.toString() || -1,
     }));
 
+    const emitAction = (action: ActionAction) => context.emit('action', action);
+
     return {
       customT,
+      emitAction,
       route,
       tabs,
     };

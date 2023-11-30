@@ -21,6 +21,8 @@
           }] : []),
         ]
       }"
+      :request-data="{ ...requestData, selected }"
+      @action="filtersAction"
     />
 
     <template v-if="hasFilters">

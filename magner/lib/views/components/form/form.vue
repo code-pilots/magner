@@ -139,7 +139,7 @@ export default defineComponent({
       default: () => ([]),
     },
   },
-  emits: ['submit', 'remove', 'action', 'action'],
+  emits: ['submit', 'remove', 'action'],
   setup (props, context) {
     const { customT, t } = useTranslate();
     const isMobile = useMobile();
