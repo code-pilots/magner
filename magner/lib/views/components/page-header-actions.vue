@@ -41,8 +41,8 @@
 import { defineComponent, PropType } from 'vue';
 import { RouteLocationRaw, useRoute } from 'vue-router';
 import { TranslateData, useTranslate } from 'lib/utils/core/translate';
-import type { ActionButton, ActionLink } from 'lib/types/utils/actions';
-import { magnerMessage } from 'lib/utils';
+import type { ActionButton, ActionLink, ActionAction } from 'lib/types/utils/actions';
+import { magnerMessage, actionWrapper } from 'lib/utils';
 
 export default defineComponent({
   name: 'PageHeaderActions',
@@ -54,6 +54,10 @@ export default defineComponent({
     size: {
       type: String as PropType<'large' | 'default' | 'small'>,
       default: 'default',
+    },
+    requestData: {
+      type: Object,
+      default: () => ({}),
     },
   },
   emits: ['action'],
@@ -81,9 +85,9 @@ export default defineComponent({
       return to;
     };
 
-    const act = async (action: {action: Function}) => {
-      if (action.action && typeof action.action === 'function') {
-        const res = await action.action();
+    const act = async (action: ActionAction) => {
+      if (action.action) {
+        const res = await actionWrapper(props.requestData, action.action);
         if (res || res === '') {
           magnerMessage({
             type: 'error',

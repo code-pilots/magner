@@ -21,6 +21,7 @@
           }] : []),
         ]
       }"
+      :request-data="{ ...requestData, selected }"
       @action="filtersAction"
     />
 

@@ -9,6 +9,7 @@
         <PageHeader
           :header="config.header"
           :is-new="isNew"
+          :request-data="response"
         />
 
         <CardForm

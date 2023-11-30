@@ -29,6 +29,7 @@
     <PageHeaderActions
       v-if="header.actions?.length"
       :actions="header.actions"
+      :request-data="requestData"
       @action="emitAction"
     />
   </div>
@@ -58,6 +59,10 @@ export default defineComponent({
     isNew: {
       type: Boolean,
       default: false,
+    },
+    requestData: {
+      type: Object,
+      default: () => ({}),
     },
   },
   emits: ['action'],
