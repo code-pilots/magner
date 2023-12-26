@@ -2,6 +2,8 @@
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+  flex-wrap: wrap;
+  gap: 24px;
 
   width: 100%;
   margin: 0 auto;
@@ -23,6 +25,17 @@
 
   &_title {
     text-align: left;
+  }
+
+  &_tag {
+    margin-top: 4px;
+  }
+
+  &_title-container {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
   }
 
   & .el-tabs {

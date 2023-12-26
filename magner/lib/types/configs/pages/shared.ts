@@ -2,6 +2,10 @@ import type { TranslateData } from 'lib/utils/core/translate';
 import type { RouteLocationRaw, RouteLocation } from 'vue-router';
 import type { ActionButton } from 'lib/types/utils/actions';
 
+type TagType = 'success' | 'warning' | 'danger' | 'info';
+type TagSize = 'small' | 'default' | 'large';
+type TagTheme = 'dark' | 'light' | 'plain';
+
 export interface PageHeaderTab {
   label: TranslateData,
 
@@ -17,8 +21,22 @@ export interface PageHeaderTab {
 }
 
 export interface PageHeader<EMITTERS = string, ENTITY = {}> {
-  /** Page title */
+  /** New title */
+  newTitle?: TranslateData,
+
+  /** Card or Table title */
   title?: TranslateData,
+
+  /** Tag title */
+  tag?: {
+    name: keyof ENTITY,
+    props: Partial<{
+      type: TagType,
+      size: TagSize,
+      effect: TagTheme,
+      round: boolean,
+    }>,
+  }
 
   /** Tabs are the links to other pages represented in the form of tabs */
   tabs?: PageHeaderTab[],
