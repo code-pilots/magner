@@ -1,3 +1,12 @@
+## [0.7.37](https://github.com/code-pilots/magner/compare/v0.7.36...v0.7.37) (2023-12-26)
+
+
+### Features
+
+* header tag ([#160](https://github.com/code-pilots/magner/issues/160)) ([e79d8dd](https://github.com/code-pilots/magner/commit/e79d8dd6ce72e8c12b4520b7837f8215bf92b039))
+
+
+
 ## [0.7.36](https://github.com/code-pilots/magner/compare/v0.7.35...v0.7.36) (2023-11-30)
 
 
