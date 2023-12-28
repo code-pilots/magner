@@ -6,7 +6,7 @@
     "apps/*",
     "magner"
   ],
-  "packageManager": "pnpm@7.5.0",
+  "packageManager": "pnpm@8.10.5",
   "scripts": {
     "dev": "turbo run dev --parallel",
     "build": "turbo run build",
