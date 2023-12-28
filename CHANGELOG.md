@@ -1,3 +1,12 @@
+## [0.7.40](https://github.com/code-pilots/magner/compare/v0.7.39...v0.7.40) (2023-12-28)
+
+
+### Bug Fixes
+
+* element plus version ([495611f](https://github.com/code-pilots/magner/commit/495611f923b94d61172699c59c504e2c8b814c89))
+
+
+
 ## [0.7.39](https://github.com/code-pilots/magner/compare/v0.7.38...v0.7.39) (2023-12-28)
 
 
