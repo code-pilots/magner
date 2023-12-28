@@ -105,6 +105,10 @@ export const useChecks = (field: GenericComponent<any>, value?: unknown) => {
     ? (field.props.readOnly as MixedCheckerOptional)(field.parent)
     : field.props.readOnly || false));
 
+  const changed = computed(() => (typeof field.props.changed === 'function'
+    ? (field.props.changed as MixedCheckerOptional)(field.parent)
+    : field.props.changed || false));
+
   const hiddenCollectionAddButton = computed(() => (typeof field.props.hiddenCollectionAddButton === 'function'
     ? (field.props.hiddenCollectionAddButton as MixedCheckerOptional)(field.parent)
     : field.props.hiddenCollectionAddButton || false));
@@ -121,6 +125,7 @@ export const useChecks = (field: GenericComponent<any>, value?: unknown) => {
     readOnly,
     readOnlyText,
     hiddenCollectionAddButton,
+    changed,
   };
 };
 
@@ -134,7 +139,7 @@ export const updateFieldValues = (
   form: Record<string, any>,
   isNew?: boolean,
   force?: Record<
-    'readOnly' | 'disabled' | 'hidden' | 'hiddenCollectionAddButton',
+    'readOnly' | 'disabled' | 'hidden' | 'hiddenCollectionAddButton' | 'changed',
     undefined | boolean | MixedChecker<any>
   >,
 ) => {
@@ -184,6 +189,20 @@ export const updateFieldValues = (
     });
   }
 
+  // Save pure changed function
+  if (typeof field.props.inner.changedCondition !== 'function'
+    && typeof field.props.changed === 'function') {
+    field.props.inner.changedCondition = field.props.changed;
+  }
+  const changed = force?.changed ?? field.props.inner.changedCondition;
+  if (typeof changed === 'function') {
+    field.props.changed = changed.bind(null, {
+      state: form,
+      isNew: isNew || false,
+      role: globalValues.store.state.role as string,
+    });
+  }
+
   if (field.type === 'collection') {
     if (typeof field.props.inner.hiddenCollectionAddButtonCondition !== 'function'
       && typeof field.props.hiddenCollectionAddButton === 'function') {
@@ -204,6 +223,7 @@ export const updateFieldValues = (
       readOnly: field.props.readOnly || undefined,
       disabled: field.props.disabled || undefined,
       hidden: field.props.hidden || undefined,
+      changed: field.props.changed || undefined,
       hiddenCollectionAddButton: field.props.hiddenCollectionAddButton || undefined,
     }));
   }

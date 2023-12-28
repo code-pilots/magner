@@ -9,6 +9,7 @@
     :class="['generic-form_item', 'generic-form_item-' + field.type, 'input-' + field.name, {
       'readonly': readOnly,
       'disabled': disabled && !readOnly,
+      'changed': changed,
     }]"
   >
     <template v-if="field.label" #label>
@@ -271,6 +272,7 @@ export default defineComponent({
       hidden,
       readOnly,
       disabled,
+      changed,
       hiddenCollectionAddButton,
     } = useChecks(props.field, props.modelValue);
     const customComponent = shallowRef(props.field.type === 'custom' ? props.field.component() : null);
@@ -364,6 +366,7 @@ export default defineComponent({
       hidden,
       readOnly,
       disabled,
+      changed,
       hiddenCollectionAddButton,
       customComponent,
       t,
