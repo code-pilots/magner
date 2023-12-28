@@ -1,3 +1,13 @@
+## [0.7.39](https://github.com/code-pilots/magner/compare/v0.7.38...v0.7.39) (2023-12-28)
+
+
+### Features
+
+* changed props form-item ([50ded7a](https://github.com/code-pilots/magner/commit/50ded7a16c1cef29e5f284d50de667ba20618d71))
+* form item changed props ([4096d79](https://github.com/code-pilots/magner/commit/4096d799651f8202bd11962f78294532707e5e92))
+
+
+
 ## [0.7.38](https://github.com/code-pilots/magner/compare/v0.7.37...v0.7.38) (2023-12-28)
 
 
