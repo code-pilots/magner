@@ -36,8 +36,8 @@ importers:
   apps/playground:
     dependencies:
       element-plus:
-        specifier: 2.4.4
-        version: 2.4.4(vue@3.3.13)
+        specifier: 2.2.27
+        version: 2.2.27(vue@3.3.13)
       magner:
         specifier: '*'
         version: link:../../magner
@@ -127,8 +127,8 @@ importers:
         specifier: 2.0.4
         version: 2.0.4
       element-plus:
-        specifier: 2.4.4
-        version: 2.4.4(vue@3.3.13)
+        specifier: 2.2.27
+        version: 2.2.27(vue@3.3.13)
       maska:
         specifier: ^1.5.0
         version: 1.5.2
@@ -3060,8 +3060,8 @@ packages:
     resolution: {integrity: sha512-cSMwIAd8yUh54VwitVRVvHK66QqHWE39C3DRj8SWiXitEpVSY3wNPD9y1pxQtLIi4w3UdzF9klLsmuPshz09DQ==}
     dev: true
 
-  /element-plus@2.4.4(vue@3.3.13):
-    resolution: {integrity: sha512-TlKubXJgxwhER0dw+8ULn9hr9kZjraV4R6Q/eidwWUwCKxwXYPBGmMKsZ/85tlxlhMYbcLZd/YZh6G3QkHX4fg==}
+  /element-plus@2.2.27(vue@3.3.13):
+    resolution: {integrity: sha512-P04HDOZBYDdvlYuleuCZRULzAc5xJVOBfLDK9xWxVo0vyo8ntdaXS5sTU+/76vrNzuO3FhLn9kvrsbiJEVa1jg==}
     peerDependencies:
       vue: ^3.2.0
     dependencies:
