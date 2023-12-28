@@ -12,7 +12,7 @@
     "lint": "eslint --fix src"
   },
   "dependencies": {
-    "element-plus": "2.4.4",
+    "element-plus": "2.2.27",
     "magner": "latest",
     "vue": "3.3.13",
     "vue-i18n": "^9.2.0-beta.28",
