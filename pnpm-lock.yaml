@@ -24,8 +24,8 @@ importers:
         specifier: 1.0.0-1
         version: 1.0.0-1
       vite:
-        specifier: 3.2.7
-        version: 3.2.7(@types/node@18.7.14)
+        specifier: 3.2.8
+        version: 3.2.8(@types/node@18.7.14)
       vue:
         specifier: 3.3.13
         version: 3.3.13(typescript@4.8.3)
@@ -59,7 +59,7 @@ importers:
         version: 5.62.0(eslint@8.48.0)(typescript@4.9.5)
       '@vitejs/plugin-vue':
         specifier: ^2.2.0
-        version: 2.3.4(vite@3.2.7)(vue@3.3.13)
+        version: 2.3.4(vite@3.2.8)(vue@3.3.13)
       '@vue/eslint-config-typescript':
         specifier: ^10.0.0
         version: 10.0.0(eslint-plugin-vue@8.7.1)(eslint@8.48.0)(typescript@4.9.5)
@@ -100,8 +100,8 @@ importers:
         specifier: ^4.5.5
         version: 4.9.5
       vite:
-        specifier: 3.2.7
-        version: 3.2.7(@types/node@18.7.14)
+        specifier: 3.2.8
+        version: 3.2.8(@types/node@18.7.14)
 
   magner:
     dependencies:
@@ -162,7 +162,7 @@ importers:
         version: 5.12.0(eslint@8.9.0)(typescript@4.8.3)
       '@vitejs/plugin-vue':
         specifier: 3.1.0
-        version: 3.1.0(vite@3.2.7)(vue@3.3.13)
+        version: 3.1.0(vite@3.2.8)(vue@3.3.13)
       '@vue/eslint-config-typescript':
         specifier: 11.0.0
         version: 11.0.0(eslint-plugin-vue@9.4.0)(eslint@8.9.0)(typescript@4.8.3)
@@ -221,11 +221,11 @@ importers:
         specifier: 4.8.3
         version: 4.8.3
       vite:
-        specifier: 3.2.7
-        version: 3.2.7(@types/node@18.7.14)
+        specifier: 3.2.8
+        version: 3.2.8(@types/node@18.7.14)
       vite-plugin-dts:
         specifier: 1.5.0
-        version: 1.5.0(@types/node@18.7.14)(vite@3.2.7)
+        version: 1.5.0(@types/node@18.7.14)(vite@3.2.8)
 
 packages:
 
@@ -1611,25 +1611,25 @@ packages:
       eslint-visitor-keys: 3.4.3
     dev: true
 
-  /@vitejs/plugin-vue@2.3.4(vite@3.2.7)(vue@3.3.13):
+  /@vitejs/plugin-vue@2.3.4(vite@3.2.8)(vue@3.3.13):
     resolution: {integrity: sha512-IfFNbtkbIm36O9KB8QodlwwYvTEsJb4Lll4c2IwB3VHc2gie2mSPtSzL0eYay7X2jd/2WX02FjSGTWR6OPr/zg==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
       vite: ^2.5.10
       vue: ^3.2.25
     dependencies:
-      vite: 3.2.7(@types/node@18.7.14)
+      vite: 3.2.8(@types/node@18.7.14)
       vue: 3.3.13(typescript@4.9.5)
     dev: true
 
-  /@vitejs/plugin-vue@3.1.0(vite@3.2.7)(vue@3.3.13):
+  /@vitejs/plugin-vue@3.1.0(vite@3.2.8)(vue@3.3.13):
     resolution: {integrity: sha512-fmxtHPjSOEIRg6vHYDaem+97iwCUg/uSIaTzp98lhELt2ISOQuDo2hbkBdXod0g15IhfPMQmAxh4heUks2zvDA==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
       vite: ^3.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 3.2.7(@types/node@18.7.14)
+      vite: 3.2.8(@types/node@18.7.14)
       vue: 3.3.13(typescript@4.8.3)
     dev: true
 
@@ -7051,7 +7051,7 @@ packages:
     engines: {node: '>= 0.10'}
     dev: true
 
-  /vite-plugin-dts@1.5.0(@types/node@18.7.14)(vite@3.2.7):
+  /vite-plugin-dts@1.5.0(@types/node@18.7.14)(vite@3.2.8):
     resolution: {integrity: sha512-O78YnwomiEu+vKMdj1gvJfi2PnSOdB/RKWSOaNDjzr5bGvB6G7AskSczy+74sLwj3hkh0qO0L0U1UuLSjAqtqA==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
@@ -7064,14 +7064,14 @@ packages:
       fast-glob: 3.3.1
       fs-extra: 10.1.0
       ts-morph: 14.0.0
-      vite: 3.2.7(@types/node@18.7.14)
+      vite: 3.2.8(@types/node@18.7.14)
     transitivePeerDependencies:
       - '@types/node'
       - supports-color
     dev: true
 
-  /vite@3.2.7(@types/node@18.7.14):
-    resolution: {integrity: sha512-29pdXjk49xAP0QBr0xXqu2s5jiQIXNvE/xwd0vUizYT2Hzqe4BksNNoWllFVXJf4eLZ+UlVQmXfB4lWrc+t18g==}
+  /vite@3.2.8(@types/node@18.7.14):
+    resolution: {integrity: sha512-EtQU16PLIJpAZol2cTLttNP1mX6L0SyI0pgQB1VOoWeQnMSvtiwovV3D6NcjN8CZQWWyESD2v5NGnpz5RvgOZA==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
     peerDependencies:
