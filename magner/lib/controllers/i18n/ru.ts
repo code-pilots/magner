@@ -43,6 +43,9 @@ export const ruLocale: TranslationSchema = {
       cancel: 'Отменить',
       failed_action: 'Не удалось выполнить действие',
 
+      input_phone: {
+        without_mask: 'Без маски',
+      },
       dropzone: {
         drag_here: 'Перетащите файлы сюда или',
         click_upload: 'нажмите для загрузки',

@@ -7,6 +7,7 @@ import type { GenericComponent, GenericForm, InnerConditions } from './index';
 export type SupportedComponentTypes =
   'button'
   | 'input'
+  | 'input-phone'
   | 'textarea'
   | 'checkbox'
   | 'radio'

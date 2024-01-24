@@ -1,5 +1,6 @@
 import type { ButtonField } from './fields/button';
 import type { InputField } from './fields/input';
+import type { InputPhoneField } from './fields/input-phone';
 import type { TextareaField } from './fields/textarea';
 import type { CheckboxField } from './fields/checkbox';
 import type { RadioField } from './fields/radio';
@@ -22,6 +23,7 @@ import type { ActionButton } from '../utils/actions';
 export type GenericComponent<ENTITY extends {}> =
   ButtonField<ENTITY>
   | InputField<ENTITY>
+  | InputPhoneField<ENTITY>
   | TextareaField<ENTITY>
   | CheckboxField<ENTITY>
   | RadioField<ENTITY>

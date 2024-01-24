@@ -44,6 +44,14 @@
       @update:model-value="updVal"
     />
 
+    <FormInputPhone
+      v-else-if="field.type === 'input-phone'"
+      v-model="val"
+      :field="field"
+      @blur="$emit('blur', $event)"
+      @update:model-value="updVal"
+    />
+
     <FormTextarea
       v-if="field.type === 'textarea'"
       v-model="val"
@@ -211,6 +219,7 @@ import setupValidators from 'lib/utils/form/setup-validators';
 import PlusIcon from 'lib/assets/icons/plus.svg';
 import XIcon from 'lib/assets/icons/x.svg';
 import FormInput from './fields/input.vue';
+import FormInputPhone from './fields/input-phone.vue';
 import FormSelect from './fields/select.vue';
 import Dropzone from './fields/dropzone.vue';
 import FormRadio from './fields/radio.vue';
@@ -240,6 +249,7 @@ export default defineComponent({
     Dropzone,
     FormSelect,
     FormInput,
+    FormInputPhone,
   },
   props: {
     field: {

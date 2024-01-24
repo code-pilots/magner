@@ -95,6 +95,8 @@ Something about that
 
 ### `MagnerFormInput`
 
+### `MagnerFormInputPhone`
+
 ### `MagnerFormTextarea`
 
 ### `MagnerFormEditor`

@@ -34,6 +34,7 @@
     "editorjs-table-readonly": "1.1.0",
     "editorjs-text-color-plugin": "2.0.4",
     "element-plus": "2.2.27",
+    "intl-tel-input": "17.0.4",
     "maska": "^1.5.0",
     "vue": "3.3.13",
     "vue-i18n": "9.2.2",
@@ -43,6 +44,7 @@
   },
   "devDependencies": {
     "@types/ejs": "^3.1.1",
+    "@types/intl-tel-input": "^18.1.4",
     "@types/node": "18.7.14",
     "@typescript-eslint/eslint-plugin": "5.12.0",
     "@typescript-eslint/parser": "5.12.0",
