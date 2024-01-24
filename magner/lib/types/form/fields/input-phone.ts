@@ -4,7 +4,7 @@ export interface InputPhoneProps<ENTITY extends {}> extends BaseProps<ENTITY> {
   /**
    * Includes the option “without mask” in dropdown
    * */
-  withoutMask?: boolean
+  hasWithoutMaskOption?: boolean
 
   /**
    * Preferred countries list, will be on top of the dropdown

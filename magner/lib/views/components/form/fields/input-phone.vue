@@ -26,12 +26,14 @@ import {
 import { useChecks } from 'lib/utils';
 import debounceOnInput from 'lib/utils/form/input-debounce';
 import ReadonlyWrap from '../readonly-wrap.vue';
-import intlTelInput from 'intl-tel-input';
-import 'intl-tel-input/build/css/intlTelInput.css';
-import 'intl-tel-input/build/js/intlTelInput.js';
 import { InputPhoneField } from 'lib/types/form/fields/input-phone';
 import { create as Maska } from 'maska';
 import { useI18n } from "vue-i18n";
+import intlTelInput from 'intl-tel-input';
+import 'intl-tel-input/build/css/intlTelInput.css';
+import 'intl-tel-input/build/js/intlTelInput.js';
+import * as utils from '../../../../../public/js/intl-tel-input-utils.js';
+
 
 export default defineComponent({
   name: 'FormInputPhone',
@@ -49,7 +51,6 @@ export default defineComponent({
   emits: ['update:modelValue', 'blur'],
   setup (props, context) {
     const val = ref<number|string>(props.modelValue);
-    const inputPhone = ref<HTMLInputElement>();
     const telInputEl = ref<HTMLInputElement>();
     const iti = ref();
 
@@ -64,7 +65,7 @@ export default defineComponent({
       telInputEl.value = document.querySelector(`input[name='${props.field.name as string}']`) as HTMLInputElement;
 
       iti.value = intlTelInput(telInputEl.value, {
-        utilsScript: 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.1.1/js/utils.js',
+        utilsScript: utils,
         preferredCountries: props.field.props.preferredCountries || [],
         onlyCountries: props.field.props.onlyCountries || [],
         excludeCountries: props.field.props.excludeCountries || [],
@@ -77,7 +78,7 @@ export default defineComponent({
       });
 
 
-      if (props.field.props.withoutMask) {
+      if (props.field.props.hasWithoutMaskOption) {
         const dropdown = document.getElementById('iti-0__country-listbox');
         const li = document.createElement("li");
         const span = document.createElement("span");
@@ -90,9 +91,14 @@ export default defineComponent({
         li.append(span);
         dropdown?.prepend(li);
       }
+
+      telInputEl.value?.addEventListener("countrychange", function(e: Event) {
+        replaceMask(e)
+      });
     });
 
-    const replaceMask = (e: FocusEvent) => {
+
+    const replaceMask = (e: Event) => {
       const pl = (e?.target as HTMLInputElement)?.placeholder;
       const res = pl?.replace(/X/g, '#');
       if (res !== 'undefined') {
@@ -103,7 +109,6 @@ export default defineComponent({
     return {
       val,
       disabled,
-      inputPhone,
       changeVal,
       replaceMask,
     };
