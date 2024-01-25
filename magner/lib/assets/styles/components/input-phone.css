@@ -1,0 +1,12 @@
+.iti {
+  width: 100%;
+}
+.iti__dropdown-content {
+  z-index: 1000 !important;
+}
+.iti__country-list {
+  z-index: 1000 !important;
+}
+.iti--separate-dial-code .iti__selected-flag {
+  background-color: unset !important;
+}

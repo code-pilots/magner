@@ -33,6 +33,9 @@ export const enLocale = {
       cancel: 'Cancel',
       failed_action: 'Failed in performing the action',
 
+      input_phone: {
+        without_mask: 'Without Mask',
+      },
       dropzone: {
         drag_here: 'Drag file here or',
         click_upload: 'click for upload',

@@ -129,6 +129,9 @@ importers:
       element-plus:
         specifier: 2.2.27
         version: 2.2.27(vue@3.3.13)
+      intl-tel-input:
+        specifier: 17.0.4
+        version: 17.0.4
       maska:
         specifier: ^1.5.0
         version: 1.5.2
@@ -151,6 +154,9 @@ importers:
       '@types/ejs':
         specifier: ^3.1.1
         version: 3.1.2
+      '@types/intl-tel-input':
+        specifier: ^18.1.4
+        version: 18.1.4
       '@types/node':
         specifier: 18.7.14
         version: 18.7.14
@@ -1274,6 +1280,18 @@ packages:
     resolution: {integrity: sha512-UP28RddqY8xcU0SCEp9YKutQICXpaAq9N8U2klqF5hegGha7KzTOL8EdhIIV3bOSGBzjEpN9bU/d+nNZBdJYVw==}
     dev: true
 
+  /@types/intl-tel-input@18.1.4:
+    resolution: {integrity: sha512-UT4dQ4dQA0w0uxU161aPROEEwMOQj5Qedm3ImdDNfkxi3JXzBX2FhcUS72pTyZ8ypaUr2e9ruJBiK6bwSGfbew==}
+    dependencies:
+      '@types/jquery': 3.5.29
+    dev: true
+
+  /@types/jquery@3.5.29:
+    resolution: {integrity: sha512-oXQQC9X9MOPRrMhPHHOsXqeQDnWeCDT3PelUIg/Oy8FAbzSZtFHRjc7IpbfFVmpLtJ+UOoywpRsuO5Jxjybyeg==}
+    dependencies:
+      '@types/sizzle': 2.3.8
+    dev: true
+
   /@types/json-schema@7.0.12:
     resolution: {integrity: sha512-Hr5Jfhc9eYOQNPYO5WLDq/n4jqijdHNlDXjuAQkkt+mWdQR+XJToOHrsD4cPaMXpn6KO7y2+wM8AZEs8VpBLVA==}
     dev: true
@@ -1345,6 +1363,10 @@ packages:
 
   /@types/semver@7.5.1:
     resolution: {integrity: sha512-cJRQXpObxfNKkFAZbJl2yjWtJCqELQIdShsogr1d2MilP8dKD9TE/nEKHkJgUNHdGKCQaf9HbIynuV2csLGVLg==}
+    dev: true
+
+  /@types/sizzle@2.3.8:
+    resolution: {integrity: sha512-0vWLNK2D5MT9dg0iOo8GlKguPAU02QjmZitPEsXRuJXU/OGIOt9vT9Fc26wtYuavLxtO45v9PGleoL9Z0k1LHg==}
     dev: true
 
   /@types/web-bluetooth@0.0.16:
@@ -4525,6 +4547,10 @@ packages:
     resolution: {integrity: sha512-agE4QfB2Lkp9uICn7BAqoscw4SZP9kTE2hxiFI3jBPmXJfdqiahTbUuKGsMoN2GtqL9AxhYioAcVvgsb1HvRbA==}
     engines: {node: '>= 0.10'}
     dev: true
+
+  /intl-tel-input@17.0.4:
+    resolution: {integrity: sha512-SsUZDPZbtqRvbDgsFa9w49UfOM+TiBbdYZxzyiqdEYH3fubw5eiX3Uc9Qg1G61Yw5z3uqCAQv2nEJLpm1awpVg==}
+    dev: false
 
   /is-array-buffer@3.0.2:
     resolution: {integrity: sha512-y+FyyR/w8vfIRq4eQcM1EYgSTnmHXPqaF+IgzgraytCFq5Xh8lllDVmAZolPJiZttZLeFSINPYMaEJ7/vWUa1w==}
