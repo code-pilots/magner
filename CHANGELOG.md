@@ -1,3 +1,12 @@
+## [0.7.41](https://github.com/code-pilots/magner/compare/v0.7.40...v0.7.41) (2024-01-25)
+
+
+### Features
+
+* add new component input-phone ([#167](https://github.com/code-pilots/magner/issues/167)) ([8176778](https://github.com/code-pilots/magner/commit/817677884b107413e41e355c8f3b1f480b8cc40c))
+
+
+
 ## [0.7.40](https://github.com/code-pilots/magner/compare/v0.7.39...v0.7.40) (2023-12-28)
 
 
