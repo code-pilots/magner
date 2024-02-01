@@ -1,3 +1,12 @@
+## [0.7.42](https://github.com/code-pilots/magner/compare/v0.7.41...v0.7.42) (2024-02-01)
+
+
+### Bug Fixes
+
+* filter requests ([#173](https://github.com/code-pilots/magner/issues/173)) ([22c36e2](https://github.com/code-pilots/magner/commit/22c36e2781ccc26fffe2448d2e7b973cdabd82cf))
+
+
+
 ## [0.7.41](https://github.com/code-pilots/magner/compare/v0.7.40...v0.7.41) (2024-01-25)
 
 
