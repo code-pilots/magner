@@ -30,6 +30,7 @@ export default defineComponent({
     const response = ref();
     const loading = ref(false);
     const initialLoaded = ref(false); // Variable prevents sending two index simultaneously on initial load
+    let timer: null | ReturnType<typeof setTimeout> = null;
 
     const changeLoading = (val: boolean) => {
       loading.value = val;
@@ -53,7 +54,13 @@ export default defineComponent({
     };
 
     watch(() => props.data, (val) => {
-      makeRequest(val);
+      if (timer) {
+        clearTimeout(timer);
+      }
+
+      timer = setTimeout(() => {
+        makeRequest(val);
+      }, 1000);
     }, { deep: true });
 
     await makeRequest();
