@@ -13,11 +13,11 @@ export interface RoutingFinalConfig {
 }
 export type RouterController = () => RoutingFinalConfig;
 
-export const routerController = <ROLE extends string>(config: RoutingConfig, base?: string): RouterController => () => {
+export const routerController = <ROLE extends string>(config: RoutingConfig): RouterController => () => {
   const routes = makeRoutes(config.routes);
 
   const router = createRouter({
-    history: createWebHistory(base),
+    history: createWebHistory(config.global?.base),
     routes: routes as RouteRecordRaw[],
   });
 
