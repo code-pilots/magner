@@ -17,7 +17,7 @@ export const routerController = <ROLE extends string>(config: RoutingConfig): Ro
   const routes = makeRoutes(config.routes);
 
   const router = createRouter({
-    history: createWebHistory(config.global?.base),
+    history: createWebHistory(config.global.suffixUrl),
     routes: routes as RouteRecordRaw[],
   });
 

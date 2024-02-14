@@ -13,7 +13,7 @@ export type RouteAccessRestriction = string[] | boolean;
 
 export interface GlobalRouting {
   /** Optional base to provide. Gives an url of `https://example.com/BASE/ */
-  base?: string,
+  suffixUrl?: string,
   /** Name of the route to which should we redirect unauthenticated user from protected route */
   homeNoAuthName: string,
   /** Name of the route to which should we redirect authenticated user from unprotected route */
