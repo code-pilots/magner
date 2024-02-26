@@ -3,7 +3,9 @@
     <el-scrollbar class="sidebar_scroll">
       <el-menu
         :collapse="isCollapsed && !isMobile"
-        :default-active="activeRoute ? activeRoute.name : null"
+        :default-active="activeRoute && isVisible(activeRoute)
+          ? activeRoute?.name
+          : activeRoute?.path.split('/').reverse()[1] || null"
         class="sidebar_menu"
         @select="navigate"
       >
