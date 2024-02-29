@@ -132,12 +132,20 @@ export default defineComponent({
     };
 
     const defaultActiveRouteName = computed(() => {
-      if (props.activeRoute && isVisible(props.activeRoute)) {
+      const suffixUrl = store.state.project.routes.global.suffixUrl;
+      const isVisibleActiveRoute = props.activeRoute && isVisible(props.activeRoute);
+
+      if (isVisibleActiveRoute) {
         return props.activeRoute?.name || null;
       }
 
-      const activeRoutePaths = props.activeRoute?.path.split('/').filter((pathItem) => !!pathItem) || [];
-      return activeRoutePaths[1] === ':id' ? activeRoutePaths[0] : activeRoutePaths[1];
+      const activeRoutePaths = props.activeRoute?.path
+        .split('/')
+        .filter((pathItem) => (pathItem !== suffixUrl))
+        .filter(Boolean)
+        || [];
+
+      return !isVisibleActiveRoute || activeRoutePaths[1] === ':id' ? activeRoutePaths[0] : activeRoutePaths[1];
     });
 
     const toggleCollapse = () => {
