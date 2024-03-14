@@ -20,7 +20,8 @@
     "test:unit": "jest playground --silent",
     "test:e2e": "start-server-and-test dev http-get://localhost:3000 test:e2e-run",
     "test:e2e-run": "cypress run --headless",
-    "test:e2e-open": "cypress open -b chrome"
+    "test:e2e-open": "cypress open -b chrome",
+    "rebuild:main": "pnpm run build && cd ../../tmg/tmg-admin_front && pnpm un magner && pnpm i ../../magner/magner"
   },
   "bin": {
     "magner": "cli/dist/index.js"
@@ -35,11 +36,11 @@
     "editorjs-text-color-plugin": "2.0.4",
     "element-plus": "2.2.27",
     "intl-tel-input": "17.0.4",
-    "maska": "^1.5.0",
+    "maska": "1.5.0",
     "vue": "3.3.13",
     "vue-i18n": "9.2.2",
     "vue-router": "4.2.5",
-    "vuex": "^4.0.2",
+    "vuex": "4.1.0",
     "wretch": "^1.7.10"
   },
   "devDependencies": {
@@ -67,7 +68,7 @@
     "svgo": "^2.8.0",
     "ts-node": "^10.9.1",
     "tsup": "6.2.3",
-    "typescript": "4.8.3",
+    "typescript": "5.4.2",
     "vite": "3.2.7",
     "vite-plugin-dts": "1.5.0"
   },

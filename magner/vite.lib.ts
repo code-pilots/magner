@@ -22,8 +22,21 @@ export default defineConfig({
     },
     rollupOptions: {
       external: [
-        'vue', 'vue-router', 'vue-i18n', 'vuex', 'maska', 'element-plus',
-        'editorjs-table', '@editorjs/editorjs', '@editorjs/header', '@editorjs/list',
+        '@editorjs/editorjs',
+        '@editorjs/header',
+        '@editorjs/list',
+        '@editorjs/underline',
+        'editorjs-strikethrough',
+        'editorjs-table-readonly',
+        'editorjs-text-color-plugin',
+        'element-plus',
+        'intl-tel-input',
+        'maska',
+        'vue',
+        'vue-i18n',
+        'vue-router',
+        'vuex',
+        'wretch',
       ],
       output: {
         globals: {

@@ -1,7 +1,7 @@
 import { compileTemplate } from '@vue/compiler-sfc';
 import { readFileSync } from 'fs';
 // @ts-ignore
-import { optimize, extendDefaultPlugins } from 'svgo';
+import { optimize } from 'svgo';
 
 async function compileSvg (source: string, id: string) {
   // @ts-ignore
@@ -11,7 +11,7 @@ async function compileSvg (source: string, id: string) {
   return code;
 }
 
-async function optimizeSvg (content: Buffer, path: string) {
+async function optimizeSvg (content: any, path: string) {
   const { data } = await optimize(content, {
     path,
     plugins: [
