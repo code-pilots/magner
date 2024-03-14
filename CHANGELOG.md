@@ -1,3 +1,12 @@
+## [0.7.44](https://github.com/code-pilots/magner/compare/v0.7.43...v0.7.44) (2024-03-14)
+
+
+### Features
+
+* add element-plus/dist/index.css ([4e8b73f](https://github.com/code-pilots/magner/commit/4e8b73f49b42e26f19f6ae84b4a16770f19f538b))
+
+
+
 ## [0.7.43](https://github.com/code-pilots/magner/compare/v0.7.42...v0.7.43) (2024-02-14)
 
 
