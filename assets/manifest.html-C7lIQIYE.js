@@ -1,1 +1,0 @@
-const e=JSON.parse('{"key":"v-e991b7d0","path":"/configuration/manifest.html","title":"Manifest controller","lang":"en","frontmatter":{},"headers":[],"git":{"updatedTime":1710481124000,"contributors":[{"name":"Fedor Pereverzev","email":"fedor531@yandex.ru","commits":1}]},"filePathRelative":"configuration/manifest.md"}');export{e as data};
