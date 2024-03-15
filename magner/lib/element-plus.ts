@@ -3,8 +3,6 @@ import enElLocale from 'element-plus/lib/locale/lang/en';
 import uzElLocale from 'element-plus/lib/locale/lang/uz-uz';
 
 import {
-  FormInstance,
-
   ElMessage,
   ElMessageBox,
   ElNotification,
@@ -44,8 +42,6 @@ import {
 } from 'element-plus';
 
 export {
-  FormInstance,
-
   ruElLocale,
   enElLocale,
   uzElLocale,
