@@ -2,7 +2,6 @@ import { initMagner } from 'magner';
 
 import project from 'configs/index';
 
-import 'element-plus/dist/index.css';
 import 'magner/style';
 import 'features/all.css';
 

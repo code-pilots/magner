@@ -1,5 +1,5 @@
 import { translationController } from 'magner';
-import enElLocale from 'element-plus/lib/locale/lang/en';
+import { enElLocale } from 'magner/element-plus';
 import enCustom from './en';
 
 // eslint-disable-next-line no-shadow

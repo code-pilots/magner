@@ -3,7 +3,7 @@
   "description": "Magner application example",
   "version": "0.1.0",
   "engines": {
-    "node": ">=14"
+    "node": ">=18"
   },
   "scripts": {
     "dev": "vite",

@@ -4,7 +4,7 @@
   "version": "0.4.1",
   "private": true,
   "engines": {
-    "node": ">=14"
+    "node": ">=18"
   },
   "scripts": {
     "dev": "vite",
@@ -13,29 +13,26 @@
     "lint": "eslint --fix src"
   },
   "dependencies": {
-    "element-plus": "2.2.27",
     "magner": "*",
-    "vue": "3.3.13",
-    "vue-i18n": "9.2.0-beta.28",
-    "vue-router": "4.2.5"
+    "vue": "3.4.21"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.12.0",
-    "@typescript-eslint/parser": "^5.12.0",
-    "@vitejs/plugin-vue": "^2.2.0",
-    "@vue/eslint-config-typescript": "^10.0.0",
+    "@typescript-eslint/eslint-plugin": "7.2.0",
+    "@typescript-eslint/parser": "7.2.0",
+    "@vitejs/plugin-vue": "5.0.4",
+    "@vue/compiler-sfc": "^3.4.21",
+    "@vue/eslint-config-typescript": "11.0.0",
     "autoprefixer": "^10.4.2",
-    "eslint": "^8.9.0",
+    "eslint": "8.9.0",
     "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.25.4",
-    "eslint-plugin-vue": "^8.4.1",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-vue": "9.4.0",
     "postcss": "^8.4.14",
     "postcss-custom-media": "^8.0.0",
     "postcss-import": "^14.0.2",
     "postcss-nested": "^5.0.6",
-    "start-server-and-test": "^1.14.0",
     "svgo": "^2.8.0",
-    "typescript": "^4.5.5",
-    "vite": "3.2.7"
+    "typescript": "5.4.2",
+    "vite": "5.1.6"
   }
 }

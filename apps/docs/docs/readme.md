@@ -1,4 +1,4 @@
-# Magner
+# Magner!
 
 Universal admin panel magnetic to any backend. Magner provides a set of tools to bootstrap
 an admin panel website built with [Vue 3](https://v3.vuejs.org/) and [Element Plus](https://element-plus.org/en-US/). All you
