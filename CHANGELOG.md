@@ -1,3 +1,12 @@
+## [0.7.47](https://github.com/code-pilots/magner/compare/v0.7.46...v0.7.47) (2024-03-15)
+
+
+### Bug Fixes
+
+* imports element plus ([fd1937c](https://github.com/code-pilots/magner/commit/fd1937c448f7465652de21a37f00075b1283d79e))
+
+
+
 ## [0.7.46](https://github.com/code-pilots/magner/compare/v0.7.45...v0.7.46) (2024-03-15)
 
 
