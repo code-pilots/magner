@@ -1,3 +1,12 @@
+## [0.7.49](https://github.com/code-pilots/magner/compare/v0.7.48...v0.7.49) (2024-03-15)
+
+
+### Bug Fixes
+
+* Fixed active-highlighting of the item-menu in the sidebar ([#177](https://github.com/code-pilots/magner/issues/177)) ([d3295cd](https://github.com/code-pilots/magner/commit/d3295cd4b6322e8376dc6511d5ae044b7934d3e4))
+
+
+
 ## [0.7.48](https://github.com/code-pilots/magner/compare/v0.7.47...v0.7.48) (2024-03-15)
 
 
