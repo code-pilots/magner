@@ -3,7 +3,7 @@
     <el-scrollbar class="sidebar_scroll">
       <el-menu
         :collapse="isCollapsed && !isMobile"
-        :default-active="activeRoute ? activeRoute.name : null"
+        :default-active="defaultActiveRouteName"
         class="sidebar_menu"
         @select="navigate"
       >
@@ -131,6 +131,23 @@ export default defineComponent({
       return (route.roles as string[]).includes(role.value);
     };
 
+    const defaultActiveRouteName = computed(() => {
+      const suffixUrl = store.state.project.routes.global.suffixUrl;
+      const isVisibleActiveRoute = props.activeRoute && isVisible(props.activeRoute);
+
+      if (isVisibleActiveRoute) {
+        return props.activeRoute?.name || null;
+      }
+
+      const activeRoutePaths = props.activeRoute?.path
+        .split('/')
+        .filter((pathItem) => (pathItem !== suffixUrl))
+        .filter(Boolean)
+        || [];
+
+      return activeRoutePaths[1] === ':id' ? activeRoutePaths[0] : activeRoutePaths[1];
+    });
+
     const toggleCollapse = () => {
       store.dispatch('toggleSidebarCollapsed');
     };
@@ -147,10 +164,12 @@ export default defineComponent({
       isMobile,
       role,
       grouped,
+      togglePositionTop,
+      defaultActiveRouteName,
+
       isVisible,
       customT,
       toggleCollapse,
-      togglePositionTop,
       navigate,
     };
   },
