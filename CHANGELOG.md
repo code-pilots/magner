@@ -1,3 +1,12 @@
+## [0.7.45](https://github.com/code-pilots/magner/compare/v0.7.44...v0.7.45) (2024-03-15)
+
+
+### Features
+
+* imports: vue-router, element-plus ([#179](https://github.com/code-pilots/magner/issues/179)) ([22dd573](https://github.com/code-pilots/magner/commit/22dd5737c4895926728c96de249477c99e3f0efd))
+
+
+
 ## [0.7.44](https://github.com/code-pilots/magner/compare/v0.7.43...v0.7.44) (2024-03-14)
 
 
