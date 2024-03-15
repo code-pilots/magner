@@ -15,10 +15,14 @@ export default defineConfig({
   ],
   build: {
     lib: {
-      entry: path.resolve(__dirname, './lib/index.ts'),
+      entry: [
+        path.resolve(__dirname, './lib/index.ts'),
+        path.resolve(__dirname, './lib/vue-router.ts'),
+        path.resolve(__dirname, './lib/element-plus.ts'),
+      ],
       formats: ['es'],
       name: 'magner',
-      fileName: 'magner',
+      fileName: (_, entryName) => `${entryName}.mjs`,
     },
     rollupOptions: {
       external: [
