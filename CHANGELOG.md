@@ -1,3 +1,12 @@
+## [0.7.48](https://github.com/code-pilots/magner/compare/v0.7.47...v0.7.48) (2024-03-15)
+
+
+### Bug Fixes
+
+* RouterLink ([72d6840](https://github.com/code-pilots/magner/commit/72d684047b9d5c5d64a39017708be7b731d3cf99))
+
+
+
 ## [0.7.47](https://github.com/code-pilots/magner/compare/v0.7.46...v0.7.47) (2024-03-15)
 
 
