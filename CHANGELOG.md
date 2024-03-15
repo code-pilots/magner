@@ -1,3 +1,12 @@
+## [0.7.50](https://github.com/code-pilots/magner/compare/v0.7.49...v0.7.50) (2024-03-15)
+
+
+### Bug Fixes
+
+* versions ([9cd4ec8](https://github.com/code-pilots/magner/commit/9cd4ec8e3ec1a059cfcee133325fbf6f76422aee))
+
+
+
 ## [0.7.49](https://github.com/code-pilots/magner/compare/v0.7.48...v0.7.49) (2024-03-15)
 
 
