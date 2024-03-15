@@ -1,3 +1,12 @@
+## [0.7.46](https://github.com/code-pilots/magner/compare/v0.7.45...v0.7.46) (2024-03-15)
+
+
+### Features
+
+* element-plus components ([0074a5c](https://github.com/code-pilots/magner/commit/0074a5c63034eaa1f6c7b4c0a3249d1ab9bb3a9e))
+
+
+
 ## [0.7.45](https://github.com/code-pilots/magner/compare/v0.7.44...v0.7.45) (2024-03-15)
 
 
