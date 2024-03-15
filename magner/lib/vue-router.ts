@@ -4,4 +4,5 @@ export {
   useLink,
   useRoute,
   useRouter,
+  RouterLink,
 } from 'vue-router';
