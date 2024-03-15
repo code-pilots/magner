@@ -145,7 +145,7 @@ export default defineComponent({
         .filter(Boolean)
         || [];
 
-      return !isVisibleActiveRoute || activeRoutePaths[1] === ':id' ? activeRoutePaths[0] : activeRoutePaths[1];
+      return activeRoutePaths[1] === ':id' ? activeRoutePaths[0] : activeRoutePaths[1];
     });
 
     const toggleCollapse = () => {
