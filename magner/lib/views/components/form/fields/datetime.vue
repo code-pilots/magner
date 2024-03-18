@@ -75,7 +75,7 @@ export default defineComponent({
 
     const changeVal = (newVal: any) => {
       val.value = newVal;
-      context.emit('update:modelValue', newVal);
+      context.emit('update:modelValue', newVal || '');
     };
 
     return {
