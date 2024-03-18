@@ -1,3 +1,12 @@
+## [0.7.51](https://github.com/code-pilots/magner/compare/v0.7.50...v0.7.51) (2024-03-18)
+
+
+### Bug Fixes
+
+* returning a string instead of null in datetime component ([#188](https://github.com/code-pilots/magner/issues/188)) ([44c4edf](https://github.com/code-pilots/magner/commit/44c4edf463543698dd8ee4278b174a11f58314bf))
+
+
+
 ## [0.7.50](https://github.com/code-pilots/magner/compare/v0.7.49...v0.7.50) (2024-03-15)
 
 
