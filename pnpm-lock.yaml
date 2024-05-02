@@ -167,8 +167,8 @@ importers:
         specifier: 9.4.0
         version: 9.4.0
       ejs:
-        specifier: ^3.1.8
-        version: 3.1.9
+        specifier: ^3.1.10
+        version: 3.1.10
       enquirer:
         specifier: ^2.3.6
         version: 2.4.1
@@ -3197,8 +3197,8 @@ packages:
     resolution: {integrity: sha512-QpibTkOxs3ndlKNOLT8ZlC4ktc3/eKIajiLO0Jm/hh9AJug/CrM1/rAvHy+ldfUKavbWeI+YZvgjad0YTyoyGw==}
     dev: false
 
-  /ejs@3.1.9:
-    resolution: {integrity: sha512-rC+QVNMJWv+MtPgkt0y+0rVEIdbtxVADApW9JXrUVlzHetgcyczP/E7DJmWJ4fJCZF2cPcBk0laWO9ZHMG3DmQ==}
+  /ejs@3.1.10:
+    resolution: {integrity: sha512-UeJmFfOrAQS8OJWPZ4qtgHyWExa088/MtK5UEyoJGFH67cDEXkZSviOiKRCZ4Xij0zxI3JECgYs3oKx+AizQBA==}
     engines: {node: '>=0.10.0'}
     hasBin: true
     dependencies:
@@ -6209,7 +6209,7 @@ packages:
       conventional-changelog-preset-loader: 2.3.4
       deepmerge: 4.3.1
       dotenv: 8.6.0
-      ejs: 3.1.9
+      ejs: 3.1.10
       esm: 3.2.25
       globby: 10.0.2
       inquirer: 7.1.0
