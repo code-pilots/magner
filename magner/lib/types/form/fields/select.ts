@@ -48,7 +48,12 @@ export interface SelectProps<ENTITY extends {}> extends BaseProps<ENTITY> {
   /** Can the selected option be cleared? */
   clearable?: boolean,
 
-  loadRemoteMethodOnFocus?: boolean
+  loadRemoteMethodOnFocus?: boolean,
+
+  /** Only if 'multiple:true', displays a checkbox "Select all" */
+  selectedAll?: boolean,
+  /** Only if 'multiple:true',displays footer buttons "Clear all" and "OK" */
+  footerButtons?: boolean
 }
 
 export interface OptionComponent extends Record<string, any> {
