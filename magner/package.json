@@ -80,7 +80,7 @@
     "ts-node": "^10.9.1",
     "tsup": "6.2.3",
     "typescript": "5.4.2",
-    "vite": "5.1.6",
+    "vite": "5.1.7",
     "vite-plugin-dts": "1.7.3"
   },
   "keywords": [
