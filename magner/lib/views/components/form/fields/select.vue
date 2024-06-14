@@ -25,6 +25,15 @@
       @focus="onFocus"
       @change="changeVal"
     >
+      <template v-if="field.props.multiple && field.props.selectedAll" #header>
+        <el-checkbox
+          v-model="checkAll"
+          :indeterminate="indeterminate"
+          @change="handleCheckAll"
+        >
+          {{ t('core.form.select.check_all') }}
+        </el-checkbox>
+      </template>
       <el-option
         v-for="option in allOptions"
         :key="getOptionValue(option)"
@@ -32,6 +41,26 @@
         :label="getOptionLabel(option)"
         :disabled="option.disabled || false"
       />
+      <template v-if="field.props.multiple && field.props.footerButtons" #footer>
+        <div class="el-picker-panel__footer">
+          <el-button
+            text
+            plain
+            size="small"
+            @click="handleClearAll()"
+          >
+            {{ t('core.form.select.clear') }}
+          </el-button>
+          <el-button
+            text
+            plain
+            size="small"
+            @click="handleCloseDropdown()"
+          >
+            {{ t('core.form.select.ok') }}
+          </el-button>
+        </div>
+      </template>
     </el-select>
   </ReadonlyWrap>
 </template>
@@ -47,10 +76,11 @@ import {
   onMounted,
   onUpdated,
 } from 'vue';
-import type { ElSelect } from 'element-plus';
+import type { ElSelect, CheckboxValueType } from 'element-plus';
 import type { SelectField } from 'lib/types/form/fields/select';
 import { useTranslate, useChecks } from 'lib/utils';
 import { DataTypeInitials } from 'lib/utils/form/form';
+import { useI18n } from 'vue-i18n';
 import ReadonlyWrap from '../readonly-wrap.vue';
 
 type SelectValue = number | string | Record<string, unknown> | (number|string|Record<string, unknown>)[];
@@ -74,6 +104,7 @@ export default defineComponent({
   },
   emits: ['update:modelValue', 'blur'],
   setup (props, context) {
+    const { t } = useI18n();
     const { customT } = useTranslate();
     const { disabled } = useChecks(props.field);
 
@@ -81,6 +112,8 @@ export default defineComponent({
     const allOptions = ref<SelectField<any>['options']>(props.field.options);
     const loading = ref<boolean>(false);
     const selectEl = ref<typeof ElSelect>();
+    const checkAll = ref<boolean>(false);
+    const indeterminate = ref<boolean>(false);
 
     const changeVal = (newVal: string|number|(string|number)[]) => {
       val.value = Array.isArray(newVal) && newVal.length === 0 ? '' : newVal;
@@ -129,6 +162,27 @@ export default defineComponent({
       }
     };
 
+    const handleCheckAll = (value: CheckboxValueType) => {
+      indeterminate.value = false;
+      if (value) {
+        val.value = allOptions.value.map((_) => getOptionValue(_));
+      } else {
+        val.value = [];
+      }
+    };
+
+    const handleClearAll = () => {
+      indeterminate.value = false;
+      checkAll.value = false;
+      val.value = [];
+    };
+
+    const handleCloseDropdown = () => {
+      if (selectEl.value) {
+        selectEl.value.blur();
+      }
+    };
+
     onMounted(async () => {
       await remoteMethod('');
       setSelectedLabel();
@@ -152,12 +206,17 @@ export default defineComponent({
       loading,
       allOptions,
       selectEl,
+      checkAll,
+      t,
       onFocus,
       getOptionLabel,
       getOptionValue,
       customT,
       changeVal,
       remoteMethod,
+      handleCheckAll,
+      handleClearAll,
+      handleCloseDropdown,
     };
   },
 });

@@ -46,6 +46,11 @@ export const ruLocale: TranslationSchema = {
       input_phone: {
         without_mask: 'Без маски',
       },
+      select: {
+        check_all: 'Выбрать все',
+        clear: 'Очистить',
+        ok: 'OK',
+      },
       dropzone: {
         drag_here: 'Перетащите файлы сюда или',
         click_upload: 'нажмите для загрузки',

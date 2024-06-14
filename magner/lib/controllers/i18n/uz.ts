@@ -36,7 +36,12 @@ export const uzLocale: TranslationSchema = {
       failed_action: 'Ҳаракатни амалга оширишни иложи бўлмади.',
 
       input_phone: {
-        without_mask: 'Маскасиз'
+        without_mask: 'Маскасиз',
+      },
+      select: {
+        check_all: 'Барча танланг',
+        clear: 'Тозалаш',
+        ok: 'OK',
       },
       dropzone: {
         drag_here: 'Файлни шу ерга ташланг ёки',

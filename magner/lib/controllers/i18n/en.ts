@@ -36,6 +36,11 @@ export const enLocale = {
       input_phone: {
         without_mask: 'Without Mask',
       },
+      select: {
+        check_all: 'Select all',
+        clear: 'Clear',
+        ok: 'OK',
+      },
       dropzone: {
         drag_here: 'Drag file here or',
         click_upload: 'click for upload',

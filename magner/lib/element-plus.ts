@@ -1,6 +1,6 @@
-import ruElLocale from 'element-plus/lib/locale/lang/ru';
-import enElLocale from 'element-plus/lib/locale/lang/en';
-import uzElLocale from 'element-plus/lib/locale/lang/uz-uz';
+import ruElLocale from 'element-plus/dist/locale/ru.js';
+import enElLocale from 'element-plus/dist/locale/en.js';
+import uzElLocale from 'element-plus/dist/locale/uz-uz.js';
 
 import {
   ElMessage,
