@@ -1,3 +1,12 @@
+## [0.7.52](https://github.com/code-pilots/magner/compare/v0.7.51...v0.7.52) (2024-06-14)
+
+
+### Features
+
+* added checkbox "selectedAll" and footer buttons to the Select component ([#192](https://github.com/code-pilots/magner/issues/192)) ([4d79ae9](https://github.com/code-pilots/magner/commit/4d79ae9ec3d65ed3355c9ba88a9f6b4088e02270))
+
+
+
 ## [0.7.51](https://github.com/code-pilots/magner/compare/v0.7.50...v0.7.51) (2024-03-18)
 
 
