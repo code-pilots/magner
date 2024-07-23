@@ -12,6 +12,7 @@ export const ruLocale: TranslationSchema = {
   core: {
     header: {
       logout: 'Выйти',
+      back: 'Назад',
     },
 
     sidebar: {

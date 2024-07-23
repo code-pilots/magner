@@ -4,6 +4,7 @@ export const uzLocale: TranslationSchema = {
   core: {
     header: {
       logout: 'Чиқиш',
+      back: 'Ортга',
     },
 
     sidebar: {

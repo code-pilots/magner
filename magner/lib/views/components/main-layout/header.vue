@@ -19,6 +19,15 @@
           <svg-icon :rotate="isCollapsed ? 'right' : 'left'" core="chevrons" size="full" />
         </el-button>
 
+        <el-button
+          v-if="backButtonOnTop && isPageIsACard"
+          :icon="ArrowLeftIcon"
+          link
+          @click="toBack"
+        >
+          {{ t('core.header.back') }}
+        </el-button>
+
         <!-- TODO: Implement search -->
         <div v-if="false" class="header_left_search">
           <el-input placeholder="Поиск" type="text" />
@@ -79,7 +88,7 @@ import {
   defineComponent,
   PropType,
   shallowRef,
-  computed,
+  computed, watch,
 } from 'vue';
 import { useRouter } from 'vue-router';
 import useStore from 'lib/controllers/store/store';
@@ -90,6 +99,7 @@ import { useClickOutside } from 'lib/utils/composables/clickOutside';
 import { FinalNoLayoutRoute } from 'lib/types';
 
 import UserIcon from 'lib/assets/icons/user.svg';
+import ArrowLeftIcon from 'lib/assets/icons/arrow-left.svg';
 import LangSwitcher from 'lib/views/components/lang-switcher.vue';
 
 export default defineComponent({
@@ -120,12 +130,20 @@ export default defineComponent({
 
     const isMultipleLanguages = computed(() => store.getters.isMultipleLanguages);
     const togglePositionTop = computed<boolean>(() => store.state.project.development.toggleBtnPositionTop || false);
+    const backButtonOnTop = computed<boolean>(() => store.state.project.development.backButtonOnTop || false);
     const userName = store.state.user?.name;
     const isCollapsed = computed<boolean>(() => store.state.sidebarCollapsed);
     const appVersion = store.state.project.development?.appVersion || null;
     const changeLogRoute = computed<FinalNoLayoutRoute | null>(() => {
       const routeLayout = store.state.project.routes.routes.find((routes) => routes.type === 'layout') as RouteLayout;
       return routeLayout?.layout.routes.find((r) => r.route.name === 'change-log') || null;
+    });
+
+    const isPageIsACard = computed(() => {
+      const matched = router.currentRoute.value.matched[1];
+      const configProps = matched?.props?.default.config;
+
+      return !('table' in configProps) || false;
     });
 
     const toggleOpen = () => {
@@ -142,6 +160,10 @@ export default defineComponent({
       router.push({ name: changeLogRoute.value?.route.name });
     };
 
+    const toBack = () => {
+      router.go(-1);
+    };
+
     useClickOutside('id-sidebar', '.header_right_burger', () => {
       if (props.sidebar) {
         toggleOpen();
@@ -154,19 +176,23 @@ export default defineComponent({
 
     return {
       userIcon,
+      ArrowLeftIcon,
       t,
+      isPageIsACard,
       customT,
       isMobile,
       isMultipleLanguages,
       userName,
       isCollapsed,
       togglePositionTop,
+      backButtonOnTop,
       appVersion,
       changeLogRoute,
       toChangeLog,
       toggleOpen,
       toggleCollapse,
       logout,
+      toBack,
     };
   },
 });
