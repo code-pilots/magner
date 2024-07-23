@@ -2,6 +2,7 @@ export const enLocale = {
   core: {
     header: {
       logout: 'Log out',
+      back: 'Back',
     },
 
     sidebar: {

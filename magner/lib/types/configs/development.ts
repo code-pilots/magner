@@ -76,6 +76,11 @@ export interface DevelopmentConfig {
    */
   toggleBtnPositionTop?: boolean,
 
+  /**
+   * Back button in header. Only on card pages
+   * */
+  backButtonOnTop: boolean;
+
   /** Request to be used each time user enters the app to check for token validity and quickly authorize them */
   profileRequest: RequestWrap<ProfileRequestResponse>,
 
